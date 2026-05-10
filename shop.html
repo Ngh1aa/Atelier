@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop - FASHION</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <nav>
+    <div class="container nav-container">
+      <ul class="nav-links left">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="shop.html" class="active">Shop</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+      <div class="logo">FASHION</div>
+      <div class="nav-icons right">
+        <a href="#"><img src="https://api.iconify.design/ph:shopping-cart-light.svg?color=white" width="20"></a>
+        <a href="#"><img src="https://api.iconify.design/ph:heart-light.svg?color=white" width="20"></a>
+        <a href="#"><img src="https://api.iconify.design/ph:user-circle-light.svg?color=white" width="24"></a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="shop-page">
+      <div class="container">
+        <div class="shop-title reveal">
+          <h1>Our Products</h1>
+        </div>
+
+        <div class="filter-bar reveal">
+          <div class="filter-group">
+            <span>Sort By <img src="https://api.iconify.design/ph:caret-down-light.svg?color=white" width="12"></span>
+            <span>Category <img src="https://api.iconify.design/ph:caret-down-light.svg?color=white" width="12"></span>
+            <span>Size <img src="https://api.iconify.design/ph:caret-down-light.svg?color=white" width="12"></span>
+            <span>Color <img src="https://api.iconify.design/ph:caret-down-light.svg?color=white" width="12"></span>
+          </div>
+        </div>
+
+        <div class="product-masonry reveal">
+          <!-- Column 1 -->
+          <div class="masonry-col">
+            <div class="product-item">
+              <div class="img-wrap tall">
+                <img src="/assets/product-1.png" alt="Product">
+              </div>
+              <div class="product-meta">
+                <span class="name">Product A</span>
+                <span class="price">$200</span>
+              </div>
+            </div>
+            <div class="product-item">
+              <div class="img-wrap">
+                <img src="/assets/product-4.png" alt="Product">
+              </div>
+              <div class="product-meta">
+                <span class="name">Product A</span>
+                <span class="price">$200</span>
+              </div>
+            </div>
+            <div class="product-item">
+              <div class="img-wrap tall">
+                <img src="/assets/product-8.png" alt="Product">
+              </div>
+              <div class="product-meta">
+                <span class="name">Product A</span>
+                <span class="price">$200</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Column 2 -->
+          <div class="masonry-col">
+            <div class="product-item">
+              <div class="img-wrap">
+                <img src="/assets/product-2.png" alt="Product">
+              </div>
+              <div class="product-meta">
+                <span class="name">Product A</span>
+                <span class="price">$200</span>
+              </div>
+            </div>
+            <div class="product-item">
+              <div class="img-wrap tall">
+                <img src="/assets/product-5.png" alt="Product">
+              </div>
+              <div class="product-meta">
+                <span class="name">Product A</span>
+                <span class="price">$200</span>
+              </div>
+            </div>
+            <div class="product-item">
+              <div class="img-wrap">
+                <img src="/assets/product-9.png" alt="Product">
+              </div>
+              <div class="product-meta">
+                <span class="name">Product A</span>
+                <span class="price">$200</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 3 -->
+          <div class="masonry-col">
+            <div class="product-item">
+              <div class="img-wrap tall">
+                <img src="/assets/product-3.png" alt="Product">
+              </div>
+              <div class="product-meta">
+                <span class="name">Product A</span>
+                <span class="price">$200</span>
+              </div>
+            </div>
+            <div class="product-item">
+              <div class="img-wrap">
+                <img src="/assets/product-7.png" alt="Product">
+              </div>
+              <div class="product-meta">
+                <span class="name">Product A</span>
+                <span class="price">$200</span>
+              </div>
+            </div>
+            <div class="product-item">
+              <div class="img-wrap tall">
+                <img src="/assets/product-6.png" alt="Product">
+              </div>
+              <div class="product-meta">
+                <span class="name">Product A</span>
+                <span class="price">$200</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pagination reveal">
+          <div class="line"></div>
+          <div class="page-numbers">
+            <span class="arrow">&lt;</span>
+            <span class="active">1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>...</span>
+            <span class="arrow">&gt;</span>
+          </div>
+          <div class="line"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo">FASHION</div>
+          <p>Curating the art of dressing with purpose and intention.</p>
+          <div class="footer-social">
+            <a href="#">Instagram</a>
+            <a href="#">Pinterest</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul class="footer-links">
+            <li><a href="shop.html">New Arrivals</a></li>
+            <li><a href="shop.html">Collections</a></li>
+            <li><a href="shop.html">Sale</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul class="footer-links">
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Shipping Info</a></li>
+            <li><a href="#">Returns</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="copyright">&copy; 2026 FASHION. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+      <button class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Back to top">↑</button>
+    </div>
+  </footer>
+
+  <script type="module" src="/main.js"></script>
+</body>
+</html>
