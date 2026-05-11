@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout - ATELIER</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <nav>
+    <div class="container nav-container">
+      <ul class="nav-links left">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+      <div class="logo"><a href="index.html">ATELIER</a></div>
+      <div class="nav-icons right">
+        <a href="cart.html"><img src="https://api.iconify.design/ph:shopping-cart-light.svg?color=white" width="20"></a>
+        <a href="favourite.html"><img src="https://api.iconify.design/ph:heart-light.svg?color=white" width="20"></a>
+        <div class="user-dropdown"><button class="user-btn" aria-label="Account"><img src="https://api.iconify.design/ph:user-circle-light.svg?color=white" width="24"></button><div class="dropdown-menu"><a href="login.html" class="dropdown-item">Sign In</a><a href="login.html" class="dropdown-item highlight">Create Account</a></div></div>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="checkout-page">
+      <div class="container">
+        <div class="checkout-header reveal">
+          <h1>Checkout</h1>
+          <p>Complete your order</p>
+        </div>
+
+        <div class="checkout-grid">
+          <!-- Left: Form -->
+          <div class="checkout-form-section reveal">
+            <div class="checkout-section">
+              <h2>Contact Information</h2>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="aria.montenegro@email.com">
+              </div>
+              <label class="checkbox-wrap">
+                <input type="checkbox" checked>
+                <span class="checkmark"></span>
+                <span class="checkbox-label">Email me with news and offers</span>
+              </label>
+            </div>
+
+            <div class="checkout-section">
+              <h2>Shipping Address</h2>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="firstname">First Name</label>
+                  <input type="text" id="firstname" placeholder="Aria">
+                </div>
+                <div class="form-group">
+                  <label for="lastname">Last Name</label>
+                  <input type="text" id="lastname" placeholder="Montenegro">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" id="address" placeholder="123 Fashion Street">
+              </div>
+              <div class="form-group">
+                <label for="apartment">Apartment, suite, etc. (optional)</label>
+                <input type="text" id="apartment" placeholder="Apt 4B">
+              </div>
+              <div class="form-row three-col">
+                <div class="form-group">
+                  <label for="city">City</label>
+                  <input type="text" id="city" placeholder="New York">
+                </div>
+                <div class="form-group">
+                  <label for="state">State</label>
+                  <input type="text" id="state" placeholder="NY">
+                </div>
+                <div class="form-group">
+                  <label for="zip">ZIP Code</label>
+                  <input type="text" id="zip" placeholder="10001">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="country">Country</label>
+                <select id="country">
+                  <option value="US">United States</option>
+                  <option value="CA">Canada</option>
+                  <option value="GB">United Kingdom</option>
+                  <option value="FR">France</option>
+                  <option value="IT">Italy</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" placeholder="+1 234 567 8900">
+              </div>
+            </div>
+
+            <div class="checkout-section">
+              <h2>Payment</h2>
+              <div class="payment-methods">
+                <label class="payment-option selected">
+                  <input type="radio" name="payment" checked>
+                  <span class="payment-radio"></span>
+                  <span class="payment-label">Credit Card</span>
+                  <div class="payment-icons">
+                    <img src="https://api.iconify.design/logos:visa.svg?color=white" width="30" alt="Visa">
+                    <img src="https://api.iconify.design/logos:mastercard.svg?color=white" width="30" alt="Mastercard">
+                  </div>
+                </label>
+              </div>
+              <div class="form-group">
+                <label for="cardnumber">Card Number</label>
+                <input type="text" id="cardnumber" placeholder="1234 5678 9012 3456">
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="expiry">Expiration</label>
+                  <input type="text" id="expiry" placeholder="MM / YY">
+                </div>
+                <div class="form-group">
+                  <label for="cvv">Security Code</label>
+                  <input type="text" id="cvv" placeholder="CVV">
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-place-order" onclick="window.location.href='order-success.html'">PLACE ORDER</button>
+          </div>
+
+          <!-- Right: Order Summary -->
+          <div class="checkout-summary reveal" style="transition-delay: 0.1s;">
+            <div class="summary-card">
+              <h3>Order Summary</h3>
+              <div class="summary-items">
+                <div class="summary-item">
+                  <img src="/assets/new-in-1.png" alt="Product">
+                  <div class="item-details">
+                    <span class="item-name">Tailored Coat</span>
+                    <span class="item-variant">Size M / Black</span>
+                  </div>
+                  <span class="item-price">$450.00</span>
+                </div>
+                <div class="summary-item">
+                  <img src="/assets/product-1.png" alt="Product">
+                  <div class="item-details">
+                    <span class="item-name">Essential Boxy T-Shirt</span>
+                    <span class="item-variant">Size L / White</span>
+                  </div>
+                  <span class="item-price">$170.00</span>
+                </div>
+              </div>
+              <div class="summary-row">
+                <span>Subtotal</span>
+                <span>$620.00</span>
+              </div>
+              <div class="summary-row">
+                <span>Shipping</span>
+                <span>Complimentary</span>
+              </div>
+              <div class="summary-row">
+                <span>Tax</span>
+                <span>$55.80</span>
+              </div>
+              <div class="summary-row total">
+                <span>Total</span>
+                <span>$675.80</span>
+              </div>
+            </div>
+
+            <div class="promo-code-wrap">
+              <div class="promo-header">
+                <span>Add promo code</span>
+                <img src="https://api.iconify.design/ph:plus-light.svg?color=white" width="16">
+              </div>
+            </div>
+
+            <div class="need-assistance">
+              <h4>Need Assistance?</h4>
+              <p class="assistance-text">Questions about your order? <a href="#">Contact Support</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="auth-footer-page">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2026 ATELIER. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git mv *)"
+      "Bash(git mv *)",
+      "Bash(<footer<div class=\"container\"<div class=\"footer-grid\"<div class=\"footer-col\"<div class=\"logo\"</div<p)",
+      "Bash('g \"$f\" 2>/dev/null; echo \"Processed $f\"; don')",
+      "Bash(awk '{print $NF}')"
     ]
   }
 }

@@ -20,7 +20,7 @@
       <div class="nav-icons right">
         <a href="cart.html"><img src="https://api.iconify.design/ph:shopping-cart-light.svg?color=white" width="20"></a>
         <a href="favourite.html"><img src="https://api.iconify.design/ph:heart-light.svg?color=white" width="20"></a>
-        <a href="account.html"><img src="https://api.iconify.design/ph:user-circle-light.svg?color=white" width="24"></a>
+        <div class="user-dropdown"><button class="user-btn" aria-label="Account"><img src="https://api.iconify.design/ph:user-circle-light.svg?color=white" width="24"></button><div class="dropdown-menu"><a href="login.html" class="dropdown-item">Sign In</a><a href="login.html" class="dropdown-item highlight">Create Account</a></div></div>
       </div>
     </div>
   </nav>
@@ -28,15 +28,23 @@
   <main>
     <section class="product-detail-page">
       <div class="container">
-        <div class="shop-title reveal">
-          <h1>Our Products</h1>
+        <div class="breadcrumb">
+          <a href="shop.html">Shop</a>
+          <span>/</span>
+          <a href="shop.html">Evening Collection</a>
+          <span>/</span>
+          <span>Silk Midnight Gown</span>
         </div>
 
         <div class="product-detail-grid">
           <!-- Left: Images -->
           <div class="product-visuals reveal">
             <div class="main-img-wrap">
-              <img src="/assets/gown-main.png" alt="Silk Midnight Gown">
+              <img src="/assets/gown-main.png" alt="Silk Midnight Gown" id="main-product-img">
+              <button class="btn-true-color" id="toggle-color" title="View true colors">
+                <img src="https://api.iconify.design/ph:eye-light.svg?color=white">
+                <span>View True Colors</span>
+              </button>
             </div>
             <div class="thumbnail-gallery">
               <img src="/assets/gown-main.png" alt="Thumbnail 1" class="active">
@@ -126,8 +134,21 @@
 
   <footer>
     <div class="container">
+      <div class="footer-newsletter">
+        <div class="newsletter-text">
+          <h3>Join the House</h3>
+          <p>Subscribe for early access to new collections and exclusive stories.</p>
+        </div>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Your email address">
+          <button type="submit">→</button>
+        </div>
+      </div>
+
+      <div class="footer-divider"></div>
+
       <div class="footer-grid">
-        <div class="footer-col">
+        <div class="footer-col brand-col">
           <div class="logo">ATELIER</div>
           <p>Curating the art of dressing with purpose and intention.</p>
           <div class="footer-social">
@@ -136,11 +157,12 @@
           </div>
         </div>
         <div class="footer-col">
-          <h4>Shop</h4>
+          <h4>Client Services</h4>
           <ul class="footer-links">
-            <li><a href="shop.html">New Arrivals</a></li>
-            <li><a href="shop.html">Collections</a></li>
-            <li><a href="shop.html">Sale</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Shipping & Returns</a></li>
+            <li><a href="#">Size Guide</a></li>
+            <li><a href="#">Care Instructions</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -152,24 +174,40 @@
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Support</h4>
+          <h4>Legal</h4>
           <ul class="footer-links">
-            <li><a href="#">Contact Us</a></li>
-            <li><a href="#">Shipping Info</a></li>
-            <li><a href="#">Returns</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Cookie Settings</a></li>
           </ul>
         </div>
       </div>
+
       <div class="footer-bottom">
-        <p class="copyright">&copy; 2026 ATELIER. All rights reserved.</p>
-        <div class="footer-legal">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
-        </div>
+        <p>&copy; 2026 ATELIER. All rights reserved.</p>
       </div>
     </div>
   </footer>
 
   <script type="module" src="/main.js"></script>
-</body>
-</html>
+  <script>
+    const toggleBtn = document.getElementById('toggle-color');
+    const mainImg = document.getElementById('main-product-img');
+
+    toggleBtn.addEventListener('click', () => {
+      const isActive = mainImg.classList.toggle('show-true-color');
+      toggleBtn.classList.toggle('active');
+      toggleBtn.innerHTML = isActive
+        ? '<img src="https://api.iconify.design/ph:eye-closed-light.svg?color=white"><span>Show Grayscale</span>'
+        : '<img src="https://api.iconify.design/ph:eye-light.svg?color=white"><span>View True Colors</span>';
+    });
+
+    // Thumbnail click also updates main image and respects grayscale filter
+    document.querySelectorAll('.thumbnail-gallery img').forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        document.querySelectorAll('.thumbnail-gallery img').forEach(t => t.classList.remove('active'));
+        thumb.classList.add('active');
+        mainImg.src = thumb.src;
+      });
+    });
+  </script>

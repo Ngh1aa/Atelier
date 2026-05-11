@@ -20,7 +20,7 @@
       <div class="nav-icons right">
         <a href="cart.html"><img src="https://api.iconify.design/ph:shopping-cart-light.svg?color=white" width="20"></a>
         <a href="favourite.html"><img src="https://api.iconify.design/ph:heart-light.svg?color=white" width="20"></a>
-        <a href="account.html"><img src="https://api.iconify.design/ph:user-circle-light.svg?color=white" width="24"></a>
+        <div class="user-dropdown"><button class="user-btn" aria-label="Account"><img src="https://api.iconify.design/ph:user-circle-light.svg?color=white" width="24"></button><div class="dropdown-menu"><a href="login.html" class="dropdown-item">Sign In</a><a href="login.html" class="dropdown-item highlight">Create Account</a></div></div>
       </div>
     </div>
   </nav>
@@ -92,8 +92,21 @@
 
   <footer>
     <div class="container">
+      <div class="footer-newsletter">
+        <div class="newsletter-text">
+          <h3>Join the House</h3>
+          <p>Subscribe for early access to new collections and exclusive stories.</p>
+        </div>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Your email address">
+          <button type="submit">→</button>
+        </div>
+      </div>
+
+      <div class="footer-divider"></div>
+
       <div class="footer-grid">
-        <div class="footer-col">
+        <div class="footer-col brand-col">
           <div class="logo">ATELIER</div>
           <p>Curating the art of dressing with purpose and intention.</p>
           <div class="footer-social">
@@ -102,11 +115,12 @@
           </div>
         </div>
         <div class="footer-col">
-          <h4>Shop</h4>
+          <h4>Client Services</h4>
           <ul class="footer-links">
-            <li><a href="shop.html">New Arrivals</a></li>
-            <li><a href="shop.html">Collections</a></li>
-            <li><a href="shop.html">Sale</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Shipping & Returns</a></li>
+            <li><a href="#">Size Guide</a></li>
+            <li><a href="#">Care Instructions</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -118,22 +132,18 @@
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Support</h4>
+          <h4>Legal</h4>
           <ul class="footer-links">
-            <li><a href="#">Contact Us</a></li>
-            <li><a href="#">Shipping Info</a></li>
-            <li><a href="#">Returns</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Cookie Settings</a></li>
           </ul>
         </div>
       </div>
+
       <div class="footer-bottom">
-        <p class="copyright">&copy; 2026 ATELIER. All rights reserved.</p>
-        <div class="footer-legal">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
-        </div>
+        <p>&copy; 2026 ATELIER. All rights reserved.</p>
       </div>
-      <button class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Back to top">↑</button>
     </div>
   </footer>
 
