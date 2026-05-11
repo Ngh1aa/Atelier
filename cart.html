@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Cart - ATELIER</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <nav>
+    <div class="container nav-container">
+      <ul class="nav-links left">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+      <div class="logo">ATELIER</div>
+      <div class="nav-icons right">
+        <a href="cart.html"><img src="https://api.iconify.design/ph:shopping-cart-light.svg?color=white" width="20"></a>
+        <a href="favourite.html"><img src="https://api.iconify.design/ph:heart-light.svg?color=white" width="20"></a>
+        <a href="account.html"><img src="https://api.iconify.design/ph:user-circle-light.svg?color=white" width="24"></a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="cart-page">
+      <div class="container">
+        <div class="cart-title reveal">
+          <h1>Your Cart</h1>
+        </div>
+
+        <div class="cart-grid reveal">
+          <!-- Left: Cart Items -->
+          <div class="cart-items-list">
+            <!-- Item 1 -->
+            <div class="cart-item">
+              <div class="cart-item-img">
+                <img src="/assets/new-in-1.png" alt="Classic Leather Jacket">
+              </div>
+              <div class="cart-item-info">
+                <h3>Classic Leather Jacket</h3>
+                <p>Ref. 56442 | Size: M</p>
+              </div>
+              <div class="qty-selector">
+                <button class="qty-btn minus">-</button>
+                <span class="qty-val">1</span>
+                <button class="qty-btn plus">+</button>
+              </div>
+              <div class="cart-item-price">$450.00</div>
+              <button class="btn-remove">&times;</button>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="cart-item">
+              <div class="cart-item-img">
+                <img src="/assets/product-1.png" alt="Essential Boxy T-Shirt">
+              </div>
+              <div class="cart-item-info">
+                <h3>Essential Boxy T-Shirt</h3>
+                <p>Ref. 98122 | Size: L</p>
+              </div>
+              <div class="qty-selector">
+                <button class="qty-btn minus">-</button>
+                <span class="qty-val">1</span>
+                <button class="qty-btn plus">+</button>
+              </div>
+              <div class="cart-item-price">$170.00</div>
+              <button class="btn-remove">&times;</button>
+            </div>
+
+            <a href="shop.html" class="continue-shopping">← Continue Shopping</a>
+          </div>
+
+          <!-- Right: Order Summary -->
+          <aside class="order-summary">
+            <div class="order-summary-card">
+              <h2>ORDER SUMMARY</h2>
+              
+              <div class="summary-row">
+                <span>SUBTOTAL</span>
+                <span>$620.00</span>
+              </div>
+              
+              <div class="summary-row">
+                <span>SHIPPING</span>
+                <span>FREE</span>
+              </div>
+              
+              <div class="summary-row total">
+                <span>TOTAL</span>
+                <span>$620.00</span>
+              </div>
+              
+              <button class="btn-checkout">PROCEED TO CHECKOUT</button>
+              <small class="tax-note">TAXES AND DUTIES INCLUDED</small>
+
+              <div class="promo-code-wrap">
+                <div class="promo-header">
+                  <span>ADD A PROMO CODE</span>
+                  <span>+</span>
+                </div>
+              </div>
+
+              <div class="need-assistance">
+                <h4>NEED ASSISTANCE?</h4>
+                <p class="assistance-text">
+                  OUR SPECIALISTS ARE AVAILABLE MON-FRI 9AM-6PM.<br>
+                  <a href="#">CONTACT SUPPORT</a>
+                </p>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <!-- You May Also Like Section -->
+        <section class="you-may-like reveal">
+          <div class="you-may-like-header">
+            <h2>You May Also Like</h2>
+            <div class="slider-controls">
+              <button class="slider-btn">←</button>
+              <button class="slider-btn">→</button>
+            </div>
+          </div>
+
+          <div class="related-products-list">
+            <div class="related-product-item">
+              <img src="/assets/product-2.png" alt="Silk Evening Scarf">
+              <p class="category">ACCESSORIES</p>
+              <h4>Silk Evening Scarf</h4>
+              <p class="price">$245.00</p>
+            </div>
+            <div class="related-product-item">
+              <img src="/assets/product-3.png" alt="90s Structured Blazer">
+              <p class="category">OUTERWEAR</p>
+              <h4>90s Structured Blazer</h4>
+              <p class="price">$580.00</p>
+            </div>
+            <div class="related-product-item">
+              <img src="/assets/product-4.png" alt="Monochrome Canvas Tote">
+              <p class="category">ACCESSORIES</p>
+              <h4>Monochrome Canvas Tote</h4>
+              <p class="price">$120.00</p>
+            </div>
+            <div class="related-product-item">
+              <img src="/assets/product-5.png" alt="Ribbed Wool Scarf">
+              <p class="category">ESSENTIALS</p>
+              <h4>Ribbed Wool Scarf</h4>
+              <p class="price">$85.00</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo">ATELIER</div>
+          <p>Curating the art of dressing with purpose and intention.</p>
+          <div class="footer-social">
+            <a href="#">Instagram</a>
+            <a href="#">Pinterest</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul class="footer-links">
+            <li><a href="shop.html">New Arrivals</a></li>
+            <li><a href="shop.html">Collections</a></li>
+            <li><a href="shop.html">Sale</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul class="footer-links">
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Shipping Info</a></li>
+            <li><a href="#">Returns</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="copyright">&copy; 2026 ATELIER. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Account - ATELIER</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <nav>
+    <div class="container nav-container">
+      <ul class="nav-links left">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+      <div class="logo">ATELIER</div>
+      <div class="nav-icons right">
+        <a href="cart.html"><img src="https://api.iconify.design/ph:shopping-cart-light.svg?color=white" width="20"></a>
+        <a href="favourite.html"><img src="https://api.iconify.design/ph:heart-light.svg?color=white" width="20"></a>
+        <a href="account.html"><img src="https://api.iconify.design/ph:user-circle-light.svg?color=white" width="24"></a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="account-page">
+      <div class="container">
+        <div class="account-grid">
+          <!-- Left: Sidebar -->
+          <aside class="account-sidebar reveal">
+            <div class="account-avatar">
+              <img src="/assets/hero-1.png" alt="Avatar">
+              <h3>Aria Montenegro</h3>
+              <p>aria.montenegro@email.com</p>
+            </div>
+            <nav class="account-nav">
+              <a href="#" class="active">Profile</a>
+              <a href="#">My Orders</a>
+              <a href="#">Addresses</a>
+              <a href="#">Payment Methods</a>
+              <a href="#">Preferences</a>
+            </nav>
+            <button class="btn-sign-out">SIGN OUT</button>
+          </aside>
+
+          <!-- Right: Content -->
+          <div class="account-content reveal" style="transition-delay: 0.1s;">
+            <div class="content-section">
+              <h2>Profile Information</h2>
+              <form class="profile-form">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" value="Aria">
+                  </div>
+                  <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" value="Montenegro">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Email</label>
+                  <input type="email" value="aria.montenegro@email.com">
+                </div>
+                <div class="form-group">
+                  <label>Phone</label>
+                  <input type="tel" value="+1 234 567 8900">
+                </div>
+                <button type="submit" class="btn-save">SAVE CHANGES</button>
+              </form>
+            </div>
+
+            <div class="content-section">
+              <h2>Recent Orders</h2>
+              <div class="orders-list">
+                <div class="order-item">
+                  <div class="order-header">
+                    <span class="order-id">Order #56442</span>
+                    <span class="order-date">Dec 15, 2025</span>
+                  </div>
+                  <div class="order-details">
+                    <img src="/assets/new-in-1.png" alt="Classic Leather Jacket">
+                    <div class="order-info">
+                      <h4>Classic Leather Jacket</h4>
+                      <p>Size M | $450.00</p>
+                    </div>
+                    <span class="order-status delivered">DELIVERED</span>
+                  </div>
+                </div>
+                <div class="order-item">
+                  <div class="order-header">
+                    <span class="order-id">Order #98122</span>
+                    <span class="order-date">Nov 28, 2025</span>
+                  </div>
+                  <div class="order-details">
+                    <img src="/assets/product-1.png" alt="Essential Boxy T-Shirt">
+                    <div class="order-info">
+                      <h4>Essential Boxy T-Shirt</h4>
+                      <p>Size L | $170.00</p>
+                    </div>
+                    <span class="order-status delivered">DELIVERED</span>
+                  </div>
+                </div>
+              </div>
+              <a href="#" class="view-all-orders">VIEW ALL ORDERS →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo">ATELIER</div>
+          <p>Curating the art of dressing with purpose and intention.</p>
+          <div class="footer-social">
+            <a href="#">Instagram</a>
+            <a href="#">Pinterest</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul class="footer-links">
+            <li><a href="shop.html">New Arrivals</a></li>
+            <li><a href="shop.html">Collections</a></li>
+            <li><a href="shop.html">Sale</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul class="footer-links">
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Shipping Info</a></li>
+            <li><a href="#">Returns</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="copyright">&copy; 2026 ATELIER. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+      <button class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Back to top">↑</button>
+    </div>
+  </footer>
+
+  <script type="module" src="/main.js"></script>
+</body>
+</html>

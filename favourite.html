@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Wishlist - ATELIER</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <nav>
+    <div class="container nav-container">
+      <ul class="nav-links left">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+      <div class="logo">ATELIER</div>
+      <div class="nav-icons right">
+        <a href="cart.html"><img src="https://api.iconify.design/ph:shopping-cart-light.svg?color=white" width="20"></a>
+        <a href="favourite.html"><img src="https://api.iconify.design/ph:heart-light.svg?color=white" width="20"></a>
+        <a href="account.html"><img src="https://api.iconify.design/ph:user-circle-light.svg?color=white" width="24"></a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="favourite-page">
+      <div class="container">
+        <div class="page-title reveal">
+          <h1>Your Wishlist</h1>
+          <p>3 items saved</p>
+        </div>
+
+        <div class="favourite-grid reveal">
+          <!-- Item 1 -->
+          <div class="favourite-item">
+            <div class="favourite-img">
+              <img src="/assets/product-2.png" alt="Silk Gown">
+              <button class="btn-remove-wishlist">&times;</button>
+            </div>
+            <div class="favourite-info">
+              <h3>Silk Gown</h3>
+              <p>Evening Collection</p>
+              <span class="favourite-price">$2,450.00</span>
+            </div>
+            <div class="favourite-actions">
+              <button class="btn-add-to-cart">ADD TO CART</button>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="favourite-item">
+            <div class="favourite-img">
+              <img src="/assets/product-5.png" alt="Ribbed Wool Scarf">
+              <button class="btn-remove-wishlist">&times;</button>
+            </div>
+            <div class="favourite-info">
+              <h3>Ribbed Wool Scarf</h3>
+              <p>Essentials</p>
+              <span class="favourite-price">$85.00</span>
+            </div>
+            <div class="favourite-actions">
+              <button class="btn-add-to-cart">ADD TO CART</button>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="favourite-item">
+            <div class="favourite-img">
+              <img src="/assets/product-8.png" alt="Urban Knit">
+              <button class="btn-remove-wishlist">&times;</button>
+            </div>
+            <div class="favourite-info">
+              <h3>Urban Knit</h3>
+              <p>Foundations</p>
+              <span class="favourite-price">$320.00</span>
+            </div>
+            <div class="favourite-actions">
+              <button class="btn-add-to-cart">ADD TO CART</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="favourite-bottom reveal">
+          <a href="shop.html" class="continue-shopping">← Continue Shopping</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo">ATELIER</div>
+          <p>Curating the art of dressing with purpose and intention.</p>
+          <div class="footer-social">
+            <a href="#">Instagram</a>
+            <a href="#">Pinterest</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul class="footer-links">
+            <li><a href="shop.html">New Arrivals</a></li>
+            <li><a href="shop.html">Collections</a></li>
+            <li><a href="shop.html">Sale</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul class="footer-links">
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Shipping Info</a></li>
+            <li><a href="#">Returns</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="copyright">&copy; 2026 ATELIER. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+      <button class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Back to top">↑</button>
+    </div>
+  </footer>
+
+  <script type="module" src="/main.js"></script>
+</body>
+</html>

@@ -38,4 +38,36 @@ document.addEventListener('DOMContentLoaded', () => {
       nav.style.borderBottom = '1px solid rgba(255, 255, 255, 0.1)';
     }
   });
+
+  // Quantity Selector Logic
+  const cartItems = document.querySelectorAll('.cart-item');
+  cartItems.forEach(item => {
+    const minusBtn = item.querySelector('.qty-btn.minus');
+    const plusBtn = item.querySelector('.qty-btn.plus');
+    const qtyVal = item.querySelector('.qty-val');
+    const removeBtn = item.querySelector('.btn-remove');
+
+    if (minusBtn && plusBtn && qtyVal) {
+      minusBtn.addEventListener('click', () => {
+        let currentQty = parseInt(qtyVal.textContent);
+        if (currentQty > 1) {
+          qtyVal.textContent = currentQty - 1;
+        }
+      });
+
+      plusBtn.addEventListener('click', () => {
+        let currentQty = parseInt(qtyVal.textContent);
+        qtyVal.textContent = currentQty + 1;
+      });
+    }
+
+    if (removeBtn) {
+      removeBtn.addEventListener('click', () => {
+        item.style.opacity = '0';
+        setTimeout(() => {
+          item.remove();
+        }, 300);
+      });
+    }
+  });
 });
