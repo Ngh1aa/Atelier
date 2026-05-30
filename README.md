@@ -1,53 +1,97 @@
-# FASHION - Atelier Portfolio
+# ATELIER – Website Thương Mại Điện Tử Thời Trang Cao Cấp
 
-Chào mừng bạn đến với dự án **FASHION**, một trang web e-commerce thời trang cao cấp với phong cách thiết kế tối giản (minimalist) và sang trọng (editorial design). Dự án được xây dựng tập trung vào trải nghiệm hình ảnh và sự tinh tế trong từng chi tiết layout.
+ATELIER là website thương mại điện tử thời trang cao cấp, được xây dựng với phong cách editorial, tối giản và sang trọng. Dự án giải quyết các vấn đề thường gặp trong mua sắm thời trang online: bố cục rối mắt, thiếu câu chuyện thương hiệu, khó duyệt danh mục sản phẩm và thiếu sự tin tưởng khi thanh toán.
 
-## 🚀 Công nghệ sử dụng
+Website hướng đến việc kết hợp nhận diện thương hiệu, khám phá sản phẩm và tối ưu chuyển đổi trong một trải nghiệm mua sắm liền mạch.
 
-- **Cốt lõi**: HTML5, Vanilla CSS, JavaScript (ES6+).
-- **Công cụ build**: [Vite](https://vitejs.dev/) - Giúp việc phát triển nhanh chóng và tối ưu hóa hiệu suất.
-- **Icons**: [Iconify](https://iconify.design/) - Thư viện icon đa dạng và hiện đại.
-- **Fonts**: Playfair Display (Heading) và Inter (Body).
+## Các trang chính
 
-## 🛠️ Hướng dẫn cài đặt và chạy Project
+- **Trang chủ** – Kể chuyện thương hiệu, giới thiệu bộ sưu tập nổi bật
+- **Shop** – Danh mục sản phẩm theo bố cục editorial
+- **Chi tiết sản phẩm** – Thông tin sản phẩm đầy đủ, hình ảnh chất lượng cao
+- **Wishlist** – Lưu sản phẩm yêu thích
+- **Giỏ hàng** – Quản lý sản phẩm đã chọn
+- **Thanh toán** – Luồng checkout trực quan, đáng tin cậy
+- **Tài khoản** – Đăng nhập, đăng ký, quản lý hồ sơ
+- **Blog** – Chia sẻ nội dung thời trang, xu hướng
+- **About** – Câu chuyện thương hiệu
 
-Để chạy dự án này trên máy tính cá nhân của bạn, hãy làm theo các bước sau:
+## Công nghệ sử dụng
 
-### 1. Yêu cầu hệ thống
-Đảm bảo bạn đã cài đặt **Node.js** (khuyên dùng bản LTS) trên máy tính.
+| Layer | Công nghệ |
+|---|---|
+| Nền tảng | HTML5, CSS3, JavaScript (ES6+) |
+| Build tool | Vite |
+| Icons | Iconify |
+| Fonts | Playfair Display, Inter |
+| Thiết kế | Figma |
 
-### 2. Cài đặt Dependencies
-Mở terminal (hoặc Command Prompt/PowerShell) tại thư mục dự án và chạy lệnh:
+## 🚀 Hướng dẫn cài đặt
+
+### Yêu cầu
+
+- Node.js (bản LTS được khuyên dùng)
+
+### Các bước thực hiện
+
+**1. Clone repository**
+
+```bash
+git clone https://github.com/your-username/Atelier.git
+cd Atelier
+```
+
+**2. Cài đặt dependencies**
 
 ```bash
 npm install
 ```
 
-### 3. Chạy môi trường phát triển (Development Mode)
-Sau khi cài đặt xong, hãy chạy lệnh sau để khởi động server:
+**3. Chạy môi trường phát triển**
 
 ```bash
 npm run dev
 ```
 
-Sau khi chạy lệnh, terminal sẽ hiển thị một đường dẫn (thường là `http://localhost:5173`). Bạn hãy copy và dán vào trình duyệt để xem trang web.
+Mở trình duyệt và truy cập `http://localhost:5173`.
 
-## 📁 Cấu trúc thư mục chính
+**Cách chạy bằng Live Server (VS Code)**
 
-- `index.html`: Trang chủ.
-- `shop.html`: Trang danh sách sản phẩm.
-- `detailproduct.html`: Trang chi tiết sản phẩm.
-- `cart.html`: Trang giỏ hàng.
-- `about.html`: Trang giới thiệu thương hiệu.
-- `style.css`: File stylesheet chứa toàn bộ linh hồn của thiết kế.
-- `main.js`: Xử lý các hiệu ứng cuộn (scroll reveal) và logic giỏ hàng đơn giản.
+1. Cài đặt extension **Live Server** trong VS Code
+2. Nhấp chuột phải vào file `index.html` trong VS Code
+3. Chọn **"Open with Live Server"**
 
-## ✨ Tính năng nổi bật
+## Cách sử dụng
 
-- **Monochrome Aesthetic**: Tông màu trắng đen chủ đạo tạo cảm giác cao cấp.
-- **Responsive Design**: Hiển thị mượt mà trên mọi thiết bị từ Desktop đến Mobile.
-- **Interactive Cart**: Giỏ hàng có tính năng tăng/giảm số lượng và xóa sản phẩm linh hoạt.
-- **Editorial Layout**: Bố cục trang web được lấy cảm hứng từ các tạp chí thời trang danh tiếng.
+- **Khám phá trang chủ**: Tìm hiểu câu chuyện thương hiệu và các bộ sưu tập nổi bật
+- **Duyệt sản phẩm**: Truy cập trang Shop để xem danh mục đầy đủ với bố cục editorial
+- **Chi tiết sản phẩm**: Nhấp vào sản phẩm để xem thông tin, hình ảnh và lựa chọn size/màu
+- **Wishlist & Giỏ hàng**: Thêm sản phẩm yêu thích hoặc đưa vào giỏ hàng để chuẩn bị thanh toán
+- **Thanh toán**: Trải nghiệm luồng checkout trực quan và đáng tin cậy
+- **Tài khoản & Blog**: Khám phá thêm nội dung về thương hiệu và thời trang
+
+> Dự án phù hợp để sử dụng làm **UI/UX case study** hoặc **project luyện tập front-end**.
+
+## Cấu trúc thư mục
+
+```
+Atelier/
+├── index.html          # Trang chủ
+├── shop.html           # Danh mục sản phẩm
+├── detailproduct.html  # Chi tiết sản phẩm
+├── favourite.html      # Wishlist
+├── cart.html           # Giỏ hàng
+├── checkout.html       # Thanh toán
+├── account.html        # Quản lý tài khoản
+├── login.html          # Đăng nhập
+├── forgot-password.html # Quên mật khẩu
+├── blog.html           # Blog
+├── about.html          # Giới thiệu thương hiệu
+├── order-success.html  # Xác nhận đặt hàng
+├── style.css           # Stylesheet chính
+└── main.js             # Logic JavaScript
+```
 
 ---
-*Dự án được phát triển bởi **Atelier Team**.*
+
+*Dự án được phát triển với vai trò **Business Analyst & UI/UX Designer**.*
