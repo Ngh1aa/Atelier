@@ -218,9 +218,175 @@ nav {
   display: none;
 }
 
+
+/* Mega-menu (Shop dropdown) */
+.nav-dropdown {
+  position: relative;
+}
+.nav-dropdown .nav-submenu {
+  position: absolute;
+  top: calc(100% + 1.25rem);
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  min-width: 220px;
+  background-color: #0a0a0a;
+  border: 1px solid var(--border-color);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1000;
+}
+.nav-dropdown:hover .nav-submenu,
+.nav-dropdown:focus-within .nav-submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+.nav-submenu a {
+  display: block;
+  padding: 1rem 1.5rem;
+  text-decoration: none;
+  color: var(--secondary-text);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transition: var(--transition);
+  border-bottom: 1px solid var(--border-color);
+  opacity: 0.9;
+  position: relative;
+}
+.nav-submenu a:last-child {
+  border-bottom: none;
+}
+.nav-submenu a:hover,
+.nav-submenu a:focus-visible {
+  color: var(--text-color);
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.03);
+}
+.nav-dropdown .nav-submenu::after {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 0;
+  right: 0;
+  height: 8px;
+}
+/* Search icon + bar (ẩn dưới icon, luxury pattern) */
+.nav-search-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  color: var(--text-color);
+  opacity: 0.8;
+  transition: var(--transition);
+}
+.nav-search-btn:hover,
+.nav-search-btn:focus-visible {
+  opacity: 1;
+}
+.nav-search-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 1px;
+}
+.nav-search-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.92);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-search-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+.nav-search-form {
+  width: min(720px, 85vw);
+  position: relative;
+}
+.nav-search-form label {
+  display: block;
+  color: var(--secondary-text);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 1.5rem;
+}
+.nav-search-form input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-color);
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  padding: 0.5rem 2.5rem 0.5rem 0;
+  outline: none;
+  transition: var(--transition);
+}
+.nav-search-form input:focus {
+  border-bottom-color: var(--text-color);
+}
+.nav-search-form input::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+  font-style: italic;
+}
+.nav-search-close {
+  position: absolute;
+  top: 0.8rem;
+  right: 0;
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  line-height: 1;
+}
+.nav-search-results {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 40vh;
+  overflow-y: auto;
+}
+.nav-search-results:empty {
+  display: none;
+}
+.nav-search-results a {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  text-decoration: none;
+  color: var(--secondary-text);
+  font-size: 0.95rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border-color);
+  transition: var(--transition);
+}
+.nav-search-results a:hover {
+  color: var(--text-color);
+}
+.nav-search-results a span.price {
+  font-size: 0.8rem;
+}
+
 /* Hero Section */
 .hero {
-  padding-top: 10rem;
+  padding-top: 7rem;
   padding-bottom: 4rem;
 }
 
@@ -788,7 +954,7 @@ button:focus-visible {
 .reveal {
   opacity: 0;
   transform: translateY(30px);
-  transition: all 0.8s ease-out;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal.active {
@@ -3273,7 +3439,7 @@ button:focus-visible {
 .js-enabled .reveal {
   opacity: 0;
   transform: translateY(30px);
-  transition: all 0.8s ease-out;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .js-enabled .reveal.active {
   opacity: 1;
@@ -3449,4 +3615,24 @@ button:focus-visible {
 /* Detail thumbnail styles (inline fallback if JS replaces gallery) */
 .js-thumbnail-gallery img {
   display: block;
+}
+
+/* Second-image hover crossfade (luxury: subtle, no bounce) */
+.js-product-grid-item-image {
+  position: relative;
+  overflow: hidden;
+}
+.js-product-grid-item-image a {
+  display: block;
+  position: relative;
+}
+.js-product-grid-item:hover .js-grid-img-back,
+.js-product-grid-item:focus-within .js-grid-img-back {
+  opacity: 1;
+}
+
+/* Subtle hover treatment when no second image: gentle darkening + scale (no bounce) */
+.js-product-grid-item:not(:has(.js-grid-img-back)):hover .js-grid-img-front {
+  transform: scale(1.03);
+  filter: brightness(0.88);
 }
