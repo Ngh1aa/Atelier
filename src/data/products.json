@@ -1,0 +1,20 @@
+[
+  {
+    "id": "tailored-coat",
+    "name": "Tailored Coat",
+    "category": "Knitwear",
+    "price": 1299,
+    "images": ["./assets/new-in-1.png", "./assets/new-in-1-2.png"],
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "description": "Elegant camel‑wool coat with minimalist silhouette."
+  },
+  {
+    "id": "silk-gown",
+    "name": "Silk Gown",
+    "category": "Evening",
+    "price": 2199,
+    "images": ["./assets/new-in-2.png"],
+    "sizes": ["S", "M", "L"],
+    "description": "Luxe silk gown with draping detail, perfect for gala events."
+  }
+]
