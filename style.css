@@ -63,7 +63,7 @@ nav {
   top: 0;
   left: 0;
   width: 100%;
-  padding: 1.5rem 0;
+  padding: 2.25rem 0;
   background: var(--nav-bg);
   backdrop-filter: blur(10px);
   z-index: 1000;
@@ -118,7 +118,14 @@ nav {
   position: relative;
 }
 
+.nav-icons a.nav-text,
 .user-btn {
+  text-decoration: none;
+  color: #F5F5F0;
+  font-size: 0.75rem;
+  font-family: var(--font-body);
+  text-transform: capitalize;
+  letter-spacing: 1px;
   background: none;
   border: none;
   cursor: pointer;
@@ -127,8 +134,11 @@ nav {
   transition: var(--transition);
 }
 
+.nav-icons a.nav-text:hover,
 .user-btn:hover {
   opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .dropdown-menu {
