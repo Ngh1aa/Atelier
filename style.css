@@ -384,26 +384,72 @@ nav {
   font-size: 0.8rem;
 }
 
-/* Hero Section */
+/* Hero Section — split 55/45 (editorial, The Row style) */
 .hero {
-  padding-top: 7rem;
-  padding-bottom: 4rem;
+  padding-top: 5rem;
+  padding-bottom: 0;
 }
-
 .hero-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 4rem;
-  align-items: flex-start;
+  grid-template-columns: 45fr 55fr;
+  gap: 5rem;
+  align-items: center;
 }
-
+.hero-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--secondary-text);
+  margin-bottom: 2rem;
+}
 .hero-text-col h1 {
-  font-size: 4rem;
-  line-height: 1.1;
-  margin-bottom: 3rem;
+  font-size: 3.2rem;
+  line-height: 1.12;
+  margin-bottom: 2rem;
   text-transform: none;
   font-family: var(--font-heading);
 }
+.hero-sub {
+  font-size: 1rem;
+  color: var(--secondary-text);
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  max-width: 30ch;
+}
+.hero-text-col .btn-shop {
+  margin-top: 0;
+}
+.hero-image-col {
+  height: 88vh;
+  max-height: 900px;
+  display: flex;
+  align-items: flex-end;
+}
+.hero-img-stack {
+  display: grid;
+  grid-template-columns: 58fr 42fr;
+  gap: 1.5rem;
+  width: 100%;
+  align-items: end;
+}
+.hero-img-wrap {
+  overflow: hidden;
+}
+.hero-img-main {
+  height: 88vh;
+}
+.hero-img-offset {
+  height: 55vh;
+  margin-bottom: 4rem;
+}
+.hero-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Keep existing .btn-shop styles */
+/* Hero Section (legacy 3-col rules removed — replaced by split 55/45 above) */
 
 .btn-shop {
   display: inline-block;
@@ -3449,27 +3495,44 @@ button:focus-visible {
 /* Hero mobile responsive */
 @media (max-width: 1024px) {
   .hero-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 3rem;
   }
   .hero-text-col h1 {
-    font-size: 3rem;
+    font-size: 2.8rem;
+  }
+  .hero-image-col {
+    min-height: 60vh;
+    max-height: none;
   }
 }
 @media (max-width: 768px) {
   .hero {
-    padding-top: 8rem;
+    padding-top: 6rem;
   }
   .hero-grid {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 2rem;
   }
   .hero-text-col h1 {
-    font-size: 2.4rem;
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+  }
+  .hero-sub {
     margin-bottom: 2rem;
   }
-  .tall-img-wrap {
-    height: 420px;
+  .hero-image-col {
+    min-height: 55vh;
+  }
+  .hero-img-stack {
+    grid-template-columns: 1fr;
+  }
+  .hero-img-offset {
+    display: none;
+  }
+  .hero-img-main {
+    min-height: 55vh;
+    height: 55vh;
   }
   .nav-links {
     display: none;
