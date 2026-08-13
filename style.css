@@ -2387,7 +2387,35 @@ button:focus-visible {
   margin-bottom: 3rem;
 }
 
-.auth-tab {
+.cta-load-more {
+  display: block;
+  margin: 4rem auto;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--secondary-text);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity var(--transition);
+}
+.cta-load-more:hover,
+.cta-load-more:focus-visible {
+  opacity: 0.7;
+  outline: 2px solid var(--text-color);
+}
+.cta-load-more::after { content: " →"; }
+
+.result-count {
+  font-size: 0.75rem;
+  color: var(--secondary-text);
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.js-hidden { display: none; }.auth-tab {
   flex: 1;
   background: none;
   border: none;

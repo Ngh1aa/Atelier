@@ -68,6 +68,21 @@ document.addEventListener('DOMContentLoaded', () => {
           item.remove();
         }, 300);
       });
-    }
+  // Load More logic
+  const BATCH = 8;
+  const items = Array.from(document.querySelectorAll('.product-item-wrap'));
+  items.forEach((item, i) => {
+    if (i >= BATCH) item.classList.add('js-hidden');
   });
-});
+  let shown = BATCH;
+  const loadMoreBtn = document.getElementById('load-more');
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', () => {
+      const next = shown + BATCH;
+      items.slice(shown, next).forEach(i => i.classList.remove('js-hidden'));
+      shown = next;
+      if (shown >= items.length) loadMoreBtn.style.display = 'none';
+    });
+  }
+
+});});
