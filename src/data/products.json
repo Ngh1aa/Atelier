@@ -15,7 +15,11 @@
       "L",
       "XL"
     ],
-    "description": "A sharply cut wool blazer with a clean minimalist silhouette, designed for modern everyday tailoring."
+    "description": "A sharply cut wool blazer with a clean minimalist silhouette, designed for modern everyday tailoring.",
+    "fit": "Structured, straight silhouette. Choose your usual size for a considered tailored fit.",
+    "material": "Full composition details will be confirmed before online ordering becomes available.",
+    "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
+    "origin": "Country of origin will be specified before commercial launch."
   },
   {
     "id": "cashmere-overcoat",
@@ -32,7 +36,11 @@
       "L",
       "XL"
     ],
-    "description": "Luxuriously soft cashmere overcoat with a timeless, relaxed drape that elevates any winter wardrobe."
+    "description": "Luxuriously soft cashmere overcoat with a timeless, relaxed drape that elevates any winter wardrobe.",
+    "fit": "Relaxed, longline silhouette designed for layering.",
+    "material": "Full composition details will be confirmed before online ordering becomes available.",
+    "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
+    "origin": "Country of origin will be specified before commercial launch."
   },
   {
     "id": "merino-knit-dress",
@@ -49,7 +57,11 @@
       "M",
       "L"
     ],
-    "description": "A fluid merino knit dress that balances comfort and elegance, made for effortless day-to-night styling."
+    "description": "A fluid merino knit dress that balances comfort and elegance, made for effortless day-to-night styling.",
+    "fit": "Fluid close-to-body knit silhouette with comfortable movement.",
+    "material": "Full composition details will be confirmed before online ordering becomes available.",
+    "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
+    "origin": "Country of origin will be specified before commercial launch."
   },
   {
     "id": "silk-drape-blouse",
@@ -66,7 +78,11 @@
       "M",
       "L"
     ],
-    "description": "Weightless silk blouse with a softly draped neckline, a refined statement of quiet luxury."
+    "description": "Weightless silk blouse with a softly draped neckline, a refined statement of quiet luxury.",
+    "fit": "Softly draped silhouette; intended to fall away from the body.",
+    "material": "Full composition details will be confirmed before online ordering becomes available.",
+    "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
+    "origin": "Country of origin will be specified before commercial launch."
   },
   {
     "id": "linen-wide-trousers",
@@ -84,7 +100,11 @@
       "32",
       "34"
     ],
-    "description": "Breathable wide-leg linen trousers with a relaxed, tailored finish for warm-weather elegance."
+    "description": "Breathable wide-leg linen trousers with a relaxed, tailored finish for warm-weather elegance.",
+    "fit": "Relaxed wide-leg cut. Refer to the waist measurement in the size guide.",
+    "material": "Full composition details will be confirmed before online ordering becomes available.",
+    "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
+    "origin": "Country of origin will be specified before commercial launch."
   },
   {
     "id": "suede-chelsea-boots",
@@ -103,7 +123,11 @@
       "43",
       "44"
     ],
-    "description": "Classic suede Chelsea boots with a sculpted last, crafted for enduring comfort and understated style."
+    "description": "Classic suede Chelsea boots with a sculpted last, crafted for enduring comfort and understated style.",
+    "fit": "Regular fit. Choose your usual footwear size.",
+    "material": "Full composition details will be confirmed before online ordering becomes available.",
+    "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
+    "origin": "Country of origin will be specified before commercial launch."
   },
   {
     "id": "viscose-wrap-top",
@@ -120,7 +144,11 @@
       "M",
       "L"
     ],
-    "description": "A fluid viscose wrap top with an adjustable silhouette, effortlessly feminine and easy to layer."
+    "description": "A fluid viscose wrap top with an adjustable silhouette, effortlessly feminine and easy to layer.",
+    "fit": "Adjustable wrap silhouette, designed for a personalised fit.",
+    "material": "Full composition details will be confirmed before online ordering becomes available.",
+    "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
+    "origin": "Country of origin will be specified before commercial launch."
   },
   {
     "id": "leather-minimal-tote",
@@ -134,7 +162,11 @@
     "sizes": [
       "One Size"
     ],
-    "description": "A structured full-grain leather tote with clean lines and generous capacity for daily essentials."
+    "description": "A structured full-grain leather tote with clean lines and generous capacity for daily essentials.",
+    "fit": "One-size accessory with a structured everyday proportion.",
+    "material": "Full composition details will be confirmed before online ordering becomes available.",
+    "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
+    "origin": "Country of origin will be specified before commercial launch."
   },
   {
     "id": "tailored-coat",
@@ -151,7 +183,11 @@
       "L",
       "XL"
     ],
-    "description": "Elegant camel-wool coat with a minimalist silhouette, tailored for the modern wardrobe."
+    "description": "Elegant camel-wool coat with a minimalist silhouette, tailored for the modern wardrobe.",
+    "fit": "Relaxed tailored silhouette designed to layer over knitwear.",
+    "material": "Full composition details will be confirmed before online ordering becomes available.",
+    "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
+    "origin": "Country of origin will be specified before commercial launch."
   },
   {
     "id": "silk-gown",
@@ -168,7 +204,11 @@
       "M",
       "L"
     ],
-    "description": "Luxe silk gown with draping detail, perfect for gala events and unforgettable evenings."
+    "description": "Luxe silk gown with draping detail, perfect for gala events and unforgettable evenings.",
+    "fit": "Fluid draped silhouette with a close, elongated line.",
+    "material": "Full composition details will be confirmed before online ordering becomes available.",
+    "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
+    "origin": "Country of origin will be specified before commercial launch."
   },
   {
     "id": "urban-knit",
@@ -185,7 +225,11 @@
       "L",
       "XL"
     ],
-    "description": "A soft urban knit sweater in cream, the quiet foundation of an intentional everyday wardrobe."
+    "description": "A soft urban knit sweater in cream, the quiet foundation of an intentional everyday wardrobe.",
+    "fit": "Easy, relaxed knit silhouette intended for everyday layering.",
+    "material": "Full composition details will be confirmed before online ordering becomes available.",
+    "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
+    "origin": "Country of origin will be specified before commercial launch."
   },
   {
     "id": "silk-midnight-gown",
@@ -206,6 +250,10 @@
       "L",
       "XL"
     ],
-    "description": "Exquisitely tailored from 100% heavy-weight mulberry silk, the Midnight Gown features a fluid bias-cut silhouette that skims the form. A masterful expression of minimalist luxury, designed for the modern muse."
+    "description": "Exquisitely tailored from 100% heavy-weight mulberry silk, the Midnight Gown features a fluid bias-cut silhouette that skims the form. A masterful expression of minimalist luxury, designed for the modern muse.",
+    "fit": "Bias-cut silhouette with a close, fluid line.",
+    "material": "Full composition details will be confirmed before online ordering becomes available.",
+    "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
+    "origin": "Country of origin will be specified before commercial launch."
   }
 ]

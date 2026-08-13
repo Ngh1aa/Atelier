@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ngh1aa.github.io/Atelier/sitemap.xml

@@ -5,16 +5,16 @@
   <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Checkout - ATELIER</title>
-  <meta name="description" content="Complete your ATELIER order — complimentary shipping and luxe packaging included.">
+  <meta name="description" content="Review your ATELIER Bag while secure online ordering is being prepared.">
   <meta name="keywords" content="ATELIER, luxury fashion, minimalist clothing, tailoring, knitwear, outerwear, sustainable fashion, Fall 2026">
   <meta property="og:title" content="Checkout - ATELIER">
-  <meta property="og:description" content="Complete your ATELIER order — complimentary shipping and luxe packaging included.">
+  <meta property="og:description" content="Review your ATELIER Bag while secure online ordering is being prepared.">
   <meta property="og:image" content="https://ngh1aa.github.io/Atelier/assets/product-hero.webp">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ngh1aa.github.io/Atelier/checkout.html">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Checkout - ATELIER">
-  <meta name="twitter:description" content="Complete your ATELIER order — complimentary shipping and luxe packaging included.">
+  <meta name="twitter:description" content="Review your ATELIER Bag while secure online ordering is being prepared.">
   <meta name="twitter:image" content="https://ngh1aa.github.io/Atelier/assets/product-hero.webp">
 
   <link rel="stylesheet" href="./style.css">
@@ -29,23 +29,17 @@
     <div class="container nav-container">
       <ul class="nav-links left">
         <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li class="nav-dropdown"><a href="shop.html">Shop <svg viewBox="0 0 10 6" width="8" height="5" fill="currentColor" style="vertical-align:2px;opacity:0.6;"><path d="M0 0 L5 5 L10 0" stroke="currentColor" stroke-width="1" fill="none"/></svg></a>
-          <div class="nav-submenu">
-            <a href="shop.html?category=knitwear">Knitwear</a>
-            <a href="shop.html?category=denim%20%26%20shirts">Denim &amp; Shirts</a>
-            <a href="shop.html?category=tees">Tees</a>
-            <a href="shop.html?category=outerwear">Outerwear</a>
-          </div>
-        </li>
-        <li><a href="blog.html">Blog</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="collections.html">Collections</a></li>
+        <li><a href="blog.html">Journal</a></li>
+        <li><a href="about.html">The House</a></li>
+        <li><a href="client-services.html">Client Services</a></li>
       </ul>
       <div class="logo"><a href="index.html">ATELIER</a></div>
       <div class="nav-icons right">
         <button type="button" class="nav-search-btn" aria-label="Search" id="navSearchBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 6 6"/></svg></button>
         <a href="cart.html" class="nav-text nav-cart">Bag (<span class="js-nav-bag-count">0</span>)</a>
         <a href="favourite.html" class="nav-text">Saved</a>
-        <a href="login.html" class="nav-text">Account</a>
       </div>
     </div>
   </nav>
@@ -60,175 +54,93 @@
 
 
   <main>
-    <section class="checkout-page">
+    <section class="precommerce-page">
       <div class="container">
-        <div class="checkout-header reveal">
-          <h1>Checkout</h1>
-          <p>Complete your order</p>
-        </div>
+        <header class="precommerce-header reveal">
+          <p class="eyebrow">CATALOGUE MODE</p>
+          <h1>Online ordering<br>is being prepared.</h1>
+          <p>ATELIER currently offers a product catalogue and a locally saved Bag. We do not collect delivery details, payment information or create orders in this edition.</p>
+        </header>
 
-        <div class="checkout-grid">
-          <!-- Left: Form -->
-          <div class="checkout-form-section reveal">
-            <div class="checkout-section">
-              <h2>Contact Information</h2>
-              <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" placeholder="aria.montenegro@email.com">
-              </div>
-              <label class="checkbox-wrap">
-                <input type="checkbox" checked>
-                <span class="checkmark"></span>
-                <span class="checkbox-label">Email me with news and offers</span>
-              </label>
+        <div class="precommerce-grid">
+          <section class="precommerce-guidance reveal" aria-label="Online ordering status">
+            <p class="eyebrow">A CLEARER CHECKOUT</p>
+            <h2>We will only ask for details when the service is live.</h2>
+            <p>Before a secure commerce platform is introduced, this page remains a transparent review of the pieces in your Bag. It will never redirect you to a fictional order confirmation.</p>
+            <div class="precommerce-steps">
+              <article><span>01</span><div><h3>Build your Bag</h3><p>Save considered selections locally in this browser.</p></div></article>
+              <article><span>02</span><div><h3>Review the catalogue value</h3><p>All prices are displayed in Vietnamese đồng (₫).</p></div></article>
+              <article><span>03</span><div><h3>Wait for secure ordering</h3><p>Payment, delivery, returns and account services will launch together.</p></div></article>
             </div>
+            <a class="btn-outline" href="shipping&returns.html">Order information <span aria-hidden="true">→</span></a>
+          </section>
 
-            <div class="checkout-section">
-              <h2>Shipping Address</h2>
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="firstname">First Name</label>
-                  <input type="text" id="firstname" placeholder="Aria">
-                </div>
-                <div class="form-group">
-                  <label for="lastname">Last Name</label>
-                  <input type="text" id="lastname" placeholder="Montenegro">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="address">Address</label>
-                <input type="text" id="address" placeholder="123 Fashion Street">
-              </div>
-              <div class="form-group">
-                <label for="apartment">Apartment, suite, etc. (optional)</label>
-                <input type="text" id="apartment" placeholder="Apt 4B">
-              </div>
-              <div class="form-row three-col">
-                <div class="form-group">
-                  <label for="city">City</label>
-                  <input type="text" id="city" placeholder="New York">
-                </div>
-                <div class="form-group">
-                  <label for="state">State</label>
-                  <input type="text" id="state" placeholder="NY">
-                </div>
-                <div class="form-group">
-                  <label for="zip">ZIP Code</label>
-                  <input type="text" id="zip" placeholder="10001">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="country">Country</label>
-                <select id="country">
-                  <option value="US">United States</option>
-                  <option value="CA">Canada</option>
-                  <option value="GB">United Kingdom</option>
-                  <option value="FR">France</option>
-                  <option value="IT">Italy</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="phone">Phone</label>
-                <input type="tel" id="phone" placeholder="+1 234 567 8900">
-              </div>
+          <aside class="precommerce-summary reveal" style="transition-delay: 0.1s;" aria-label="Bag summary">
+            <div class="precommerce-summary-head">
+              <p class="eyebrow">YOUR BAG</p>
+              <a href="cart.html">Edit Bag</a>
             </div>
-
-            <div class="checkout-section">
-              <h2>Payment</h2>
-              <div class="payment-methods">
-                <label class="payment-option selected">
-                  <input type="radio" name="payment" checked>
-                  <span class="payment-radio"></span>
-                  <span class="payment-label">Credit Card</span>
-                  <div class="payment-icons">
-                    <img loading="lazy" src="https://api.iconify.design/logos:visa.svg?color=white" width="30" alt="Visa"/>
-                    <img loading="lazy" src="https://api.iconify.design/logos:mastercard.svg?color=white" width="30" alt="Mastercard"/>
-                  </div>
-                </label>
-              </div>
-              <div class="form-group">
-                <label for="cardnumber">Card Number</label>
-                <input type="text" id="cardnumber" placeholder="1234 5678 9012 3456">
-              </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="expiry">Expiration</label>
-                  <input type="text" id="expiry" placeholder="MM / YY">
-                </div>
-                <div class="form-group">
-                  <label for="cvv">Security Code</label>
-                  <input type="text" id="cvv" placeholder="CVV">
-                </div>
-              </div>
-            </div>
-
-            <button type="submit" class="btn-place-order" onclick="window.location.href='order-success.html'">PLACE ORDER</button>
-          </div>
-
-          <!-- Right: Order Summary -->
-          <div class="checkout-summary reveal" style="transition-delay: 0.1s;">
-            <div class="summary-card">
-              <h3>Order Summary</h3>
-              <div class="summary-items">
-                <div class="summary-item">
-                  <img loading="lazy" src="./assets/new-in-1.webp" alt="Product"/>
-                  <div class="item-details">
-                    <span class="item-name">Tailored Coat</span>
-                    <span class="item-variant">Size M / Black</span>
-                  </div>
-                  <span class="item-price">$450.00</span>
-                </div>
-                <div class="summary-item">
-                  <img loading="lazy" src="./assets/product-1.webp" alt="Product"/>
-                  <div class="item-details">
-                    <span class="item-name">Essential Boxy T-Shirt</span>
-                    <span class="item-variant">Size L / White</span>
-                  </div>
-                  <span class="item-price">$170.00</span>
-                </div>
-              </div>
-              <div class="summary-row">
-                <span>Subtotal</span>
-                <span>$620.00</span>
-              </div>
-              <div class="summary-row">
-                <span>Shipping</span>
-                <span>Complimentary</span>
-              </div>
-              <div class="summary-row">
-                <span>Tax</span>
-                <span>$55.80</span>
-              </div>
-              <div class="summary-row total">
-                <span>Total</span>
-                <span>$675.80</span>
-              </div>
-            </div>
-
-            <div class="promo-code-wrap">
-              <div class="promo-header">
-                <span>Add promo code</span>
-                <img loading="lazy" src="https://api.iconify.design/ph:plus-light.svg?color=white" width="16"/>
-              </div>
-            </div>
-
-            <div class="need-assistance">
-              <h4>Need Assistance?</h4>
-              <p class="assistance-text">Questions about your order? <a href="#">Contact Support</a></p>
-            </div>
-          </div>
+            <div class="js-checkout-items precommerce-items"></div>
+            <div class="precommerce-total-row"><span>Catalogue subtotal</span><strong class="js-checkout-subtotal">0 ₫</strong></div>
+            <div class="precommerce-total-row total"><span>Catalogue total</span><strong class="js-checkout-total">0 ₫</strong></div>
+            <p class="precommerce-notice js-checkout-notice">Your Bag is saved on this device. Prices are catalogue references; no order or payment will be created from this page.</p>
+            <a class="precommerce-contact" href="contact.html">Need assistance? Review Client Services <span aria-hidden="true">→</span></a>
+          </aside>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="auth-footer-page">
+
+  <footer class="site-footer">
     <div class="container">
+      <section class="footer-newsletter footer-editorial" aria-label="ATELIER Journal">
+        <div class="newsletter-text">
+          <p class="eyebrow">ATELIER JOURNAL</p>
+          <h3>Considered notes on dress, form and material.</h3>
+        </div>
+        <a class="btn-outline" href="blog.html">Read the journal <span aria-hidden="true">→</span></a>
+      </section>
+      <div class="footer-divider"></div>
+      <div class="footer-grid">
+        <div class="footer-col brand-col">
+          <div class="logo"><a href="index.html">ATELIER</a></div>
+          <p>A considered wardrobe for a life in motion. Designed with restraint, intention and lasting presence.</p>
+          <p class="footer-base-currency">All catalogue prices are shown in Vietnamese đồng (₫).</p>
+        </div>
+        <div class="footer-col">
+          <h4>Client Services</h4>
+          <ul class="footer-links">
+            <li><a href="client-services.html">Client Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="shipping&returns.html">Shipping &amp; Returns</a></li>
+            <li><a href="size-guide.html">Size Guide</a></li>
+            <li><a href="care-guide.html">Care Guide</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>The House</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">Our Story</a></li>
+            <li><a href="collections.html">Collections</a></li>
+            <li><a href="blog.html">Journal</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="privacy.html">Privacy</a></li>
+            <li><a href="terms.html">Terms of Use</a></li>
+            <li><a href="client-services.html#accessibility">Accessibility</a></li>
+          </ul>
+        </div>
+      </div>
       <div class="footer-bottom">
-        <p>&copy; 2026 ATELIER. All rights reserved.</p>
+        <p>© 2026 ATELIER. All rights reserved.</p>
+        <p>Desktop edition · Vietnam</p>
       </div>
     </div>
   </footer>
-<script type="module" src="./main.js"></script>
+  <script type="module" src="./main.js"></script>
 </body>
 </html>

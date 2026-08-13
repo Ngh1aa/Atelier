@@ -20,6 +20,9 @@ function boot() {
   if (path.includes("favourite.html")) {
     import("./favourite.js").then((m) => m.renderFavourite());
   }
+  if (path.includes("checkout.html")) {
+    import("./precommerce-checkout.js").then((m) => m.initPrecommerceCheckout());
+  }
 }
 
 document.addEventListener("DOMContentLoaded", boot);

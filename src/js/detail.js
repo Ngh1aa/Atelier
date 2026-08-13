@@ -29,6 +29,17 @@ async function renderDetail() {
     target.textContent = p.description;
   }
 
+  const productFacts = [
+    ['.js-product-fit', p.fit],
+    ['.js-product-material', p.material],
+    ['.js-product-care', p.care],
+    ['.js-product-origin', p.origin],
+  ];
+  productFacts.forEach(([selector, value]) => {
+    const element = document.querySelector(selector);
+    if (element && value) element.textContent = value;
+  });
+
   if (mainImg) {
     mainImg.src = p.images[0];
     mainImg.alt = p.name;
@@ -75,6 +86,20 @@ async function renderDetail() {
 
   document.title = `${p.name} - ATELIER`;
 
+  const relatedWrap = document.querySelector('.js-related-grid');
+  if (relatedWrap) {
+    const related = products
+      .filter((item) => item.id !== p.id)
+      .sort((a, b) => Number(b.category === p.category) - Number(a.category === p.category))
+      .slice(0, 4);
+    relatedWrap.innerHTML = related.map((item) => `
+      <a class="related-item" href="detailproduct.html?id=${encodeURIComponent(item.id)}">
+        <img loading="lazy" src="${item.images[0]}" alt="${item.name}">
+        <h4>${item.name}</h4>
+        <p>${formatVND(item.price)}</p>
+      </a>`).join('');
+  }
+
   // Actions
   const addBtn = document.querySelector(".js-btn-add-cart");
   if (addBtn) {
@@ -82,7 +107,7 @@ async function renderDetail() {
       addToCart(p.id, 1, addBtn);
       addBtn.textContent = "ADDED TO BAG";
       setTimeout(() => {
-        addBtn.textContent = "ADD TO CART";
+        addBtn.textContent = "ADD TO BAG";
       }, 1500);
     });
   }
