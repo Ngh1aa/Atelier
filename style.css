@@ -454,24 +454,24 @@ section {
 }
 
 /* Contact Section */
-.contact-grid {
+.editorial-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8rem;
   align-items: center;
 }
 
-.contact-img img {
+.editorial-img img {
   width: 100%;
   height: 600px;
   object-fit: cover;
 }
 
-.contact-form {
+.editorial-content {
   padding-right: 4rem;
 }
 
-.contact-form h2 {
+.editorial-content h2 {
   font-size: 3rem;
   margin-bottom: 2rem;
 }
@@ -741,7 +741,7 @@ button:focus-visible {
 .product-card img,
 .hero img,
 .collection-item img,
-.contact-img img,
+.editorial-img img,
 .square-img-wrap img,
 .tall-img-wrap img {
   border-radius: 1px;
