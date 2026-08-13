@@ -4,10 +4,27 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Silk Midnight Gown - ATELIER</title>
+  <title>Product Detail - ATELIER</title>
+  <meta name="description" content="Shop this piece from ATELIER — minimal luxury fashion with sustainable sourcing and hand-finished details.">
+  <meta name="keywords" content="ATELIER, luxury fashion, minimalist clothing, tailoring, knitwear, outerwear, sustainable fashion, Fall 2026">
+  <meta property="og:title" content="Product Detail - ATELIER">
+  <meta property="og:description" content="Shop this piece from ATELIER — minimal luxury fashion with sustainable sourcing and hand-finished details.">
+  <meta property="og:image" content="https://ngh1aa.github.io/Atelier/assets/gown-main.webp">
+  <meta property="og:type" content="product">
+  <meta property="og:url" content="https://ngh1aa.github.io/Atelier/detailproduct.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Product Detail - ATELIER">
+  <meta name="twitter:description" content="Shop this piece from ATELIER — minimal luxury fashion with sustainable sourcing and hand-finished details.">
+  <meta name="twitter:image" content="https://ngh1aa.github.io/Atelier/assets/gown-main.webp">
+
   <link rel="stylesheet" href="./style.css">
+<noscript>
+  <style>.reveal{opacity:1 !important;transform:none !important;}</style>
+</noscript>
+
+  <script>document.documentElement.classList.add("js-enabled")</script>
 </head>
-<body>
+<body class="js-enabled">
   <nav>
     <div class="container nav-container">
       <ul class="nav-links left">
@@ -28,7 +45,7 @@
   <main>
     <section class="product-detail-page">
       <div class="container">
-        <div class="breadcrumb">
+        <div class="breadcrumb js-breadcrumb">
           <a href="shop.html">Shop</a>
           <span>/</span>
           <a href="shop.html">Evening Collection</a>
@@ -40,32 +57,32 @@
           <!-- Left: Images -->
           <div class="product-visuals reveal">
             <div class="main-img-wrap">
-              <img src="./assets/gown-main.png" alt="Silk Midnight Gown" id="main-product-img">
+              <img loading="lazy" src="./assets/gown-main.webp" alt="Silk Midnight Gown" id="main-product-img"/>
               <button class="btn-true-color" id="toggle-color" title="View true colors">
-                <img src="https://api.iconify.design/ph:eye-light.svg?color=white">
+                <img loading="lazy" src="https://api.iconify.design/ph:eye-light.svg?color=white"/>
                 <span>View True Colors</span>
               </button>
             </div>
-            <div class="thumbnail-gallery">
-              <img src="./assets/gown-main.png" alt="Thumbnail 1" class="active">
-              <img src="./assets/new-in-2.png" alt="Thumbnail 2">
-              <img src="./assets/collection-1.png" alt="Thumbnail 3">
-              <img src="./assets/hero-1.png" alt="Thumbnail 4">
+            <div class="thumbnail-gallery js-thumbnail-gallery">
+              <img loading="lazy" src="./assets/gown-main.webp" alt="Thumbnail 1" class="active"/>
+              <img loading="lazy" src="./assets/new-in-2.webp" alt="Thumbnail 2"/>
+              <img loading="lazy" src="./assets/collection-1.webp" alt="Thumbnail 3"/>
+              <img loading="lazy" src="./assets/hero-1.webp" alt="Thumbnail 4"/>
             </div>
           </div>
 
           <!-- Right: Info -->
           <div class="product-info-col reveal" style="transition-delay: 0.1s;">
             <p class="collection-name">Evening Collection</p>
-            <h2 class="product-title">Silk Midnight Gown</h2>
-            <p class="product-price">$2,450.00</p>
+            <h2 class="product-title js-product-title">Silk Midnight Gown</h2>
+            <p class="product-price js-product-price">$0</p>
             
-            <div class="product-description">
+            <div class="product-description js-product-description">
               <p>Exquisitely tailored from 100% heavy-weight mulberry silk, the Midnight Gown features a fluid bias-cut silhouette that skims the form. A masterful expression of minimalist luxury, designed for the modern muse.</p>
               <ul class="product-features">
-                <li><img src="https://api.iconify.design/ph:check-circle-light.svg?color=gray" width="16"> Sustainable silk sourcing</li>
-                <li><img src="https://api.iconify.design/ph:check-circle-light.svg?color=gray" width="16"> Hand-finished internal seams</li>
-                <li><img src="https://api.iconify.design/ph:check-circle-light.svg?color=gray" width="16"> Made in Italy</li>
+                <li><img loading="lazy" src="https://api.iconify.design/ph:check-circle-light.svg?color=gray" width="16"/> Sustainable silk sourcing</li>
+                <li><img loading="lazy" src="https://api.iconify.design/ph:check-circle-light.svg?color=gray" width="16"/> Hand-finished internal seams</li>
+                <li><img loading="lazy" src="https://api.iconify.design/ph:check-circle-light.svg?color=gray" width="16"/> Made in Italy</li>
               </ul>
             </div>
 
@@ -74,7 +91,7 @@
                 <span>SELECT SIZE</span>
                 <a href="#" class="size-guide">Size Guide</a>
               </div>
-              <div class="size-options">
+              <div class="size-options js-size-options">
                 <span>XS</span>
                 <span class="active">S</span>
                 <span>M</span>
@@ -84,15 +101,13 @@
             </div>
 
             <div class="product-actions">
-              <button class="btn-add-cart">ADD TO CART</button>
-              <button class="btn-wishlist">
-                <img src="https://api.iconify.design/ph:heart-light.svg?color=white" width="20"> WISHLIST
-              </button>
+              <button class="btn-add-cart js-btn-add-cart">ADD TO CART</button>
+              <button class="btn-wishlist js-btn-wishlist"><img loading="lazy" src="https://api.iconify.design/ph:heart-light.svg?color=white" width="20"/> WISHLIST</button>
             </div>
 
             <div class="shipping-info">
-              <span><img src="https://api.iconify.design/ph:truck-light.svg?color=gray" width="18"> Complimentary Shipping</span>
-              <span><img src="https://api.iconify.design/ph:package-light.svg?color=gray" width="18"> Luxe Packaging</span>
+              <span><img loading="lazy" src="https://api.iconify.design/ph:truck-light.svg?color=gray" width="18"/> Complimentary Shipping</span>
+              <span><img loading="lazy" src="https://api.iconify.design/ph:package-light.svg?color=gray" width="18"/> Luxe Packaging</span>
             </div>
           </div>
         </div>
@@ -107,22 +122,22 @@
           </div>
           <div class="related-grid">
             <div class="related-item">
-              <img src="./assets/related-shoes.png" alt="Velvet Stiletto">
+              <img loading="lazy" src="./assets/related-shoes.webp" alt="Velvet Stiletto"/>
               <h4>Velvet Stiletto</h4>
               <p>$450.00</p>
             </div>
             <div class="related-item">
-              <img src="./assets/product-2.png" alt="Silk Satin Clutch">
+              <img loading="lazy" src="./assets/product-2.webp" alt="Silk Satin Clutch"/>
               <h4>Silk Satin Clutch</h4>
               <p>$350.00</p>
             </div>
             <div class="related-item">
-              <img src="./assets/product-9.png" alt="Diamond Drop Earrings">
+              <img loading="lazy" src="./assets/product-9.webp" alt="Diamond Drop Earrings"/>
               <h4>Diamond Drop Earrings</h4>
               <p>$1,200.00</p>
             </div>
             <div class="related-item">
-              <img src="./assets/product-6.png" alt="Sheer Evening Wrap">
+              <img loading="lazy" src="./assets/product-6.webp" alt="Sheer Evening Wrap"/>
               <h4>Sheer Evening Wrap</h4>
               <p>$320.00</p>
             </div>
@@ -198,8 +213,8 @@
       const isActive = mainImg.classList.toggle('show-true-color');
       toggleBtn.classList.toggle('active');
       toggleBtn.innerHTML = isActive
-        ? '<img src="https://api.iconify.design/ph:eye-closed-light.svg?color=white"><span>Show Grayscale</span>'
-        : '<img src="https://api.iconify.design/ph:eye-light.svg?color=white"><span>View True Colors</span>';
+        ? '<img loading="lazy" src="https://api.iconify.design/ph:eye-closed-light.svg?color=white"/><span>Show Grayscale</span>'
+        : '<img loading="lazy" src="https://api.iconify.design/ph:eye-light.svg?color=white"/><span>View True Colors</span>';
     });
 
     // Thumbnail click also updates main image and respects grayscale filter

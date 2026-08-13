@@ -1,20 +1,211 @@
 [
   {
+    "id": "tailored-wool-blazer",
+    "name": "Tailored Wool Blazer",
+    "category": "Outerwear",
+    "collection": "Fall 2026",
+    "price": 19500000,
+    "images": [
+      "./assets/product-1.webp"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "description": "A sharply cut wool blazer with a clean minimalist silhouette, designed for modern everyday tailoring."
+  },
+  {
+    "id": "cashmere-overcoat",
+    "name": "Cashmere Overcoat",
+    "category": "Outerwear",
+    "collection": "Fall 2026",
+    "price": 34200000,
+    "images": [
+      "./assets/product-2.webp"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "description": "Luxuriously soft cashmere overcoat with a timeless, relaxed drape that elevates any winter wardrobe."
+  },
+  {
+    "id": "merino-knit-dress",
+    "name": "Merino Knit Dress",
+    "category": "Knitwear",
+    "collection": "Foundations",
+    "price": 14500000,
+    "images": [
+      "./assets/product-3.webp"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L"
+    ],
+    "description": "A fluid merino knit dress that balances comfort and elegance, made for effortless day-to-night styling."
+  },
+  {
+    "id": "silk-drape-blouse",
+    "name": "Silk Drape Blouse",
+    "category": "Tees",
+    "collection": "Evening Collection",
+    "price": 11200000,
+    "images": [
+      "./assets/product-4.webp"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L"
+    ],
+    "description": "Weightless silk blouse with a softly draped neckline, a refined statement of quiet luxury."
+  },
+  {
+    "id": "linen-wide-trousers",
+    "name": "Linen Wide Trousers",
+    "category": "Denim & Shirts",
+    "collection": "Foundations",
+    "price": 9800000,
+    "images": [
+      "./assets/product-5.webp"
+    ],
+    "sizes": [
+      "26",
+      "28",
+      "30",
+      "32",
+      "34"
+    ],
+    "description": "Breathable wide-leg linen trousers with a relaxed, tailored finish for warm-weather elegance."
+  },
+  {
+    "id": "suede-chelsea-boots",
+    "name": "Suede Chelsea Boots",
+    "category": "Shoes",
+    "collection": "Fall 2026",
+    "price": 16800000,
+    "images": [
+      "./assets/product-6.webp"
+    ],
+    "sizes": [
+      "39",
+      "40",
+      "41",
+      "42",
+      "43",
+      "44"
+    ],
+    "description": "Classic suede Chelsea boots with a sculpted last, crafted for enduring comfort and understated style."
+  },
+  {
+    "id": "viscose-wrap-top",
+    "name": "Viscose Wrap Top",
+    "category": "Tees",
+    "collection": "Foundations",
+    "price": 8500000,
+    "images": [
+      "./assets/product-7.webp"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L"
+    ],
+    "description": "A fluid viscose wrap top with an adjustable silhouette, effortlessly feminine and easy to layer."
+  },
+  {
+    "id": "leather-minimal-tote",
+    "name": "Leather Minimal Tote",
+    "category": "Accessories",
+    "collection": "Essentials",
+    "price": 21000000,
+    "images": [
+      "./assets/product-8.webp"
+    ],
+    "sizes": [
+      "One Size"
+    ],
+    "description": "A structured full-grain leather tote with clean lines and generous capacity for daily essentials."
+  },
+  {
     "id": "tailored-coat",
     "name": "Tailored Coat",
     "category": "Knitwear",
-    "price": 1299,
-    "images": ["./assets/new-in-1.png", "./assets/new-in-1-2.png"],
-    "sizes": ["XS", "S", "M", "L", "XL"],
-    "description": "Elegant camel‑wool coat with minimalist silhouette."
+    "collection": "Fall 2026",
+    "price": 24500000,
+    "images": [
+      "./assets/new-in-1.webp"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "description": "Elegant camel-wool coat with a minimalist silhouette, tailored for the modern wardrobe."
   },
   {
     "id": "silk-gown",
     "name": "Silk Gown",
     "category": "Evening",
-    "price": 2199,
-    "images": ["./assets/new-in-2.png"],
-    "sizes": ["S", "M", "L"],
-    "description": "Luxe silk gown with draping detail, perfect for gala events."
+    "collection": "Evening Collection",
+    "price": 38000000,
+    "images": [
+      "./assets/new-in-2.webp"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L"
+    ],
+    "description": "Luxe silk gown with draping detail, perfect for gala events and unforgettable evenings."
+  },
+  {
+    "id": "urban-knit",
+    "name": "Urban Knit",
+    "category": "Knitwear",
+    "collection": "Foundations",
+    "price": 7200000,
+    "images": [
+      "./assets/new-in-3.webp"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "description": "A soft urban knit sweater in cream, the quiet foundation of an intentional everyday wardrobe."
+  },
+  {
+    "id": "silk-midnight-gown",
+    "name": "Silk Midnight Gown",
+    "category": "Evening",
+    "collection": "Evening Collection",
+    "price": 58900000,
+    "images": [
+      "./assets/gown-main.webp",
+      "./assets/new-in-2.webp",
+      "./assets/collection-1.webp",
+      "./assets/hero-1.webp"
+    ],
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "description": "Exquisitely tailored from 100% heavy-weight mulberry silk, the Midnight Gown features a fluid bias-cut silhouette that skims the form. A masterful expression of minimalist luxury, designed for the modern muse."
   }
 ]

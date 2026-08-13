@@ -5,9 +5,26 @@
   <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Your Cart - ATELIER</title>
+  <meta name="description" content="Review your ATELIER bag. Complimentary shipping and luxe packaging on every order.">
+  <meta name="keywords" content="ATELIER, luxury fashion, minimalist clothing, tailoring, knitwear, outerwear, sustainable fashion, Fall 2026">
+  <meta property="og:title" content="Your Cart - ATELIER">
+  <meta property="og:description" content="Review your ATELIER bag. Complimentary shipping and luxe packaging on every order.">
+  <meta property="og:image" content="https://ngh1aa.github.io/Atelier/assets/product-hero.webp">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ngh1aa.github.io/Atelier/cart.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Your Cart - ATELIER">
+  <meta name="twitter:description" content="Review your ATELIER bag. Complimentary shipping and luxe packaging on every order.">
+  <meta name="twitter:image" content="https://ngh1aa.github.io/Atelier/assets/product-hero.webp">
+
   <link rel="stylesheet" href="./style.css">
+<noscript>
+  <style>.reveal{opacity:1 !important;transform:none !important;}</style>
+</noscript>
+
+  <script>document.documentElement.classList.add("js-enabled")</script>
 </head>
-<body>
+<body class="js-enabled">
   <nav>
     <div class="container nav-container">
       <ul class="nav-links left">
@@ -34,11 +51,11 @@
 
         <div class="cart-grid reveal">
           <!-- Left: Cart Items -->
-          <div class="cart-items-list">
+          <div class="cart-items-list js-cart-items-list">
             <!-- Item 1 -->
             <div class="cart-item">
               <div class="cart-item-img">
-                <img src="./assets/new-in-1.png" alt="Classic Leather Jacket">
+                <img loading="lazy" src="./assets/new-in-1.webp" alt="Classic Leather Jacket"/>
               </div>
               <div class="cart-item-info">
                 <h3>Classic Leather Jacket</h3>
@@ -56,7 +73,7 @@
             <!-- Item 2 -->
             <div class="cart-item">
               <div class="cart-item-img">
-                <img src="./assets/product-1.png" alt="Essential Boxy T-Shirt">
+                <img loading="lazy" src="./assets/product-1.webp" alt="Essential Boxy T-Shirt"/>
               </div>
               <div class="cart-item-info">
                 <h3>Essential Boxy T-Shirt</h3>
@@ -81,7 +98,7 @@
               
               <div class="summary-row">
                 <span>SUBTOTAL</span>
-                <span>$620.00</span>
+                <span class="js-summary-subtotal">$0</span>
               </div>
               
               <div class="summary-row">
@@ -91,7 +108,7 @@
               
               <div class="summary-row total">
                 <span>TOTAL</span>
-                <span>$620.00</span>
+                <span class="js-summary-total">$0</span>
               </div>
               
               <a href="checkout.html" class="btn-checkout">PROCEED TO CHECKOUT</a>
@@ -127,25 +144,25 @@
 
           <div class="related-products-list">
             <div class="related-product-item">
-              <img src="./assets/product-2.png" alt="Silk Evening Scarf">
+              <img loading="lazy" src="./assets/product-2.webp" alt="Silk Evening Scarf"/>
               <p class="category">ACCESSORIES</p>
               <h4>Silk Evening Scarf</h4>
               <p class="price">$245.00</p>
             </div>
             <div class="related-product-item">
-              <img src="./assets/product-3.png" alt="90s Structured Blazer">
+              <img loading="lazy" src="./assets/product-3.webp" alt="90s Structured Blazer"/>
               <p class="category">OUTERWEAR</p>
               <h4>90s Structured Blazer</h4>
               <p class="price">$580.00</p>
             </div>
             <div class="related-product-item">
-              <img src="./assets/product-4.png" alt="Monochrome Canvas Tote">
+              <img loading="lazy" src="./assets/product-4.webp" alt="Monochrome Canvas Tote"/>
               <p class="category">ACCESSORIES</p>
               <h4>Monochrome Canvas Tote</h4>
               <p class="price">$120.00</p>
             </div>
             <div class="related-product-item">
-              <img src="./assets/product-5.png" alt="Ribbed Wool Scarf">
+              <img loading="lazy" src="./assets/product-5.webp" alt="Ribbed Wool Scarf"/>
               <p class="category">ESSENTIALS</p>
               <h4>Ribbed Wool Scarf</h4>
               <p class="price">$85.00</p>
