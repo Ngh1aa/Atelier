@@ -68,6 +68,9 @@ document.addEventListener('DOMContentLoaded', () => {
           item.remove();
         }, 300);
       });
+    }
+  });
+
   // Load More logic
   const BATCH = 8;
   const items = Array.from(document.querySelectorAll('.product-item-wrap'));
@@ -85,4 +88,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-});});
+});
