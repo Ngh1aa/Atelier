@@ -26,25 +26,45 @@ function initNav() {
 
   // Hamburger menu (mobile)
   const nav = document.querySelector("nav");
-  if (!nav) return;
+  if (!nav || nav.dataset.mobileNavReady === "true") return;
+  nav.dataset.mobileNavReady = "true";
+  const navContainer = nav.querySelector(".container");
+  const navLinks = nav.querySelector(".nav-links");
+  if (!navContainer || !navLinks) return;
+
+  navLinks.id = "atelier-mobile-menu";
   const hamburger = document.createElement("button");
   hamburger.className = "hamburger-btn";
-  hamburger.setAttribute("aria-label", "Toggle menu");
+  hamburger.setAttribute("type", "button");
+  hamburger.setAttribute("aria-label", "Open menu");
   hamburger.setAttribute("aria-expanded", "false");
-  hamburger.innerHTML = '<span></span><span></span><span></span>';
-  nav.querySelector(".container").appendChild(hamburger);
+  hamburger.setAttribute("aria-controls", navLinks.id);
+  hamburger.innerHTML = '<span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>';
+  navContainer.appendChild(hamburger);
 
-  hamburger.addEventListener("click", () => {
-    const isOpen = nav.classList.toggle("menu-open");
+  const setMenuOpen = (isOpen, moveFocus = false) => {
+    nav.classList.toggle("menu-open", isOpen);
+    document.body.classList.toggle("atelier-menu-open", isOpen);
     hamburger.setAttribute("aria-expanded", String(isOpen));
+    hamburger.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+    if (moveFocus) navLinks.querySelector("a")?.focus();
+  };
+
+  hamburger.addEventListener("click", () => setMenuOpen(!nav.classList.contains("menu-open"), true));
+
+  nav.querySelectorAll("a").forEach((a) => {
+    a.addEventListener("click", () => setMenuOpen(false));
   });
 
-  // Close menu when clicking a link
-  nav.querySelectorAll("a").forEach((a) => {
-    a.addEventListener("click", () => {
-      nav.classList.remove("menu-open");
-      hamburger.setAttribute("aria-expanded", "false");
-    });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && nav.classList.contains("menu-open")) {
+      setMenuOpen(false);
+      hamburger.focus();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 768 && nav.classList.contains("menu-open")) setMenuOpen(false);
   });
 }
 
