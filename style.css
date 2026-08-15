@@ -42,6 +42,7 @@ h1, h2, h3, h4 {
 p {
   color: var(--secondary-text);
   font-size: 0.95rem;
+  letter-spacing: normal;
 }
 
 /* Layout */
