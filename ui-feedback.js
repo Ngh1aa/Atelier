@@ -198,12 +198,11 @@ export function createUIFeedback(options = {}) {
     if (action === 'edit') beginPicking('edit');
   }
 
-  function handleToolbarEvent(event) {
-    const button = event.composedPath().find((node) => node instanceof HTMLButtonElement && node.dataset?.action);
-    if (!button) return;
-    const action = button.dataset.action;
+  function triggerToolbarAction(event, button) {
+    const action = button?.dataset?.action;
+    if (!action) return;
     const now = performance.now();
-    if (event.type === 'click' && action === lastToolbarAction && now - lastToolbarActionAt < 500) return;
+    if (action === lastToolbarAction && now - lastToolbarActionAt < 500) return;
     lastToolbarAction = action;
     lastToolbarActionAt = now;
     event.preventDefault();
@@ -211,7 +210,19 @@ export function createUIFeedback(options = {}) {
     dispatchToolbarAction(action);
   }
 
-  function bindToolbar() {}
+  function handleToolbarEvent(event) {
+    const button = event.composedPath().find((node) => node instanceof HTMLButtonElement && node.dataset?.action);
+    if (button) triggerToolbarAction(event, button);
+  }
+
+  function bindToolbar() {
+    // Direct listeners are intentionally kept in addition to delegation. This
+    // protects the toolbar when a host page changes event propagation or focus.
+    root.querySelectorAll('button[data-action]').forEach((button) => {
+      button.addEventListener('pointerdown', (event) => triggerToolbarAction(event, button));
+      button.addEventListener('click', (event) => triggerToolbarAction(event, button));
+    });
+  }
 
 
   function togglePanel(force) {
