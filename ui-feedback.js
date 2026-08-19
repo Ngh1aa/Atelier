@@ -487,6 +487,28 @@ export function createUIFeedback(options = {}) {
     openModal(element, state.mode);
   }
 
+  // A host-level bridge is required for pages that interfere with event
+  // propagation inside a Shadow DOM. Pointer events are composed, so the
+  // original button/layer remains available through composedPath().
+  function handleHostEvent(event) {
+    const path = event.composedPath();
+    const button = path.find((node) => node instanceof HTMLButtonElement && node.dataset?.action);
+    if (button) {
+      triggerToolbarAction(event, button);
+      return;
+    }
+    if (!state.picking) return;
+    const picker = path.find((node) => node instanceof Element && node.matches?.('[data-picker-layer]'));
+    if (!picker) return;
+    if (event.type === 'click' && performance.now() - pickerHandledAt < 600) return;
+    const element = elementAtPoint(event.clientX, event.clientY);
+    if (!element) return;
+    event.preventDefault();
+    event.stopPropagation();
+    pickerHandledAt = performance.now();
+    openModal(element, state.mode);
+  }
+
   function pointerClick(event) {
     if (!state.picking || event.composedPath().includes(host)) return;
     const element = event.target instanceof Element ? event.target : null;
@@ -509,6 +531,8 @@ export function createUIFeedback(options = {}) {
     root.removeEventListener('pointermove', pointerMove, true);
     root.removeEventListener('pointerdown', handlePickerPointerDown, true);
     root.removeEventListener('click', handlePickerClick, true);
+    host.removeEventListener('pointerdown', handleHostEvent, true);
+    host.removeEventListener('click', handleHostEvent, true);
     host.remove();
     delete window.__uiFeedbackInstance;
   }
@@ -522,9 +546,11 @@ export function createUIFeedback(options = {}) {
   root.addEventListener('pointerdown', handleToolbarEvent, true);
   root.addEventListener('click', handleToolbarEvent, true);
   root.addEventListener('pointermove', pointerMove, true);
-  root.addEventListener('pointerdown', handlePickerPointerDown, true);
-  root.addEventListener('click', handlePickerClick, true);
-  window.__uiFeedbackInstance = { toggle, exportMarkdown, getComments: () => [...state.comments], dispose };
+    root.addEventListener('pointerdown', handlePickerPointerDown, true);
+    root.addEventListener('click', handlePickerClick, true);
+    host.addEventListener('pointerdown', handleHostEvent, true);
+    host.addEventListener('click', handleHostEvent, true);
+    window.__uiFeedbackInstance = { toggle, exportMarkdown, getComments: () => [...state.comments], dispose };
   renderToolbar();
   return window.__uiFeedbackInstance;
 }
