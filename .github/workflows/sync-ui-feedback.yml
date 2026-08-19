@@ -1,0 +1,44 @@
+name: Sync UI Feedback Tool
+
+on:
+  repository_dispatch:
+    types: [ui-feedback-updated]
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Atelier
+        uses: actions/checkout@v4
+
+      - name: Checkout canonical UI Feedback source
+        uses: actions/checkout@v4
+        with:
+          repository: Ngh1aa/ui-feedback-tool
+          ref: ${{ github.event.client_payload.source_sha }}
+          token: ${{ secrets.SYNC_TOKEN }}
+          path: .ui-feedback-source
+
+      - name: Update UI Feedback files
+        run: |
+          cp .ui-feedback-source/src/ui-feedback.js ./src/ui-feedback.js
+          if [ -f ./ui-feedback.js ]; then
+            cp .ui-feedback-source/src/ui-feedback.js ./ui-feedback.js
+          fi
+
+      - name: Commit and push synchronized files
+        env:
+          SOURCE_SHA: ${{ github.event.client_payload.source_sha }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/ui-feedback.js ui-feedback.js
+          if git diff --cached --quiet; then
+            echo "UI Feedback is already synchronized at ${SOURCE_SHA}."
+            exit 0
+          fi
+          git commit -m "chore: sync UI Feedback tool ${SOURCE_SHA}"
+          git push
