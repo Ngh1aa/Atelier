@@ -5014,3 +5014,72 @@ body textarea:focus-visible {
     max-width: 100%;
   }
 }
+
+
+/* UI feedback: Atelier — 19 Aug 2026 */
+
+/* 1. Increase mobile navigation titles to 20px without changing desktop nav density. */
+@media (max-width: 768px) {
+  #atelier-mobile-menu a {
+    font-size: 20px;
+    letter-spacing: .04em;
+  }
+}
+
+/* 2. Center the journal marquee on desktop; preserve a readable moving strip on mobile. */
+@media (min-width: 721px) {
+  .atelier-marquee-track {
+    width: 100%;
+    justify-content: center;
+    padding-left: 0;
+    animation: none;
+  }
+}
+
+/* 3. Keep New In filters level with the section title. */
+#new-in .section-header .section-filters {
+  align-self: flex-start;
+  margin-top: .25rem;
+}
+
+/* 4. Align Featured Collections copy to the title baseline. */
+#collections .section-header {
+  align-items: baseline;
+}
+
+#collections .section-header h2 {
+  margin-bottom: 0;
+}
+
+/* 5. Give the editorial CTA the requested 16px downward separation. */
+#editorial .editorial-content .btn-shop {
+  display: inline-block;
+  margin-top: 16px;
+}
+
+/* 6. Keep the footer brand mark anchored to the left edge of its column. */
+.site-footer .brand-col .logo {
+  text-align: left;
+}
+
+.site-footer .brand-col .logo a {
+  display: inline-flex;
+  justify-content: flex-start;
+}
+
+/* 7. Remove the browser-style white focus ring/border from the search field. */
+#navSearchInput,
+#navSearchInput:focus,
+#navSearchInput:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border-top: 0 !important;
+  border-right: 0 !important;
+  border-left: 0 !important;
+  border-bottom-color: var(--border-color) !important;
+}
+
+/* 8. Make only the Accessibility callout white. */
+#accessibility {
+  background-color: #fff;
+}

@@ -79,7 +79,7 @@ async function renderCart() {
 function updateSummary(total) {
   const rows = document.querySelectorAll(".js-summary-subtotal, .js-summary-total");
   rows.forEach((el) => {
-    el.textContent = total > 0 ? formatVND(total) : "\u20ab0";
+    el.textContent = total > 0 ? formatVND(total) : "0$";
   });
 }
 
