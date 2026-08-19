@@ -1,5 +1,6 @@
 // App entry: bootstrap reveal animations + per-page commerce modules
 import "./src/js/app.js";
+import "./src/main.js";
 
 // Scroll Reveal Animation
 const observerOptions = {
