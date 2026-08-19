@@ -1,0 +1,7 @@
+{
+  "enabled": true,
+  "source": "Ngh1aa/ui-feedback-tool",
+  "targetPaths": ["src/ui-feedback.js", "ui-feedback.js"],
+  "storageKey": "atelier-ui-feedback",
+  "githubRepo": "Ngh1aa/Atelier"
+}
