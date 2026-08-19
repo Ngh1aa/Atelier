@@ -14,7 +14,7 @@ const STORAGE_KEY = "atelier.cart";
 const WISH_KEY = "atelier.wishlist";
 
 function formatVND(n) {
-  return n.toLocaleString("vi-VN") + "\u20ab";
+  return n.toLocaleString("en-US") + "$";
 }
 
 function getCart() {

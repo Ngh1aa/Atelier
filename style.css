@@ -5083,3 +5083,68 @@ body textarea:focus-visible {
 #accessibility {
   background-color: #fff;
 }
+
+
+/* UI feedback: Atelier — 19 Aug 2026 / second batch */
+
+/* 6. Lower the complete journal marquee block by 16px. */
+.atelier-marquee {
+  margin-top: 16px;
+}
+
+/* 7. Center the New In filter frame against the section title. */
+#new-in .section-header .section-filters {
+  align-self: center;
+  margin-top: 0;
+}
+
+/* 9. Discover More is a visible cross-link even when all eight products fit one batch. */
+.shop-discover-more {
+  display: flex;
+  width: fit-content;
+  margin: 1.5rem auto 4rem;
+  text-decoration: none;
+}
+
+/* 10. Keep the editorial heading to two lines on wide layouts and bring its CTA inward. */
+.footer-newsletter.footer-editorial {
+  justify-content: flex-start;
+  gap: clamp(2rem, 7vw, 7rem);
+}
+
+.footer-newsletter.footer-editorial .newsletter-text h3 {
+  max-width: 760px;
+  text-wrap: balance;
+}
+
+.footer-newsletter.footer-editorial .btn-outline {
+  flex: 0 0 auto;
+  text-decoration: none;
+}
+
+/* 12–14, 16–17, 19. Editorial action links should read as buttons/links, not underlined copy. */
+.collection-feature-copy .btn-outline,
+.footer-newsletter.footer-editorial .btn-outline,
+.journal-lead-copy .text-link,
+.house-page .btn-outline {
+  text-decoration: none;
+}
+
+/* 18. Start the footer frame lower, at the considered journal area. */
+footer.site-footer {
+  margin-top: 16px;
+}
+
+@media (max-width: 768px) {
+  .shop-discover-more {
+    margin: 1rem auto 3rem;
+  }
+
+  .footer-newsletter.footer-editorial {
+    gap: 1.5rem;
+  }
+
+  .footer-newsletter.footer-editorial .newsletter-text h3 {
+    max-width: 100%;
+  }
+}
