@@ -5191,10 +5191,10 @@ body > nav .nav-links a {
   transform-origin: left center;
 }
 body > nav .nav-links a.active {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 800;
   border-bottom: 0;
-  transform: scale(1.02);
+  transform: none;
 }
 
 /* Explicitly remove any monochrome CSS treatment from Atelier content imagery. */
@@ -5213,11 +5213,11 @@ body .house-image-frame img {
 
 @media (max-width: 1060px) {
   body > nav .nav-links a { font-size: 24px; }
-  body > nav .nav-links a.active { font-size: 28px; }
+  body > nav .nav-links a.active { font-size: 24px; }
 }
 @media (max-width: 768px) {
   body > nav .nav-links a,
   body > nav.menu-open .nav-links li a { font-size: 24px; }
   body > nav .nav-links a.active,
-  body > nav.menu-open .nav-links li a.active { font-size: 28px; }
+  body > nav.menu-open .nav-links li a.active { font-size: 24px; }
 }
