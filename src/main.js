@@ -1,7 +1,7 @@
 // Fashion - The Armor of Reality
 // Main entry point - currently no JavaScript modules needed
 // UI/UX review overlay: press Q + W + E together to toggle.
-import { createUIFeedback } from './ui-feedback.js?v=ui-feedback-v0.10.0-css-advanced';
+import { createUIFeedback } from './ui-feedback.js?v=ui-feedback-v0.11.0-picker-inspector';
 createUIFeedback({
   storageKey: 'atelier-ui-feedback',
   githubRepo: 'Ngh1aa/Atelier',
