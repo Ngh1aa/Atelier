@@ -5221,3 +5221,41 @@ body .house-image-frame img {
   body > nav .nav-links a.active,
   body > nav.menu-open .nav-links li a.active { font-size: 24px; }
 }
+
+
+/* UI feedback: Atelier — batch 20 Aug 2026 */
+/* Feedback links are text actions, never browser-style underlined links. */
+.text-link,
+.text-link:hover,
+.text-link:focus-visible,
+.section-filters li a,
+.section-filters li a:hover,
+.section-filters li a:focus-visible {
+  text-decoration: none !important;
+}
+
+/* Active navigation uses the Atelier wordmark family at the same 24px size. */
+body > nav .nav-links a.active,
+body > nav.menu-open .nav-links li a.active {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 700;
+  transform: none;
+  text-decoration: none;
+}
+
+/* Editorial CTA keeps the shared arrow language used by Atelier links. */
+#editorial .editorial-content .btn-shop {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  text-decoration: none;
+}
+#editorial .editorial-content .btn-shop span {
+  display: inline-block;
+  transition: transform 300ms ease;
+}
+#editorial .editorial-content .btn-shop:hover span,
+#editorial .editorial-content .btn-shop:focus-visible span {
+  transform: translateX(5px);
+}
