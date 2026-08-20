@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
 
 :root {
   --bg-color: #000000;
@@ -5173,26 +5173,33 @@ footer.site-footer {
 }
 
 
-/* Navigation refinement: 24px titles, active state uses weight/scale only, never an underline. */
+/* Navigation typography: active page is the title; the remaining items stay quiet and readable. */
 body > nav .nav-links a,
+body > nav .nav-icons a.nav-text,
+body > nav .user-btn {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: .02em;
+  border-bottom: 0;
+  transform: none;
+}
+
 body > nav .nav-links a:hover,
 body > nav .nav-links a:focus-visible,
-body > nav .nav-links a.active,
 body > nav .nav-icons a.nav-text:hover,
 body > nav .user-btn:hover {
   text-decoration: none;
   text-underline-offset: 0;
 }
-body > nav .nav-links a {
-  font-size: 24px;
-  font-weight: 500;
-  line-height: 1.1;
-  border-bottom: 0;
-  transform-origin: left center;
-}
+
 body > nav .nav-links a.active {
-  font-size: 24px;
-  font-weight: 800;
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: .01em;
   border-bottom: 0;
   transform: none;
 }
@@ -5212,14 +5219,14 @@ body .house-image-frame img {
 }
 
 @media (max-width: 1060px) {
-  body > nav .nav-links a { font-size: 24px; }
-  body > nav .nav-links a.active { font-size: 24px; }
+  body > nav .nav-links a { font-size: 14px; }
+  body > nav .nav-links a.active { font-size: 18px; }
 }
 @media (max-width: 768px) {
   body > nav .nav-links a,
-  body > nav.menu-open .nav-links li a { font-size: 24px; }
+  body > nav.menu-open .nav-links li a { font-size: 14px; font-weight: 400; }
   body > nav .nav-links a.active,
-  body > nav.menu-open .nav-links li a.active { font-size: 24px; }
+  body > nav.menu-open .nav-links li a.active { font-size: 18px; font-weight: 600; }
 }
 
 
@@ -5234,12 +5241,13 @@ body .house-image-frame img {
   text-decoration: none !important;
 }
 
-/* Active navigation uses the Atelier wordmark family at the same 24px size. */
+/* Active navigation follows the Inter semibold title treatment at 18px. */
 body > nav .nav-links a.active,
 body > nav.menu-open .nav-links li a.active {
-  font-family: var(--font-heading);
-  font-size: 24px;
-  font-weight: 700;
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.25;
   transform: none;
   text-decoration: none;
 }
