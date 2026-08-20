@@ -5171,3 +5171,53 @@ footer.site-footer {
   .collection-feature-image { min-height: 0; }
   .collection-feature-image { aspect-ratio: 4 / 5; }
 }
+
+
+/* Navigation refinement: 24px titles, active state uses weight/scale only, never an underline. */
+body > nav .nav-links a,
+body > nav .nav-links a:hover,
+body > nav .nav-links a:focus-visible,
+body > nav .nav-links a.active,
+body > nav .nav-icons a.nav-text:hover,
+body > nav .user-btn:hover {
+  text-decoration: none;
+  text-underline-offset: 0;
+}
+body > nav .nav-links a {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.1;
+  border-bottom: 0;
+  transform-origin: left center;
+}
+body > nav .nav-links a.active {
+  font-size: 28px;
+  font-weight: 800;
+  border-bottom: 0;
+  transform: scale(1.02);
+}
+
+/* Explicitly remove any monochrome CSS treatment from Atelier content imagery. */
+body img,
+body picture img,
+body .hero-img-main img,
+body .hero-img-offset img,
+body .product-card img,
+body .collection-item img,
+body .editorial-img img,
+body .collection-feature-image img,
+body .house-image-frame img {
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+@media (max-width: 1060px) {
+  body > nav .nav-links a { font-size: 24px; }
+  body > nav .nav-links a.active { font-size: 28px; }
+}
+@media (max-width: 768px) {
+  body > nav .nav-links a,
+  body > nav.menu-open .nav-links li a { font-size: 24px; }
+  body > nav .nav-links a.active,
+  body > nav.menu-open .nav-links li a.active { font-size: 28px; }
+}
