@@ -12,7 +12,7 @@ async function renderFavourite() {
   const title = document.querySelector(".js-favourite-count");
   if (!grid) return;
 
-  const res = await fetch("./src/data/products.json");
+  const res = await fetch("./assets/data/products.json");
   products = await res.json();
 
   const list = getWishlist();

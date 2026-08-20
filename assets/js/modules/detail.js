@@ -6,7 +6,7 @@ let currentProduct = null;
 async function renderDetail() {
   const id = new URLSearchParams(window.location.search).get("id");
   if (!id) return; // no param -> keep static default page
-  const res = await fetch("./src/data/products.json");
+  const res = await fetch("./assets/data/products.json");
   const products = await res.json();
   const p = products.find((x) => x.id === id);
   if (!p) return; // keep static fallback page as-is

@@ -25,7 +25,7 @@ async function renderCart() {
   const list = cartItemsList();
   if (!list) return;
   try {
-  const res = await fetch("./src/data/products.json");
+  const res = await fetch("./assets/data/products.json");
   products = await res.json();
 
   const cart = getCart();

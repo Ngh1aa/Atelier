@@ -1,16 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
-
-:root {
-  --bg-color: #000000;
-  --text-color: #ffffff;
-  --accent-color: #ffffff;
-  --secondary-text: #a0a0a0;
-  --nav-bg: rgba(0, 0, 0, 0.8);
-  --border-color: rgba(255, 255, 255, 0.1);
-  --font-heading: 'Playfair Display', serif;
-  --font-body: 'Inter', sans-serif;
-  --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
+@import url("./tokens.css");
 
 * {
   margin: 0;

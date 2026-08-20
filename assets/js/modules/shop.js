@@ -112,7 +112,7 @@ async function renderShop() {
   const grid = document.querySelector(".js-shop-grid");
   if (!grid) return;
 
-  const res = await fetch("./src/data/products.json");
+  const res = await fetch("./assets/data/products.json");
   const all = await res.json();
   const products = SHOP_IDS.map((id) => all.find((p) => p.id === id)).filter(Boolean);
 

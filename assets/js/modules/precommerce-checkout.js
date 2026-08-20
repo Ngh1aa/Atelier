@@ -17,7 +17,7 @@ export async function initPrecommerceCheckout() {
   const notice = document.querySelector('.js-checkout-notice');
   if (!itemWrap || !subtotal || !total) return;
 
-  const response = await fetch('./src/data/products.json');
+  const response = await fetch('./assets/data/products.json');
   const products = await response.json();
   const cart = getCart();
   const entries = Object.entries(cart)

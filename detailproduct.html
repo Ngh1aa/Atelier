@@ -5,6 +5,8 @@
   <link rel="icon" type="image/svg+xml" href="./assets/logo/atelier-mark.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Product Detail - ATELIER</title>
+  <meta name="theme-color" content="#111111">
+  <link rel="canonical" href="https://ngh1aa.github.io/Atelier/detailproduct.html">
   <meta name="description" content="Explore product details, fit guidance and considered wardrobe essentials from ATELIER.">
   <meta name="keywords" content="ATELIER, luxury fashion, minimalist clothing, tailoring, knitwear, outerwear, sustainable fashion, Fall 2026">
   <meta property="og:title" content="Product Detail - ATELIER">
@@ -17,14 +19,16 @@
   <meta name="twitter:description" content="Explore product details, fit guidance and considered wardrobe essentials from ATELIER.">
   <meta name="twitter:image" content="https://ngh1aa.github.io/Atelier/assets/gown-main.webp">
 
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="assets/css/site.css">
 <noscript>
   <style>.reveal{opacity:1 !important;transform:none !important;}</style>
 </noscript>
 
   <script>document.documentElement.classList.add("js-enabled")</script>
+  <link rel="stylesheet" href="assets/css/a11y.css">
 </head>
 <body class="js-enabled">
+<a class="skip-link" href="#main-content">Skip to content</a>
     <nav>
     <div class="container nav-container">
       <ul class="nav-links left">
@@ -52,7 +56,7 @@
   </div>
 
 
-  <main>
+  <main id="main-content">
     <section class="product-detail-page">
       <div class="container">
         <div class="breadcrumb js-breadcrumb">
@@ -68,8 +72,8 @@
           <div class="product-visuals reveal">
             <div class="main-img-wrap">
               <img loading="lazy" src="./assets/feedback/detail-product-main-v2.jpg" alt="Silk Midnight Gown" id="main-product-img" srcset="./assets/feedback/detail-product-main-v2-512.jpg 512w, ./assets/feedback/detail-product-main-v2.jpg 736w" sizes="(max-width: 720px) 100vw, 50vw">
-              <button class="btn-true-color" id="toggle-color" title="View true colors">
-                <img loading="lazy" src="https://api.iconify.design/ph:eye-light.svg?color=white"/>
+              <button type="button" class="btn-true-color" id="toggle-color" title="View true colors">
+                <img loading="lazy" src="https://api.iconify.design/ph:eye-light.svg?color=white"/ alt="" aria-hidden="true">
                 <span>View True Colors</span>
               </button>
             </div>
@@ -112,8 +116,8 @@
             </div>
 
             <div class="product-actions">
-              <button class="btn-add-cart js-btn-add-cart">ADD TO BAG</button>
-              <button class="btn-wishlist js-btn-wishlist"><img loading="lazy" src="https://api.iconify.design/ph:heart-light.svg?color=white" width="20"/> WISHLIST</button>
+              <button type="button" class="btn-add-cart js-btn-add-cart">ADD TO BAG</button>
+              <button type="button" class="btn-wishlist js-btn-wishlist"><img loading="lazy" src="https://api.iconify.design/ph:heart-light.svg?color=white" width="20"/ alt="" aria-hidden="true"> WISHLIST</button>
             </div>
 
             <div class="shipping-info">
@@ -206,7 +210,7 @@
     </div>
   </footer>
 
-  <script type="module" src="./main.js"></script>
+  <script type="module" src="assets/js/main.js"></script>
   <script>
     const toggleBtn = document.getElementById('toggle-color');
     const mainImg = document.getElementById('main-product-img');
@@ -215,8 +219,8 @@
       const isActive = mainImg.classList.toggle('show-true-color');
       toggleBtn.classList.toggle('active');
       toggleBtn.innerHTML = isActive
-        ? '<img loading="lazy" src="https://api.iconify.design/ph:eye-closed-light.svg?color=white"/><span>Show Grayscale</span>'
-        : '<img loading="lazy" src="https://api.iconify.design/ph:eye-light.svg?color=white"/><span>View True Colors</span>';
+        ? '<img loading="lazy" src="https://api.iconify.design/ph:eye-closed-light.svg?color=white"/ alt="" aria-hidden="true"><span>Show Grayscale</span>'
+        : '<img loading="lazy" src="https://api.iconify.design/ph:eye-light.svg?color=white"/ alt="" aria-hidden="true"><span>View True Colors</span>';
     });
 
     // Thumbnail click also updates main image and respects grayscale filter

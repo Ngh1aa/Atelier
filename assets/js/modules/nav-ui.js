@@ -31,7 +31,7 @@ export function initSearchOverlay() {
   let products = [];
   const loadProducts = async () => {
     try {
-      const res = await fetch("./src/data/products.json");
+      const res = await fetch("./assets/data/products.json");
       products = await res.json();
     } catch {
       products = [];

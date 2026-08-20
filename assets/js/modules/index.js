@@ -9,7 +9,7 @@ const INDEX_PRODUCTS = {
 };
 
 async function initIndex() {
-  const res = await fetch("./src/data/products.json");
+  const res = await fetch("./assets/data/products.json");
   const products = await res.json();
 
   // Make index product cards clickable to detail page + add wishlist
