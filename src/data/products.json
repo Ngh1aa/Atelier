@@ -6,7 +6,7 @@
     "collection": "Fall 2026",
     "price": 19500000,
     "images": [
-      "./assets/product-1.webp"
+      "./assets/feedback/shop-product-1.jpg"
     ],
     "sizes": [
       "XS",
@@ -19,7 +19,8 @@
     "fit": "Structured, straight silhouette. Choose your usual size for a considered tailored fit.",
     "material": "Full composition details will be confirmed before online ordering becomes available.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Country of origin will be specified before commercial launch."
+    "origin": "Country of origin will be specified before commercial launch.",
+    "fallback": "./assets/product-1.webp"
   },
   {
     "id": "cashmere-overcoat",
@@ -28,7 +29,7 @@
     "collection": "Fall 2026",
     "price": 34200000,
     "images": [
-      "./assets/product-2.webp"
+      "./assets/feedback/shop-product-2.jpg"
     ],
     "sizes": [
       "S",
@@ -40,7 +41,8 @@
     "fit": "Relaxed, longline silhouette designed for layering.",
     "material": "Full composition details will be confirmed before online ordering becomes available.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Country of origin will be specified before commercial launch."
+    "origin": "Country of origin will be specified before commercial launch.",
+    "fallback": "./assets/product-2.webp"
   },
   {
     "id": "merino-knit-dress",
@@ -49,7 +51,7 @@
     "collection": "Foundations",
     "price": 14500000,
     "images": [
-      "./assets/product-3.webp"
+      "./assets/feedback/shop-product-3.jpg"
     ],
     "sizes": [
       "XS",
@@ -61,7 +63,8 @@
     "fit": "Fluid close-to-body knit silhouette with comfortable movement.",
     "material": "Full composition details will be confirmed before online ordering becomes available.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Country of origin will be specified before commercial launch."
+    "origin": "Country of origin will be specified before commercial launch.",
+    "fallback": "./assets/product-3.webp"
   },
   {
     "id": "silk-drape-blouse",
@@ -70,7 +73,7 @@
     "collection": "Evening Collection",
     "price": 11200000,
     "images": [
-      "./assets/product-4.webp"
+      "./assets/feedback/shop-product-4.jpg"
     ],
     "sizes": [
       "XS",
@@ -82,7 +85,8 @@
     "fit": "Softly draped silhouette; intended to fall away from the body.",
     "material": "Full composition details will be confirmed before online ordering becomes available.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Country of origin will be specified before commercial launch."
+    "origin": "Country of origin will be specified before commercial launch.",
+    "fallback": "./assets/product-4.webp"
   },
   {
     "id": "linen-wide-trousers",
@@ -91,7 +95,7 @@
     "collection": "Foundations",
     "price": 9800000,
     "images": [
-      "./assets/product-5.webp"
+      "./assets/feedback/shop-product-5.jpg"
     ],
     "sizes": [
       "26",
@@ -104,7 +108,8 @@
     "fit": "Relaxed wide-leg cut. Refer to the waist measurement in the size guide.",
     "material": "Full composition details will be confirmed before online ordering becomes available.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Country of origin will be specified before commercial launch."
+    "origin": "Country of origin will be specified before commercial launch.",
+    "fallback": "./assets/product-5.webp"
   },
   {
     "id": "suede-chelsea-boots",
@@ -113,7 +118,7 @@
     "collection": "Fall 2026",
     "price": 16800000,
     "images": [
-      "./assets/product-6.webp"
+      "./assets/feedback/shop-product-6.jpg"
     ],
     "sizes": [
       "39",
@@ -127,7 +132,8 @@
     "fit": "Regular fit. Choose your usual footwear size.",
     "material": "Full composition details will be confirmed before online ordering becomes available.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Country of origin will be specified before commercial launch."
+    "origin": "Country of origin will be specified before commercial launch.",
+    "fallback": "./assets/product-6.webp"
   },
   {
     "id": "viscose-wrap-top",
@@ -136,7 +142,7 @@
     "collection": "Foundations",
     "price": 8500000,
     "images": [
-      "./assets/product-7.webp"
+      "./assets/feedback/shop-product-7.jpg"
     ],
     "sizes": [
       "XS",
@@ -148,7 +154,8 @@
     "fit": "Adjustable wrap silhouette, designed for a personalised fit.",
     "material": "Full composition details will be confirmed before online ordering becomes available.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Country of origin will be specified before commercial launch."
+    "origin": "Country of origin will be specified before commercial launch.",
+    "fallback": "./assets/product-7.webp"
   },
   {
     "id": "leather-minimal-tote",
@@ -157,7 +164,7 @@
     "collection": "Essentials",
     "price": 21000000,
     "images": [
-      "./assets/product-8.webp"
+      "./assets/feedback/shop-product-8.jpg"
     ],
     "sizes": [
       "One Size"
@@ -166,7 +173,8 @@
     "fit": "One-size accessory with a structured everyday proportion.",
     "material": "Full composition details will be confirmed before online ordering becomes available.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Country of origin will be specified before commercial launch."
+    "origin": "Country of origin will be specified before commercial launch.",
+    "fallback": "./assets/product-8.webp"
   },
   {
     "id": "tailored-coat",
@@ -175,7 +183,7 @@
     "collection": "Fall 2026",
     "price": 24500000,
     "images": [
-      "./assets/new-in-1.webp"
+      "./assets/feedback/home-new-in-1.jpg"
     ],
     "sizes": [
       "S",
@@ -187,7 +195,8 @@
     "fit": "Relaxed tailored silhouette designed to layer over knitwear.",
     "material": "Full composition details will be confirmed before online ordering becomes available.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Country of origin will be specified before commercial launch."
+    "origin": "Country of origin will be specified before commercial launch.",
+    "fallback": "./assets/new-in-1.webp"
   },
   {
     "id": "silk-gown",
@@ -196,7 +205,7 @@
     "collection": "Evening Collection",
     "price": 38000000,
     "images": [
-      "./assets/new-in-2.webp"
+      "./assets/feedback/home-new-in-2.jpg"
     ],
     "sizes": [
       "XS",
@@ -208,7 +217,8 @@
     "fit": "Fluid draped silhouette with a close, elongated line.",
     "material": "Full composition details will be confirmed before online ordering becomes available.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Country of origin will be specified before commercial launch."
+    "origin": "Country of origin will be specified before commercial launch.",
+    "fallback": "./assets/new-in-2.webp"
   },
   {
     "id": "urban-knit",
@@ -217,7 +227,7 @@
     "collection": "Foundations",
     "price": 7200000,
     "images": [
-      "./assets/new-in-3.webp"
+      "./assets/feedback/home-new-in-3.jpg"
     ],
     "sizes": [
       "S",
@@ -229,7 +239,8 @@
     "fit": "Easy, relaxed knit silhouette intended for everyday layering.",
     "material": "Full composition details will be confirmed before online ordering becomes available.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Country of origin will be specified before commercial launch."
+    "origin": "Country of origin will be specified before commercial launch.",
+    "fallback": "./assets/new-in-3.webp"
   },
   {
     "id": "silk-midnight-gown",

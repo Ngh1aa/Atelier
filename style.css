@@ -5148,3 +5148,26 @@ footer.site-footer {
     max-width: 100%;
   }
 }
+
+
+/* Feedback implementation: stable local media, intentional focal points and lighter editorial frames. */
+.hero-img-main img { object-position: center 36%; }
+.hero-img-offset img { object-position: center 50%; }
+.product-card img,
+.collection-item img,
+.editorial-img img,
+.collection-feature-image img,
+.house-image-frame img { image-rendering: auto; backface-visibility: hidden; }
+.product-card img { object-position: center 35%; }
+.collection-item.large img { height: clamp(620px, 50vw, 720px); object-position: center 36%; }
+.collection-item.small img { height: clamp(400px, 32vw, 480px); margin-top: clamp(5rem, 8vw, 8rem); object-position: center 48%; }
+.collection-feature-grid { min-height: clamp(540px, 48vw, 680px); }
+.collection-feature-image { min-height: clamp(540px, 48vw, 680px); }
+
+@media (max-width: 720px) {
+  .collection-item.large img { height: min(150vw, 620px); }
+  .collection-item.small img { height: min(115vw, 470px); margin-top: 3rem; }
+  .collection-feature-grid,
+  .collection-feature-image { min-height: 0; }
+  .collection-feature-image { aspect-ratio: 4 / 5; }
+}

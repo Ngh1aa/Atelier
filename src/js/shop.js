@@ -93,6 +93,20 @@ function syncWishlistIcons() {
   });
 }
 
+function bindProductImageFallbacks() {
+  document.querySelectorAll(".js-grid-img-front[data-fallback-src]").forEach((img) => {
+    if (img.dataset.fallbackBound) return;
+    img.dataset.fallbackBound = "true";
+    img.addEventListener("error", () => {
+      const fallback = img.dataset.fallbackSrc;
+      if (!fallback || img.dataset.fallbackApplied) return;
+      img.dataset.fallbackApplied = "true";
+      img.removeAttribute("srcset");
+      img.src = fallback;
+    }, { once: true });
+  });
+}
+
 // Render shop grid
 async function renderShop() {
   const grid = document.querySelector(".js-shop-grid");
@@ -113,7 +127,7 @@ async function renderShop() {
         <div class="product-grid-item js-product-grid-item">
           <div class="product-grid-item__image js-product-grid-item-image">
             <a href="detailproduct.html?id=${p.id}">
-              <img src="${p.images[0]}" alt="${p.name}" loading="lazy" style="width:100%;display:block;aspect-ratio:3/4;object-fit:cover;" class="js-grid-img-front">${p.images[1] ? `<img src="${p.images[1]}" alt="" aria-hidden="true" class="js-grid-img-back" style="position:absolute;top:0;left:0;width:100%;height:100%;aspect-ratio:3/4;object-fit:cover;opacity:0;transition:opacity 0.6s cubic-bezier(0.16,1,0.3,1);">` : ``}
+              <img src="${p.images[0]}" data-fallback-src="${p.fallback || "./assets/product-placeholder.webp"}" alt="${p.name}" loading="lazy" style="width:100%;display:block;aspect-ratio:3/4;object-fit:cover;" class="js-grid-img-front">${p.images[1] ? `<img src="${p.images[1]}" alt="" aria-hidden="true" class="js-grid-img-back" style="position:absolute;top:0;left:0;width:100%;height:100%;aspect-ratio:3/4;object-fit:cover;opacity:0;transition:opacity 0.6s cubic-bezier(0.16,1,0.3,1);">` : ``}
             </a>
             <div class="product-grid-item__hover js-product-grid-item-hover">
               <div class="product-grid-item__add-to-cart js-add-to-cart" data-product-id="${p.id}" role="button" tabindex="0">
@@ -144,6 +158,8 @@ async function renderShop() {
       </div>`;
     })
     .join("");
+
+  bindProductImageFallbacks();
 
   // Filter by category from URL
   if (filter) {

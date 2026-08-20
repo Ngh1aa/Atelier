@@ -1,0 +1,154 @@
+{
+  "home-hero-main": {
+    "requested": "https://i.pinimg.com/1200x/57/d3/28/57d3288bc134b9bdf684af8d548b84b7.jpg",
+    "resolved": "https://i.pinimg.com/1200x/57/d3/28/57d3288bc134b9bdf684af8d548b84b7.jpg",
+    "width": 1200,
+    "height": 1920,
+    "full": "./assets/feedback/home-hero-main.jpg",
+    "small": "./assets/feedback/home-hero-main-512.jpg"
+  },
+  "home-hero-offset": {
+    "requested": "https://i.pinimg.com/736x/3c/4b/0a/3c4b0add68d4179f5be6cc332cc867e9.jpg",
+    "resolved": "https://i.pinimg.com/1200x/3c/4b/0a/3c4b0add68d4179f5be6cc332cc867e9.jpg",
+    "width": 1200,
+    "height": 1500,
+    "full": "./assets/feedback/home-hero-offset.jpg",
+    "small": "./assets/feedback/home-hero-offset-512.jpg"
+  },
+  "home-new-in-1": {
+    "requested": "https://i.pinimg.com/1200x/a6/a5/4d/a6a54ddae5359ae3ae7032fc80a33a7f.jpg",
+    "resolved": "https://i.pinimg.com/1200x/a6/a5/4d/a6a54ddae5359ae3ae7032fc80a33a7f.jpg",
+    "width": 1199,
+    "height": 2133,
+    "full": "./assets/feedback/home-new-in-1.jpg",
+    "small": "./assets/feedback/home-new-in-1-512.jpg"
+  },
+  "home-new-in-2": {
+    "requested": "https://i.pinimg.com/736x/b9/47/e1/b947e115c0cd81fef1c024aadfb670ee.jpg",
+    "resolved": "https://i.pinimg.com/1200x/b9/47/e1/b947e115c0cd81fef1c024aadfb670ee.jpg",
+    "width": 640,
+    "height": 853,
+    "full": "./assets/feedback/home-new-in-2.jpg",
+    "small": "./assets/feedback/home-new-in-2-512.jpg"
+  },
+  "home-new-in-3": {
+    "requested": "https://i.pinimg.com/1200x/e1/13/7c/e1137c9b7254422209c084a85b2cfa92.jpg",
+    "resolved": "https://i.pinimg.com/1200x/e1/13/7c/e1137c9b7254422209c084a85b2cfa92.jpg",
+    "width": 1200,
+    "height": 2133,
+    "full": "./assets/feedback/home-new-in-3.jpg",
+    "small": "./assets/feedback/home-new-in-3-512.jpg"
+  },
+  "home-collection-large": {
+    "requested": "https://i.pinimg.com/736x/10/8d/7a/108d7a716c3df0dc250cb842b5f0bfd0.jpg",
+    "resolved": "https://i.pinimg.com/1200x/10/8d/7a/108d7a716c3df0dc250cb842b5f0bfd0.jpg",
+    "width": 1200,
+    "height": 1601,
+    "full": "./assets/feedback/home-collection-large.jpg",
+    "small": "./assets/feedback/home-collection-large-512.jpg"
+  },
+  "home-collection-small": {
+    "requested": "https://i.pinimg.com/1200x/47/ea/3d/47ea3d26d75272ab930a8d73ae36181a.jpg",
+    "resolved": "https://i.pinimg.com/1200x/47/ea/3d/47ea3d26d75272ab930a8d73ae36181a.jpg",
+    "width": 1179,
+    "height": 1572,
+    "full": "./assets/feedback/home-collection-small.jpg",
+    "small": "./assets/feedback/home-collection-small-512.jpg"
+  },
+  "home-editorial": {
+    "requested": "https://i.pinimg.com/1200x/d2/c6/96/d2c69683c2358893a7df09e91b23fd77.jpg",
+    "resolved": "https://i.pinimg.com/1200x/d2/c6/96/d2c69683c2358893a7df09e91b23fd77.jpg",
+    "width": 1199,
+    "height": 2133,
+    "full": "./assets/feedback/home-editorial.jpg",
+    "small": "./assets/feedback/home-editorial-512.jpg"
+  },
+  "shop-product-1": {
+    "requested": "https://i.pinimg.com/1200x/e8/75/aa/e875aa3da7f89b10219ad7b42dd04e36.jpg",
+    "resolved": "https://i.pinimg.com/1200x/e8/75/aa/e875aa3da7f89b10219ad7b42dd04e36.jpg",
+    "width": 1200,
+    "height": 1610,
+    "full": "./assets/feedback/shop-product-1.jpg",
+    "small": "./assets/feedback/shop-product-1-512.jpg"
+  },
+  "shop-product-2": {
+    "requested": "https://i.pinimg.com/736x/54/a4/e6/54a4e610f635e55a0fc900d98694fd16.jpg",
+    "resolved": "https://i.pinimg.com/1200x/54/a4/e6/54a4e610f635e55a0fc900d98694fd16.jpg",
+    "width": 474,
+    "height": 632,
+    "full": "./assets/feedback/shop-product-2.jpg",
+    "small": "./assets/feedback/shop-product-2-512.jpg"
+  },
+  "shop-product-3": {
+    "requested": "https://i.pinimg.com/736x/2a/3d/bb/2a3dbbb5c88f004bf69462ae242e9d26.jpg",
+    "resolved": "https://i.pinimg.com/1200x/2a/3d/bb/2a3dbbb5c88f004bf69462ae242e9d26.jpg",
+    "width": 1200,
+    "height": 1600,
+    "full": "./assets/feedback/shop-product-3.jpg",
+    "small": "./assets/feedback/shop-product-3-512.jpg"
+  },
+  "shop-product-4": {
+    "requested": "https://i.pinimg.com/736x/05/b3/a4/05b3a43f3a081289b3cac9f8f5bbc562.jpg",
+    "resolved": "https://i.pinimg.com/1200x/05/b3/a4/05b3a43f3a081289b3cac9f8f5bbc562.jpg",
+    "width": 1200,
+    "height": 1600,
+    "full": "./assets/feedback/shop-product-4.jpg",
+    "small": "./assets/feedback/shop-product-4-512.jpg"
+  },
+  "shop-product-5": {
+    "requested": "https://i.pinimg.com/736x/b3/d6/c1/b3d6c1affb5946e86eeba84380b4e059.jpg",
+    "resolved": "https://i.pinimg.com/1200x/b3/d6/c1/b3d6c1affb5946e86eeba84380b4e059.jpg",
+    "width": 1200,
+    "height": 1500,
+    "full": "./assets/feedback/shop-product-5.jpg",
+    "small": "./assets/feedback/shop-product-5-512.jpg"
+  },
+  "shop-product-6": {
+    "requested": "https://i.pinimg.com/736x/9f/d2/13/9fd213701365e4ed1d3c5e709191c330.jpg",
+    "resolved": "https://i.pinimg.com/1200x/9f/d2/13/9fd213701365e4ed1d3c5e709191c330.jpg",
+    "width": 750,
+    "height": 1000,
+    "full": "./assets/feedback/shop-product-6.jpg",
+    "small": "./assets/feedback/shop-product-6-512.jpg"
+  },
+  "shop-product-7": {
+    "requested": "https://i.pinimg.com/736x/48/dc/ec/48dcecc0cdf6168b6fd220f6b730c824.jpg",
+    "resolved": "https://i.pinimg.com/1200x/48/dc/ec/48dcecc0cdf6168b6fd220f6b730c824.jpg",
+    "width": 736,
+    "height": 981,
+    "full": "./assets/feedback/shop-product-7.jpg",
+    "small": "./assets/feedback/shop-product-7-512.jpg"
+  },
+  "shop-product-8": {
+    "requested": "https://i.pinimg.com/1200x/d2/60/e7/d260e7278ee1029cea2e4a73eb7f6080.jpg",
+    "resolved": "https://i.pinimg.com/1200x/d2/60/e7/d260e7278ee1029cea2e4a73eb7f6080.jpg",
+    "width": 1200,
+    "height": 1600,
+    "full": "./assets/feedback/shop-product-8.jpg",
+    "small": "./assets/feedback/shop-product-8-512.jpg"
+  },
+  "collections-chapter-1": {
+    "requested": "https://i.pinimg.com/1200x/df/82/31/df8231d30e1efd8529299fcc9a0f0b7f.jpg",
+    "resolved": "https://i.pinimg.com/1200x/df/82/31/df8231d30e1efd8529299fcc9a0f0b7f.jpg",
+    "width": 1080,
+    "height": 1440,
+    "full": "./assets/feedback/collections-chapter-1.jpg",
+    "small": "./assets/feedback/collections-chapter-1-512.jpg"
+  },
+  "collections-chapter-2": {
+    "requested": "https://i.pinimg.com/1200x/a4/11/3c/a4113ce98adae500d008809aa8a056e1.jpg",
+    "resolved": "https://i.pinimg.com/1200x/a4/11/3c/a4113ce98adae500d008809aa8a056e1.jpg",
+    "width": 1200,
+    "height": 1600,
+    "full": "./assets/feedback/collections-chapter-2.jpg",
+    "small": "./assets/feedback/collections-chapter-2-512.jpg"
+  },
+  "about-story": {
+    "requested": "https://i.pinimg.com/1200x/4a/f4/61/4af4615827e5c7f2097a3664bdc0e315.jpg",
+    "resolved": "https://i.pinimg.com/1200x/4a/f4/61/4af4615827e5c7f2097a3664bdc0e315.jpg",
+    "width": 1200,
+    "height": 1600,
+    "full": "./assets/feedback/about-story.jpg",
+    "small": "./assets/feedback/about-story-512.jpg"
+  }
+}
