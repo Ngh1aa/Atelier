@@ -23,6 +23,14 @@ function boot() {
   if (path.includes("checkout.html")) {
     import("./precommerce-checkout.js").then((m) => m.initPrecommerceCheckout());
   }
+  if (path.includes("order-success.html")) {
+    import("./order-success.js").then((m) => m.renderOrderSuccess());
+  } else if (path.includes("order.html")) {
+    import("./order.js").then((m) => m.renderOrder());
+  }
+  if (path.includes("account.html")) {
+    import("./account.js").then((m) => m.renderAccount());
+  }
 }
 
 document.addEventListener("DOMContentLoaded", boot);

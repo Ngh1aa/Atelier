@@ -1,137 +1,169 @@
-// Product detail page: render from ?id= param
-import { getWishlist, toggleWishlist, addToCart, formatVND } from "./shop.js";
+import {
+  addCartItem,
+  addRecentlyViewed,
+  findVariant,
+  formatVND,
+  getAvailableSizes,
+  getDeliveryWindow,
+  isWishlisted,
+  loadProducts,
+  toggleWishlist,
+  track,
+} from "./commerce-store.js";
+import { escapeHtml, openMiniBag, openSizeGuide, showMessage } from "./commerce-ui.js";
 
-let currentProduct = null;
+export async function renderDetail() {
+  const products = await loadProducts();
+  const requestedId = new URLSearchParams(window.location.search).get("id");
+  const product = products.find((item) => item.id === requestedId) || products.find((item) => item.id === "silk-midnight-gown") || products[0];
+  if (!product) return;
 
-async function renderDetail() {
-  const id = new URLSearchParams(window.location.search).get("id");
-  if (!id) return; // no param -> keep static default page
-  const res = await fetch("./src/data/products.json");
-  const products = await res.json();
-  const p = products.find((x) => x.id === id);
-  if (!p) return; // keep static fallback page as-is
-  currentProduct = p;
+  addRecentlyViewed(product.id);
+  track("view_item", { product_id: product.id, value: product.price, currency: "VND" });
 
-  const titleEl = document.querySelector(".js-product-title");
-  const priceEl = document.querySelector(".js-product-price");
-  const descEl = document.querySelector(".js-product-description");
-  const mainImg = document.querySelector("#main-product-img");
-  const thumbWrap = document.querySelector(".js-thumbnail-gallery");
-  const sizeWrap = document.querySelector(".js-size-options");
+  const params = new URLSearchParams(window.location.search);
+  let selectedColor = product.colors.some((color) => color.value === params.get("color")) ? params.get("color") : product.colors[0].value;
+  let selectedSize = product.requiresSize ? null : "One Size";
+
+  const title = document.querySelector(".js-product-title");
+  const price = document.querySelector(".js-product-price");
+  const description = document.querySelector(".js-product-description p");
+  const mainImage = document.querySelector("#main-product-img");
+  const thumbnails = document.querySelector(".js-thumbnail-gallery");
+  const sizeOptions = document.querySelector(".js-size-options");
+  const colorOptions = document.querySelector(".js-color-options");
+  const colorLabel = document.querySelector(".js-color-label");
+  const selectionError = document.querySelector(".js-pdp-selection-error");
+  const addButton = document.querySelector(".js-btn-add-cart");
+  const wishlistButton = document.querySelector(".js-btn-wishlist");
+
+  document.title = `${product.name} - ATELIER`;
+  if (title) title.textContent = product.name;
+  if (price) price.textContent = formatVND(product.price);
+  if (description) description.textContent = product.description;
+  document.querySelector(".collection-name").textContent = product.collection;
+  document.querySelector(".js-product-fit").textContent = product.fit;
+  document.querySelector(".js-product-model").textContent = product.model;
+  document.querySelector(".js-product-material").textContent = product.material;
+  document.querySelector(".js-product-care").textContent = product.care;
+  document.querySelector(".js-product-origin").textContent = product.origin;
+  document.querySelector(".js-delivery-window").textContent = `Estimated ${getDeliveryWindow(false)}`;
+  document.querySelector(".js-return-summary").textContent = product.returnPolicy;
+
   const breadcrumb = document.querySelector(".js-breadcrumb");
+  if (breadcrumb) breadcrumb.innerHTML = `<a href="shop.html">Shop</a><span>/</span><a href="shop.html?collection=${encodeURIComponent(product.collection.toLowerCase())}">${escapeHtml(product.collection)}</a><span>/</span><span>${escapeHtml(product.name)}</span>`;
 
-  if (titleEl) titleEl.textContent = p.name;
-  document.title = p.name + " - ATELIER";
-  if (priceEl) priceEl.textContent = formatVND(p.price);
-  if (descEl) {
-    // descEl may be a wrapper <div> containing a <p>
-    const target = descEl.querySelector('p') || descEl;
-    target.textContent = p.description;
-  }
+  const renderGallery = () => {
+    if (mainImage) {
+      mainImage.src = product.images[0];
+      mainImage.alt = product.name;
+      mainImage.removeAttribute("srcset");
+    }
+    if (!thumbnails) return;
+    thumbnails.innerHTML = product.images.map((source, index) => `<button type="button" class="pdp-thumbnail${index === 0 ? " is-active" : ""}" aria-label="View image ${index + 1}"><img src="${escapeHtml(source)}" alt="${escapeHtml(product.name)} view ${index + 1}" loading="${index ? "lazy" : "eager"}"></button>`).join("");
+    thumbnails.querySelectorAll("button").forEach((button, index) => button.addEventListener("click", () => {
+      mainImage.src = product.images[index];
+      thumbnails.querySelectorAll("button").forEach((item) => item.classList.toggle("is-active", item === button));
+    }));
+  };
 
-  const productFacts = [
-    ['.js-product-fit', p.fit],
-    ['.js-product-material', p.material],
-    ['.js-product-care', p.care],
-    ['.js-product-origin', p.origin],
-  ];
-  productFacts.forEach(([selector, value]) => {
-    const element = document.querySelector(selector);
-    if (element && value) element.textContent = value;
+  const syncUrl = () => {
+    const next = new URLSearchParams(location.search);
+    next.set("id", product.id);
+    next.set("color", selectedColor);
+    history.replaceState({}, "", `${location.pathname}?${next.toString()}`);
+  };
+
+  const renderSizes = () => {
+    const sizes = getAvailableSizes(product, selectedColor);
+    if (!sizes.some((item) => item.size === selectedSize && item.stock > 0)) selectedSize = product.requiresSize ? null : "One Size";
+    sizeOptions.innerHTML = sizes.map(({ size, stock }) => `<button type="button" data-size="${escapeHtml(size)}" class="${size === selectedSize ? "is-selected" : ""}" aria-pressed="${size === selectedSize}" ${stock < 1 ? `disabled aria-label="${escapeHtml(size)}, unavailable"` : ""}>${escapeHtml(size)}</button>`).join("");
+    sizeOptions.querySelectorAll("button:not(:disabled)").forEach((button) => button.addEventListener("click", () => {
+      selectedSize = button.dataset.size;
+      selectionError.textContent = "";
+      sizeOptions.querySelectorAll("button").forEach((item) => {
+        item.classList.toggle("is-selected", item === button);
+        item.setAttribute("aria-pressed", String(item === button));
+      });
+      syncSticky();
+      track("select_size", { product_id: product.id, size: selectedSize });
+    }));
+    syncSticky();
+  };
+
+  const renderColors = () => {
+    colorLabel.textContent = product.colors.find((color) => color.value === selectedColor)?.name || "";
+    colorOptions.innerHTML = product.colors.map((color) => `<button type="button" class="pdp-color-option${color.value === selectedColor ? " is-selected" : ""}" data-color="${escapeHtml(color.value)}" aria-pressed="${color.value === selectedColor}"><i style="--swatch:${escapeHtml(color.hex)}"></i><span>${escapeHtml(color.name)}</span></button>`).join("");
+    colorOptions.querySelectorAll("button").forEach((button) => button.addEventListener("click", () => {
+      selectedColor = button.dataset.color;
+      colorLabel.textContent = product.colors.find((color) => color.value === selectedColor)?.name || "";
+      colorOptions.querySelectorAll("button").forEach((item) => {
+        item.classList.toggle("is-selected", item === button);
+        item.setAttribute("aria-pressed", String(item === button));
+      });
+      selectionError.textContent = "";
+      renderSizes();
+      syncUrl();
+      track("select_color", { product_id: product.id, color: selectedColor });
+    }));
+  };
+
+  const addSelection = () => {
+    const variant = selectedSize ? findVariant(product, selectedColor, selectedSize) : null;
+    if (!variant) {
+      selectionError.textContent = "Please select a size.";
+      sizeOptions.querySelector("button:not(:disabled)")?.focus();
+      return;
+    }
+    const result = addCartItem(product, variant.id);
+    if (!result.ok) {
+      selectionError.textContent = result.message;
+      return;
+    }
+    selectionError.textContent = "";
+    openMiniBag();
+  };
+
+  const syncWishlist = () => {
+    const saved = isWishlisted(product.id);
+    wishlistButton.classList.toggle("is-saved", saved);
+    wishlistButton.setAttribute("aria-pressed", String(saved));
+    wishlistButton.textContent = saved ? "♥ SAVED" : "♡ SAVE";
+  };
+
+  let sticky;
+  const syncSticky = () => {
+    if (!sticky) return;
+    sticky.querySelector("span").textContent = selectedSize ? `Size ${selectedSize}` : "Select size";
+  };
+
+  renderGallery();
+  renderColors();
+  renderSizes();
+  syncWishlist();
+  syncUrl();
+
+  addButton.addEventListener("click", addSelection);
+  wishlistButton.addEventListener("click", () => {
+    const variant = selectedSize ? findVariant(product, selectedColor, selectedSize) : null;
+    const saved = toggleWishlist(product.id, variant?.id || null);
+    syncWishlist();
+    showMessage(saved ? "Saved." : "Removed from Saved.");
+  });
+  document.querySelector(".js-pdp-size-guide").addEventListener("click", () => {
+    track("open_size_guide", { product_id: product.id });
+    openSizeGuide();
   });
 
-  if (mainImg) {
-    mainImg.src = p.images[0];
-    mainImg.alt = p.name;
-  }
+  const relatedWrap = document.querySelector(".js-related-grid");
+  const related = products.filter((item) => item.id !== product.id).sort((a, b) => Number(b.category === product.category) - Number(a.category === product.category)).slice(0, 4);
+  relatedWrap.innerHTML = related.map((item) => `<a class="related-item" href="detailproduct.html?id=${encodeURIComponent(item.id)}"><img loading="lazy" src="${escapeHtml(item.images[0])}" alt="${escapeHtml(item.name)}"><h4>${escapeHtml(item.name)}</h4><p>${formatVND(item.price)}</p></a>`).join("");
 
-  if (thumbWrap) {
-    thumbWrap.innerHTML = p.images
-      .map(
-        (src, i) => `
-      <img src="${src}" alt="${p.name} thumbnail ${i + 1}" class="${i === 0 ? "active" : ""}" style="cursor:pointer;width:80px;aspect-ratio:1;object-fit:cover;border:1px solid rgba(255,255,255,0.3);opacity:${i === 0 ? 1 : 0.5};transition:opacity 0.3s;">`
-      )
-      .join("");
-    thumbWrap.querySelectorAll("img").forEach((thumb) => {
-      thumb.addEventListener("click", () => {
-        thumbWrap.querySelectorAll("img").forEach((t) => {
-          t.classList.remove("active");
-          t.style.opacity = "0.5";
-        });
-        thumb.classList.add("active");
-        thumb.style.opacity = "1";
-        mainImg.src = thumb.src;
-      });
-    });
-  }
-
-  if (sizeWrap) {
-    sizeWrap.innerHTML = p.sizes
-      .map((s) => `<span class="${s === p.sizes[0] ? "active" : ""}">${s}</span>`)
-      .join("");
-    sizeWrap.querySelectorAll("span").forEach((sp) => {
-      sp.addEventListener("click", () => {
-        sizeWrap.querySelectorAll("span").forEach((s) => s.classList.remove("active"));
-        sp.classList.add("active");
-      });
-    });
-  }
-
-  if (breadcrumb) {
-    breadcrumb.innerHTML = `
-      <a href="shop.html">Shop</a><span>/</span>
-      <a href="shop.html">${p.collection}</a><span>/</span>
-      <span>${p.name}</span>`;
-  }
-
-  document.title = `${p.name} - ATELIER`;
-
-  const relatedWrap = document.querySelector('.js-related-grid');
-  if (relatedWrap) {
-    const related = products
-      .filter((item) => item.id !== p.id)
-      .sort((a, b) => Number(b.category === p.category) - Number(a.category === p.category))
-      .slice(0, 4);
-    relatedWrap.innerHTML = related.map((item) => `
-      <a class="related-item" href="detailproduct.html?id=${encodeURIComponent(item.id)}">
-        <img loading="lazy" src="${item.images[0]}" alt="${item.name}">
-        <h4>${item.name}</h4>
-        <p>${formatVND(item.price)}</p>
-      </a>`).join('');
-  }
-
-  // Actions
-  const addBtn = document.querySelector(".js-btn-add-cart");
-  if (addBtn) {
-    addBtn.addEventListener("click", () => {
-      addToCart(p.id, 1, addBtn);
-      addBtn.textContent = "ADDED TO BAG";
-      setTimeout(() => {
-        addBtn.textContent = "ADD TO BAG";
-      }, 1500);
-    });
-  }
-
-  const wishBtn = document.querySelector(".js-btn-wishlist");
-  const syncWishLabel = () => {
-    const saved = getWishlist().includes(p.id);
-    if (wishBtn) wishBtn.innerHTML = saved ? "\u2665 SAVED" : '<img src="https://api.iconify.design/ph:heart-light.svg?color=white" width="20"> WISHLIST';
-  };
-  syncWishLabel();
-  if (wishBtn) {
-    wishBtn.addEventListener("click", () => {
-      toggleWishlist(p.id, wishBtn);
-      syncWishLabel();
-    });
-  }
-
-  // Update page title if static title exists
-  const staticTitle = document.querySelector("h2.product-title");
-  if (staticTitle) staticTitle.textContent = p.name;
-  const staticPrice = document.querySelector("p.product-price");
-  if (staticPrice) staticPrice.textContent = formatVND(p.price);
-  const staticColl = document.querySelector(".collection-name");
-  if (staticColl) staticColl.textContent = p.collection;
+  sticky = document.createElement("div");
+  sticky.className = "mobile-purchase-bar";
+  sticky.innerHTML = `<span>${selectedSize ? `Size ${escapeHtml(selectedSize)}` : "Select size"}</span><button type="button">ADD TO BAG</button>`;
+  sticky.querySelector("button").addEventListener("click", addSelection);
+  document.body.appendChild(sticky);
+  const observer = new IntersectionObserver(([entry]) => sticky.classList.toggle("is-visible", !entry.isIntersecting), { threshold: 0 });
+  observer.observe(addButton);
 }
-
-export { renderDetail };

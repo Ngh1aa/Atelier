@@ -1,8 +1,9 @@
 // Shared UI: bag badge, search overlay, mobile hamburger menu, newsletter feedback
-import { initBagBadge, initSearchOverlay } from "./nav-ui.js";
+import { initBagBadge, initCommerceUi, initSearchOverlay } from "./nav-ui.js";
 
 function initNav() {
   initBagBadge();
+  initCommerceUi();
   initSearchOverlay();
 
   // Newsletter form feedback

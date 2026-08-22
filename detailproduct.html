@@ -85,40 +85,47 @@
           <div class="product-info-col reveal" style="transition-delay: 0.1s;">
             <p class="collection-name">Evening Collection</p>
             <h2 class="product-title js-product-title">Silk Midnight Gown</h2>
-            <p class="product-price js-product-price">58,900,000$</p>
+            <p class="product-price js-product-price">58.900.000 ₫</p>
 
             <div class="product-description js-product-description">
               <p>A fluid evening silhouette with a deliberate, minimal line. Full material composition and production details will be confirmed before online ordering becomes available.</p>
             </div>
-            <dl class="product-facts" aria-label="Product information">
-              <div><dt>FIT</dt><dd class="js-product-fit">Bias-cut silhouette with a close, fluid line.</dd></div>
-              <div><dt>MATERIAL</dt><dd class="js-product-material">Composition details will be confirmed before online ordering.</dd></div>
-              <div><dt>CARE</dt><dd class="js-product-care">Please follow the care label supplied with the garment.</dd></div>
-              <div><dt>ORIGIN</dt><dd class="js-product-origin">Country of origin will be specified at launch.</dd></div>
-            </dl>
+
+            <div class="color-selection">
+              <div class="size-header"><span>COLOR</span><strong class="js-color-label">Midnight</strong></div>
+              <div class="pdp-color-options js-color-options" role="radiogroup" aria-label="Color"></div>
+            </div>
 
             <div class="size-selection">
               <div class="size-header">
                 <span>SELECT SIZE</span>
-                <a href="size-guide.html" class="size-guide">Size Guide</a>
+                <button type="button" class="size-guide js-pdp-size-guide">Size Guide</button>
               </div>
-              <div class="size-options js-size-options">
-                <span>XS</span>
-                <span class="active">S</span>
-                <span>M</span>
-                <span>L</span>
-                <span>XL</span>
-              </div>
+              <div class="size-options js-size-options" role="radiogroup" aria-label="Size"></div>
+              <p class="pdp-selection-error js-pdp-selection-error" aria-live="polite"></p>
+            </div>
+
+            <div class="pdp-fit-summary">
+              <span>FIT</span>
+              <p class="js-product-fit">Bias-cut silhouette with a close, fluid line.</p>
+              <small class="js-product-model">Model is 178 cm and wears size S.</small>
             </div>
 
             <div class="product-actions">
               <button class="btn-add-cart js-btn-add-cart">ADD TO BAG</button>
-              <button class="btn-wishlist js-btn-wishlist"><img loading="lazy" src="https://api.iconify.design/ph:heart-light.svg?color=white" width="20"/> WISHLIST</button>
+              <button class="btn-wishlist js-btn-wishlist" type="button" aria-pressed="false">♡ SAVE</button>
             </div>
 
             <div class="shipping-info">
-              <span>Online ordering is currently being prepared.</span>
-              <a href="shipping&returns.html">Review order information</a>
+              <div><strong>Complimentary delivery</strong><span class="js-delivery-window">Estimated in 2–4 days</span></div>
+              <div><strong>Returns &amp; exchanges</strong><span class="js-return-summary">Within 14 days</span></div>
+              <a href="shipping&returns.html">Delivery &amp; Returns →</a>
+            </div>
+
+            <div class="product-accordions" aria-label="Product information">
+              <details open><summary>Details</summary><p class="js-product-material">Composition details will be confirmed before online ordering.</p></details>
+              <details><summary>Care</summary><p class="js-product-care">Please follow the care label supplied with the garment.</p></details>
+              <details><summary>Origin</summary><p class="js-product-origin">Country of origin will be specified at launch.</p></details>
             </div>
           </div>
         </div>
@@ -135,22 +142,22 @@
             <div class="related-item">
               <img loading="lazy" src="./assets/related-shoes.webp" alt="Velvet Stiletto" srcset="./assets/related-shoes-512.webp 512w, ./assets/related-shoes.webp 1024w" sizes="(max-width: 720px) 100vw, 50vw">
               <h4>Velvet Stiletto</h4>
-              <p>16,800,000$</p>
+              <p>16.800.000 ₫</p>
             </div>
             <div class="related-item">
               <img loading="lazy" src="./assets/product-2.webp" alt="Silk Satin Clutch" srcset="./assets/product-2-512.webp 512w, ./assets/product-2.webp 1024w" sizes="(max-width: 720px) 100vw, 50vw">
               <h4>Silk Satin Clutch</h4>
-              <p>34,200,000$</p>
+              <p>34.200.000 ₫</p>
             </div>
             <div class="related-item">
               <img loading="lazy" src="./assets/product-9.webp" alt="Diamond Drop Earrings" srcset="./assets/product-9-512.webp 512w, ./assets/product-9.webp 1024w" sizes="(max-width: 720px) 100vw, 50vw">
               <h4>Diamond Drop Earrings</h4>
-              <p>21,000,000$</p>
+              <p>21.000.000 ₫</p>
             </div>
             <div class="related-item">
               <img loading="lazy" src="./assets/product-6.webp" alt="Sheer Evening Wrap" srcset="./assets/product-6-512.webp 512w, ./assets/product-6.webp 1024w" sizes="(max-width: 720px) 100vw, 50vw">
               <h4>Sheer Evening Wrap</h4>
-              <p>8,500,000$</p>
+              <p>8.500.000 ₫</p>
             </div>
           </div>
         </section>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="./assets/logo/atelier-mark.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order - ATELIER</title>
+  <meta name="description" content="Track an ATELIER order and request a return or size exchange.">
+  <link rel="stylesheet" href="./style.css">
+  <script>document.documentElement.classList.add("js-enabled")</script>
+</head>
+<body class="js-enabled">
+  <nav>
+    <div class="container nav-container">
+      <ul class="nav-links left">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="collections.html">Collections</a></li>
+        <li><a href="about.html">The House</a></li>
+        <li><a href="client-services.html">Client Services</a></li>
+      </ul>
+      <div class="logo"><a href="index.html" aria-label="Atelier home"><span>ATELIER</span></a></div>
+      <div class="nav-icons right">
+        <button type="button" class="nav-search-btn" aria-label="Search" id="navSearchBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 6 6"/></svg></button>
+        <a href="cart.html" class="nav-text nav-cart">Bag (<span class="js-nav-bag-count">0</span>)</a>
+        <a href="favourite.html" class="nav-text">Saved</a>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-search-overlay" id="navSearchOverlay" role="dialog" aria-label="Search products" aria-modal="true"><div class="nav-search-form"><label for="navSearchInput">Search</label><input id="navSearchInput" type="search" placeholder="What are you looking for?" autocomplete="off"><button type="button" class="nav-search-close" id="navSearchClose" aria-label="Close search">&times;</button><div class="nav-search-results" id="navSearchResults"></div></div></div>
+
+  <main><section class="order-page"><div class="container js-order-page"><p class="eyebrow">YOUR ORDER</p><h1>Loading order…</h1></div></section></main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <section class="footer-newsletter footer-editorial" aria-label="ATELIER Journal"><div class="newsletter-text"><p class="eyebrow">ATELIER JOURNAL</p><h3>Considered notes on dress, form and material.</h3></div><a class="btn-outline" href="collections.html">Explore the collection <span aria-hidden="true">→</span></a></section>
+      <div class="footer-divider"></div>
+      <div class="footer-grid">
+        <div class="footer-col brand-col"><div class="logo"><a href="index.html" aria-label="Atelier home"><span>ATELIER</span></a></div><p>A considered wardrobe for a life in motion. Designed with restraint, intention and lasting presence.</p></div>
+        <div class="footer-col"><h4>Client Services</h4><ul class="footer-links"><li><a href="client-services.html">Client Services</a></li><li><a href="contact.html">Contact</a></li><li><a href="shipping&returns.html">Shipping &amp; Returns</a></li><li><a href="size-guide.html">Size Guide</a></li></ul></div>
+        <div class="footer-col"><h4>The House</h4><ul class="footer-links"><li><a href="about.html">Our Story</a></li><li><a href="collections.html">Collections</a></li></ul></div>
+        <div class="footer-col"><h4>Legal</h4><ul class="footer-links"><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms of Use</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><p>© 2026 ATELIER. All rights reserved.</p><p>Desktop edition · Vietnam</p></div>
+    </div>
+  </footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

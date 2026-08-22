@@ -5,16 +5,16 @@
   <link rel="icon" type="image/svg+xml" href="./assets/logo/atelier-mark.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Checkout - ATELIER</title>
-  <meta name="description" content="Review your ATELIER Bag while secure online ordering is being prepared.">
+  <meta name="description" content="Complete your ATELIER order with guest checkout, delivery and payment selection.">
   <meta name="keywords" content="ATELIER, luxury fashion, minimalist clothing, tailoring, knitwear, outerwear, sustainable fashion, Fall 2026">
   <meta property="og:title" content="Checkout - ATELIER">
-  <meta property="og:description" content="Review your ATELIER Bag while secure online ordering is being prepared.">
+  <meta property="og:description" content="Complete your ATELIER order with guest checkout, delivery and payment selection.">
   <meta property="og:image" content="https://ngh1aa.github.io/Atelier/assets/product-hero.webp">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ngh1aa.github.io/Atelier/checkout.html">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Checkout - ATELIER">
-  <meta name="twitter:description" content="Review your ATELIER Bag while secure online ordering is being prepared.">
+  <meta name="twitter:description" content="Complete your ATELIER order with guest checkout, delivery and payment selection.">
   <meta name="twitter:image" content="https://ngh1aa.github.io/Atelier/assets/product-hero.webp">
 
   <link rel="stylesheet" href="./style.css">
@@ -53,39 +53,75 @@
 
 
   <main>
-    <section class="precommerce-page">
+    <section class="checkout-page">
       <div class="container">
-        <header class="precommerce-header reveal">
-          <p class="eyebrow">CATALOGUE MODE</p>
-          <h1>Online ordering<br>is being prepared.</h1>
-          <p>ATELIER currently offers a product catalogue and a locally saved Bag. We do not collect delivery details, payment information or create orders in this edition.</p>
+        <header class="checkout-header reveal">
+          <p class="eyebrow">GUEST CHECKOUT</p>
+          <h1>Complete your order.</h1>
+          <p>No account is required. You can create one after your order is placed.</p>
         </header>
 
-        <div class="precommerce-grid">
-          <section class="precommerce-guidance reveal" aria-label="Online ordering status">
-            <p class="eyebrow">A CLEARER CHECKOUT</p>
-            <h2>We will only ask for details when the service is live.</h2>
-            <p>Before a secure commerce platform is introduced, this page remains a transparent review of the pieces in your Bag. It will never redirect you to a fictional order confirmation.</p>
-            <div class="precommerce-steps">
-              <article><span>01</span><div><h3>Build your Bag</h3><p>Save considered selections locally in this browser.</p></div></article>
-              <article><span>02</span><div><h3>Review the catalogue value</h3><p>All prices are displayed in dollars ($).</p></div></article>
-              <article><span>03</span><div><h3>Wait for secure ordering</h3><p>Payment, delivery, returns and account services will launch together.</p></div></article>
-            </div>
-            <a class="btn-outline" href="shipping&returns.html">Order information <span aria-hidden="true">→</span></a>
-          </section>
+        <form class="checkout-grid js-checkout-form" novalidate>
+          <div class="checkout-form-section reveal">
+            <section class="checkout-section" aria-labelledby="checkout-contact">
+              <div class="checkout-step-heading"><span>01</span><h2 id="checkout-contact">CONTACT</h2></div>
+              <div class="form-row">
+                <div class="form-group"><label for="checkoutEmail">Email*</label><input id="checkoutEmail" name="email" type="email" autocomplete="email" required></div>
+                <div class="form-group"><label for="checkoutPhone">Phone*</label><input id="checkoutPhone" name="phone" type="tel" autocomplete="tel" required><small>Used for delivery updates.</small></div>
+              </div>
+            </section>
 
-          <aside class="precommerce-summary reveal" style="transition-delay: 0.1s;" aria-label="Bag summary">
-            <div class="precommerce-summary-head">
-              <p class="eyebrow">YOUR BAG</p>
-              <a href="cart.html">Edit Bag</a>
+            <section class="checkout-section" aria-labelledby="checkout-delivery-address">
+              <div class="checkout-step-heading"><span>02</span><h2 id="checkout-delivery-address">DELIVERY ADDRESS</h2></div>
+              <div class="form-group"><label for="checkoutCountry">Country / Region*</label><select id="checkoutCountry" name="country" required><option value="Vietnam">Vietnam</option></select></div>
+              <div class="form-group"><label for="checkoutName">Full name*</label><input id="checkoutName" name="fullName" autocomplete="name" required></div>
+              <div class="form-group"><label for="checkoutAddress">Address*</label><input id="checkoutAddress" name="address" autocomplete="street-address" required></div>
+              <div class="form-group"><label for="checkoutApartment">Apartment / Suite <span>(optional)</span></label><input id="checkoutApartment" name="apartment" autocomplete="address-line2"></div>
+              <div class="form-row three-col">
+                <div class="form-group"><label for="checkoutDistrict">City / District*</label><input id="checkoutDistrict" name="district" autocomplete="address-level2" required></div>
+                <div class="form-group"><label for="checkoutProvince">Province*</label><input id="checkoutProvince" name="province" autocomplete="address-level1" required></div>
+                <div class="form-group"><label for="checkoutPostal">Postal code <span>(optional)</span></label><input id="checkoutPostal" name="postalCode" autocomplete="postal-code"></div>
+              </div>
+            </section>
+
+            <section class="checkout-section" aria-labelledby="checkout-delivery-method">
+              <div class="checkout-step-heading"><span>03</span><h2 id="checkout-delivery-method">DELIVERY METHOD</h2></div>
+              <div class="delivery-methods">
+                <label class="delivery-option selected"><input type="radio" name="deliveryMethod" value="standard" checked><i></i><span><strong>STANDARD</strong><small class="js-standard-window">Arrives in 2–4 days</small></span><b>Complimentary</b></label>
+                <label class="delivery-option"><input type="radio" name="deliveryMethod" value="express"><i></i><span><strong>EXPRESS</strong><small class="js-express-window">Arrives tomorrow</small></span><b>250.000 ₫</b></label>
+              </div>
+            </section>
+
+            <section class="checkout-section" aria-labelledby="checkout-payment">
+              <div class="checkout-step-heading"><span>04</span><h2 id="checkout-payment">PAYMENT</h2></div>
+              <div class="payment-methods">
+                <label class="payment-option selected"><input type="radio" name="paymentMethod" value="cod" checked><span class="payment-radio"></span><span class="payment-label"><strong>Cash on delivery</strong><small>Pay when your order arrives.</small></span></label>
+                <label class="payment-option"><input type="radio" name="paymentMethod" value="bank-transfer"><span class="payment-radio"></span><span class="payment-label"><strong>Bank transfer</strong><small>Instructions will be included with your confirmation.</small></span></label>
+              </div>
+              <p class="checkout-security-note">Card details are never collected by this site. A verified payment provider is required before card payment can be enabled.</p>
+            </section>
+
+            <section class="checkout-section checkout-review" aria-labelledby="checkout-review">
+              <div class="checkout-step-heading"><span>05</span><h2 id="checkout-review">REVIEW</h2></div>
+              <dl><div><dt>Contact</dt><dd class="js-review-contact">Add contact details</dd></div><div><dt>Delivery</dt><dd class="js-review-address">Add a delivery address</dd></div><div><dt>Method</dt><dd class="js-review-delivery">STANDARD</dd></div><div><dt>Payment</dt><dd class="js-review-payment">Cash on delivery</dd></div></dl>
+              <label class="checkout-consent"><input type="checkbox" name="terms" value="accepted" required><span>I agree to the Terms of Use and acknowledge the Returns policy.</span></label>
+              <p class="checkout-error js-checkout-error" role="alert" tabindex="-1"></p>
+              <button type="submit" class="btn-place-order js-place-order">PLACE ORDER</button>
+            </section>
+          </div>
+
+          <aside class="checkout-summary reveal" aria-label="Order summary">
+            <div class="summary-card">
+              <div class="checkout-summary-head"><h3>ORDER SUMMARY</h3><a href="cart.html">Edit Bag</a></div>
+              <div class="summary-items js-checkout-items"></div>
+              <div class="summary-row"><span>Subtotal</span><span class="js-checkout-subtotal">0 ₫</span></div>
+              <div class="summary-row"><span>Delivery</span><span class="js-checkout-delivery-fee">Complimentary</span></div>
+              <div class="summary-row js-checkout-discount-row" hidden><span>ATELIER10</span><span>−0 ₫</span></div>
+              <div class="summary-row total"><span>Total</span><span class="js-checkout-total">0 ₫</span></div>
+              <small>Taxes and duties included</small>
             </div>
-            <div class="js-checkout-items precommerce-items"></div>
-            <div class="precommerce-total-row"><span>Catalogue subtotal</span><strong class="js-checkout-subtotal">0$</strong></div>
-            <div class="precommerce-total-row total"><span>Catalogue total</span><strong class="js-checkout-total">0$</strong></div>
-            <p class="precommerce-notice js-checkout-notice">Your Bag is saved on this device. Prices are catalogue references; no order or payment will be created from this page.</p>
-            <a class="precommerce-contact" href="contact.html">Need assistance? Review Client Services <span aria-hidden="true">→</span></a>
           </aside>
-        </div>
+        </form>
       </div>
     </section>
   </main>

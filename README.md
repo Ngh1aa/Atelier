@@ -7,12 +7,13 @@ Website hướng đến việc kết hợp nhận diện thương hiệu, khám 
 ## Các trang chính
 
 - **Trang chủ** – Kể chuyện thương hiệu, giới thiệu bộ sưu tập nổi bật
-- **Shop** – Danh mục sản phẩm theo bố cục editorial
-- **Chi tiết sản phẩm** – Thông tin sản phẩm đầy đủ, hình ảnh chất lượng cao
-- **Wishlist** – Lưu sản phẩm yêu thích
-- **Giỏ hàng** – Quản lý sản phẩm đã chọn
-- **Thanh toán** – Luồng checkout trực quan, đáng tin cậy
-- **Tài khoản** – Đăng nhập, đăng ký, quản lý hồ sơ
+- **Shop** – Filter Size/Category/Color, sort, search và state lưu trên URL
+- **Chi tiết sản phẩm** – Gallery, màu, size theo tồn kho variant, fit, Size Guide và Delivery/Returns
+- **Wishlist** – Guest có thể lưu sản phẩm, sau đó chọn đúng variant trước khi thêm Bag
+- **Giỏ hàng** – Quantity, sửa màu/size, Save for later, promo và tổng tiền VND dùng chung
+- **Thanh toán** – Guest checkout gồm Contact, Address, Delivery, Payment và Review
+- **Đơn hàng** – Xác nhận, tracking, yêu cầu return hoặc exchange size
+- **Tài khoản** – Lịch sử đơn hàng và Saved trên thiết bị hiện tại
 - **Blog** – Chia sẻ nội dung thời trang, xu hướng
 - **About** – Câu chuyện thương hiệu
 
@@ -37,7 +38,7 @@ Website hướng đến việc kết hợp nhận diện thương hiệu, khám 
 **1. Clone repository**
 
 ```bash
-git clone https://github.com/your-username/Atelier.git
+git clone https://github.com/Ngh1aa/Atelier.git
 cd Atelier
 ```
 
@@ -55,6 +56,13 @@ npm run dev
 
 Mở trình duyệt và truy cập `http://localhost:5173`.
 
+**Kiểm tra trước khi deploy**
+
+```bash
+npm test
+npm run build
+```
+
 **Cách chạy bằng Live Server (VS Code)**
 
 1. Cài đặt extension **Live Server** trong VS Code
@@ -67,8 +75,18 @@ Mở trình duyệt và truy cập `http://localhost:5173`.
 - **Duyệt sản phẩm**: Truy cập trang Shop để xem danh mục đầy đủ với bố cục editorial
 - **Chi tiết sản phẩm**: Nhấp vào sản phẩm để xem thông tin, hình ảnh và lựa chọn size/màu
 - **Wishlist & Giỏ hàng**: Thêm sản phẩm yêu thích hoặc đưa vào giỏ hàng để chuẩn bị thanh toán
-- **Thanh toán**: Trải nghiệm luồng checkout trực quan và đáng tin cậy
-- **Tài khoản & Blog**: Khám phá thêm nội dung về thương hiệu và thời trang
+- **Thanh toán**: Guest checkout giữ dữ liệu khi quay lại, revalidate tồn kho và ngăn submit lặp
+- **Sau mua**: Xem order ID, delivery estimate, tracking, return hoặc exchange size
+
+## Commerce architecture
+
+- `src/js/commerce-store.js` là source of truth cho catalogue, variant, inventory, Bag, Saved và Order.
+- Bag lưu item theo `productId + variantId + color + size + quantity`, không còn lưu riêng theo product.
+- Dữ liệu guest được lưu trong `localStorage`, có migration cho Bag/Wishlist từ cấu trúc cũ.
+- Toàn site dùng một formatter `VND`; badge Bag lấy tổng quantity thật.
+- Search, filter, PDP, Cart, Checkout và Order đều phát analytics events theo commerce funnel.
+
+> GitHub Pages là front-end tĩnh. Cash on delivery và bank transfer đang mô phỏng đầy đủ UX/order state trên thiết bị; card payment, inventory server-side, email và fulfilment thực tế cần được nối với backend cùng payment provider đã xác minh trước khi vận hành thương mại.
 
 > Dự án phù hợp để sử dụng làm **UI/UX case study** hoặc **project luyện tập front-end**.
 
@@ -82,12 +100,16 @@ Atelier/
 ├── favourite.html      # Wishlist
 ├── cart.html           # Giỏ hàng
 ├── checkout.html       # Thanh toán
+├── order.html          # Tracking, return và exchange
 ├── account.html        # Quản lý tài khoản
 ├── login.html          # Đăng nhập
 ├── forgot-password.html # Quên mật khẩu
 ├── blog.html           # Blog
 ├── about.html          # Giới thiệu thương hiệu
 ├── order-success.html  # Xác nhận đặt hàng
+├── src/js/commerce-store.js # Commerce state dùng chung
+├── src/js/commerce-ui.js    # Drawer, Mini Bag, Size Guide
+├── tests/              # Kiểm thử commerce state
 ├── style.css           # Stylesheet chính
 └── main.js             # Logic JavaScript
 ```
