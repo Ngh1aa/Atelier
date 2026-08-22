@@ -1,35 +1,35 @@
 // App entry: bootstrap per-page modules
-import { initNav } from "./nav.js";
+import { initNav } from "./nav.js?v=ecommerce-1";
 
 function boot() {
   initNav();
 
   const path = location.pathname;
   if (/(^|\/)index\.html?$/.test(path) || path.endsWith("/")) {
-    import("./index.js").then((m) => m.initIndex());
+    import("./index.js?v=ecommerce-1").then((m) => m.initIndex());
   }
   if (path.includes("shop.html")) {
-    import("./shop.js").then((m) => m.renderShop());
+    import("./shop.js?v=ecommerce-1").then((m) => m.renderShop());
   }
   if (path.includes("detailproduct.html")) {
-    import("./detail.js").then((m) => m.renderDetail());
+    import("./detail.js?v=ecommerce-1").then((m) => m.renderDetail());
   }
   if (path.includes("cart.html")) {
-    import("./cart.js").then((m) => m.renderCart());
+    import("./cart.js?v=ecommerce-1").then((m) => m.renderCart());
   }
   if (path.includes("favourite.html")) {
-    import("./favourite.js").then((m) => m.renderFavourite());
+    import("./favourite.js?v=ecommerce-1").then((m) => m.renderFavourite());
   }
   if (path.includes("checkout.html")) {
-    import("./precommerce-checkout.js").then((m) => m.initPrecommerceCheckout());
+    import("./precommerce-checkout.js?v=ecommerce-1").then((m) => m.initPrecommerceCheckout());
   }
   if (path.includes("order-success.html")) {
-    import("./order-success.js").then((m) => m.renderOrderSuccess());
+    import("./order-success.js?v=ecommerce-1").then((m) => m.renderOrderSuccess());
   } else if (path.includes("order.html")) {
-    import("./order.js").then((m) => m.renderOrder());
+    import("./order.js?v=ecommerce-1").then((m) => m.renderOrder());
   }
   if (path.includes("account.html")) {
-    import("./account.js").then((m) => m.renderAccount());
+    import("./account.js?v=ecommerce-1").then((m) => m.renderAccount());
   }
 }
 
