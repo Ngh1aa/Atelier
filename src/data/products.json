@@ -6,7 +6,7 @@
     "collection": "Fall 2026",
     "price": 19500000,
     "images": [
-      "./assets/feedback/shop-product-1.jpg"
+      "./assets/products/pinkparks/belted-cropped-jacket.jpg"
     ],
     "sizes": [
       "XS",
@@ -20,7 +20,7 @@
     "material": "90% wool, 10% cashmere; cupro lining.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
     "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
-    "fallback": "./assets/product-1.webp"
+    "fallback": "./assets/products/pinkparks/belted-cropped-jacket-512.jpg"
   },
   {
     "id": "cashmere-overcoat",
@@ -29,7 +29,7 @@
     "collection": "Fall 2026",
     "price": 34200000,
     "images": [
-      "./assets/feedback/shop-product-2.jpg"
+      "./assets/products/pinkparks/sheer-cape-wrap-top.jpg"
     ],
     "sizes": [
       "S",
@@ -42,7 +42,7 @@
     "material": "100% cashmere; cupro lining.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
     "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
-    "fallback": "./assets/product-2.webp"
+    "fallback": "./assets/products/pinkparks/sheer-cape-wrap-top-512.jpg"
   },
   {
     "id": "merino-knit-dress",
@@ -51,7 +51,7 @@
     "collection": "Foundations",
     "price": 14500000,
     "images": [
-      "./assets/feedback/shop-product-3.jpg"
+      "./assets/products/pinkparks/off-shoulder-sheer-top.jpg"
     ],
     "sizes": [
       "XS",
@@ -64,7 +64,7 @@
     "material": "100% extra-fine merino wool.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
     "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
-    "fallback": "./assets/product-3.webp"
+    "fallback": "./assets/products/pinkparks/off-shoulder-sheer-top-512.jpg"
   },
   {
     "id": "silk-drape-blouse",
@@ -73,7 +73,7 @@
     "collection": "Evening Collection",
     "price": 11200000,
     "images": [
-      "./assets/feedback/shop-product-4.jpg"
+      "./assets/products/pinkparks/sheer-collar-shirt.jpg"
     ],
     "sizes": [
       "XS",
@@ -86,7 +86,7 @@
     "material": "100% silk.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
     "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
-    "fallback": "./assets/product-4.webp"
+    "fallback": "./assets/products/pinkparks/sheer-collar-shirt-512.jpg"
   },
   {
     "id": "linen-wide-trousers",
@@ -95,7 +95,7 @@
     "collection": "Foundations",
     "price": 9800000,
     "images": [
-      "./assets/feedback/shop-product-5.jpg"
+      "./assets/products/pinkparks/layered-barrel-pants.jpg"
     ],
     "sizes": [
       "26",
@@ -109,7 +109,7 @@
     "material": "100% linen.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
     "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
-    "fallback": "./assets/product-5.webp"
+    "fallback": "./assets/products/pinkparks/layered-barrel-pants-512.jpg"
   },
   {
     "id": "suede-chelsea-boots",
@@ -118,7 +118,7 @@
     "collection": "Fall 2026",
     "price": 16800000,
     "images": [
-      "./assets/feedback/shop-product-6.jpg"
+      "./assets/products/pinkparks/relaxed-v-neck-knit.jpg"
     ],
     "sizes": [
       "39",
@@ -133,7 +133,7 @@
     "material": "Calf suede upper with leather lining and sole.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
     "origin": "Designed in Vietnam. Origin details are recorded inside the shoe.",
-    "fallback": "./assets/product-6.webp"
+    "fallback": "./assets/products/pinkparks/relaxed-v-neck-knit-512.jpg"
   },
   {
     "id": "viscose-wrap-top",
@@ -142,7 +142,7 @@
     "collection": "Foundations",
     "price": 8500000,
     "images": [
-      "./assets/feedback/shop-product-7.jpg"
+      "./assets/products/pinkparks/sheer-knit-cape-top.jpg"
     ],
     "sizes": [
       "XS",
@@ -155,7 +155,7 @@
     "material": "100% viscose.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
     "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
-    "fallback": "./assets/product-7.webp"
+    "fallback": "./assets/products/pinkparks/sheer-knit-cape-top-512.jpg"
   },
   {
     "id": "leather-minimal-tote",
@@ -164,7 +164,7 @@
     "collection": "Essentials",
     "price": 21000000,
     "images": [
-      "./assets/feedback/shop-product-8.jpg"
+      "./assets/products/pinkparks/soft-stripe-shirt.jpg"
     ],
     "sizes": [
       "One Size"
@@ -174,7 +174,7 @@
     "material": "Full-grain calf leather with cotton lining.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
     "origin": "Designed in Vietnam. Origin details are recorded inside the bag.",
-    "fallback": "./assets/product-8.webp"
+    "fallback": "./assets/products/pinkparks/soft-stripe-shirt-512.jpg"
   },
   {
     "id": "tailored-coat",
@@ -183,7 +183,7 @@
     "collection": "Fall 2026",
     "price": 24500000,
     "images": [
-      "./assets/feedback/home-new-in-1.jpg"
+      "./assets/products/pinkparks/belted-cropped-jacket.jpg"
     ],
     "sizes": [
       "S",
@@ -196,7 +196,7 @@
     "material": "90% wool, 10% cashmere; cupro lining.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
     "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
-    "fallback": "./assets/new-in-1.webp"
+    "fallback": "./assets/products/pinkparks/belted-cropped-jacket-512.jpg"
   },
   {
     "id": "silk-gown",
@@ -205,7 +205,7 @@
     "collection": "Evening Collection",
     "price": 38000000,
     "images": [
-      "./assets/feedback/home-new-in-2.jpg"
+      "./assets/products/pinkparks/tulle-midi-skirt.jpg"
     ],
     "sizes": [
       "XS",
@@ -218,7 +218,7 @@
     "material": "100% silk with silk lining.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
     "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
-    "fallback": "./assets/new-in-2.webp"
+    "fallback": "./assets/products/pinkparks/tulle-midi-skirt-512.jpg"
   },
   {
     "id": "urban-knit",
@@ -227,7 +227,7 @@
     "collection": "Foundations",
     "price": 7200000,
     "images": [
-      "./assets/feedback/home-new-in-3.jpg"
+      "./assets/products/pinkparks/striped-open-back-top.jpg"
     ],
     "sizes": [
       "S",
@@ -240,7 +240,7 @@
     "material": "100% extra-fine merino wool.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
     "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
-    "fallback": "./assets/new-in-3.webp"
+    "fallback": "./assets/products/pinkparks/striped-open-back-top-512.jpg"
   },
   {
     "id": "silk-midnight-gown",
@@ -249,10 +249,7 @@
     "collection": "Evening Collection",
     "price": 58900000,
     "images": [
-      "./assets/gown-main.webp",
-      "./assets/new-in-2.webp",
-      "./assets/collection-1.webp",
-      "./assets/hero-1.webp"
+      "./assets/products/pinkparks/draped-wide-leg-set.jpg"
     ],
     "sizes": [
       "XS",
@@ -265,6 +262,7 @@
     "fit": "Bias-cut silhouette with a close, fluid line.",
     "material": "100% heavy-weight mulberry silk.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Designed in Vietnam. Origin details are recorded on the garment label."
+    "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
+    "fallback": "./assets/products/pinkparks/draped-wide-leg-set-512.jpg"
   }
 ]

@@ -9,8 +9,8 @@ import {
   removeCartItem,
   saveForLater,
   updateCartQuantity,
-} from "./commerce-store.js?v=ecommerce-2";
-import { escapeHtml, showMessage } from "./commerce-ui.js?v=ecommerce-2";
+} from "./commerce-store.js?v=ecommerce-3";
+import { escapeHtml, showMessage } from "./commerce-ui.js?v=ecommerce-3";
 
 const PROMO_KEY = "atelier.promo";
 

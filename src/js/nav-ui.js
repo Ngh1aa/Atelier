@@ -1,5 +1,5 @@
-import { cartCount, formatVND, loadProducts, track } from "./commerce-store.js?v=ecommerce-2";
-import { escapeHtml, initCommerceUi, updateGlobalIndicators } from "./commerce-ui.js?v=ecommerce-2";
+import { cartCount, formatVND, loadProducts, track } from "./commerce-store.js?v=ecommerce-3";
+import { escapeHtml, initCommerceUi, updateGlobalIndicators } from "./commerce-ui.js?v=ecommerce-3";
 
 const SEARCH_SYNONYMS = {
   coat: ["outerwear", "overcoat"],

@@ -76,7 +76,9 @@ function normaliseProduct(product) {
   const colors = product.colors?.length ? product.colors : (COLOR_PRESETS[product.id] || [
     { name: "Black", value: "black", hex: "#151515" },
   ]);
-  const images = [...new Set([...(product.images || []), product.fallback].filter(Boolean))];
+  // Keep fallbacks out of the gallery: mixing legacy fallback art with a product
+  // shoot caused the half-height hover image reported in the UI review.
+  const images = [...new Set((product.images || []).filter(Boolean))];
   const variants = colors.flatMap((color) => product.sizes.map((size, sizeIndex) => {
     const explicitStock = product.inventory?.[color.value]?.[size];
     const generatedStock = size === "One Size" ? 5 : (hash(`${product.id}:${color.value}:${size}`) + sizeIndex) % 8;
@@ -109,7 +111,7 @@ function normaliseProduct(product) {
 
 export async function loadProducts() {
   if (!cataloguePromise) {
-    cataloguePromise = fetch("./src/data/products.json?v=ecommerce-2")
+    cataloguePromise = fetch("./src/data/products.json?v=ecommerce-3")
       .then((response) => {
         if (!response.ok) throw new Error("The catalogue could not be loaded.");
         return response.json();

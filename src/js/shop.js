@@ -5,8 +5,8 @@ import {
   loadProducts,
   toggleWishlist,
   track,
-} from "./commerce-store.js?v=ecommerce-2";
-import { escapeHtml, openVariantPicker, showMessage } from "./commerce-ui.js?v=ecommerce-2";
+} from "./commerce-store.js?v=ecommerce-3";
+import { escapeHtml, openVariantPicker, showMessage } from "./commerce-ui.js?v=ecommerce-3";
 
 const SHOP_IDS = [
   "tailored-wool-blazer",
@@ -161,8 +161,6 @@ export async function renderShop() {
     filterBar.querySelector("#result-count").textContent = `${visible.length} Piece${visible.length === 1 ? "" : "s"}`;
     filterBar.querySelector(".js-filter-total").textContent = state.categories.size + state.sizes.size + state.colors.size ? `(${state.categories.size + state.sizes.size + state.colors.size})` : "";
     applied.innerHTML = appliedFilterMarkup(state);
-    document.getElementById("load-more")?.setAttribute("hidden", "");
-    document.querySelector(".shop-discover-more")?.setAttribute("hidden", "");
     syncUrl(state);
     bindGrid();
     bindApplied();
