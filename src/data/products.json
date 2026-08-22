@@ -17,9 +17,9 @@
     ],
     "description": "A sharply cut wool blazer with a clean minimalist silhouette, designed for modern everyday tailoring.",
     "fit": "Structured, straight silhouette. Choose your usual size for a considered tailored fit.",
-    "material": "Full composition details will be confirmed before online ordering becomes available.",
+    "material": "90% wool, 10% cashmere; cupro lining.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Country of origin will be specified before commercial launch.",
+    "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
     "fallback": "./assets/product-1.webp"
   },
   {
@@ -39,9 +39,9 @@
     ],
     "description": "Luxuriously soft cashmere overcoat with a timeless, relaxed drape that elevates any winter wardrobe.",
     "fit": "Relaxed, longline silhouette designed for layering.",
-    "material": "Full composition details will be confirmed before online ordering becomes available.",
+    "material": "100% cashmere; cupro lining.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Country of origin will be specified before commercial launch.",
+    "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
     "fallback": "./assets/product-2.webp"
   },
   {
@@ -61,9 +61,9 @@
     ],
     "description": "A fluid merino knit dress that balances comfort and elegance, made for effortless day-to-night styling.",
     "fit": "Fluid close-to-body knit silhouette with comfortable movement.",
-    "material": "Full composition details will be confirmed before online ordering becomes available.",
+    "material": "100% extra-fine merino wool.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Country of origin will be specified before commercial launch.",
+    "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
     "fallback": "./assets/product-3.webp"
   },
   {
@@ -83,9 +83,9 @@
     ],
     "description": "Weightless silk blouse with a softly draped neckline, a refined statement of quiet luxury.",
     "fit": "Softly draped silhouette; intended to fall away from the body.",
-    "material": "Full composition details will be confirmed before online ordering becomes available.",
+    "material": "100% silk.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Country of origin will be specified before commercial launch.",
+    "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
     "fallback": "./assets/product-4.webp"
   },
   {
@@ -106,9 +106,9 @@
     ],
     "description": "Breathable wide-leg linen trousers with a relaxed, tailored finish for warm-weather elegance.",
     "fit": "Relaxed wide-leg cut. Refer to the waist measurement in the size guide.",
-    "material": "Full composition details will be confirmed before online ordering becomes available.",
+    "material": "100% linen.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Country of origin will be specified before commercial launch.",
+    "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
     "fallback": "./assets/product-5.webp"
   },
   {
@@ -130,9 +130,9 @@
     ],
     "description": "Classic suede Chelsea boots with a sculpted last, crafted for enduring comfort and understated style.",
     "fit": "Regular fit. Choose your usual footwear size.",
-    "material": "Full composition details will be confirmed before online ordering becomes available.",
+    "material": "Calf suede upper with leather lining and sole.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Country of origin will be specified before commercial launch.",
+    "origin": "Designed in Vietnam. Origin details are recorded inside the shoe.",
     "fallback": "./assets/product-6.webp"
   },
   {
@@ -152,9 +152,9 @@
     ],
     "description": "A fluid viscose wrap top with an adjustable silhouette, effortlessly feminine and easy to layer.",
     "fit": "Adjustable wrap silhouette, designed for a personalised fit.",
-    "material": "Full composition details will be confirmed before online ordering becomes available.",
+    "material": "100% viscose.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Country of origin will be specified before commercial launch.",
+    "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
     "fallback": "./assets/product-7.webp"
   },
   {
@@ -171,9 +171,9 @@
     ],
     "description": "A structured full-grain leather tote with clean lines and generous capacity for daily essentials.",
     "fit": "One-size accessory with a structured everyday proportion.",
-    "material": "Full composition details will be confirmed before online ordering becomes available.",
+    "material": "Full-grain calf leather with cotton lining.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Country of origin will be specified before commercial launch.",
+    "origin": "Designed in Vietnam. Origin details are recorded inside the bag.",
     "fallback": "./assets/product-8.webp"
   },
   {
@@ -193,9 +193,9 @@
     ],
     "description": "Elegant camel-wool coat with a minimalist silhouette, tailored for the modern wardrobe.",
     "fit": "Relaxed tailored silhouette designed to layer over knitwear.",
-    "material": "Full composition details will be confirmed before online ordering becomes available.",
+    "material": "90% wool, 10% cashmere; cupro lining.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Country of origin will be specified before commercial launch.",
+    "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
     "fallback": "./assets/new-in-1.webp"
   },
   {
@@ -215,9 +215,9 @@
     ],
     "description": "Luxe silk gown with draping detail, perfect for gala events and unforgettable evenings.",
     "fit": "Fluid draped silhouette with a close, elongated line.",
-    "material": "Full composition details will be confirmed before online ordering becomes available.",
+    "material": "100% silk with silk lining.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Country of origin will be specified before commercial launch.",
+    "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
     "fallback": "./assets/new-in-2.webp"
   },
   {
@@ -237,9 +237,9 @@
     ],
     "description": "A soft urban knit sweater in cream, the quiet foundation of an intentional everyday wardrobe.",
     "fit": "Easy, relaxed knit silhouette intended for everyday layering.",
-    "material": "Full composition details will be confirmed before online ordering becomes available.",
+    "material": "100% extra-fine merino wool.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Country of origin will be specified before commercial launch.",
+    "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
     "fallback": "./assets/new-in-3.webp"
   },
   {
@@ -263,8 +263,8 @@
     ],
     "description": "Exquisitely tailored from 100% heavy-weight mulberry silk, the Midnight Gown features a fluid bias-cut silhouette that skims the form. A masterful expression of minimalist luxury, designed for the modern muse.",
     "fit": "Bias-cut silhouette with a close, fluid line.",
-    "material": "Full composition details will be confirmed before online ordering becomes available.",
+    "material": "100% heavy-weight mulberry silk.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Country of origin will be specified before commercial launch."
+    "origin": "Designed in Vietnam. Origin details are recorded on the garment label."
   }
 ]

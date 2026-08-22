@@ -12,7 +12,7 @@ import {
   loadProducts,
   removeCartItem,
   toggleWishlist,
-} from "./commerce-store.js";
+} from "./commerce-store.js?v=ecommerce-2";
 
 let lastFocusedElement = null;
 

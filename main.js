@@ -1,5 +1,5 @@
 // App entry: bootstrap reveal animations + per-page commerce modules
-import "./src/js/app.js?v=ecommerce-1";
+import "./src/js/app.js?v=ecommerce-2";
 import "./src/main.js?v=0.13.0";
 
 // Scroll Reveal Animation

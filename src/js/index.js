@@ -1,5 +1,5 @@
-import { formatVND, isWishlisted, loadProducts, toggleWishlist } from "./commerce-store.js";
-import { openVariantPicker, showMessage } from "./commerce-ui.js";
+import { formatVND, isWishlisted, loadProducts, toggleWishlist } from "./commerce-store.js?v=ecommerce-2";
+import { openVariantPicker, showMessage } from "./commerce-ui.js?v=ecommerce-2";
 
 const INDEX_PRODUCTS = {
   "Tailored Coat": "tailored-coat",

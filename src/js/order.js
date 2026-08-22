@@ -1,5 +1,5 @@
-import { formatVND, getOrder, loadProducts, track, updateOrder } from "./commerce-store.js";
-import { escapeHtml, showMessage } from "./commerce-ui.js";
+import { formatVND, getOrder, loadProducts, track, updateOrder } from "./commerce-store.js?v=ecommerce-2";
+import { escapeHtml, showMessage } from "./commerce-ui.js?v=ecommerce-2";
 
 const STATUS_ORDER = ["placed", "processing", "shipped", "out-for-delivery", "delivered"];
 

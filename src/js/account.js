@@ -1,5 +1,5 @@
-import { formatVND, getOrders } from "./commerce-store.js";
-import { escapeHtml } from "./commerce-ui.js";
+import { formatVND, getOrders } from "./commerce-store.js?v=ecommerce-2";
+import { escapeHtml } from "./commerce-ui.js?v=ecommerce-2";
 
 export function renderAccount() {
   const root = document.querySelector(".js-account-orders");

@@ -109,7 +109,7 @@ function normaliseProduct(product) {
 
 export async function loadProducts() {
   if (!cataloguePromise) {
-    cataloguePromise = fetch("./src/data/products.json")
+    cataloguePromise = fetch("./src/data/products.json?v=ecommerce-2")
       .then((response) => {
         if (!response.ok) throw new Error("The catalogue could not be loaded.");
         return response.json();

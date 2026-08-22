@@ -1,5 +1,5 @@
-import { formatVND, getOrder } from "./commerce-store.js";
-import { escapeHtml } from "./commerce-ui.js";
+import { formatVND, getOrder } from "./commerce-store.js?v=ecommerce-2";
+import { escapeHtml } from "./commerce-ui.js?v=ecommerce-2";
 
 function maskEmail(email) {
   const [name, domain] = String(email || "").split("@");

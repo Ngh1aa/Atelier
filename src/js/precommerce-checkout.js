@@ -7,8 +7,8 @@ import {
   hydrateCart,
   track,
   validateInventory,
-} from "./commerce-store.js";
-import { escapeHtml } from "./commerce-ui.js";
+} from "./commerce-store.js?v=ecommerce-2";
+import { escapeHtml } from "./commerce-ui.js?v=ecommerce-2";
 
 const DRAFT_KEY = "atelier.checkout-draft";
 const PROMO_KEY = "atelier.promo";

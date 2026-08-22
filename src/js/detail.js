@@ -9,8 +9,8 @@ import {
   loadProducts,
   toggleWishlist,
   track,
-} from "./commerce-store.js";
-import { escapeHtml, openMiniBag, openSizeGuide, showMessage } from "./commerce-ui.js";
+} from "./commerce-store.js?v=ecommerce-2";
+import { escapeHtml, openMiniBag, openSizeGuide, showMessage } from "./commerce-ui.js?v=ecommerce-2";
 
 export async function renderDetail() {
   const products = await loadProducts();
