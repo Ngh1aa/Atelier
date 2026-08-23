@@ -1939,7 +1939,7 @@ function createImageEditor() {
     return element instanceof Element && (element instanceof HTMLImageElement || element.tagName.toLowerCase() === "img");
   }
   function clampZoom(value) {
-    return Math.max(30, Math.min(300, Number(value) || 100));
+    return Math.max(100, Math.min(300, Number(value) || 100));
   }
   function parseImageZoom(value) {
     const match = String(value || "").match(/scale(?:3d)?\(\s*([0-9.]+)/i);
@@ -1972,6 +1972,7 @@ function createImageEditor() {
         effectiveObjectPosition: computed.objectPosition || objectPosition,
         effectiveTransform,
         position: parseImagePosition(objectPosition),
+        zoomMode: "cover",
         zoom: transform ? parseImageZoom(transform) : parseImageZoom(effectiveTransform)
       };
     }
@@ -1988,6 +1989,7 @@ function createImageEditor() {
       effectiveBackgroundPosition: computed.backgroundPosition || backgroundPosition,
       effectiveBackgroundSize: computed.backgroundSize || backgroundSize,
       position: parseImagePosition(backgroundPosition),
+      zoomMode: "cover",
       zoom: parseBackgroundZoom(backgroundSize)
     };
   }
@@ -2924,7 +2926,7 @@ function createUIFeedback(options = {}) {
     const zoom = imageEditor.clampZoom(state.modalImageZoom || snapshot.zoom || 100);
     const positionStyle = `object-position:${position.x}% ${position.y}%;transform:scale(${zoom / 100});transform-origin:50% 50%;`;
     const preview = source ? `<img class="ui-feedback-image-preview__media" data-image-preview src="${escapeAttribute(source)}" alt="\u1EA2nh preview" style="${positionStyle}" />` : "<span data-image-preview>Ph\u1EA7n t\u1EED n\xE0y ch\u01B0a c\xF3 \u1EA3nh URL tr\u1EF1c ti\u1EBFp. H\xE3y nh\u1EADp URL ho\u1EB7c ch\u1ECDn file.</span>";
-    return `<div class="ui-feedback-image-block"><div class="ui-feedback-image-heading"><div><strong>Block: ${escapeHtml(targetLabel(state.target))}</strong><small>\u0110\u01B0\u1EDDng d\u1EABn \u1EA3nh \xB7 ${escapeHtml(safeText(cssPath(state.target), 90))}</small></div><span class="ui-feedback-image-state">${source && source !== snapshot.src ? "\u0111\xE3 \u0111\u1ED5i" : "ch\u01B0a \u0111\u1ED5i"}</span></div><div class="ui-feedback-image-preview" data-image-canvas aria-label="K\xE9o \u1EA3nh \u0111\u1EC3 c\u0103n ch\u1EC9nh">${preview}<span class="ui-feedback-image-canvas-hint">K\xE9o \u1EA3nh \u0111\u1EC3 c\u0103n ch\u1EC9nh</span></div><div class="ui-feedback-image-zoom"><button type="button" data-image-zoom-step="-" aria-label="Thu nh\u1ECF \u1EA3nh">\u2212</button><input type="range" min="30" max="300" step="5" data-image-zoom value="${zoom}" aria-label="Zoom \u1EA3nh trong khung crop" /><button type="button" data-image-zoom-step="+" aria-label="Ph\xF3ng to \u1EA3nh">+</button><output data-image-zoom-output>${zoom}%</output></div><div class="ui-feedback-image-position"><span>V\u1ECB tr\xED crop</span><output data-image-position>${Math.round(position.x)}% \xB7 ${Math.round(position.y)}%</output></div><div class="ui-feedback-image-position-controls" role="group" aria-label="C\u0103n ch\u1EC9nh v\u1ECB tr\xED \u1EA3nh"><button type="button" data-image-position-step="left" aria-label="C\u0103n tr\xE1i">\u2190 Tr\xE1i</button><button type="button" data-image-position-step="right" aria-label="C\u0103n ph\u1EA3i">Ph\u1EA3i \u2192</button><button type="button" data-image-position-step="up" aria-label="C\u0103n l\xEAn">\u2191 L\xEAn</button><button type="button" data-image-position-step="down" aria-label="C\u0103n xu\u1ED1ng">Xu\u1ED1ng \u2193</button><button type="button" data-image-position-reset aria-label="\u0110\u1EB7t \u1EA3nh v\u1EC1 gi\u1EEFa">\u0110\u1EB7t gi\u1EEFa</button></div><label class="ui-feedback-label" for="ui-feedback-image-url">URL \u1EA3nh</label><input id="ui-feedback-image-url" class="ui-feedback-image-url" data-feedback-input data-image-url value="${escapeAttribute(source)}" placeholder="https://example.com/image.jpg" type="url" /><button type="button" class="ui-feedback-image-paste" data-image-paste>D\xE1n \u1EA3nh t\u1EEB clipboard (Ctrl/Cmd + V)</button><label class="ui-feedback-label" for="ui-feedback-image-file">Ho\u1EB7c upload t\u1EEB m\xE1y</label><input id="ui-feedback-image-file" class="ui-feedback-image-upload" data-image-file type="file" accept="image/*" /><small class="ui-feedback-image-original">URL g\u1ED1c: ${escapeHtml(safeText(snapshot.src || snapshot.backgroundImage || "Kh\xF4ng c\xF3", 150))}</small><small class="ui-feedback-image-original">Crop s\u1EBD l\u01B0u c\xF9ng feedback: X ${Math.round(position.x)}% \xB7 Y ${Math.round(position.y)}% \xB7 zoom ${zoom}%.</small><small class="ui-feedback-image-original">Upload local \u0111\u01B0\u1EE3c gi\u1EEF t\u1ED1i \u0111a 1 MB \u0111\u1EC3 tr\xE1nh l\xE0m \u0111\u1EA7y localStorage.</small></div>`;
+    return `<div class="ui-feedback-image-block"><div class="ui-feedback-image-heading"><div><strong>Block: ${escapeHtml(targetLabel(state.target))}</strong><small>\u0110\u01B0\u1EDDng d\u1EABn \u1EA3nh \xB7 ${escapeHtml(safeText(cssPath(state.target), 90))}</small></div><span class="ui-feedback-image-state">${source && source !== snapshot.src ? "\u0111\xE3 \u0111\u1ED5i" : "ch\u01B0a \u0111\u1ED5i"}</span></div><div class="ui-feedback-image-preview" data-image-canvas aria-label="K\xE9o \u1EA3nh \u0111\u1EC3 c\u0103n ch\u1EC9nh">${preview}<span class="ui-feedback-image-canvas-hint">K\xE9o \u1EA3nh \u0111\u1EC3 c\u0103n ch\u1EC9nh</span></div><div class="ui-feedback-image-zoom"><button type="button" data-image-zoom-step="-" aria-label="Thu nh\u1ECF \u1EA3nh">\u2212</button><input type="range" min="100" max="300" step="1" data-image-zoom value="${zoom}" aria-label="Zoom \u1EA3nh trong khung crop" /><button type="button" data-image-zoom-step="+" aria-label="Ph\xF3ng to \u1EA3nh">+</button><output data-image-zoom-output>${zoom}%</output></div><div class="ui-feedback-image-position"><span>V\u1ECB tr\xED crop \xB7 \u1EA3nh lu\xF4n ph\u1EE7 k\xEDn khung</span><output data-image-position>${Math.round(position.x)}% \xB7 ${Math.round(position.y)}%</output></div><div class="ui-feedback-image-position-controls" role="group" aria-label="C\u0103n ch\u1EC9nh v\u1ECB tr\xED \u1EA3nh"><button type="button" data-image-position-step="left" aria-label="C\u0103n tr\xE1i">\u2190 Tr\xE1i</button><button type="button" data-image-position-step="right" aria-label="C\u0103n ph\u1EA3i">Ph\u1EA3i \u2192</button><button type="button" data-image-position-step="up" aria-label="C\u0103n l\xEAn">\u2191 L\xEAn</button><button type="button" data-image-position-step="down" aria-label="C\u0103n xu\u1ED1ng">Xu\u1ED1ng \u2193</button><button type="button" data-image-position-reset aria-label="\u0110\u1EB7t \u1EA3nh v\u1EC1 gi\u1EEFa">\u0110\u1EB7t gi\u1EEFa</button></div><label class="ui-feedback-label" for="ui-feedback-image-url">URL \u1EA3nh</label><input id="ui-feedback-image-url" class="ui-feedback-image-url" data-feedback-input data-image-url value="${escapeAttribute(source)}" placeholder="https://example.com/image.jpg" type="url" /><button type="button" class="ui-feedback-image-paste" data-image-paste>D\xE1n \u1EA3nh t\u1EEB clipboard (Ctrl/Cmd + V)</button><label class="ui-feedback-label" for="ui-feedback-image-file">Ho\u1EB7c upload t\u1EEB m\xE1y</label><input id="ui-feedback-image-file" class="ui-feedback-image-upload" data-image-file type="file" accept="image/*" /><small class="ui-feedback-image-original">URL g\u1ED1c: ${escapeHtml(safeText(snapshot.src || snapshot.backgroundImage || "Kh\xF4ng c\xF3", 150))}</small><small class="ui-feedback-image-original">Crop s\u1EBD l\u01B0u c\xF9ng feedback: X ${Math.round(position.x)}% \xB7 Y ${Math.round(position.y)}% \xB7 zoom ${zoom}%.</small><small class="ui-feedback-image-original">Upload local \u0111\u01B0\u1EE3c gi\u1EEF t\u1ED1i \u0111a 1 MB \u0111\u1EC3 tr\xE1nh l\xE0m \u0111\u1EA7y localStorage.</small></div>`;
   }
   function renderModal(existing = null) {
     const mount = root.querySelector("[data-ui-feedback-modal]");
@@ -3082,7 +3084,7 @@ function createUIFeedback(options = {}) {
   function handleModalWheel(event) {
     if (state.mode !== "image" || !event.target.closest("[data-image-canvas]")) return;
     event.preventDefault();
-    state.modalImageZoom = Math.max(30, Math.min(300, (state.modalImageZoom || 100) + (event.deltaY < 0 ? 10 : -10)));
+    state.modalImageZoom = imageEditor.clampZoom((state.modalImageZoom || 100) + (event.deltaY < 0 ? 5 : -5));
     const input = root.querySelector("[data-image-zoom]");
     if (input) input.value = state.modalImageZoom;
     applyPreviewImageZoom();
@@ -3156,7 +3158,7 @@ function createUIFeedback(options = {}) {
     const zoomStep = event.target.closest("[data-image-zoom-step]");
     if (zoomStep) {
       event.stopPropagation();
-      state.modalImageZoom = Math.max(30, Math.min(300, (state.modalImageZoom || 100) + (zoomStep.dataset.imageZoomStep === "+" ? 15 : -15)));
+      state.modalImageZoom = imageEditor.clampZoom((state.modalImageZoom || 100) + (zoomStep.dataset.imageZoomStep === "+" ? 10 : -10));
       const input = root.querySelector("[data-image-zoom]");
       if (input) input.value = state.modalImageZoom;
       applyPreviewImageZoom();
@@ -3297,7 +3299,7 @@ function createUIFeedback(options = {}) {
       state.cssPosition[isX ? "x" : "y"] = Number(target.value);
       applyCssPosition();
     } else if (target.matches("[data-image-zoom]")) {
-      state.modalImageZoom = Math.max(30, Math.min(300, Number(target.value) || 100));
+      state.modalImageZoom = imageEditor.clampZoom(Number(target.value) || 100);
       target.value = state.modalImageZoom;
       applyPreviewImageZoom();
     } else if (target.matches("[data-css-radius]")) {
