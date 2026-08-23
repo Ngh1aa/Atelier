@@ -2995,6 +2995,7 @@ function createUIFeedback(options = {}) {
     };
     state.modalImagePosition = position;
     applyPreviewImagePosition();
+    if (state.target && state.mode === "image") applyImagePosition(state.target, position);
   }
   function handleImagePointerDown(event) {
     if (state.mode !== "image" || !state.modalOpen || event.button !== 0) return;
@@ -3074,6 +3075,7 @@ function createUIFeedback(options = {}) {
     const preview = root.querySelector("[data-image-preview]");
     const zoom = state.modalImageZoom || 100;
     if (preview?.tagName?.toLowerCase() === "img") preview.style.transform = `scale(${zoom / 100})`;
+    if (state.target && state.mode === "image") applyImageZoom(state.target, zoom, state.modalImageBaseTransform);
     const output = root.querySelector("[data-image-zoom-output]");
     if (output) output.textContent = `${zoom}%`;
   }
@@ -3140,6 +3142,7 @@ function createUIFeedback(options = {}) {
       if (positionStep.dataset.imagePositionStep === "down") position.y += step;
       state.modalImagePosition = { x: Math.max(0, Math.min(100, position.x)), y: Math.max(0, Math.min(100, position.y)) };
       applyPreviewImagePosition();
+      if (state.target && state.mode === "image") applyImagePosition(state.target, state.modalImagePosition);
       return;
     }
     const imagePositionReset = event.target.closest("[data-image-position-reset]");
@@ -3147,6 +3150,7 @@ function createUIFeedback(options = {}) {
       event.stopPropagation();
       state.modalImagePosition = { x: 50, y: 50 };
       applyPreviewImagePosition();
+      if (state.target && state.mode === "image") applyImagePosition(state.target, state.modalImagePosition);
       return;
     }
     const zoomStep = event.target.closest("[data-image-zoom-step]");
