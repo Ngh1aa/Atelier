@@ -4126,6 +4126,74 @@ body textarea:focus-visible {
   }
 }
 
+/* Atelier motion system — editorial reveal with native cross-page continuity. */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: atelier-page-out 280ms cubic-bezier(.55, 0, 1, .45) both;
+}
+
+::view-transition-new(root) {
+  animation: atelier-page-in 620ms cubic-bezier(.16, 1, .3, 1) both;
+}
+
+@keyframes atelier-page-out {
+  to { opacity: .55; transform: translate3d(0, -8px, 0); }
+}
+
+@keyframes atelier-page-in {
+  from { opacity: 0; transform: translate3d(0, 18px, 0); }
+}
+
+.atelier-motion-ready .atelier-motion-item {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+}
+
+.atelier-motion-ready .atelier-motion-item.is-motion-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition:
+    opacity 720ms cubic-bezier(.16, 1, .3, 1) var(--atelier-motion-delay, 0ms),
+    transform 820ms cubic-bezier(.16, 1, .3, 1) var(--atelier-motion-delay, 0ms);
+}
+
+.atelier-motion-ready .atelier-motion-item:is(.product-card, .collection-item, .editorial-img) {
+  overflow: hidden;
+}
+
+.atelier-motion-ready .atelier-motion-item:is(.product-card, .collection-item, .editorial-img) img {
+  transform: scale(1.035);
+  transition: transform 1s cubic-bezier(.16, 1, .3, 1) var(--atelier-motion-delay, 0ms);
+}
+
+.atelier-motion-ready .atelier-motion-item.is-motion-visible:is(.product-card, .collection-item, .editorial-img) img {
+  transform: scale(1);
+}
+
+@media (max-width: 767px) {
+  .atelier-motion-ready .atelier-motion-item {
+    transform: translate3d(0, 16px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+
+  .atelier-motion-ready .atelier-motion-item,
+  .atelier-motion-ready .atelier-motion-item.is-motion-visible,
+  .atelier-motion-ready .atelier-motion-item img {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 /* Product-detail service information */
 .product-facts {
   margin: 30px 0 34px;
@@ -4966,6 +5034,13 @@ body textarea:focus-visible {
   line-height: 1;
   white-space: nowrap;
   animation: atelier-marquee 34s linear infinite;
+}
+
+.atelier-marquee[role="button"] { cursor: pointer; }
+.atelier-marquee.is-paused .atelier-marquee-track { animation-play-state: paused; }
+.atelier-marquee[role="button"]:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, .72);
+  outline-offset: 3px;
 }
 
 .atelier-marquee-track i {
