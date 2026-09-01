@@ -1,0 +1,82 @@
+/* ATELIER V11 — portrait media hardening
+   Loaded after atelier-v11.css and atelier-v11-fixes.css.
+   Exact page selectors intentionally outrank legacy V7/V11 cover rules. */
+
+html[data-atelier-design="v11-commerce"] body.v11-home .v7-product-card .v7-product-image img,
+html[data-atelier-design="v11-commerce"] body.v11-home .v7-collection-image img,
+html[data-atelier-design="v11-commerce"] body.v11-home .v7-collection-detail img,
+html[data-atelier-design="v11-commerce"] body.v11-home .v7-editorial-break > figure img,
+html[data-atelier-design="v11-commerce"] body.v11-shop .product-grid-item__image img,
+html[data-atelier-design="v11-commerce"] body.v11-pdp .related-item > img,
+html[data-atelier-design="v11-commerce"] body.v11-pdp .pdp-thumbnail img,
+html[data-atelier-design="v11-commerce"] body.v11-pdp .main-img-wrap > img,
+html[data-atelier-design="v11-commerce"] body.v11-collections .collection-feature-image img,
+html[data-atelier-design="v11-commerce"] body.v11-house .house-image-frame img,
+html[data-atelier-design="v11-commerce"] body.v11-saved .favourite-img img,
+html[data-atelier-design="v11-commerce"] body.v11-bag .cart-item-img img,
+html[data-atelier-design="v11-commerce"] body.v11-order .order-item img,
+html[data-atelier-design="v11-commerce"] body.v11-checkout .summary-item img {
+  object-fit: contain !important;
+  object-position: 50% 8% !important;
+  background: #f7f6f2 !important;
+}
+
+html[data-atelier-design="v11-commerce"] body.v11-home .v7-product-image,
+html[data-atelier-design="v11-commerce"] body.v11-home .v7-collection-image,
+html[data-atelier-design="v11-commerce"] body.v11-home .v7-collection-detail,
+html[data-atelier-design="v11-commerce"] body.v11-home .v7-editorial-break > figure,
+html[data-atelier-design="v11-commerce"] body.v11-shop .product-grid-item__image,
+html[data-atelier-design="v11-commerce"] body.v11-pdp .main-img-wrap,
+html[data-atelier-design="v11-commerce"] body.v11-pdp .pdp-thumbnail,
+html[data-atelier-design="v11-commerce"] body.v11-collections .collection-feature-image,
+html[data-atelier-design="v11-commerce"] body.v11-house .house-image-frame,
+html[data-atelier-design="v11-commerce"] body.v11-saved .favourite-img,
+html[data-atelier-design="v11-commerce"] body.v11-bag .cart-item-img {
+  aspect-ratio: 3 / 4 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: hidden !important;
+  background: #f7f6f2 !important;
+}
+
+html[data-atelier-design="v11-commerce"] body.v11-pdp .related-item > img,
+html[data-atelier-design="v11-commerce"] body.v11-order .order-item img,
+html[data-atelier-design="v11-commerce"] body.v11-checkout .summary-item img {
+  aspect-ratio: 3 / 4 !important;
+}
+
+/* Hero portrait: never stretch fashion photography into a landscape crop. */
+html[data-atelier-design="v11-commerce"] body.v11-home .campaign-frame-main {
+  width: min(100%, 520px) !important;
+  aspect-ratio: 3 / 4 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  justify-self: center !important;
+  align-self: center !important;
+  overflow: hidden !important;
+  background: #f7f6f2 !important;
+}
+
+html[data-atelier-design="v11-commerce"] body.v11-home .campaign-frame-main img {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  aspect-ratio: auto !important;
+  object-fit: contain !important;
+  object-position: 50% 8% !important;
+}
+
+/* Any large content image not covered by a named frame still follows the safe rule. */
+html[data-atelier-design="v11-commerce"] main img {
+  object-fit: contain !important;
+  object-position: 50% 8% !important;
+}
+
+@media (max-width: 820px) {
+  html[data-atelier-design="v11-commerce"] body.v11-home .campaign-frame-main {
+    width: min(100%, 520px) !important;
+    height: auto !important;
+    aspect-ratio: 3 / 4 !important;
+  }
+}
