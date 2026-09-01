@@ -14,6 +14,7 @@ const routes = [
   { key: "bag", path: "/cart.html", widths: [390, 1440] },
   { key: "saved", path: "/favourite.html", widths: [390, 1440] },
   { key: "service", path: "/shipping&returns.html", widths: [390, 1440] },
+  { key: "order", path: "/order.html?id=QA-ORDER-001", widths: [390, 1440] },
 ];
 
 const seededCart = [
@@ -32,6 +33,40 @@ const seededCart = [
 
 const seededWishlist = [
   { productId: "cashmere-overcoat", preferredVariantId: null, savedAt: 1788253200000 },
+];
+
+const seededOrders = [
+  {
+    id: "QA-ORDER-001",
+    currency: "VND",
+    reality: "SIMULATED_LOCAL",
+    paymentStatus: "pending-local",
+    fulfillmentStatus: "recorded-local",
+    tracking: null,
+    serviceRequests: [],
+    createdAt: "2026-09-01T10:00:00.000Z",
+    customer: { email: "qa@example.test", phone: "0900000000", fullName: "QA Customer" },
+    address: { country: "Vietnam", address: "1 Nguyen Hue", apartment: "", district: "District 1", province: "Ho Chi Minh City", postalCode: "" },
+    deliveryMethod: "standard",
+    deliveryEstimate: "3–5 September",
+    paymentMethod: "cod",
+    items: [
+      {
+        productId: "tailored-wool-blazer",
+        variantId: null,
+        name: "Tailored Wool Blazer",
+        image: "./assets/products/pinkparks/belted-cropped-jacket.jpg",
+        color: "Black",
+        size: "M",
+        quantity: 1,
+        unitPrice: 19500000,
+      },
+    ],
+    subtotal: 19500000,
+    shippingFee: 0,
+    discount: 0,
+    total: 19500000,
+  },
 ];
 
 async function primeLazyMedia(page) {
@@ -73,11 +108,12 @@ for (const route of routes) {
     });
     page.on("pageerror", (error) => pageErrors.push(String(error)));
 
-    await page.addInitScript(({ cart, wishlist }) => {
+    await page.addInitScript(({ cart, wishlist, orders }) => {
       localStorage.setItem("atelier.cart.v2", JSON.stringify(cart));
       localStorage.setItem("atelier.wishlist.v2", JSON.stringify(wishlist));
+      localStorage.setItem("atelier.orders", JSON.stringify(orders));
       localStorage.removeItem("atelier.promo");
-    }, { cart: seededCart, wishlist: seededWishlist });
+    }, { cart: seededCart, wishlist: seededWishlist, orders: seededOrders });
 
     const url = new URL(route.path, baseURL).toString();
     const response = await page.goto(url, { waitUntil: "networkidle", timeout: 30_000 });
@@ -130,6 +166,18 @@ for (const route of routes) {
           await page.evaluate(() => window.scrollTo(0, 0));
           await page.waitForTimeout(100);
         }
+      }
+    }
+
+    if (route.key === "order" && width === 390) {
+      const serviceTrigger = page.locator(".js-service-open").first();
+      if (await serviceTrigger.count()) {
+        await serviceTrigger.click();
+        await page.waitForTimeout(120);
+        await page.screenshot({ path: path.join(outputDir, "order-390-service-open.png"), fullPage: false });
+        await page.locator(".js-service-close").click();
+        await page.waitForTimeout(80);
+        await page.evaluate(() => window.scrollTo(0, 0));
       }
     }
 
@@ -225,6 +273,10 @@ for (const route of routes) {
           const box = el.getBoundingClientRect();
           return getComputedStyle(el).display !== "none" && box.width > 0 && box.height > 0;
         }),
+        orderServicePanelVisible: [...document.querySelectorAll(".js-order-service-panel")].some((el) => {
+          const box = el.getBoundingClientRect();
+          return getComputedStyle(el).display !== "none" && box.width > 0 && box.height > 0;
+        }),
         smallTouchTargets,
       };
     });
@@ -262,6 +314,7 @@ const blockers = report.checks.filter((check) =>
   check.visibleHiddenElements.length ||
   check.inactivePromoVisible ||
   (check.route === "bag" && check.bagVariantEditorVisible) ||
+  (check.route === "order" && check.orderServicePanelVisible) ||
   (check.route === "pdp" && check.width === 390 && check.topStickyVisible)
 );
 
@@ -283,6 +336,7 @@ for (const blocker of blockers) {
     visibleHiddenElements: blocker.visibleHiddenElements,
     inactivePromoVisible: blocker.inactivePromoVisible,
     bagVariantEditorVisible: blocker.bagVariantEditorVisible,
+    orderServicePanelVisible: blocker.orderServicePanelVisible,
     topStickyVisible: blocker.topStickyVisible,
   }));
 }
