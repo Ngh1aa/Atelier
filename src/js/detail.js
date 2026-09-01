@@ -168,7 +168,10 @@ export async function renderDetail() {
   sticky.querySelector("button").addEventListener("click", addSelection);
   document.body.appendChild(sticky);
   if ("IntersectionObserver" in window) {
-    const observer = new IntersectionObserver(([entry]) => sticky.classList.toggle("is-visible", !entry.isIntersecting), { threshold: 0 });
+    const observer = new IntersectionObserver(([entry]) => {
+      const hasPassedPrimaryAction = !entry.isIntersecting && entry.boundingClientRect.bottom < 0;
+      sticky.classList.toggle("is-visible", hasPassedPrimaryAction);
+    }, { threshold: 0 });
     observer.observe(addButton);
   }
 }
