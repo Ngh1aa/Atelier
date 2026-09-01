@@ -4,13 +4,18 @@ import "./src/main.js?v=white-editorial-v6";
 
 function ensureV10DesignOwner() {
   document.querySelectorAll('link[data-atelier-design-owner], link[href*="atelier-v9.css"], link[href*="atelier-v9-integrity.css"]').forEach((sheet) => sheet.remove());
-  if (!document.querySelector('link[href*="atelier-v10.css"]')) {
+  const sheets = [
+    ["./atelier-v10.css?v=journey-v10-1", "atelier-v10.css", "v10-journey"],
+    ["./atelier-v10-fixes.css?v=journey-v10-2", "atelier-v10-fixes.css", "v10-screenshot-fixes"],
+  ];
+  sheets.forEach(([href, match, owner]) => {
+    if (document.querySelector(`link[href*="${match}"]`)) return;
     const sheet = document.createElement("link");
     sheet.rel = "stylesheet";
-    sheet.href = "./atelier-v10.css?v=journey-v10-1";
-    sheet.dataset.atelierDesignOwner = "v10-journey";
+    sheet.href = href;
+    sheet.dataset.atelierDesignOwner = owner;
     document.head.appendChild(sheet);
-  }
+  });
   document.documentElement.dataset.atelierDesign = "v10-journey";
 }
 
@@ -91,6 +96,46 @@ function initHomeJourney() {
   main.insertBefore(rail, hero);
 }
 
+function initShopJourney() {
+  const container = document.querySelector("body.v7-shop .shop-page > .container");
+  if (!container || container.querySelector(".v10-shop-sidebar")) return;
+
+  const intro = container.querySelector(".shop-intro");
+  const filterBar = container.querySelector(".filter-bar");
+  const grid = container.querySelector(".shop-grid-container");
+  if (!intro || !filterBar || !grid) return;
+
+  const sidebar = document.createElement("aside");
+  sidebar.className = "v10-shop-sidebar";
+  sidebar.setAttribute("aria-label", "Catalogue navigation and filters");
+  const results = document.createElement("div");
+  results.className = "v10-shop-results";
+
+  container.insertBefore(sidebar, intro);
+  container.insertBefore(results, intro);
+  sidebar.appendChild(intro);
+  results.appendChild(filterBar);
+  results.appendChild(grid);
+
+  const attachPanel = () => {
+    const panel = document.querySelector(".shop-filter-panel");
+    if (panel && panel.parentElement !== sidebar && window.innerWidth >= 821) sidebar.appendChild(panel);
+    const applied = document.querySelector(".js-applied-filters");
+    if (applied && applied.parentElement !== results) results.insertBefore(applied, grid);
+  };
+
+  const observer = new MutationObserver(() => attachPanel());
+  observer.observe(container, { childList: true, subtree: true });
+  attachPanel();
+
+  window.addEventListener("resize", () => {
+    const panel = document.querySelector(".shop-filter-panel");
+    if (!panel) return;
+    if (window.innerWidth >= 821 && panel.parentElement !== sidebar) sidebar.appendChild(panel);
+    if (window.innerWidth < 821 && panel.parentElement !== results) results.insertBefore(panel, grid);
+  }, { passive: true });
+}
+
 function initPdpJourney() {
   const page = document.querySelector("body.v7-pdp .product-detail-page > .container");
   const grid = page?.querySelector(".product-detail-grid");
@@ -143,6 +188,7 @@ function initCheckoutJourney() {
 function initV10Journey() {
   addBodyJourneyClass();
   initHomeJourney();
+  initShopJourney();
   initPdpJourney();
   initBagJourney();
   initCheckoutJourney();
