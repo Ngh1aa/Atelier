@@ -1,6 +1,12 @@
 import { formatVND, getOrder, loadProducts, track, updateOrder } from "./commerce-store.js?v=white-editorial-v6";
 import { escapeHtml, showMessage } from "./commerce-ui.js?v=white-editorial-v6";
 
+function setHidden(element, hidden) {
+  if (!element) return;
+  element.hidden = hidden;
+  element.style.display = hidden ? "none" : "";
+}
+
 export async function renderOrder() {
   const root = document.querySelector(".js-order-page");
   if (!root) return;
@@ -40,7 +46,7 @@ export async function renderOrder() {
         ${(order.items || []).map((item, index) => `<article class="order-item"><img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}"><div><h3>${escapeHtml(item.name)}</h3><p>${escapeHtml(item.color)} · Size ${escapeHtml(item.size)} · Qty ${item.quantity}</p><strong>${formatVND(item.unitPrice * item.quantity)}</strong></div><button type="button" class="cart-text-action js-service-open" data-item-index="${index}">Save return / exchange intent</button></article>`).join("")}
       </section>
 
-      <section class="order-service-panel js-order-service-panel" hidden>
+      <section class="order-service-panel js-order-service-panel" hidden style="display:none">
         <div class="order-service-head"><h2>LOCAL SERVICE REQUEST</h2><button type="button" class="js-service-close" aria-label="Close">×</button></div>
         <p>This demonstration stores the request in this browser only. It is not sent to Client Services.</p>
         <form class="js-service-form">
@@ -71,14 +77,14 @@ export async function renderOrder() {
         .filter((size) => size !== item.size)
         .map((size) => `<option value="${escapeHtml(size)}">${escapeHtml(size)}</option>`)
         .join("");
-      panel.hidden = false;
+      setHidden(panel, false);
       panel.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
       form.elements.action.focus();
     }));
 
-    root.querySelector(".js-service-close")?.addEventListener("click", () => { panel.hidden = true; });
+    root.querySelector(".js-service-close")?.addEventListener("click", () => { setHidden(panel, true); });
     form.elements.action.addEventListener("change", () => {
-      root.querySelector(".js-exchange-size").hidden = form.elements.action.value !== "exchange";
+      setHidden(root.querySelector(".js-exchange-size"), form.elements.action.value !== "exchange");
     });
 
     form.addEventListener("submit", (event) => {
