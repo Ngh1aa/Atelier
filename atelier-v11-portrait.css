@@ -69,8 +69,8 @@ html[data-atelier-design="v11-commerce"] body.v11-shop .product-grid-item__image
    Pull it back inside the same 3:4 frame so head/body scale matches neighbouring cards. */
 html[data-atelier-design="v11-commerce"] body.v11-home .v7-product-image:has(img[src*="belted-cropped-jacket"]),
 html[data-atelier-design="v11-commerce"] body.v11-shop .product-grid-item__image:has(img[src*="belted-cropped-jacket"]) {
-  --catalogue-media-scale: .82;
-  --catalogue-media-origin: 50% 6%;
+  --catalogue-media-scale: .68;
+  --catalogue-media-origin: 50% 5%;
 }
 
 /* Hero portrait: never stretch fashion photography into a landscape crop. */
