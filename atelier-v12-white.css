@@ -67,6 +67,21 @@ html[data-atelier-style="sharp-youth-luxury"] body.v12-house-page .v12-house-stu
   background: #fff !important;
 }
 
+/* Catalogue media must use the full 3:4 canvas. The previous asset-specific
+   scale(.68) shrank the entire image element and created a picture-inside-a-box
+   effect. Keep the safe contain rule, but never scale the element itself. */
+html[data-atelier-style="sharp-youth-luxury"] body.v12-shop-page .product-grid-item__image img,
+html[data-atelier-style="sharp-youth-luxury"] body.v11-home .v7-product-image img {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  object-fit: contain !important;
+  object-position: 50% 6% !important;
+  transform: none !important;
+  transform-origin: 50% 6% !important;
+  background: #fff !important;
+}
+
 html[data-atelier-style="sharp-youth-luxury"] body.v12-shop-page .v12-shop-stamp {
   background: #fff !important;
   color: var(--v12-ink) !important;
