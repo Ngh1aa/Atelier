@@ -26,8 +26,8 @@ function lineMarkup(line) {
       <div class="cart-item-info">
         <h3><a href="detailproduct.html?id=${encodeURIComponent(product.id)}">${escapeHtml(product.name)}</a></h3>
         <p>${escapeHtml(variant.colorName)} · Size ${escapeHtml(variant.size)}</p>
-        <button type="button" class="cart-text-action js-edit-variant">Size ${escapeHtml(variant.size)} · Edit</button>
-        <div class="cart-variant-editor js-variant-editor" hidden>
+        <button type="button" class="cart-text-action js-edit-variant" aria-expanded="false">Size ${escapeHtml(variant.size)} · Edit</button>
+        <div class="cart-variant-editor js-variant-editor" hidden style="display:none">
           <label>Colour<select class="js-cart-color">${product.colors.map((color) => `<option value="${escapeHtml(color.value)}" ${color.value === variant.color ? "selected" : ""}>${escapeHtml(color.name)}</option>`).join("")}</select></label>
           <label>Size<select class="js-cart-size">${product.sizes.map((size) => { const option = findVariant(product, variant.color, size); return `<option value="${escapeHtml(size)}" ${size === variant.size ? "selected" : ""} ${!option?.stock ? "disabled" : ""}>${escapeHtml(size)}${option?.stock ? "" : " — Unavailable"}</option>`; }).join("")}</select></label>
           <button type="button" class="cart-text-action js-save-variant">Save</button>
@@ -70,8 +70,6 @@ export async function renderCart() {
     document.querySelectorAll(".js-summary-total").forEach((element) => { element.textContent = formatVND(totals.total); });
     const shipping = document.querySelector(".js-cart-delivery");
     if (shipping) shipping.textContent = `Estimated ${getDeliveryWindow(false)}`;
-    const discountRow = document.querySelector(".js-summary-discount");
-    if (discountRow) discountRow.hidden = true;
     const checkout = document.querySelector(".btn-checkout");
     checkout?.classList.toggle("is-disabled", !lines.length);
     checkout?.setAttribute("aria-disabled", String(!lines.length));
@@ -105,11 +103,15 @@ export async function renderCart() {
       });
 
       const editor = item.querySelector(".js-variant-editor");
+      const editButton = item.querySelector(".js-edit-variant");
       const colorSelect = item.querySelector(".js-cart-color");
       const sizeSelect = item.querySelector(".js-cart-size");
-      item.querySelector(".js-edit-variant").addEventListener("click", () => {
-        editor.hidden = !editor.hidden;
-        if (!editor.hidden) colorSelect.focus();
+      editButton.addEventListener("click", () => {
+        const willOpen = editor.hidden;
+        editor.hidden = !willOpen;
+        editor.style.display = willOpen ? "" : "none";
+        editButton.setAttribute("aria-expanded", String(willOpen));
+        if (willOpen) colorSelect.focus();
       });
       colorSelect.addEventListener("change", () => {
         sizeSelect.innerHTML = line.product.sizes.map((size) => {
@@ -129,9 +131,6 @@ export async function renderCart() {
       });
     });
   };
-
-  const promoWrap = document.querySelector(".promo-code-wrap");
-  if (promoWrap) promoWrap.innerHTML = `<p class="tax-note">Promo codes are not enabled in this static prototype.</p>`;
 
   document.querySelector(".btn-checkout")?.addEventListener("click", (event) => {
     if (event.currentTarget.getAttribute("aria-disabled") === "true") event.preventDefault();
