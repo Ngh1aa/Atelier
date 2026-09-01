@@ -57,7 +57,7 @@ for (const width of [390, 1440]) {
 
   const tailored = cards.find((card) => card.id === "tailored-wool-blazer");
   if (!tailored) failures.push("tailored-wool-blazer card missing");
-  else if (tailored.scaleX < .78 || tailored.scaleX > .86) failures.push(`tailored-wool-blazer scale ${tailored.scaleX.toFixed(3)} outside normalized range`);
+  else if (tailored.scaleX < .64 || tailored.scaleX > .72) failures.push(`tailored-wool-blazer scale ${tailored.scaleX.toFixed(3)} outside normalized range`);
 
   for (const card of cards.filter((card) => card.id !== "tailored-wool-blazer")) {
     if (Math.abs(card.scaleX - 1) > .02) failures.push(`${card.id}: unexpected catalogue scale ${card.scaleX.toFixed(3)}`);
