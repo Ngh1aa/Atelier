@@ -14,7 +14,6 @@ html[data-atelier-design="v11-commerce"] :is(
   .campaign-frame-offset,
   .v7-product-image,
   .v7-collection-image,
-  .v7-collection-detail,
   .v7-editorial-break > figure,
   .product-grid-item__image,
   .main-img-wrap,
@@ -45,7 +44,6 @@ html[data-atelier-design="v11-commerce"] :is(
   .campaign-frame-offset,
   .v7-product-image,
   .v7-collection-image,
-  .v7-collection-detail,
   .v7-editorial-break > figure,
   .product-grid-item__image,
   .main-img-wrap,
@@ -74,6 +72,36 @@ html[data-atelier-design="v11-commerce"] :is(
   transform-origin: var(--atelier-media-position) !important;
   transition-property: opacity !important;
   background: var(--atelier-media-bg) !important;
+}
+
+/* Captioned figures are not image frames themselves. Keep the caption in normal
+   document flow and make the image own its own 3:4 canvas. Otherwise the caption
+   steals height from the image and recreates a smaller picture inside the box. */
+html[data-atelier-design="v11-commerce"] body.v11-home .v7-collection-detail {
+  aspect-ratio: auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+  overflow: visible !important;
+  background: #fff !important;
+}
+
+html[data-atelier-design="v11-commerce"] body.v11-home .v7-collection-detail img {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: var(--atelier-media-ratio) !important;
+  display: block !important;
+  object-fit: contain !important;
+  object-position: var(--atelier-media-position) !important;
+  transform: none !important;
+  background: #fff !important;
+}
+
+html[data-atelier-design="v11-commerce"] body.v11-home .v7-collection-detail figcaption {
+  margin: 8px 0 0 !important;
+  position: static !important;
+  background: transparent !important;
 }
 
 /* Direct transactional/search media does not always have a named frame wrapper. */
@@ -107,7 +135,6 @@ html[data-atelier-style="sharp-youth-luxury"] :is(
   .campaign-frame-offset,
   .v7-product-image,
   .v7-collection-image,
-  .v7-collection-detail,
   .v7-editorial-break > figure,
   .product-grid-item__image,
   .main-img-wrap,
