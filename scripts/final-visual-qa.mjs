@@ -34,6 +34,20 @@ const seededWishlist = [
   { productId: "cashmere-overcoat", preferredVariantId: null, savedAt: 1788253200000 },
 ];
 
+async function primeLazyMedia(page) {
+  await page.evaluate(async () => {
+    const step = Math.max(320, Math.floor(window.innerHeight * 0.75));
+    for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
+      window.scrollTo(0, y);
+      await new Promise((resolve) => setTimeout(resolve, 35));
+    }
+    window.scrollTo(0, document.documentElement.scrollHeight);
+    await new Promise((resolve) => setTimeout(resolve, 80));
+    window.scrollTo(0, 0);
+    await new Promise((resolve) => setTimeout(resolve, 100));
+  });
+}
+
 const browser = await chromium.launch({ headless: true });
 const report = {
   generatedAt: new Date().toISOString(),
@@ -82,7 +96,51 @@ for (const route of routes) {
     await page.waitForTimeout(150);
 
     const baseName = `${route.key}-${width}`;
+    const topStickyVisible = await page.locator(".mobile-purchase-bar.is-visible").count();
     await page.screenshot({ path: path.join(outputDir, `${baseName}-top.png`), fullPage: false });
+
+    if (route.key === "home" && width === 390) {
+      const toggle = page.locator(".hamburger-btn");
+      if (await toggle.count()) {
+        await toggle.click();
+        await page.waitForTimeout(100);
+        await page.screenshot({ path: path.join(outputDir, "home-390-mobile-menu.png"), fullPage: false });
+        await page.keyboard.press("Escape");
+      }
+    }
+
+    if (route.key === "shop" && width === 390) {
+      const filterToggle = page.locator(".js-filter-open").first();
+      if (await filterToggle.count()) {
+        await filterToggle.click();
+        await page.waitForTimeout(120);
+        await page.screenshot({ path: path.join(outputDir, "shop-390-filter-open.png"), fullPage: false });
+        await page.keyboard.press("Escape");
+      }
+    }
+
+    if (route.key === "pdp" && width === 390) {
+      const primary = page.locator(".js-btn-add-cart");
+      if (await primary.count()) {
+        const box = await primary.boundingBox();
+        if (box) {
+          await page.evaluate((y) => window.scrollTo(0, y), Math.max(0, box.y + box.height + 180));
+          await page.waitForTimeout(120);
+          await page.screenshot({ path: path.join(outputDir, "pdp-390-after-primary-action.png"), fullPage: false });
+          await page.evaluate(() => window.scrollTo(0, 0));
+          await page.waitForTimeout(100);
+        }
+      }
+    }
+
+    if (route.key === "home" && width === 1440) {
+      await page.evaluate(() => window.scrollTo(0, 720));
+      await page.waitForTimeout(120);
+      await page.screenshot({ path: path.join(outputDir, "home-1440-scrolled-nav.png"), fullPage: false });
+      await page.evaluate(() => window.scrollTo(0, 0));
+    }
+
+    await primeLazyMedia(page);
     await page.screenshot({ path: path.join(outputDir, `${baseName}-full.png`), fullPage: true });
 
     const metrics = await page.evaluate(() => {
@@ -123,6 +181,20 @@ for (const route of routes) {
         .filter((item) => item.width < 40 || item.height < 40)
         .slice(0, 30);
 
+      const brokenImages = [...document.images]
+        .filter((img) => img.complete && img.naturalWidth === 0)
+        .map((img) => img.currentSrc || img.src)
+        .slice(0, 20);
+
+      const visibleHiddenElements = [...document.querySelectorAll("[hidden]")]
+        .filter((el) => {
+          const style = getComputedStyle(el);
+          const box = el.getBoundingClientRect();
+          return style.display !== "none" && style.visibility !== "hidden" && box.width > 0 && box.height > 0;
+        })
+        .map((el) => el.className || el.tagName.toLowerCase())
+        .slice(0, 20);
+
       return {
         title: document.title,
         h1: document.querySelector("h1")?.textContent?.trim() || null,
@@ -146,6 +218,13 @@ for (const route of routes) {
           const name = (el.getAttribute("aria-label") || el.textContent || "").trim();
           return !name && !el.getAttribute("aria-labelledby");
         }).length,
+        brokenImages,
+        visibleHiddenElements,
+        inactivePromoVisible: document.body.innerText.includes("ATELIER10"),
+        bagVariantEditorVisible: [...document.querySelectorAll(".js-variant-editor")].some((el) => {
+          const box = el.getBoundingClientRect();
+          return getComputedStyle(el).display !== "none" && box.width > 0 && box.height > 0;
+        }),
         smallTouchTargets,
       };
     });
@@ -158,35 +237,10 @@ for (const route of routes) {
       httpStatus: response?.status() || null,
       consoleErrors,
       pageErrors,
+      topStickyVisible,
       ...metrics,
     };
     report.checks.push(check);
-
-    if (route.key === "home" && width === 390) {
-      const toggle = page.locator(".mobile-menu-toggle");
-      if (await toggle.count()) {
-        await toggle.click();
-        await page.waitForTimeout(100);
-        await page.screenshot({ path: path.join(outputDir, "home-390-mobile-menu.png"), fullPage: false });
-        await page.keyboard.press("Escape");
-      }
-    }
-
-    if (route.key === "home" && width === 1440) {
-      await page.evaluate(() => window.scrollTo(0, 720));
-      await page.waitForTimeout(120);
-      await page.screenshot({ path: path.join(outputDir, "home-1440-scrolled-nav.png"), fullPage: false });
-    }
-
-    if (route.key === "shop" && width === 390) {
-      const filterToggle = page.locator(".js-filter-toggle, .filter-toggle, [data-filter-toggle]").first();
-      if (await filterToggle.count()) {
-        await filterToggle.click();
-        await page.waitForTimeout(120);
-        await page.screenshot({ path: path.join(outputDir, "shop-390-filter-open.png"), fullPage: false });
-        await page.keyboard.press("Escape");
-      }
-    }
 
     await context.close();
   }
@@ -197,12 +251,18 @@ await writeFile(path.join(outputDir, "report.json"), JSON.stringify(report, null
 
 const blockers = report.checks.filter((check) =>
   check.httpStatus !== 200 ||
+  check.consoleErrors.length ||
   check.pageErrors.length ||
   check.horizontalOverflow ||
   check.h1Count !== 1 ||
   check.unlabeledInputs ||
   check.emptyButtons ||
-  check.cardRoleLinks
+  check.cardRoleLinks ||
+  check.brokenImages.length ||
+  check.visibleHiddenElements.length ||
+  check.inactivePromoVisible ||
+  (check.route === "bag" && check.bagVariantEditorVisible) ||
+  (check.route === "pdp" && check.width === 390 && check.topStickyVisible)
 );
 
 console.log(`Captured ${report.checks.length} route/viewport combinations.`);
@@ -212,11 +272,19 @@ for (const blocker of blockers) {
     route: blocker.route,
     width: blocker.width,
     status: blocker.httpStatus,
+    consoleErrors: blocker.consoleErrors,
     pageErrors: blocker.pageErrors,
     horizontalOverflow: blocker.horizontalOverflow,
     h1Count: blocker.h1Count,
     unlabeledInputs: blocker.unlabeledInputs,
     emptyButtons: blocker.emptyButtons,
     cardRoleLinks: blocker.cardRoleLinks,
+    brokenImages: blocker.brokenImages,
+    visibleHiddenElements: blocker.visibleHiddenElements,
+    inactivePromoVisible: blocker.inactivePromoVisible,
+    bagVariantEditorVisible: blocker.bagVariantEditorVisible,
+    topStickyVisible: blocker.topStickyVisible,
   }));
 }
+
+if (blockers.length) process.exitCode = 1;
