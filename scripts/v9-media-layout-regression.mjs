@@ -14,12 +14,30 @@ const cases = [
   { key: "house", url: "/about.html", widths: [390, 1440] },
 ];
 
+async function primeLazyMedia(page) {
+  await page.evaluate(async () => {
+    const step = Math.max(320, Math.floor(window.innerHeight * 0.72));
+    for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
+      window.scrollTo(0, y);
+      await new Promise((resolve) => setTimeout(resolve, 35));
+    }
+    window.scrollTo(0, document.documentElement.scrollHeight);
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    window.scrollTo(0, 0);
+    await new Promise((resolve) => setTimeout(resolve, 120));
+  });
+}
+
 const browser = await chromium.launch({ headless: true });
 const results = [];
 
 for (const testCase of cases) {
   for (const width of testCase.widths) {
-    const context = await browser.newContext({ viewport: { width, height: width <= 430 ? 844 : 1000 }, reducedMotion: "reduce", colorScheme: "light" });
+    const context = await browser.newContext({
+      viewport: { width, height: width <= 430 ? 844 : 1000 },
+      reducedMotion: "reduce",
+      colorScheme: "light",
+    });
     const page = await context.newPage();
     const consoleErrors = [];
     const pageErrors = [];
@@ -28,9 +46,11 @@ for (const testCase of cases) {
 
     const response = await page.goto(new URL(testCase.url, baseURL).toString(), { waitUntil: "networkidle", timeout: 30000 });
     await page.evaluate(async () => { if (document.fonts?.ready) await document.fonts.ready; });
-    await page.waitForTimeout(200);
+    await page.waitForFunction(() => document.documentElement.dataset.atelierDesign === "v9-media-safe", null, { timeout: 5000 });
+    await page.waitForTimeout(180);
 
     await page.screenshot({ path: path.join(outDir, `v9-${testCase.key}-${width}-top.png`), fullPage: false });
+    await primeLazyMedia(page);
     await page.screenshot({ path: path.join(outDir, `v9-${testCase.key}-${width}-full.png`), fullPage: true });
 
     const metrics = await page.evaluate(({ key }) => {
@@ -38,21 +58,31 @@ for (const testCase of cases) {
         if (!el) return false;
         const s = getComputedStyle(el);
         const r = el.getBoundingClientRect();
-        return s.display !== "none" && s.visibility !== "hidden" && r.width > 0 && r.height > 0;
+        return s.display !== "none" && s.visibility !== "hidden" && Number(s.opacity) > 0 && r.width > 0 && r.height > 0;
       };
       const box = (el) => {
         if (!el) return null;
         const r = el.getBoundingClientRect();
-        return { x: r.x, y: r.y, width: r.width, height: r.height, right: r.right, bottom: r.bottom };
+        return {
+          x: r.x,
+          y: r.y,
+          left: r.left,
+          top: r.top,
+          width: r.width,
+          height: r.height,
+          right: r.right,
+          bottom: r.bottom,
+        };
       };
 
-      const imageChecks = [...document.querySelectorAll(
+      const selectors =
         key === "home" ? ".campaign-frame img, .v7-product-image img, .v7-collection-image img, .v7-collection-detail img, .v7-editorial-break img" :
         key === "shop" ? ".product-grid-item__image img" :
         key === "pdp" ? ".main-img-wrap > img, .pdp-thumbnail img, .related-grid img" :
         key === "collections" ? ".collection-feature-image img" :
-        ".house-image-frame img"
-      )].filter(visible).map((img) => {
+        ".house-image-frame img";
+
+      const imageChecks = [...document.querySelectorAll(selectors)].filter(visible).map((img) => {
         const s = getComputedStyle(img);
         const r = img.getBoundingClientRect();
         return {
@@ -63,6 +93,7 @@ for (const testCase of cases) {
           height: Math.round(r.height),
           naturalWidth: img.naturalWidth,
           naturalHeight: img.naturalHeight,
+          sliceRisk: r.width < 80 || r.height < 100,
         };
       });
 
@@ -72,12 +103,14 @@ for (const testCase of cases) {
         const content = card.querySelector(".product-info, .product-grid-item__content");
         const mediaBox = box(media);
         const contentBox = box(content);
+        const withinX = (parent, child) => Boolean(parent && child && child.left >= parent.left - 2 && child.right <= parent.right + 2);
+        const withinY = (parent, child) => Boolean(parent && child && child.top >= parent.top - 2 && child.bottom <= parent.bottom + 2);
         return {
           card: cardBox,
           media: mediaBox,
           content: contentBox,
-          contentOwned: Boolean(cardBox && contentBox && contentBox.left >= cardBox.left - 1 && contentBox.right <= cardBox.right + 1),
-          mediaOwned: Boolean(cardBox && mediaBox && mediaBox.left >= cardBox.left - 1 && mediaBox.right <= cardBox.right + 1),
+          contentOwned: withinX(cardBox, contentBox) && withinY(cardBox, contentBox),
+          mediaOwned: withinX(cardBox, mediaBox) && withinY(cardBox, mediaBox),
         };
       });
 
@@ -85,7 +118,21 @@ for (const testCase of cases) {
       const heroTitle = document.querySelector(".campaign-copy h1");
       const heroBox = box(document.querySelector(".campaign-sheet"));
       const titleBox = box(heroTitle);
-      const heroTitleWithin = !heroBox || !titleBox || (titleBox.left >= heroBox.left - 2 && titleBox.right <= heroBox.right + 2);
+      const heroTitleWithin = !heroBox || !titleBox || (
+        titleBox.left >= heroBox.left - 2 &&
+        titleBox.right <= heroBox.right + 2 &&
+        titleBox.top >= heroBox.top - 2 &&
+        titleBox.bottom <= heroBox.bottom + 2
+      );
+
+      const blankRevealFrames = [...document.querySelectorAll(".reveal")]
+        .filter((el) => {
+          const s = getComputedStyle(el);
+          const r = el.getBoundingClientRect();
+          return r.width > 100 && r.height > 100 && (s.visibility === "hidden" || Number(s.opacity) < 0.95);
+        })
+        .map((el) => el.className)
+        .slice(0, 12);
 
       return {
         designOwner: document.documentElement.dataset.atelierDesign,
@@ -94,6 +141,7 @@ for (const testCase of cases) {
         heroTitleWithin,
         imageChecks,
         productCards,
+        blankRevealFrames,
       };
     }, { key: testCase.key });
 
@@ -107,7 +155,9 @@ for (const testCase of cases) {
     if (testCase.key === "home" && !metrics.heroTitleWithin) problems.push("hero-title-outside-bounds");
     if (metrics.imageChecks.some((img) => img.naturalWidth === 0 || img.naturalHeight === 0)) problems.push("broken-image");
     if (metrics.imageChecks.some((img) => !["contain", "cover"].includes(img.objectFit))) problems.push("unowned-image-fit");
+    if (metrics.imageChecks.some((img) => img.sliceRisk)) problems.push("media-slice-risk");
     if (["home", "shop"].includes(testCase.key) && metrics.productCards.some((card) => !card.mediaOwned || !card.contentOwned)) problems.push("product-card-ownership");
+    if (metrics.blankRevealFrames.length) problems.push("blank-reveal-frame");
 
     results.push({ route: testCase.key, width, consoleErrors, pageErrors, problems, ...metrics });
     await context.close();
