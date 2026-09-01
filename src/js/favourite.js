@@ -1,5 +1,5 @@
-import { formatVND, getWishlist, loadProducts, toggleWishlist } from "./commerce-store.js?v=ecommerce-3";
-import { escapeHtml, openVariantPicker, showMessage } from "./commerce-ui.js?v=ecommerce-3";
+import { formatVND, getWishlist, loadProducts, toggleWishlist } from "./commerce-store.js?v=white-editorial-v6";
+import { escapeHtml, openVariantPicker, showMessage } from "./commerce-ui.js?v=white-editorial-v6";
 
 export async function renderFavourite() {
   const grid = document.querySelector(".js-favourite-grid");
@@ -20,8 +20,9 @@ export async function renderFavourite() {
         <a class="favourite-img" href="detailproduct.html?id=${encodeURIComponent(product.id)}"><img src="${escapeHtml(product.images[0])}" alt="${escapeHtml(product.name)}" loading="lazy"></a>
         <button class="btn-remove-wishlist" type="button" aria-label="Remove ${escapeHtml(product.name)}">×</button>
         <div class="favourite-info"><h3><a href="detailproduct.html?id=${encodeURIComponent(product.id)}">${escapeHtml(product.name)}</a></h3><p>${escapeHtml(product.collection)}</p><span class="favourite-price">${formatVND(product.price)}</span></div>
-        <div class="favourite-actions"><button class="btn-add-to-cart js-saved-add" type="button" data-preferred-variant="${escapeHtml(saved.preferredVariantId || "")}">SELECT SIZE &amp; ADD</button></div>
+        <div class="favourite-actions"><button class="btn-add-to-cart js-saved-add" type="button" data-preferred-variant="${escapeHtml(saved.preferredVariantId || "")}">Select size &amp; add</button></div>
       </article>`).join("");
+
     grid.querySelectorAll(".btn-remove-wishlist").forEach((button) => button.addEventListener("click", () => {
       const item = button.closest("[data-product-id]");
       toggleWishlist(item.dataset.productId);

@@ -5,8 +5,8 @@ import {
   loadProducts,
   toggleWishlist,
   track,
-} from "./commerce-store.js?v=ecommerce-3";
-import { escapeHtml, openVariantPicker, showMessage } from "./commerce-ui.js?v=ecommerce-3";
+} from "./commerce-store.js?v=white-editorial-v6";
+import { escapeHtml, openVariantPicker, showMessage } from "./commerce-ui.js?v=white-editorial-v6";
 
 const SHOP_IDS = [
   "tailored-wool-blazer",
@@ -18,8 +18,12 @@ const SHOP_IDS = [
   "viscose-wrap-top",
   "leather-minimal-tote",
 ];
-
 const PLP_SCROLL_KEY = "atelier.plp-position";
+
+const bookmarkIcon = () => `
+  <svg width="10" height="13" viewBox="0 0 10 13" aria-hidden="true">
+    <path d="M0.442627 2.80409V9.80301C0.442627 10.8073 0.442627 11.3093 0.595717 11.6166C0.87946 12.1861 1.50131 12.5135 2.14038 12.4298C2.48518 12.3847 2.90985 12.1062 3.7592 11.549L3.76124 11.5477C4.09789 11.327 4.26624 11.2165 4.44234 11.1553C4.76579 11.0428 5.11867 11.0428 5.44213 11.1553C5.61862 11.2166 5.78764 11.3275 6.12559 11.5492C6.97501 12.1062 7.40008 12.3845 7.74496 12.4297C8.38396 12.5134 9.00577 12.1861 9.28954 11.6166C9.44263 11.3093 9.44263 10.8071 9.44263 9.80301V2.80167C9.44263 1.97679 9.44263 1.56373 9.27928 1.24836C9.13546 0.970681 8.90542 0.745086 8.62318 0.6036C8.30233 0.442749 7.88284 0.442749 7.04278 0.442749H2.84277C2.0027 0.442749 1.58234 0.442749 1.26147 0.6036C0.979234 0.745086 0.749923 0.970681 0.606121 1.24836C0.442627 1.56404 0.442627 1.9776 0.442627 2.80409Z" stroke-width="0.88545" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`;
 
 function querySet(params, key) {
   return new Set((params.get(key) || "").split(",").map((value) => value.trim().toLowerCase()).filter(Boolean));
@@ -53,7 +57,14 @@ function matchesSearch(product, query) {
   if (!query) return true;
   const synonyms = { coat: "outerwear", tee: "tees", blazer: "outerwear", bag: "accessories" };
   const expanded = [query, synonyms[query]].filter(Boolean);
-  const haystack = [product.name, product.category, product.collection, product.description, product.material, ...product.colors.map((color) => color.name)].join(" ").toLowerCase();
+  const haystack = [
+    product.name,
+    product.category,
+    product.collection,
+    product.description,
+    product.material,
+    ...product.colors.map((color) => color.name),
+  ].join(" ").toLowerCase();
   return expanded.some((term) => haystack.includes(term));
 }
 
@@ -66,7 +77,6 @@ function filterProducts(products, state) {
     if (state.colors.size && !product.colors.some((color) => state.colors.has(color.value))) return false;
     return true;
   });
-
   if (state.sort === "price-asc") filtered.sort((a, b) => a.price - b.price);
   if (state.sort === "price-desc") filtered.sort((a, b) => b.price - a.price);
   if (state.sort === "name") filtered.sort((a, b) => a.name.localeCompare(b.name));
@@ -82,12 +92,12 @@ function renderFilterPanel(products, state) {
   const sizes = uniqueSorted(products.flatMap((product) => product.sizes));
   const colors = uniqueSorted(products.flatMap((product) => product.colors.map((color) => color.value)));
   return `
-    <aside class="shop-filter-panel js-shop-filter-panel" aria-label="Product filters" aria-hidden="true">
+    <aside class="shop-filter-panel js-shop-filter-panel" role="dialog" aria-modal="true" aria-label="Product filters" aria-hidden="true">
       <div class="shop-filter-head"><span>FILTER</span><button type="button" class="js-filter-close" aria-label="Close filters">×</button></div>
       <fieldset><legend>SIZE</legend><div class="filter-option-grid">${sizes.map((size) => `<label><input type="checkbox" name="size" value="${escapeHtml(size.toLowerCase())}" ${state.sizes.has(size.toLowerCase()) ? "checked" : ""}><span>${escapeHtml(size)}</span></label>`).join("")}</div></fieldset>
       <fieldset><legend>CATEGORY</legend><div class="filter-option-list">${categories.map((category) => `<label><input type="checkbox" name="category" value="${escapeHtml(category.toLowerCase())}" ${state.categories.has(category.toLowerCase()) ? "checked" : ""}><span>${escapeHtml(category)}</span></label>`).join("")}</div></fieldset>
-      <fieldset><legend>COLOR</legend><div class="filter-option-list">${colors.map((color) => `<label><input type="checkbox" name="color" value="${escapeHtml(color)}" ${state.colors.has(color) ? "checked" : ""}><span>${escapeHtml(color.replace(/(^|-)\w/g, (letter) => letter.replace("-", " ").toUpperCase()))}</span></label>`).join("")}</div></fieldset>
-      <button type="button" class="commerce-primary-action js-filter-apply">SHOW PIECES</button>
+      <fieldset><legend>COLOUR</legend><div class="filter-option-list">${colors.map((color) => `<label><input type="checkbox" name="color" value="${escapeHtml(color)}" ${state.colors.has(color) ? "checked" : ""}><span>${escapeHtml(color.replace(/(^|-)\w/g, (letter) => letter.replace("-", " ").toUpperCase()))}</span></label>`).join("")}</div></fieldset>
+      <button type="button" class="commerce-primary-action js-filter-apply">Show pieces</button>
     </aside>`;
 }
 
@@ -99,7 +109,7 @@ function appliedFilterMarkup(state) {
   ];
   if (state.search) filters.unshift({ type: "search", value: state.search, label: `“${state.search}”` });
   if (!filters.length) return "";
-  return `<div class="applied-filters">${filters.map((filter) => `<button type="button" data-filter-type="${filter.type}" data-filter-value="${escapeHtml(filter.value)}">${escapeHtml(filter.label)} <span aria-hidden="true">×</span></button>`).join("")}<button type="button" class="js-clear-filters">Clear all</button></div>`;
+  return `<div class="applied-filters" aria-label="Applied filters">${filters.map((filter) => `<button type="button" data-filter-type="${filter.type}" data-filter-value="${escapeHtml(filter.value)}">${escapeHtml(filter.label)} <span aria-hidden="true">×</span></button>`).join("")}<button type="button" class="js-clear-filters">Clear all</button></div>`;
 }
 
 function productCard(product) {
@@ -112,11 +122,11 @@ function productCard(product) {
             <img src="${escapeHtml(product.images[0])}" data-fallback-src="${escapeHtml(product.fallback || "")}" alt="${escapeHtml(product.name)}" loading="lazy" width="900" height="1200" class="js-grid-img-front">
             ${product.images[1] ? `<img src="${escapeHtml(product.images[1])}" alt="" aria-hidden="true" class="js-grid-img-back" loading="lazy">` : ""}
           </a>
-          <div class="product-grid-item__hover"><button class="product-grid-item__add-to-cart js-quick-add" data-product-id="${escapeHtml(product.id)}" type="button">Add to bag +</button></div>
+          <div class="product-grid-item__hover"><button class="product-grid-item__add-to-cart js-quick-add" data-product-id="${escapeHtml(product.id)}" type="button">Select size +</button></div>
         </div>
         <div class="product-grid-item__content">
           <div><h2 class="product-grid-item__title"><a class="js-plp-product-link" href="detailproduct.html?id=${encodeURIComponent(product.id)}">${escapeHtml(product.name)}</a></h2><p class="product-grid-item__price">${formatVND(product.price)}</p></div>
-          <button class="js-wishlist-btn${saved ? " is-saved" : ""}" data-product-id="${escapeHtml(product.id)}" type="button" aria-label="${saved ? "Remove" : "Save"} ${escapeHtml(product.name)}" aria-pressed="${saved}"><svg width="10" height="13" viewBox="0 0 10 13" fill="${saved ? "white" : "none"}" aria-hidden="true"><path d="M0.442627 2.80409V9.80301C0.442627 10.8073 0.442627 11.3093 0.595717 11.6166C0.87946 12.1861 1.50131 12.5135 2.14038 12.4298C2.48518 12.3847 2.90985 12.1062 3.7592 11.549L3.76124 11.5477C4.09789 11.327 4.26624 11.2165 4.44234 11.1553C4.76579 11.0428 5.11867 11.0428 5.44213 11.1553C5.61862 11.2166 5.78764 11.3275 6.12559 11.5492C6.97501 12.1062 7.40008 12.3845 7.74496 12.4297C8.38396 12.5134 9.00577 12.1861 9.28954 11.6166C9.44263 11.3093 9.44263 10.8071 9.44263 9.80301V2.80167C9.44263 1.97679 9.44263 1.56373 9.27928 1.24836C9.13546 0.970681 8.90542 0.745086 8.62318 0.6036C8.30233 0.442749 7.88284 0.442749 7.04278 0.442749H2.84277C2.0027 0.442749 1.58234 0.442749 1.26147 0.6036C0.979234 0.745086 0.749923 0.970681 0.606121 1.24836C0.442627 1.56404 0.442627 1.9776 0.442627 2.80409Z" stroke="white" stroke-width="0.88545" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="js-wishlist-btn${saved ? " is-saved" : ""}" data-product-id="${escapeHtml(product.id)}" type="button" aria-label="${saved ? "Remove" : "Save"} ${escapeHtml(product.name)}" aria-pressed="${saved}">${bookmarkIcon()}</button>
         </div>
       </div>
     </article>`;
@@ -130,6 +140,8 @@ export async function renderShop() {
   const allProducts = await loadProducts();
   const products = SHOP_IDS.map((id) => allProducts.find((product) => product.id === id)).filter(Boolean);
   const state = createState();
+  let filterTrigger = null;
+
   filterBar.innerHTML = `
     <span id="result-count" class="result-count" aria-live="polite"></span>
     <div class="shop-toolbar">
@@ -137,6 +149,7 @@ export async function renderShop() {
       <label class="shop-sort"><span>Sort By</span><select aria-label="Sort products"><option value="newest">Newest</option><option value="price-asc">Price: Low to High</option><option value="price-desc">Price: High to Low</option><option value="name">Name</option></select></label>
     </div>`;
   filterBar.insertAdjacentHTML("afterend", `<div class="js-applied-filters"></div>${renderFilterPanel(products, state)}`);
+
   const panel = document.querySelector(".js-shop-filter-panel");
   const applied = document.querySelector(".js-applied-filters");
   const sortSelect = filterBar.querySelector("select");
@@ -146,8 +159,10 @@ export async function renderShop() {
     panel.classList.remove("is-open");
     panel.setAttribute("aria-hidden", "true");
     document.body.classList.remove("shop-filters-open");
+    filterTrigger?.focus?.();
   };
   const openFilters = () => {
+    filterTrigger = document.activeElement;
     panel.classList.add("is-open");
     panel.setAttribute("aria-hidden", "false");
     document.body.classList.add("shop-filters-open");
@@ -159,7 +174,8 @@ export async function renderShop() {
     grid.innerHTML = visible.length ? visible.map(productCard).join("") : `
       <div class="shop-empty-state"><h2>No pieces found.</h2><p>Adjust your selection or explore the complete collection.</p><button type="button" class="btn-outline js-empty-clear">Clear filters</button></div>`;
     filterBar.querySelector("#result-count").textContent = `${visible.length} Piece${visible.length === 1 ? "" : "s"}`;
-    filterBar.querySelector(".js-filter-total").textContent = state.categories.size + state.sizes.size + state.colors.size ? `(${state.categories.size + state.sizes.size + state.colors.size})` : "";
+    const filterTotal = state.categories.size + state.sizes.size + state.colors.size;
+    filterBar.querySelector(".js-filter-total").textContent = filterTotal ? `(${filterTotal})` : "";
     applied.innerHTML = appliedFilterMarkup(state);
     syncUrl(state);
     bindGrid();
@@ -185,7 +201,8 @@ export async function renderShop() {
       const saved = toggleWishlist(button.dataset.productId);
       button.classList.toggle("is-saved", saved);
       button.setAttribute("aria-pressed", String(saved));
-      button.querySelector("svg").setAttribute("fill", saved ? "white" : "none");
+      const product = products.find((item) => item.id === button.dataset.productId);
+      button.setAttribute("aria-label", `${saved ? "Remove" : "Save"} ${product?.name || "piece"}`);
       showMessage(saved ? "Saved." : "Removed from Saved.");
     }));
     grid.querySelectorAll(".js-plp-product-link").forEach((link) => link.addEventListener("click", () => {
@@ -222,8 +239,26 @@ export async function renderShop() {
     state.sort = sortSelect.value;
     repaint();
   });
+
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && panel.classList.contains("is-open")) closeFilters();
+    if (!panel.classList.contains("is-open")) return;
+    if (event.key === "Escape") {
+      closeFilters();
+      return;
+    }
+    if (event.key !== "Tab") return;
+    const focusable = [...panel.querySelectorAll('button:not(:disabled), input:not(:disabled), select:not(:disabled), a[href]')]
+      .filter((element) => element.offsetParent !== null);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
   });
 
   repaint();

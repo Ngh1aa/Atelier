@@ -1,34 +1,17 @@
-// Shared UI: bag badge, search overlay, mobile hamburger menu, newsletter feedback
-import { initBagBadge, initCommerceUi, initSearchOverlay } from "./nav-ui.js?v=ecommerce-3";
+// Shared navigation: search, Bag indicator, commerce drawer and accessible mobile menu
+import { initBagBadge, initCommerceUi, initSearchOverlay } from "./nav-ui.js?v=white-editorial-v6";
 
 function initNav() {
+  const nav = document.querySelector("body > nav");
+  if (!nav || nav.classList.contains("checkout-nav")) return;
+
   initBagBadge();
   initCommerceUi();
   initSearchOverlay();
 
-  // Newsletter form feedback
-  document.querySelectorAll(".newsletter-form").forEach((form) => {
-    const input = form.querySelector('input[type="email"]');
-    const button = form.querySelector("button");
-    if (!input || !button) return;
-    button.addEventListener("click", () => {
-      if (input.value && input.validity.valid) {
-        const original = button.textContent;
-        button.textContent = "\u2713";
-        input.value = "";
-        input.placeholder = "Thank you — you're on the list.";
-        setTimeout(() => {
-          button.textContent = original;
-          input.placeholder = "Your email address";
-        }, 2500);
-      }
-    });
-  });
-
-  // Hamburger menu (mobile)
-  const nav = document.querySelector("nav");
-  if (!nav || nav.dataset.mobileNavReady === "true") return;
+  if (nav.dataset.mobileNavReady === "true") return;
   nav.dataset.mobileNavReady = "true";
+
   const navContainer = nav.querySelector(".container");
   const navLinks = nav.querySelector(".nav-links");
   if (!navContainer || !navLinks) return;
@@ -36,7 +19,7 @@ function initNav() {
   navLinks.id = "atelier-mobile-menu";
   const hamburger = document.createElement("button");
   hamburger.className = "hamburger-btn";
-  hamburger.setAttribute("type", "button");
+  hamburger.type = "button";
   hamburger.setAttribute("aria-label", "Open menu");
   hamburger.setAttribute("aria-expanded", "false");
   hamburger.setAttribute("aria-controls", navLinks.id);
@@ -48,25 +31,36 @@ function initNav() {
     document.body.classList.toggle("atelier-menu-open", isOpen);
     hamburger.setAttribute("aria-expanded", String(isOpen));
     hamburger.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
-    if (moveFocus) navLinks.querySelector("a")?.focus();
+    if (moveFocus && isOpen) navLinks.querySelector("a")?.focus();
   };
 
   hamburger.addEventListener("click", () => setMenuOpen(!nav.classList.contains("menu-open"), true));
-
-  nav.querySelectorAll("a").forEach((a) => {
-    a.addEventListener("click", () => setMenuOpen(false));
-  });
+  navLinks.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setMenuOpen(false)));
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && nav.classList.contains("menu-open")) {
+    if (!nav.classList.contains("menu-open")) return;
+    if (event.key === "Escape") {
       setMenuOpen(false);
       hamburger.focus();
+      return;
+    }
+    if (event.key !== "Tab") return;
+    const focusable = [hamburger, ...navLinks.querySelectorAll("a[href]")].filter((element) => element.offsetParent !== null);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
     }
   });
 
   window.addEventListener("resize", () => {
-    if (window.innerWidth > 768 && nav.classList.contains("menu-open")) setMenuOpen(false);
-  });
+    if (window.innerWidth > 820 && nav.classList.contains("menu-open")) setMenuOpen(false);
+  }, { passive: true });
 }
 
 export { initNav };

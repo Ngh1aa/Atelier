@@ -9,8 +9,8 @@ import {
   loadProducts,
   toggleWishlist,
   track,
-} from "./commerce-store.js?v=ecommerce-3";
-import { escapeHtml, openMiniBag, openSizeGuide, showMessage } from "./commerce-ui.js?v=ecommerce-3";
+} from "./commerce-store.js?v=white-editorial-v6";
+import { escapeHtml, openMiniBag, openSizeGuide, showMessage } from "./commerce-ui.js?v=white-editorial-v6";
 
 export async function renderDetail() {
   const products = await loadProducts();
@@ -36,11 +36,12 @@ export async function renderDetail() {
   const selectionError = document.querySelector(".js-pdp-selection-error");
   const addButton = document.querySelector(".js-btn-add-cart");
   const wishlistButton = document.querySelector(".js-btn-wishlist");
+  if (!title || !price || !description || !mainImage || !thumbnails || !sizeOptions || !colorOptions || !colorLabel || !selectionError || !addButton || !wishlistButton) return;
 
-  document.title = `${product.name} - ATELIER`;
-  if (title) title.textContent = product.name;
-  if (price) price.textContent = formatVND(product.price);
-  if (description) description.textContent = product.description;
+  document.title = `${product.name} — ATELIER`;
+  title.textContent = product.name;
+  price.textContent = formatVND(product.price);
+  description.textContent = product.description;
   document.querySelector(".collection-name").textContent = product.collection;
   document.querySelector(".js-product-fit").textContent = product.fit;
   document.querySelector(".js-product-model").textContent = product.model;
@@ -51,15 +52,12 @@ export async function renderDetail() {
   document.querySelector(".js-return-summary").textContent = product.returnPolicy;
 
   const breadcrumb = document.querySelector(".js-breadcrumb");
-  if (breadcrumb) breadcrumb.innerHTML = `<a href="shop.html">Shop</a><span>/</span><a href="shop.html?collection=${encodeURIComponent(product.collection.toLowerCase())}">${escapeHtml(product.collection)}</a><span>/</span><span>${escapeHtml(product.name)}</span>`;
+  if (breadcrumb) breadcrumb.innerHTML = `<a href="shop.html">Shop</a><span aria-hidden="true">/</span><a href="shop.html?collection=${encodeURIComponent(product.collection.toLowerCase())}">${escapeHtml(product.collection)}</a><span aria-hidden="true">/</span><span>${escapeHtml(product.name)}</span>`;
 
   const renderGallery = () => {
-    if (mainImage) {
-      mainImage.src = product.images[0];
-      mainImage.alt = product.name;
-      mainImage.removeAttribute("srcset");
-    }
-    if (!thumbnails) return;
+    mainImage.src = product.images[0];
+    mainImage.alt = product.name;
+    mainImage.removeAttribute("srcset");
     thumbnails.innerHTML = product.images.map((source, index) => `<button type="button" class="pdp-thumbnail${index === 0 ? " is-active" : ""}" aria-label="View image ${index + 1}"><img src="${escapeHtml(source)}" alt="${escapeHtml(product.name)} view ${index + 1}" loading="${index ? "lazy" : "eager"}"></button>`).join("");
     thumbnails.querySelectorAll("button").forEach((button, index) => button.addEventListener("click", () => {
       mainImage.src = product.images[index];
@@ -72,6 +70,12 @@ export async function renderDetail() {
     next.set("id", product.id);
     next.set("color", selectedColor);
     history.replaceState({}, "", `${location.pathname}?${next.toString()}`);
+  };
+
+  let sticky;
+  const syncSticky = () => {
+    if (!sticky) return;
+    sticky.querySelector("span").textContent = selectedSize ? `Size ${selectedSize}` : "Select size";
   };
 
   const renderSizes = () => {
@@ -128,13 +132,7 @@ export async function renderDetail() {
     const saved = isWishlisted(product.id);
     wishlistButton.classList.toggle("is-saved", saved);
     wishlistButton.setAttribute("aria-pressed", String(saved));
-    wishlistButton.textContent = saved ? "♥ SAVED" : "♡ SAVE";
-  };
-
-  let sticky;
-  const syncSticky = () => {
-    if (!sticky) return;
-    sticky.querySelector("span").textContent = selectedSize ? `Size ${selectedSize}` : "Select size";
+    wishlistButton.textContent = saved ? "♥ Saved" : "♡ Save";
   };
 
   renderGallery();
@@ -150,20 +148,27 @@ export async function renderDetail() {
     syncWishlist();
     showMessage(saved ? "Saved." : "Removed from Saved.");
   });
-  document.querySelector(".js-pdp-size-guide").addEventListener("click", () => {
+  document.querySelector(".js-pdp-size-guide")?.addEventListener("click", () => {
     track("open_size_guide", { product_id: product.id });
     openSizeGuide();
   });
 
   const relatedWrap = document.querySelector(".js-related-grid");
-  const related = products.filter((item) => item.id !== product.id).sort((a, b) => Number(b.category === product.category) - Number(a.category === product.category)).slice(0, 4);
-  relatedWrap.innerHTML = related.map((item) => `<a class="related-item" href="detailproduct.html?id=${encodeURIComponent(item.id)}"><img loading="lazy" src="${escapeHtml(item.images[0])}" alt="${escapeHtml(item.name)}"><h4>${escapeHtml(item.name)}</h4><p>${formatVND(item.price)}</p></a>`).join("");
+  if (relatedWrap) {
+    const related = products
+      .filter((item) => item.id !== product.id)
+      .sort((a, b) => Number(b.category === product.category) - Number(a.category === product.category))
+      .slice(0, 4);
+    relatedWrap.innerHTML = related.map((item) => `<a class="related-item" href="detailproduct.html?id=${encodeURIComponent(item.id)}"><img loading="lazy" src="${escapeHtml(item.images[0])}" alt="${escapeHtml(item.name)}"><h4>${escapeHtml(item.name)}</h4><p>${formatVND(item.price)}</p></a>`).join("");
+  }
 
   sticky = document.createElement("div");
   sticky.className = "mobile-purchase-bar";
-  sticky.innerHTML = `<span>${selectedSize ? `Size ${escapeHtml(selectedSize)}` : "Select size"}</span><button type="button">ADD TO BAG</button>`;
+  sticky.innerHTML = `<span>${selectedSize ? `Size ${escapeHtml(selectedSize)}` : "Select size"}</span><button type="button">Add to Bag</button>`;
   sticky.querySelector("button").addEventListener("click", addSelection);
   document.body.appendChild(sticky);
-  const observer = new IntersectionObserver(([entry]) => sticky.classList.toggle("is-visible", !entry.isIntersecting), { threshold: 0 });
-  observer.observe(addButton);
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(([entry]) => sticky.classList.toggle("is-visible", !entry.isIntersecting), { threshold: 0 });
+    observer.observe(addButton);
+  }
 }

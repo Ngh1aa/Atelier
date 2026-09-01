@@ -68,21 +68,15 @@ function slug(value) {
     .replace(/^-|-$/g, "");
 }
 
-function hash(value) {
-  return Array.from(value).reduce((total, character) => ((total * 31) + character.charCodeAt(0)) >>> 0, 7);
-}
-
 function normaliseProduct(product) {
   const colors = product.colors?.length ? product.colors : (COLOR_PRESETS[product.id] || [
     { name: "Black", value: "black", hex: "#151515" },
   ]);
-  // Keep fallbacks out of the gallery: mixing legacy fallback art with a product
-  // shoot caused the half-height hover image reported in the UI review.
   const images = [...new Set((product.images || []).filter(Boolean))];
-  const variants = colors.flatMap((color) => product.sizes.map((size, sizeIndex) => {
+
+  const variants = colors.flatMap((color) => product.sizes.map((size) => {
     const explicitStock = product.inventory?.[color.value]?.[size];
-    const generatedStock = size === "One Size" ? 5 : (hash(`${product.id}:${color.value}:${size}`) + sizeIndex) % 8;
-    const stock = Number.isFinite(Number(explicitStock)) ? Number(explicitStock) : generatedStock;
+    const inventoryKnown = Number.isFinite(Number(explicitStock));
     return {
       id: `${product.id}-${color.value}-${slug(size)}`,
       productId: product.id,
@@ -90,7 +84,9 @@ function normaliseProduct(product) {
       colorName: color.name,
       size,
       sku: `ATL-${slug(product.id).slice(0, 8).toUpperCase()}-${slug(color.value).slice(0, 3).toUpperCase()}-${slug(size).toUpperCase()}`,
-      stock,
+      // UNKNOWN inventory stays purchasable in this prototype but never becomes fake scarcity.
+      stock: inventoryKnown ? Number(explicitStock) : Number.POSITIVE_INFINITY,
+      inventoryKnown,
       price: product.price,
       images,
     };
@@ -102,6 +98,7 @@ function normaliseProduct(product) {
     colors,
     images,
     variants,
+    inventoryReality: variants.every((variant) => variant.inventoryKnown) ? "STATIC" : "UNKNOWN",
     requiresSize: !(product.sizes.length === 1 && product.sizes[0] === "One Size"),
     delivery: product.delivery || "Complimentary delivery",
     returnPolicy: product.returnPolicy || "Returns and exchanges within 14 days",
@@ -111,7 +108,7 @@ function normaliseProduct(product) {
 
 export async function loadProducts() {
   if (!cataloguePromise) {
-    cataloguePromise = fetch("./src/data/products.json?v=ecommerce-3")
+    cataloguePromise = fetch("./src/data/products.json?v=white-editorial-v6")
       .then((response) => {
         if (!response.ok) throw new Error("The catalogue could not be loaded.");
         return response.json();
@@ -137,7 +134,7 @@ export function findVariant(product, color, size) {
 export function getAvailableSizes(product, color) {
   return product.sizes.map((size) => {
     const variant = findVariant(product, color, size);
-    return { size, stock: variant?.stock || 0, variant };
+    return { size, stock: variant?.stock || 0, inventoryKnown: variant?.inventoryKnown || false, variant };
   });
 }
 
@@ -222,12 +219,13 @@ export async function hydrateCart({ persistMigration = true } = {}) {
 export function addCartItem(product, variantId, quantity = 1) {
   const variant = getVariant(product, variantId);
   if (!variant) return { ok: false, message: "Please select a size." };
-  if (variant.stock < 1) return { ok: false, message: `Size ${variant.size} is no longer available.` };
+  if (variant.stock < 1) return { ok: false, message: `Size ${variant.size} is unavailable.` };
+
   const cart = getCart();
   const existing = cart.find((item) => item.variantId === variant.id);
   if (existing) {
-    if (existing.quantity + quantity > variant.stock) {
-      return { ok: false, message: `Only ${variant.stock} piece${variant.stock === 1 ? "" : "s"} remain in this size.` };
+    if (variant.inventoryKnown && existing.quantity + quantity > variant.stock) {
+      return { ok: false, message: "The requested quantity is not available for this size." };
     }
     existing.quantity += quantity;
   } else {
@@ -265,13 +263,15 @@ export function removeCartItem(lineId) {
 
 export function changeCartVariant(lineId, product, variantId) {
   const variant = getVariant(product, variantId);
-  if (!variant || variant.stock < 1) return { ok: false, message: "This option is no longer available." };
+  if (!variant || variant.stock < 1) return { ok: false, message: "This option is unavailable." };
   const cart = getCart();
   const line = cart.find((item) => item.id === lineId);
   if (!line) return { ok: false, message: "This Bag item could not be found." };
   const duplicate = cart.find((item) => item.id !== lineId && item.variantId === variant.id);
   if (duplicate) {
-    duplicate.quantity = Math.min(variant.stock, duplicate.quantity + line.quantity);
+    duplicate.quantity = variant.inventoryKnown
+      ? Math.min(variant.stock, duplicate.quantity + line.quantity)
+      : duplicate.quantity + line.quantity;
     saveCart(cart.filter((item) => item.id !== lineId));
   } else {
     line.id = `${product.id}::${variant.id}`;
@@ -338,12 +338,12 @@ export function cartTotals(lines, shippingFee = 0, discount = 0) {
 }
 
 export function validateInventory(lines) {
-  const unavailable = lines.filter((line) => !line.variant || line.variant.stock < line.quantity);
+  const unavailable = lines.filter((line) => !line.variant || (line.variant.inventoryKnown && line.variant.stock < line.quantity));
   return {
     ok: unavailable.length === 0,
     unavailable,
     message: unavailable.length
-      ? `${unavailable[0].product.name} · size ${unavailable[0].size} is no longer available in the requested quantity.`
+      ? `${unavailable[0].product.name} · size ${unavailable[0].size} is unavailable in the requested quantity.`
       : "",
   };
 }
@@ -360,8 +360,9 @@ export function createOrder(orderInput) {
   const order = {
     id: makeOrderId(),
     currency: "VND",
-    paymentStatus: orderInput.paymentMethod === "cod" ? "pending" : "awaiting_transfer",
-    fulfillmentStatus: "processing",
+    reality: "SIMULATED_LOCAL",
+    paymentStatus: orderInput.paymentMethod === "cod" ? "pending-local" : "awaiting-transfer-local",
+    fulfillmentStatus: "recorded-local",
     tracking: null,
     serviceRequests: [],
     createdAt: new Date().toISOString(),
@@ -369,7 +370,7 @@ export function createOrder(orderInput) {
   };
   orders.unshift(order);
   safeWrite(ORDER_KEY, orders);
-  track("purchase", { order_id: order.id, value: order.total, currency: "VND" });
+  track("purchase", { order_id: order.id, value: order.total, currency: "VND", reality: "local_prototype" });
   return order;
 }
 

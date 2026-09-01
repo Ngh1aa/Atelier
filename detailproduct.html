@@ -4,159 +4,115 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="./assets/logo/atelier-mark.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Product Detail - ATELIER</title>
-  <meta name="description" content="Explore product details, fit guidance and considered wardrobe essentials from ATELIER.">
-  <meta name="keywords" content="ATELIER, luxury fashion, minimalist clothing, tailoring, knitwear, outerwear, sustainable fashion, Fall 2026">
-  <meta property="og:title" content="Product Detail - ATELIER">
-  <meta property="og:description" content="Explore product details, fit guidance and considered wardrobe essentials from ATELIER.">
-  <meta property="og:image" content="https://ngh1aa.github.io/Atelier/assets/gown-main.webp">
+  <title>Product Detail — ATELIER</title>
+  <meta name="description" content="Explore ATELIER product details, fit, material, size, delivery and returns before choosing a piece.">
+  <meta property="og:title" content="Product Detail — ATELIER">
+  <meta property="og:description" content="Review the product, fit, material and service details before choosing a size.">
+  <meta property="og:image" content="https://ngh1aa.github.io/Atelier/assets/products/pinkparks/draped-wide-leg-set.jpg">
   <meta property="og:type" content="product">
   <meta property="og:url" content="https://ngh1aa.github.io/Atelier/detailproduct.html">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Product Detail - ATELIER">
-  <meta name="twitter:description" content="Explore product details, fit guidance and considered wardrobe essentials from ATELIER.">
-  <meta name="twitter:image" content="https://ngh1aa.github.io/Atelier/assets/gown-main.webp">
-
   <link rel="stylesheet" href="./style.css">
-<noscript>
-  <style>.reveal{opacity:1 !important;transform:none !important;}</style>
-</noscript>
-
+  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
   <script>document.documentElement.classList.add("js-enabled")</script>
 </head>
 <body class="js-enabled">
-    <nav>
+  <nav aria-label="Primary navigation">
     <div class="container nav-container">
       <ul class="nav-links left">
         <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
+        <li><a href="shop.html" class="active">Shop</a></li>
         <li><a href="collections.html">Collections</a></li>
         <li><a href="about.html">The House</a></li>
         <li><a href="client-services.html">Client Services</a></li>
       </ul>
       <div class="logo"><a href="index.html" aria-label="Atelier home"><span>ATELIER</span></a></div>
       <div class="nav-icons right">
-        <button type="button" class="nav-search-btn" aria-label="Search" id="navSearchBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 6 6"/></svg></button>
+        <button type="button" class="nav-search-btn" aria-label="Search" id="navSearchBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 6 6"/></svg></button>
         <a href="cart.html" class="nav-text nav-cart">Bag (<span class="js-nav-bag-count">0</span>)</a>
         <a href="favourite.html" class="nav-text">Saved</a>
       </div>
     </div>
   </nav>
+
   <div class="nav-search-overlay" id="navSearchOverlay" role="dialog" aria-label="Search products" aria-modal="true">
     <div class="nav-search-form">
-      <label for="navSearchInput">Search</label>
-      <input id="navSearchInput" type="search" placeholder="What are you looking for?" autocomplete="off">
+      <label for="navSearchInput" class="eyebrow">Search the collection</label>
+      <input id="navSearchInput" type="search" placeholder="Product, material or colour" autocomplete="off">
       <button type="button" class="nav-search-close" id="navSearchClose" aria-label="Close search">&times;</button>
       <div class="nav-search-results" id="navSearchResults"></div>
     </div>
   </div>
 
-
   <main>
-    <section class="product-detail-page">
+    <section class="product-detail-page" aria-label="Product detail">
       <div class="container">
-        <div class="breadcrumb js-breadcrumb">
-          <a href="shop.html">Shop</a>
-          <span>/</span>
-          <a href="shop.html">Evening Collection</a>
-          <span>/</span>
-          <span>Silk Midnight Gown</span>
-        </div>
+        <nav class="breadcrumb js-breadcrumb" aria-label="Breadcrumb">
+          <a href="shop.html">Shop</a><span aria-hidden="true">/</span><span>Product</span>
+        </nav>
 
         <div class="product-detail-grid">
-          <!-- Left: Images -->
           <div class="product-visuals reveal">
             <div class="main-img-wrap">
-              <img loading="lazy" src="./assets/products/pinkparks/draped-wide-leg-set.jpg" alt="Silk Midnight Gown" id="main-product-img" srcset="./assets/products/pinkparks/draped-wide-leg-set-512.jpg 512w, ./assets/products/pinkparks/draped-wide-leg-set.jpg 934w" sizes="(max-width: 720px) 100vw, 50vw">
-              <button class="btn-true-color" id="toggle-color" title="View true colors">
-                <img loading="lazy" src="https://api.iconify.design/ph:eye-light.svg?color=white"/>
-                <span>View True Colors</span>
-              </button>
+              <img src="./assets/products/pinkparks/draped-wide-leg-set.jpg" alt="Silk Midnight Gown" id="main-product-img" fetchpriority="high" decoding="async">
             </div>
-            <div class="thumbnail-gallery js-thumbnail-gallery">
-              <img loading="lazy" src="./assets/products/pinkparks/draped-wide-leg-set-512.jpg" alt="Silk Midnight Gown thumbnail" class="active">
-            </div>
+            <div class="thumbnail-gallery js-thumbnail-gallery" aria-label="Product images"></div>
           </div>
 
-          <!-- Right: Info -->
-          <div class="product-info-col reveal" style="transition-delay: 0.1s;">
+          <div class="product-info-col reveal">
             <p class="collection-name">Evening Collection</p>
-            <h2 class="product-title js-product-title">Silk Midnight Gown</h2>
+            <h1 class="product-title js-product-title">Silk Midnight Gown</h1>
             <p class="product-price js-product-price">58.900.000 ₫</p>
 
             <div class="product-description js-product-description">
               <p>A fluid evening silhouette with a deliberate, minimal line, cut in heavy-weight mulberry silk.</p>
             </div>
 
-            <div class="color-selection">
-              <div class="size-header"><span>COLOR</span><strong class="js-color-label">Midnight</strong></div>
-              <div class="pdp-color-options js-color-options" role="radiogroup" aria-label="Color"></div>
-            </div>
+            <section class="color-selection" aria-labelledby="product-colour-heading">
+              <div class="size-header"><span id="product-colour-heading">Colour</span><strong class="js-color-label">Midnight</strong></div>
+              <div class="pdp-color-options js-color-options" role="group" aria-label="Choose colour"></div>
+            </section>
 
-            <div class="size-selection">
+            <section class="size-selection" aria-labelledby="product-size-heading">
               <div class="size-header">
-                <span>SELECT SIZE</span>
+                <span id="product-size-heading">Choose size</span>
                 <button type="button" class="size-guide js-pdp-size-guide">Size Guide</button>
               </div>
-              <div class="size-options js-size-options" role="radiogroup" aria-label="Size"></div>
+              <div class="size-options js-size-options" role="group" aria-label="Choose size"></div>
               <p class="pdp-selection-error js-pdp-selection-error" aria-live="polite"></p>
-            </div>
+            </section>
 
-            <div class="pdp-fit-summary">
+            <section class="pdp-fit-summary" aria-label="Fit guidance">
               <span>FIT</span>
               <p class="js-product-fit">Bias-cut silhouette with a close, fluid line.</p>
               <small class="js-product-model">Model is 178 cm and wears size S.</small>
-            </div>
+            </section>
 
             <div class="product-actions">
-              <button class="btn-add-cart js-btn-add-cart">ADD TO BAG</button>
-              <button class="btn-wishlist js-btn-wishlist" type="button" aria-pressed="false">♡ SAVE</button>
+              <button class="btn-add-cart js-btn-add-cart" type="button">Add to Bag</button>
+              <button class="btn-wishlist js-btn-wishlist" type="button" aria-pressed="false">♡ Save</button>
             </div>
 
-            <div class="shipping-info">
+            <div class="shipping-info" aria-label="Delivery and returns summary">
               <div><strong>Complimentary delivery</strong><span class="js-delivery-window">Estimated in 2–4 days</span></div>
               <div><strong>Returns &amp; exchanges</strong><span class="js-return-summary">Within 14 days</span></div>
               <a href="shipping&returns.html">Delivery &amp; Returns →</a>
             </div>
 
             <div class="product-accordions" aria-label="Product information">
-              <details open><summary>Details</summary><p class="js-product-material">100% heavy-weight mulberry silk.</p></details>
+              <details open><summary>Material &amp; details</summary><p class="js-product-material">100% heavy-weight mulberry silk.</p></details>
               <details><summary>Care</summary><p class="js-product-care">Please follow the care label supplied with the garment.</p></details>
               <details><summary>Origin</summary><p class="js-product-origin">Designed in Vietnam. Origin details are recorded on the garment label.</p></details>
             </div>
           </div>
         </div>
 
-        <section class="complete-look reveal">
+        <section class="complete-look reveal" aria-labelledby="related-title">
           <div class="section-header">
-            <div class="title-wrap">
-              <h2>Complete the Look</h2>
-              <p>Curated essentials to complement your style</p>
-            </div>
-            <a href="shop.html" class="explore-more">SHOP THE COLLECTION →</a>
+            <div class="title-wrap"><p class="eyebrow">RELATED / CONTINUE</p><h2 id="related-title">Complete the Look</h2><p>Pieces selected from the current catalogue.</p></div>
+            <a href="shop.html" class="text-link">Shop all pieces <span aria-hidden="true">→</span></a>
           </div>
-          <div class="related-grid js-related-grid">
-            <div class="related-item">
-              <img loading="lazy" src="./assets/related-shoes.webp" alt="Velvet Stiletto" srcset="./assets/related-shoes-512.webp 512w, ./assets/related-shoes.webp 1024w" sizes="(max-width: 720px) 100vw, 50vw">
-              <h4>Velvet Stiletto</h4>
-              <p>16.800.000 ₫</p>
-            </div>
-            <div class="related-item">
-              <img loading="lazy" src="./assets/product-2.webp" alt="Silk Satin Clutch" srcset="./assets/product-2-512.webp 512w, ./assets/product-2.webp 1024w" sizes="(max-width: 720px) 100vw, 50vw">
-              <h4>Silk Satin Clutch</h4>
-              <p>34.200.000 ₫</p>
-            </div>
-            <div class="related-item">
-              <img loading="lazy" src="./assets/product-9.webp" alt="Diamond Drop Earrings" srcset="./assets/product-9-512.webp 512w, ./assets/product-9.webp 1024w" sizes="(max-width: 720px) 100vw, 50vw">
-              <h4>Diamond Drop Earrings</h4>
-              <p>21.000.000 ₫</p>
-            </div>
-            <div class="related-item">
-              <img loading="lazy" src="./assets/product-6.webp" alt="Sheer Evening Wrap" srcset="./assets/product-6-512.webp 512w, ./assets/product-6.webp 1024w" sizes="(max-width: 720px) 100vw, 50vw">
-              <h4>Sheer Evening Wrap</h4>
-              <p>8.500.000 ₫</p>
-            </div>
-          </div>
+          <div class="related-grid js-related-grid"></div>
         </section>
       </div>
     </section>
@@ -165,73 +121,19 @@
   <footer class="site-footer">
     <div class="container">
       <section class="footer-newsletter footer-editorial" aria-label="ATELIER Journal">
-        <div class="newsletter-text">
-          <p class="eyebrow">ATELIER JOURNAL</p>
-          <h3>Considered notes on dress, form and material.</h3>
-        </div>
+        <div class="newsletter-text"><p class="eyebrow">ATELIER JOURNAL</p><h3>Considered notes on dress, form and material.</h3></div>
         <a class="btn-outline" href="collections.html">Explore the collection <span aria-hidden="true">→</span></a>
       </section>
       <div class="footer-divider"></div>
       <div class="footer-grid">
-        <div class="footer-col brand-col">
-          <div class="logo"><a href="index.html" aria-label="Atelier home"><span>ATELIER</span></a></div>
-          <p>A considered wardrobe for a life in motion. Designed with restraint, intention and lasting presence.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Client Services</h4>
-          <ul class="footer-links">
-            <li><a href="client-services.html">Client Services</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="shipping&returns.html">Shipping &amp; Returns</a></li>
-            <li><a href="size-guide.html">Size Guide</a></li>
-            <li><a href="care-guide.html">Care Guide</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>The House</h4>
-          <ul class="footer-links">
-            <li><a href="about.html">Our Story</a></li>
-            <li><a href="collections.html">Collections</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Legal</h4>
-          <ul class="footer-links">
-            <li><a href="privacy.html">Privacy</a></li>
-            <li><a href="terms.html">Terms of Use</a></li>
-            <li><a href="client-services.html#accessibility">Accessibility</a></li>
-          </ul>
-        </div>
+        <div class="footer-col brand-col"><div class="logo"><a href="index.html" aria-label="Atelier home"><span>ATELIER</span></a></div><p>A considered wardrobe for a life in motion. Designed with restraint, intention and lasting presence.</p></div>
+        <div class="footer-col"><h4>Client Services</h4><ul class="footer-links"><li><a href="client-services.html">Client Services</a></li><li><a href="contact.html">Contact</a></li><li><a href="shipping&returns.html">Shipping &amp; Returns</a></li><li><a href="size-guide.html">Size Guide</a></li><li><a href="care-guide.html">Care Guide</a></li></ul></div>
+        <div class="footer-col"><h4>The House</h4><ul class="footer-links"><li><a href="about.html">Our Story</a></li><li><a href="collections.html">Collections</a></li></ul></div>
+        <div class="footer-col"><h4>Legal</h4><ul class="footer-links"><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms of Use</a></li><li><a href="client-services.html#accessibility">Accessibility</a></li></ul></div>
       </div>
-      <div class="footer-bottom">
-        <p>© 2026 ATELIER. All rights reserved.</p>
-        <p>Desktop edition · Vietnam</p>
-      </div>
+      <div class="footer-bottom"><p>© 2026 ATELIER. All rights reserved.</p><p>Vietnam · English edition</p></div>
     </div>
   </footer>
-
-  <script type="module" src="./main.js?v=ecommerce-3"></script>
-  <script>
-    const toggleBtn = document.getElementById('toggle-color');
-    const mainImg = document.getElementById('main-product-img');
-
-    toggleBtn.addEventListener('click', () => {
-      const isActive = mainImg.classList.toggle('show-true-color');
-      toggleBtn.classList.toggle('active');
-      toggleBtn.innerHTML = isActive
-        ? '<img loading="lazy" src="https://api.iconify.design/ph:eye-closed-light.svg?color=white"/><span>Show Grayscale</span>'
-        : '<img loading="lazy" src="https://api.iconify.design/ph:eye-light.svg?color=white"/><span>View True Colors</span>';
-    });
-
-    // Thumbnail click also updates main image and respects grayscale filter
-    document.querySelectorAll('.thumbnail-gallery img').forEach(thumb => {
-      thumb.addEventListener('click', () => {
-        document.querySelectorAll('.thumbnail-gallery img').forEach(t => t.classList.remove('active'));
-        thumb.classList.add('active');
-        mainImg.src = thumb.src;
-      });
-    });
-  </script>
-
+  <script type="module" src="./main.js?v=white-editorial-v6"></script>
 </body>
 </html>

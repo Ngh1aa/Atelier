@@ -7,8 +7,8 @@ import {
   hydrateCart,
   track,
   validateInventory,
-} from "./commerce-store.js?v=ecommerce-3";
-import { escapeHtml } from "./commerce-ui.js?v=ecommerce-3";
+} from "./commerce-store.js?v=white-editorial-v6";
+import { escapeHtml } from "./commerce-ui.js?v=white-editorial-v6";
 
 const DRAFT_KEY = "atelier.checkout-draft";
 const PROMO_KEY = "atelier.promo";
@@ -44,12 +44,12 @@ export async function initPrecommerceCheckout() {
   const itemsWrap = document.querySelector(".js-checkout-items");
   if (!form || !itemsWrap) return;
 
+  localStorage.removeItem(PROMO_KEY);
   let lines = await hydrateCart();
-  const promo = readJson(PROMO_KEY, null);
   const submit = form.querySelector(".js-place-order");
   const error = form.querySelector(".js-checkout-error");
   restoreDraft(form);
-  track("begin_checkout", { item_count: lines.length });
+  track("begin_checkout", { item_count: lines.length, reality: "local_prototype" });
 
   const renderItems = () => {
     itemsWrap.innerHTML = lines.length ? lines.map((line) => `
@@ -63,10 +63,8 @@ export async function initPrecommerceCheckout() {
 
   const updateReview = () => {
     const data = new FormData(form);
-    const email = data.get("email") || "Add contact details";
-    const address = [data.get("fullName"), data.get("address"), data.get("district"), data.get("province")].filter(Boolean).join(", ") || "Add a delivery address";
-    document.querySelector(".js-review-contact").textContent = email;
-    document.querySelector(".js-review-address").textContent = address;
+    document.querySelector(".js-review-contact").textContent = data.get("email") || "Add contact details";
+    document.querySelector(".js-review-address").textContent = [data.get("fullName"), data.get("address"), data.get("district"), data.get("province")].filter(Boolean).join(", ") || "Add a delivery address";
     document.querySelector(".js-review-delivery").textContent = selectedLabel(form, "deliveryMethod");
     document.querySelector(".js-review-payment").textContent = selectedLabel(form, "paymentMethod");
     document.querySelectorAll(".delivery-option, .payment-option").forEach((label) => label.classList.toggle("selected", Boolean(label.querySelector("input:checked"))));
@@ -74,21 +72,18 @@ export async function initPrecommerceCheckout() {
 
   const updateTotals = () => {
     const express = form.querySelector('[name="deliveryMethod"]:checked')?.value === "express";
-    const subtotal = lines.reduce((total, line) => total + line.unitPrice * line.quantity, 0);
-    const discount = promo?.code === "ATELIER10" ? Math.round(subtotal * 0.1) : 0;
-    const totals = cartTotals(lines, express ? EXPRESS_FEE : 0, discount);
+    const totals = cartTotals(lines, express ? EXPRESS_FEE : 0, 0);
     document.querySelector(".js-checkout-subtotal").textContent = formatVND(totals.subtotal);
     document.querySelector(".js-checkout-delivery-fee").textContent = totals.shippingFee ? formatVND(totals.shippingFee) : "Complimentary";
     document.querySelector(".js-checkout-total").textContent = formatVND(totals.total);
     const discountRow = document.querySelector(".js-checkout-discount-row");
-    discountRow.hidden = !discount;
-    discountRow.querySelector("span:last-child").textContent = `−${formatVND(discount)}`;
+    if (discountRow) discountRow.hidden = true;
     form.dataset.subtotal = String(totals.subtotal);
     form.dataset.shippingFee = String(totals.shippingFee);
-    form.dataset.discount = String(totals.discount);
+    form.dataset.discount = "0";
     form.dataset.total = String(totals.total);
-    document.querySelector(".js-standard-window").textContent = `Arrives ${getDeliveryWindow(false)}`;
-    document.querySelector(".js-express-window").textContent = `Arrives ${getDeliveryWindow(true)}`;
+    document.querySelector(".js-standard-window").textContent = `Estimated ${getDeliveryWindow(false)}`;
+    document.querySelector(".js-express-window").textContent = `Estimated ${getDeliveryWindow(true)}`;
     updateReview();
   };
 
@@ -98,17 +93,18 @@ export async function initPrecommerceCheckout() {
   });
   form.querySelectorAll('[name="deliveryMethod"]').forEach((input) => input.addEventListener("change", () => {
     updateTotals();
-    track("add_shipping_info", { shipping_tier: input.value });
+    track("add_shipping_info", { shipping_tier: input.value, reality: "local_prototype" });
   }));
   form.querySelectorAll('[name="paymentMethod"]').forEach((input) => input.addEventListener("change", () => {
     updateReview();
-    track("add_payment_info", { payment_type: input.value });
+    track("add_payment_info", { payment_type: input.value, reality: "local_prototype" });
   }));
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     error.textContent = "";
     if (!form.reportValidity()) return;
+
     lines = await hydrateCart();
     const inventory = validateInventory(lines);
     if (!inventory.ok) {
@@ -122,9 +118,8 @@ export async function initPrecommerceCheckout() {
     }
 
     submit.disabled = true;
-    submit.textContent = "PROCESSING…";
+    submit.textContent = "Recording…";
     form.setAttribute("aria-busy", "true");
-    await new Promise((resolve) => setTimeout(resolve, 600));
 
     try {
       const data = new FormData(form);
@@ -137,17 +132,16 @@ export async function initPrecommerceCheckout() {
         items: lines.map((line) => ({ productId: line.productId, variantId: line.variantId, name: line.product.name, image: line.product.images[0], color: line.colorName, size: line.size, quantity: line.quantity, unitPrice: line.unitPrice })),
         subtotal: Number(form.dataset.subtotal),
         shippingFee: Number(form.dataset.shippingFee),
-        discount: Number(form.dataset.discount),
+        discount: 0,
         total: Number(form.dataset.total),
       });
       clearCart();
-      localStorage.removeItem(PROMO_KEY);
       localStorage.removeItem(DRAFT_KEY);
       window.location.href = `order-success.html?id=${encodeURIComponent(order.id)}`;
     } catch {
-      error.textContent = "The order could not be completed. Your details and Bag have been preserved; please try again.";
+      error.textContent = "The local order could not be recorded. Your details and Bag have been preserved; please try again.";
       submit.disabled = false;
-      submit.textContent = "PLACE ORDER";
+      submit.textContent = "Record Order on This Device";
       form.removeAttribute("aria-busy");
     }
   });

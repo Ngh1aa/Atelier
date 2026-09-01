@@ -1,5 +1,5 @@
-import { cartCount, formatVND, loadProducts, track } from "./commerce-store.js?v=ecommerce-3";
-import { escapeHtml, initCommerceUi, updateGlobalIndicators } from "./commerce-ui.js?v=ecommerce-3";
+import { cartCount, formatVND, loadProducts, track } from "./commerce-store.js?v=white-editorial-v6";
+import { escapeHtml, initCommerceUi, updateGlobalIndicators } from "./commerce-ui.js?v=white-editorial-v6";
 
 const SEARCH_SYNONYMS = {
   coat: ["outerwear", "overcoat"],
@@ -31,7 +31,7 @@ export function initSearchOverlay() {
     overlay.classList.add("open");
     btn.setAttribute("aria-expanded", "true");
     document.body.style.overflow = "hidden";
-    setTimeout(() => input.focus(), 120);
+    requestAnimationFrame(() => input.focus());
   };
   const closeSearch = () => {
     overlay.classList.remove("open");
@@ -50,24 +50,26 @@ export function initSearchOverlay() {
     if (event.target === overlay) closeSearch();
   });
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && overlay.classList.contains("open")) closeSearch();
-    if (event.key === "Tab" && overlay.classList.contains("open")) {
-      const focusable = [...overlay.querySelectorAll('input, button:not(:disabled), a[href]')].filter((element) => element.offsetParent !== null);
-      if (!focusable.length) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
+    if (!overlay.classList.contains("open")) return;
+    if (event.key === "Escape") {
+      closeSearch();
+      return;
+    }
+    if (event.key !== "Tab") return;
+    const focusable = [...overlay.querySelectorAll('input, button:not(:disabled), a[href]')].filter((element) => element.offsetParent !== null);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
     }
   });
 
   const loaded = loadProducts().catch(() => []);
-
   input.addEventListener("input", async () => {
     const products = await loaded;
     const query = input.value.trim().toLowerCase();
@@ -82,12 +84,7 @@ export function initSearchOverlay() {
       .slice(0, 3);
 
     if (!matchedProducts.length && !matchedCategories.length) {
-      results.innerHTML = `
-        <div class="search-empty-state">
-          <p>No results for “${escapeHtml(input.value.trim())}”.</p>
-          <span>Try a product, material or colour.</span>
-          <a href="shop.html">Explore New In <span aria-hidden="true">→</span></a>
-        </div>`;
+      results.innerHTML = `<div class="search-empty-state"><p>No results for “${escapeHtml(input.value.trim())}”.</p><span>Try a product, material or colour.</span><a href="shop.html">Explore New In <span aria-hidden="true">→</span></a></div>`;
       track("view_search_results", { search_term: query, result_count: 0 });
       return;
     }

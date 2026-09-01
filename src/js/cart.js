@@ -9,18 +9,10 @@ import {
   removeCartItem,
   saveForLater,
   updateCartQuantity,
-} from "./commerce-store.js?v=ecommerce-3";
-import { escapeHtml, showMessage } from "./commerce-ui.js?v=ecommerce-3";
+} from "./commerce-store.js?v=white-editorial-v6";
+import { escapeHtml, showMessage } from "./commerce-ui.js?v=white-editorial-v6";
 
 const PROMO_KEY = "atelier.promo";
-
-function getPromo() {
-  try {
-    return JSON.parse(localStorage.getItem(PROMO_KEY)) || null;
-  } catch {
-    return null;
-  }
-}
 
 function emptyState() {
   return `<div class="cart-empty-state"><h2>Your Bag is empty.</h2><p>Discover considered pieces for the season ahead.</p><a href="shop.html" class="btn-outline">Discover the collection <span aria-hidden="true">→</span></a></div>`;
@@ -36,7 +28,7 @@ function lineMarkup(line) {
         <p>${escapeHtml(variant.colorName)} · Size ${escapeHtml(variant.size)}</p>
         <button type="button" class="cart-text-action js-edit-variant">Size ${escapeHtml(variant.size)} · Edit</button>
         <div class="cart-variant-editor js-variant-editor" hidden>
-          <label>Color<select class="js-cart-color">${product.colors.map((color) => `<option value="${escapeHtml(color.value)}" ${color.value === variant.color ? "selected" : ""}>${escapeHtml(color.name)}</option>`).join("")}</select></label>
+          <label>Colour<select class="js-cart-color">${product.colors.map((color) => `<option value="${escapeHtml(color.value)}" ${color.value === variant.color ? "selected" : ""}>${escapeHtml(color.name)}</option>`).join("")}</select></label>
           <label>Size<select class="js-cart-size">${product.sizes.map((size) => { const option = findVariant(product, variant.color, size); return `<option value="${escapeHtml(size)}" ${size === variant.size ? "selected" : ""} ${!option?.stock ? "disabled" : ""}>${escapeHtml(size)}${option?.stock ? "" : " — Unavailable"}</option>`; }).join("")}</select></label>
           <button type="button" class="cart-text-action js-save-variant">Save</button>
           <p class="commerce-inline-error js-cart-variant-error" aria-live="polite"></p>
@@ -57,6 +49,7 @@ export async function renderCart() {
   const list = document.querySelector(".js-cart-items-list");
   if (!list) return;
   const products = await loadProducts();
+  localStorage.removeItem(PROMO_KEY);
 
   const renderRelated = () => {
     const wrap = document.querySelector(".related-products-list");
@@ -72,19 +65,13 @@ export async function renderCart() {
   };
 
   const updateSummary = (lines) => {
-    const promo = getPromo();
-    const rawSubtotal = lines.reduce((total, line) => total + line.unitPrice * line.quantity, 0);
-    const discount = promo?.code === "ATELIER10" ? Math.round(rawSubtotal * 0.1) : 0;
-    const totals = cartTotals(lines, 0, discount);
+    const totals = cartTotals(lines, 0, 0);
     document.querySelectorAll(".js-summary-subtotal").forEach((element) => { element.textContent = formatVND(totals.subtotal); });
     document.querySelectorAll(".js-summary-total").forEach((element) => { element.textContent = formatVND(totals.total); });
     const shipping = document.querySelector(".js-cart-delivery");
     if (shipping) shipping.textContent = `Estimated ${getDeliveryWindow(false)}`;
     const discountRow = document.querySelector(".js-summary-discount");
-    if (discountRow) {
-      discountRow.hidden = !discount;
-      discountRow.querySelector("span:last-child").textContent = `−${formatVND(discount)}`;
-    }
+    if (discountRow) discountRow.hidden = true;
     const checkout = document.querySelector(".btn-checkout");
     checkout?.classList.toggle("is-disabled", !lines.length);
     checkout?.setAttribute("aria-disabled", String(!lines.length));
@@ -94,15 +81,14 @@ export async function renderCart() {
     list.querySelectorAll(".js-cart-item").forEach((item) => {
       const line = lines.find((entry) => entry.id === item.dataset.lineId);
       if (!line) return;
-      const quantity = item.querySelector(".qty-val");
       item.querySelector(".minus").addEventListener("click", () => {
         if (line.quantity <= 1) return;
         updateCartQuantity(line.id, line.quantity - 1);
         paint();
       });
       item.querySelector(".plus").addEventListener("click", () => {
-        if (line.quantity >= line.variant.stock) {
-          showMessage(`Only ${line.variant.stock} piece${line.variant.stock === 1 ? "" : "s"} remain in this size.`, { assertive: true });
+        if (line.variant.inventoryKnown && line.quantity >= line.variant.stock) {
+          showMessage("The requested quantity is unavailable for this size.", { assertive: true });
           return;
         }
         updateCartQuantity(line.id, line.quantity + 1);
@@ -145,29 +131,12 @@ export async function renderCart() {
   };
 
   const promoWrap = document.querySelector(".promo-code-wrap");
-  if (promoWrap) {
-    promoWrap.innerHTML = `<button type="button" class="promo-header js-promo-toggle"><span>ADD A PROMO CODE</span><span>+</span></button><form class="promo-form" hidden><label class="sr-only" for="promoCode">Promo code</label><input id="promoCode" autocomplete="off" placeholder="Promo code"><button type="submit">Apply</button><p class="js-promo-message" aria-live="polite"></p></form>`;
-    const form = promoWrap.querySelector("form");
-    promoWrap.querySelector(".js-promo-toggle").addEventListener("click", () => { form.hidden = !form.hidden; });
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const code = form.querySelector("input").value.trim().toUpperCase();
-      const message = form.querySelector(".js-promo-message");
-      if (code === "ATELIER10") {
-        localStorage.setItem(PROMO_KEY, JSON.stringify({ code }));
-        message.textContent = "ATELIER10 applied.";
-        updateSummary(await hydrateCart());
-      } else {
-        localStorage.removeItem(PROMO_KEY);
-        message.textContent = code ? "This code is invalid or has expired." : "Enter a promo code.";
-        updateSummary(await hydrateCart());
-      }
-    });
-  }
+  if (promoWrap) promoWrap.innerHTML = `<p class="tax-note">Promo codes are not enabled in this static prototype.</p>`;
 
   document.querySelector(".btn-checkout")?.addEventListener("click", (event) => {
     if (event.currentTarget.getAttribute("aria-disabled") === "true") event.preventDefault();
   });
+
   renderRelated();
   await paint();
 }

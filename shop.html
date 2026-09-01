@@ -4,393 +4,94 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="./assets/logo/atelier-mark.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shop - ATELIER | Our Products</title>
-  <meta name="description" content="Browse the full ATELIER collection: tailored wool blazers, cashmere overcoats, silk gowns and everyday essentials. Free shipping on every order.">
-  <meta name="keywords" content="ATELIER, luxury fashion, minimalist clothing, tailoring, knitwear, outerwear, sustainable fashion, Fall 2026">
-  <meta property="og:title" content="Shop - ATELIER">
-  <meta property="og:description" content="Browse the full ATELIER collection: tailored wool blazers, cashmere overcoats, silk gowns and everyday essentials. Free shipping on every order.">
+  <title>Shop New In — ATELIER</title>
+  <meta name="description" content="Browse ATELIER New In. Filter by category, size and colour, then review fit, material and delivery details on each product page.">
+  <meta name="keywords" content="ATELIER, New In, tailoring, knitwear, outerwear, evening, fashion">
+  <meta property="og:title" content="Shop New In — ATELIER">
+  <meta property="og:description" content="Browse the ATELIER catalogue with clear product, filter and fit information.">
   <meta property="og:image" content="https://ngh1aa.github.io/Atelier/assets/product-hero.webp">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ngh1aa.github.io/Atelier/shop.html">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Shop - ATELIER">
-  <meta name="twitter:description" content="Browse the full ATELIER collection: tailored wool blazers, cashmere overcoats, silk gowns and everyday essentials. Free shipping on every order.">
-  <meta name="twitter:image" content="https://ngh1aa.github.io/Atelier/assets/product-hero.webp">
-
   <link rel="stylesheet" href="./style.css">
-
+  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
   <script>document.documentElement.classList.add("js-enabled")</script>
 </head>
 <body class="js-enabled">
-    <nav>
+  <nav aria-label="Primary navigation">
     <div class="container nav-container">
       <ul class="nav-links left">
         <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html" class="active">Shop</a></li>
+        <li><a href="shop.html" class="active" aria-current="page">Shop</a></li>
         <li><a href="collections.html">Collections</a></li>
         <li><a href="about.html">The House</a></li>
         <li><a href="client-services.html">Client Services</a></li>
       </ul>
       <div class="logo"><a href="index.html" aria-label="Atelier home"><span>ATELIER</span></a></div>
       <div class="nav-icons right">
-        <button type="button" class="nav-search-btn" aria-label="Search" id="navSearchBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 6 6"/></svg></button>
+        <button type="button" class="nav-search-btn" aria-label="Search" id="navSearchBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 6 6"/></svg></button>
         <a href="cart.html" class="nav-text nav-cart">Bag (<span class="js-nav-bag-count">0</span>)</a>
         <a href="favourite.html" class="nav-text">Saved</a>
       </div>
     </div>
   </nav>
+
   <div class="nav-search-overlay" id="navSearchOverlay" role="dialog" aria-label="Search products" aria-modal="true">
     <div class="nav-search-form">
-      <label for="navSearchInput">Search</label>
-      <input id="navSearchInput" type="search" placeholder="What are you looking for?" autocomplete="off">
+      <label for="navSearchInput" class="eyebrow">Search the collection</label>
+      <input id="navSearchInput" type="search" placeholder="Product, material or colour" autocomplete="off">
       <button type="button" class="nav-search-close" id="navSearchClose" aria-label="Close search">&times;</button>
       <div class="nav-search-results" id="navSearchResults"></div>
     </div>
   </div>
 
-
   <main>
-    <section class="shop-page">
+    <section class="shop-page" aria-labelledby="shop-title">
       <div class="container">
-        <div class="shop-title reveal">
-          <h1>Our Products</h1>
-        </div>
-
-        <div class="filter-bar reveal">
-          <span id="result-count" class="result-count">8 Pieces</span>
-          <div class="filter-group">
-            <span>Sort By <img loading="lazy" src="https://api.iconify.design/ph:caret-down-light.svg?color=white" width="12"/></span>
-            <span>Category <img loading="lazy" src="https://api.iconify.design/ph:caret-down-light.svg?color=white" width="12"/></span>
-            <span>Size <img loading="lazy" src="https://api.iconify.design/ph:caret-down-light.svg?color=white" width="12"/></span>
-            <span>Color <img loading="lazy" src="https://api.iconify.design/ph:caret-down-light.svg?color=white" width="12"/></span>
+        <header class="shop-intro reveal">
+          <p class="eyebrow">CATALOGUE / FALL 2026</p>
+          <div class="shop-intro-grid">
+            <h1 id="shop-title">New In</h1>
+            <p class="shop-intro-copy">Find a piece by category, size or colour. Product pages bring fit, material, care and delivery information next to the purchase decision.</p>
           </div>
+          <nav class="shop-category-shortcuts" aria-label="Shop by category">
+            <a href="shop.html?category=outerwear">Outerwear</a>
+            <a href="shop.html?category=knitwear">Knitwear</a>
+            <a href="shop.html?category=tees">Tees</a>
+            <a href="shop.html?category=denim%20%26%20shirts">Denim &amp; Shirts</a>
+            <a href="shop.html?category=accessories">Accessories</a>
+          </nav>
+        </header>
+
+        <div class="filter-bar reveal" aria-label="Product finding controls">
+          <span id="result-count" class="result-count" aria-live="polite">Loading pieces…</span>
         </div>
 
         <div class="shop-grid-container reveal">
-          <div class="shop-grid js-shop-grid"><noscript>
-            <div class="product-item-wrap">
-              <div class="product-grid-item js-product-grid-item">
-                <div class="product-grid-item__image js-product-grid-item-image">
-                  <a href="detailproduct.html?id=tailored-wool-blazer">
-                    <img loading="lazy" src="./assets/feedback/shop-product-1.jpg" alt="Tailored Wool Blazer" style="width:100%;display:block;aspect-ratio:3/4;object-fit:cover;" srcset="./assets/feedback/shop-product-1-512.jpg 512w, ./assets/feedback/shop-product-1.jpg 1200w" sizes="(max-width: 720px) 100vw, 50vw">
-                  </a>
-                  <div class="product-grid-item__hover js-product-grid-item-hover">
-                    <div class="product-grid-item__add-to-cart">
-                      <p class="text-cta">Add to bag +</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="product-grid-item__content d-flex" style="display:flex;justify-content:space-between;margin-top:1rem;">
-                  <div class="product-grid-item__content-left">
-                    <h4 class="product-grid-item__title medium-text" style="font-size:0.85rem;text-transform:uppercase;margin:0 0 0.3rem 0;">
-                      <a href="detailproduct.html?id=tailored-wool-blazer" style="color:inherit;text-decoration:none;">Tailored Wool Blazer</a>
-                    </h4>
-                    <div class="product-grid-item__price small-text" style="font-size:0.8rem;color:#a0a0a0;">
-                      19.500.000 ₫
-                    </div>
-                  </div>
-                  <div class="product-grid-item__content-right">
-                    <div class="product-grid-item__wishlist">
-                      <a href="detailproduct.html" data-wk-proxy-bound="1">
-              	        <svg width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-              		      <path d="M0.442627 2.80409V9.80301C0.442627 10.8073 0.442627 11.3093 0.595717 11.6166C0.87946 12.1861 1.50131 12.5135 2.14038 12.4298C2.48518 12.3847 2.90985 12.1062 3.7592 11.549L3.76124 11.5477C4.09789 11.327 4.26624 11.2165 4.44234 11.1553C4.76579 11.0428 5.11867 11.0428 5.44213 11.1553C5.61862 11.2166 5.78764 11.3275 6.12559 11.5492C6.97501 12.1062 7.40008 12.3845 7.74496 12.4297C8.38396 12.5134 9.00577 12.1861 9.28954 11.6166C9.44263 11.3093 9.44263 10.8071 9.44263 9.80301V2.80167C9.44263 1.97679 9.44263 1.56373 9.27928 1.24836C9.13546 0.970681 8.90542 0.745086 8.62318 0.6036C8.30233 0.442749 7.88284 0.442749 7.04278 0.442749H2.84277C2.0027 0.442749 1.58234 0.442749 1.26147 0.6036C0.979234 0.745086 0.749923 0.970681 0.606121 1.24836C0.442627 1.56404 0.442627 1.9776 0.442627 2.80409Z" stroke="white" stroke-width="0.88545" stroke-linecap="round" stroke-linejoin="round"></path>
-              	        </svg>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="product-item-wrap">
-              <div class="product-grid-item js-product-grid-item">
-                <div class="product-grid-item__image js-product-grid-item-image">
-                  <a href="detailproduct.html?id=cashmere-overcoat">
-                    <img loading="lazy" src="./assets/feedback/shop-product-2.jpg" alt="Cashmere Overcoat" style="width:100%;display:block;aspect-ratio:3/4;object-fit:cover;" srcset="./assets/feedback/shop-product-2-512.jpg 512w, ./assets/feedback/shop-product-2.jpg 1200w" sizes="(max-width: 720px) 100vw, 50vw">
-                  </a>
-                  <div class="product-grid-item__hover js-product-grid-item-hover">
-                    <div class="product-grid-item__add-to-cart">
-                      <p class="text-cta">Add to bag +</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="product-grid-item__content d-flex" style="display:flex;justify-content:space-between;margin-top:1rem;">
-                  <div class="product-grid-item__content-left">
-                    <h4 class="product-grid-item__title medium-text" style="font-size:0.85rem;text-transform:uppercase;margin:0 0 0.3rem 0;">
-                      <a href="detailproduct.html?id=cashmere-overcoat" style="color:inherit;text-decoration:none;">Cashmere Overcoat</a>
-                    </h4>
-                    <div class="product-grid-item__price small-text" style="font-size:0.8rem;color:#a0a0a0;">
-                      34.200.000 ₫
-                    </div>
-                  </div>
-                  <div class="product-grid-item__content-right">
-                    <div class="product-grid-item__wishlist">
-                      <a href="detailproduct.html" data-wk-proxy-bound="1">
-              	        <svg width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-              		      <path d="M0.442627 2.80409V9.80301C0.442627 10.8073 0.442627 11.3093 0.595717 11.6166C0.87946 12.1861 1.50131 12.5135 2.14038 12.4298C2.48518 12.3847 2.90985 12.1062 3.7592 11.549L3.76124 11.5477C4.09789 11.327 4.26624 11.2165 4.44234 11.1553C4.76579 11.0428 5.11867 11.0428 5.44213 11.1553C5.61862 11.2166 5.78764 11.3275 6.12559 11.5492C6.97501 12.1062 7.40008 12.3845 7.74496 12.4297C8.38396 12.5134 9.00577 12.1861 9.28954 11.6166C9.44263 11.3093 9.44263 10.8071 9.44263 9.80301V2.80167C9.44263 1.97679 9.44263 1.56373 9.27928 1.24836C9.13546 0.970681 8.90542 0.745086 8.62318 0.6036C8.30233 0.442749 7.88284 0.442749 7.04278 0.442749H2.84277C2.0027 0.442749 1.58234 0.442749 1.26147 0.6036C0.979234 0.745086 0.749923 0.970681 0.606121 1.24836C0.442627 1.56404 0.442627 1.9776 0.442627 2.80409Z" stroke="white" stroke-width="0.88545" stroke-linecap="round" stroke-linejoin="round"></path>
-              	        </svg>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="product-item-wrap">
-              <div class="product-grid-item js-product-grid-item">
-                <div class="product-grid-item__image js-product-grid-item-image">
-                  <a href="detailproduct.html?id=merino-knit-dress">
-                    <img loading="lazy" src="./assets/feedback/shop-product-3.jpg" alt="Merino Knit Dress" style="width:100%;display:block;aspect-ratio:3/4;object-fit:cover;" srcset="./assets/feedback/shop-product-3-512.jpg 512w, ./assets/feedback/shop-product-3.jpg 1200w" sizes="(max-width: 720px) 100vw, 50vw">
-                  </a>
-                  <div class="product-grid-item__hover js-product-grid-item-hover">
-                    <div class="product-grid-item__add-to-cart">
-                      <p class="text-cta">Add to bag +</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="product-grid-item__content d-flex" style="display:flex;justify-content:space-between;margin-top:1rem;">
-                  <div class="product-grid-item__content-left">
-                    <h4 class="product-grid-item__title medium-text" style="font-size:0.85rem;text-transform:uppercase;margin:0 0 0.3rem 0;">
-                      <a href="detailproduct.html?id=merino-knit-dress" style="color:inherit;text-decoration:none;">Merino Knit Dress</a>
-                    </h4>
-                    <div class="product-grid-item__price small-text" style="font-size:0.8rem;color:#a0a0a0;">
-                      14.500.000 ₫
-                    </div>
-                  </div>
-                  <div class="product-grid-item__content-right">
-                    <div class="product-grid-item__wishlist">
-                      <a href="detailproduct.html" data-wk-proxy-bound="1">
-              	        <svg width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-              		      <path d="M0.442627 2.80409V9.80301C0.442627 10.8073 0.442627 11.3093 0.595717 11.6166C0.87946 12.1861 1.50131 12.5135 2.14038 12.4298C2.48518 12.3847 2.90985 12.1062 3.7592 11.549L3.76124 11.5477C4.09789 11.327 4.26624 11.2165 4.44234 11.1553C4.76579 11.0428 5.11867 11.0428 5.44213 11.1553C5.61862 11.2166 5.78764 11.3275 6.12559 11.5492C6.97501 12.1062 7.40008 12.3845 7.74496 12.4297C8.38396 12.5134 9.00577 12.1861 9.28954 11.6166C9.44263 11.3093 9.44263 10.8071 9.44263 9.80301V2.80167C9.44263 1.97679 9.44263 1.56373 9.27928 1.24836C9.13546 0.970681 8.90542 0.745086 8.62318 0.6036C8.30233 0.442749 7.88284 0.442749 7.04278 0.442749H2.84277C2.0027 0.442749 1.58234 0.442749 1.26147 0.6036C0.979234 0.745086 0.749923 0.970681 0.606121 1.24836C0.442627 1.56404 0.442627 1.9776 0.442627 2.80409Z" stroke="white" stroke-width="0.88545" stroke-linecap="round" stroke-linejoin="round"></path>
-              	        </svg>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="product-item-wrap">
-              <div class="product-grid-item js-product-grid-item">
-                <div class="product-grid-item__image js-product-grid-item-image">
-                  <a href="detailproduct.html?id=silk-drape-blouse">
-                    <img loading="lazy" src="./assets/feedback/shop-product-4.jpg" alt="Silk Drape Blouse" style="width:100%;display:block;aspect-ratio:3/4;object-fit:cover;" srcset="./assets/feedback/shop-product-4-512.jpg 512w, ./assets/feedback/shop-product-4.jpg 1200w" sizes="(max-width: 720px) 100vw, 50vw">
-                  </a>
-                  <div class="product-grid-item__hover js-product-grid-item-hover">
-                    <div class="product-grid-item__add-to-cart">
-                      <p class="text-cta">Add to bag +</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="product-grid-item__content d-flex" style="display:flex;justify-content:space-between;margin-top:1rem;">
-                  <div class="product-grid-item__content-left">
-                    <h4 class="product-grid-item__title medium-text" style="font-size:0.85rem;text-transform:uppercase;margin:0 0 0.3rem 0;">
-                      <a href="detailproduct.html?id=silk-drape-blouse" style="color:inherit;text-decoration:none;">Silk Drape Blouse</a>
-                    </h4>
-                    <div class="product-grid-item__price small-text" style="font-size:0.8rem;color:#a0a0a0;">
-                      11.200.000 ₫
-                    </div>
-                  </div>
-                  <div class="product-grid-item__content-right">
-                    <div class="product-grid-item__wishlist">
-                      <a href="detailproduct.html" data-wk-proxy-bound="1">
-              	        <svg width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-              		      <path d="M0.442627 2.80409V9.80301C0.442627 10.8073 0.442627 11.3093 0.595717 11.6166C0.87946 12.1861 1.50131 12.5135 2.14038 12.4298C2.48518 12.3847 2.90985 12.1062 3.7592 11.549L3.76124 11.5477C4.09789 11.327 4.26624 11.2165 4.44234 11.1553C4.76579 11.0428 5.11867 11.0428 5.44213 11.1553C5.61862 11.2166 5.78764 11.3275 6.12559 11.5492C6.97501 12.1062 7.40008 12.3845 7.74496 12.4297C8.38396 12.5134 9.00577 12.1861 9.28954 11.6166C9.44263 11.3093 9.44263 10.8071 9.44263 9.80301V2.80167C9.44263 1.97679 9.44263 1.56373 9.27928 1.24836C9.13546 0.970681 8.90542 0.745086 8.62318 0.6036C8.30233 0.442749 7.88284 0.442749 7.04278 0.442749H2.84277C2.0027 0.442749 1.58234 0.442749 1.26147 0.6036C0.979234 0.745086 0.749923 0.970681 0.606121 1.24836C0.442627 1.56404 0.442627 1.9776 0.442627 2.80409Z" stroke="white" stroke-width="0.88545" stroke-linecap="round" stroke-linejoin="round"></path>
-              	        </svg>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="product-item-wrap">
-              <div class="product-grid-item js-product-grid-item">
-                <div class="product-grid-item__image js-product-grid-item-image">
-                  <a href="detailproduct.html?id=linen-wide-trousers">
-                    <img loading="lazy" src="./assets/feedback/shop-product-5.jpg" alt="Linen Wide Trousers" style="width:100%;display:block;aspect-ratio:3/4;object-fit:cover;" srcset="./assets/feedback/shop-product-5-512.jpg 512w, ./assets/feedback/shop-product-5.jpg 1200w" sizes="(max-width: 720px) 100vw, 50vw">
-                  </a>
-                  <div class="product-grid-item__hover js-product-grid-item-hover">
-                    <div class="product-grid-item__add-to-cart">
-                      <p class="text-cta">Add to bag +</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="product-grid-item__content d-flex" style="display:flex;justify-content:space-between;margin-top:1rem;">
-                  <div class="product-grid-item__content-left">
-                    <h4 class="product-grid-item__title medium-text" style="font-size:0.85rem;text-transform:uppercase;margin:0 0 0.3rem 0;">
-                      <a href="detailproduct.html?id=linen-wide-trousers" style="color:inherit;text-decoration:none;">Linen Wide Trousers</a>
-                    </h4>
-                    <div class="product-grid-item__price small-text" style="font-size:0.8rem;color:#a0a0a0;">
-                      9.800.000 ₫
-                    </div>
-                  </div>
-                  <div class="product-grid-item__content-right">
-                    <div class="product-grid-item__wishlist">
-                      <a href="detailproduct.html" data-wk-proxy-bound="1">
-              	        <svg width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-              		      <path d="M0.442627 2.80409V9.80301C0.442627 10.8073 0.442627 11.3093 0.595717 11.6166C0.87946 12.1861 1.50131 12.5135 2.14038 12.4298C2.48518 12.3847 2.90985 12.1062 3.7592 11.549L3.76124 11.5477C4.09789 11.327 4.26624 11.2165 4.44234 11.1553C4.76579 11.0428 5.11867 11.0428 5.44213 11.1553C5.61862 11.2166 5.78764 11.3275 6.12559 11.5492C6.97501 12.1062 7.40008 12.3845 7.74496 12.4297C8.38396 12.5134 9.00577 12.1861 9.28954 11.6166C9.44263 11.3093 9.44263 10.8071 9.44263 9.80301V2.80167C9.44263 1.97679 9.44263 1.56373 9.27928 1.24836C9.13546 0.970681 8.90542 0.745086 8.62318 0.6036C8.30233 0.442749 7.88284 0.442749 7.04278 0.442749H2.84277C2.0027 0.442749 1.58234 0.442749 1.26147 0.6036C0.979234 0.745086 0.749923 0.970681 0.606121 1.24836C0.442627 1.56404 0.442627 1.9776 0.442627 2.80409Z" stroke="white" stroke-width="0.88545" stroke-linecap="round" stroke-linejoin="round"></path>
-              	        </svg>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="product-item-wrap">
-              <div class="product-grid-item js-product-grid-item">
-                <div class="product-grid-item__image js-product-grid-item-image">
-                  <a href="detailproduct.html?id=suede-chelsea-boots">
-                    <img loading="lazy" src="./assets/feedback/shop-product-6.jpg" alt="Suede Chelsea Boots" style="width:100%;display:block;aspect-ratio:3/4;object-fit:cover;" srcset="./assets/feedback/shop-product-6-512.jpg 512w, ./assets/feedback/shop-product-6.jpg 1200w" sizes="(max-width: 720px) 100vw, 50vw">
-                  </a>
-                  <div class="product-grid-item__hover js-product-grid-item-hover">
-                    <div class="product-grid-item__add-to-cart">
-                      <p class="text-cta">Add to bag +</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="product-grid-item__content d-flex" style="display:flex;justify-content:space-between;margin-top:1rem;">
-                  <div class="product-grid-item__content-left">
-                    <h4 class="product-grid-item__title medium-text" style="font-size:0.85rem;text-transform:uppercase;margin:0 0 0.3rem 0;">
-                      <a href="detailproduct.html?id=suede-chelsea-boots" style="color:inherit;text-decoration:none;">Suede Chelsea Boots</a>
-                    </h4>
-                    <div class="product-grid-item__price small-text" style="font-size:0.8rem;color:#a0a0a0;">
-                      16.800.000 ₫
-                    </div>
-                  </div>
-                  <div class="product-grid-item__content-right">
-                    <div class="product-grid-item__wishlist">
-                      <a href="detailproduct.html" data-wk-proxy-bound="1">
-              	        <svg width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-              		      <path d="M0.442627 2.80409V9.80301C0.442627 10.8073 0.442627 11.3093 0.595717 11.6166C0.87946 12.1861 1.50131 12.5135 2.14038 12.4298C2.48518 12.3847 2.90985 12.1062 3.7592 11.549L3.76124 11.5477C4.09789 11.327 4.26624 11.2165 4.44234 11.1553C4.76579 11.0428 5.11867 11.0428 5.44213 11.1553C5.61862 11.2166 5.78764 11.3275 6.12559 11.5492C6.97501 12.1062 7.40008 12.3845 7.74496 12.4297C8.38396 12.5134 9.00577 12.1861 9.28954 11.6166C9.44263 11.3093 9.44263 10.8071 9.44263 9.80301V2.80167C9.44263 1.97679 9.44263 1.56373 9.27928 1.24836C9.13546 0.970681 8.90542 0.745086 8.62318 0.6036C8.30233 0.442749 7.88284 0.442749 7.04278 0.442749H2.84277C2.0027 0.442749 1.58234 0.442749 1.26147 0.6036C0.979234 0.745086 0.749923 0.970681 0.606121 1.24836C0.442627 1.56404 0.442627 1.9776 0.442627 2.80409Z" stroke="white" stroke-width="0.88545" stroke-linecap="round" stroke-linejoin="round"></path>
-              	        </svg>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="product-item-wrap">
-              <div class="product-grid-item js-product-grid-item">
-                <div class="product-grid-item__image js-product-grid-item-image">
-                  <a href="detailproduct.html?id=viscose-wrap-top">
-                    <img loading="lazy" src="./assets/feedback/shop-product-7.jpg" alt="Viscose Wrap Top" style="width:100%;display:block;aspect-ratio:3/4;object-fit:cover;" srcset="./assets/feedback/shop-product-7-512.jpg 512w, ./assets/feedback/shop-product-7.jpg 1200w" sizes="(max-width: 720px) 100vw, 50vw">
-                  </a>
-                  <div class="product-grid-item__hover js-product-grid-item-hover">
-                    <div class="product-grid-item__add-to-cart">
-                      <p class="text-cta">Add to bag +</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="product-grid-item__content d-flex" style="display:flex;justify-content:space-between;margin-top:1rem;">
-                  <div class="product-grid-item__content-left">
-                    <h4 class="product-grid-item__title medium-text" style="font-size:0.85rem;text-transform:uppercase;margin:0 0 0.3rem 0;">
-                      <a href="detailproduct.html?id=viscose-wrap-top" style="color:inherit;text-decoration:none;">Viscose Wrap Top</a>
-                    </h4>
-                    <div class="product-grid-item__price small-text" style="font-size:0.8rem;color:#a0a0a0;">
-                      8.500.000 ₫
-                    </div>
-                  </div>
-                  <div class="product-grid-item__content-right">
-                    <div class="product-grid-item__wishlist">
-                      <a href="detailproduct.html" data-wk-proxy-bound="1">
-              	        <svg width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-              		      <path d="M0.442627 2.80409V9.80301C0.442627 10.8073 0.442627 11.3093 0.595717 11.6166C0.87946 12.1861 1.50131 12.5135 2.14038 12.4298C2.48518 12.3847 2.90985 12.1062 3.7592 11.549L3.76124 11.5477C4.09789 11.327 4.26624 11.2165 4.44234 11.1553C4.76579 11.0428 5.11867 11.0428 5.44213 11.1553C5.61862 11.2166 5.78764 11.3275 6.12559 11.5492C6.97501 12.1062 7.40008 12.3845 7.74496 12.4297C8.38396 12.5134 9.00577 12.1861 9.28954 11.6166C9.44263 11.3093 9.44263 10.8071 9.44263 9.80301V2.80167C9.44263 1.97679 9.44263 1.56373 9.27928 1.24836C9.13546 0.970681 8.90542 0.745086 8.62318 0.6036C8.30233 0.442749 7.88284 0.442749 7.04278 0.442749H2.84277C2.0027 0.442749 1.58234 0.442749 1.26147 0.6036C0.979234 0.745086 0.749923 0.970681 0.606121 1.24836C0.442627 1.56404 0.442627 1.9776 0.442627 2.80409Z" stroke="white" stroke-width="0.88545" stroke-linecap="round" stroke-linejoin="round"></path>
-              	        </svg>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="product-item-wrap">
-              <div class="product-grid-item js-product-grid-item">
-                <div class="product-grid-item__image js-product-grid-item-image">
-                  <a href="detailproduct.html?id=leather-minimal-tote">
-                    <img loading="lazy" src="./assets/feedback/shop-product-8.jpg" alt="Leather Minimal Tote" style="width:100%;display:block;aspect-ratio:3/4;object-fit:cover;" srcset="./assets/feedback/shop-product-8-512.jpg 512w, ./assets/feedback/shop-product-8.jpg 1200w" sizes="(max-width: 720px) 100vw, 50vw">
-                  </a>
-                  <div class="product-grid-item__hover js-product-grid-item-hover">
-                    <div class="product-grid-item__add-to-cart">
-                      <p class="text-cta">Add to bag +</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="product-grid-item__content d-flex" style="display:flex;justify-content:space-between;margin-top:1rem;">
-                  <div class="product-grid-item__content-left">
-                    <h4 class="product-grid-item__title medium-text" style="font-size:0.85rem;text-transform:uppercase;margin:0 0 0.3rem 0;">
-                      <a href="detailproduct.html?id=leather-minimal-tote" style="color:inherit;text-decoration:none;">Leather Minimal Tote</a>
-                    </h4>
-                    <div class="product-grid-item__price small-text" style="font-size:0.8rem;color:#a0a0a0;">
-                      21.000.000 ₫
-                    </div>
-                  </div>
-                  <div class="product-grid-item__content-right">
-                    <div class="product-grid-item__wishlist">
-                      <a href="detailproduct.html" data-wk-proxy-bound="1">
-              	        <svg width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-              		      <path d="M0.442627 2.80409V9.80301C0.442627 10.8073 0.442627 11.3093 0.595717 11.6166C0.87946 12.1861 1.50131 12.5135 2.14038 12.4298C2.48518 12.3847 2.90985 12.1062 3.7592 11.549L3.76124 11.5477C4.09789 11.327 4.26624 11.2165 4.44234 11.1553C4.76579 11.0428 5.11867 11.0428 5.44213 11.1553C5.61862 11.2166 5.78764 11.3275 6.12559 11.5492C6.97501 12.1062 7.40008 12.3845 7.74496 12.4297C8.38396 12.5134 9.00577 12.1861 9.28954 11.6166C9.44263 11.3093 9.44263 10.8071 9.44263 9.80301V2.80167C9.44263 1.97679 9.44263 1.56373 9.27928 1.24836C9.13546 0.970681 8.90542 0.745086 8.62318 0.6036C8.30233 0.442749 7.88284 0.442749 7.04278 0.442749H2.84277C2.0027 0.442749 1.58234 0.442749 1.26147 0.6036C0.979234 0.745086 0.749923 0.970681 0.606121 1.24836C0.442627 1.56404 0.442627 1.9776 0.442627 2.80409Z" stroke="white" stroke-width="0.88545" stroke-linecap="round" stroke-linejoin="round"></path>
-              	        </svg>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-</div>
-        </noscript></div>
-        <a class="btn-outline shop-discover-more" href="collections.html">Discover More <span aria-hidden="true">→</span></a>
+          <div class="shop-grid js-shop-grid" aria-live="polite">
+            <noscript><p class="shop-noscript">JavaScript is required to filter and load the current product catalogue. You can still use the navigation above to explore the rest of ATELIER.</p></noscript>
+          </div>
         </div>
-
-        <!-- A single collection CTA replaces the previous duplicate load-more control. -->
       </div>
     </section>
   </main>
 
-
-
   <footer class="site-footer">
     <div class="container">
       <section class="footer-newsletter footer-editorial" aria-label="ATELIER Journal">
-        <div class="newsletter-text">
-          <p class="eyebrow">ATELIER JOURNAL</p>
-          <h3>Considered notes on dress, form and material.</h3>
-        </div>
+        <div class="newsletter-text"><p class="eyebrow">ATELIER JOURNAL</p><h3>Considered notes on dress, form and material.</h3></div>
         <a class="btn-outline" href="collections.html">Explore the collection <span aria-hidden="true">→</span></a>
       </section>
       <div class="footer-divider"></div>
       <div class="footer-grid">
-        <div class="footer-col brand-col">
-          <div class="logo"><a href="index.html" aria-label="Atelier home"><span>ATELIER</span></a></div>
-          <p>A considered wardrobe for a life in motion. Designed with restraint, intention and lasting presence.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Client Services</h4>
-          <ul class="footer-links">
-            <li><a href="client-services.html">Client Services</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="shipping&returns.html">Shipping &amp; Returns</a></li>
-            <li><a href="size-guide.html">Size Guide</a></li>
-            <li><a href="care-guide.html">Care Guide</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>The House</h4>
-          <ul class="footer-links">
-            <li><a href="about.html">Our Story</a></li>
-            <li><a href="collections.html">Collections</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Legal</h4>
-          <ul class="footer-links">
-            <li><a href="privacy.html">Privacy</a></li>
-            <li><a href="terms.html">Terms of Use</a></li>
-            <li><a href="client-services.html#accessibility">Accessibility</a></li>
-          </ul>
-        </div>
+        <div class="footer-col brand-col"><div class="logo"><a href="index.html" aria-label="Atelier home"><span>ATELIER</span></a></div><p>A considered wardrobe for a life in motion. Designed with restraint, intention and lasting presence.</p></div>
+        <div class="footer-col"><h4>Client Services</h4><ul class="footer-links"><li><a href="client-services.html">Client Services</a></li><li><a href="contact.html">Contact</a></li><li><a href="shipping&returns.html">Shipping &amp; Returns</a></li><li><a href="size-guide.html">Size Guide</a></li><li><a href="care-guide.html">Care Guide</a></li></ul></div>
+        <div class="footer-col"><h4>The House</h4><ul class="footer-links"><li><a href="about.html">Our Story</a></li><li><a href="collections.html">Collections</a></li></ul></div>
+        <div class="footer-col"><h4>Legal</h4><ul class="footer-links"><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms of Use</a></li><li><a href="client-services.html#accessibility">Accessibility</a></li></ul></div>
       </div>
-      <div class="footer-bottom">
-        <p>© 2026 ATELIER. All rights reserved.</p>
-        <p>Desktop edition · Vietnam</p>
-      </div>
+      <div class="footer-bottom"><p>© 2026 ATELIER. All rights reserved.</p><p>Vietnam · English edition</p></div>
     </div>
   </footer>
-  <script type="module" src="./main.js?v=ecommerce-3"></script>
+  <script type="module" src="./main.js?v=white-editorial-v6"></script>
 </body>
 </html>

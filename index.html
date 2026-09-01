@@ -4,32 +4,28 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="./assets/logo/atelier-mark.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ATELIER - The Armor of Reality | Luxury Minimalist Fashion</title>
-  <meta name="description" content="ATELIER is a luxury minimalist fashion brand. Discover timeless pieces crafted for modern elegance — knitwear, tailoring, outerwear and accessories from the Fall 2026 collection.">
-  <meta name="keywords" content="ATELIER, luxury fashion, minimalist clothing, tailoring, knitwear, outerwear, sustainable fashion, Fall 2026">
-  <meta property="og:title" content="ATELIER - The Armor of Reality">
-  <meta property="og:description" content="ATELIER is a luxury minimalist fashion brand. Discover timeless pieces crafted for modern elegance — knitwear, tailoring, outerwear and accessories from the Fall 2026 collection.">
+  <title>ATELIER — Fall 2026 | Considered Fashion</title>
+  <meta name="description" content="Discover ATELIER Fall 2026: considered tailoring, knitwear and evening pieces designed with proportion, material and movement in mind.">
+  <meta name="keywords" content="ATELIER, luxury fashion, minimalist clothing, tailoring, knitwear, outerwear, Fall 2026">
+  <meta property="og:title" content="ATELIER — Fall 2026">
+  <meta property="og:description" content="A considered wardrobe shaped by proportion, material and movement.">
   <meta property="og:image" content="./assets/feedback/home-hero-main.jpg">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ngh1aa.github.io/Atelier/index.html">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="ATELIER - The Armor of Reality">
-  <meta name="twitter:description" content="ATELIER is a luxury minimalist fashion brand. Discover timeless pieces crafted for modern elegance — knitwear, tailoring, outerwear and accessories from the Fall 2026 collection.">
+  <meta name="twitter:title" content="ATELIER — Fall 2026">
+  <meta name="twitter:description" content="A considered wardrobe shaped by proportion, material and movement.">
   <meta name="twitter:image" content="./assets/feedback/home-hero-main.jpg">
-
   <link rel="stylesheet" href="./style.css">
   <link rel="preload" as="image" href="./assets/feedback/home-hero-main.jpg" type="image/jpeg" fetchpriority="high">
-<noscript>
-  <style>.reveal{opacity:1 !important;transform:none !important;}</style>
-</noscript>
-
-  <script>document.documentElement.classList.add("js-enabled");</script>
+  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+  <script>document.documentElement.classList.add("js-enabled")</script>
 </head>
 <body class="js-enabled">
-    <nav>
+  <nav aria-label="Primary navigation">
     <div class="container nav-container">
       <ul class="nav-links left">
-        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="index.html" class="active" aria-current="page">Home</a></li>
         <li><a href="shop.html">Shop</a></li>
         <li><a href="collections.html">Collections</a></li>
         <li><a href="about.html">The House</a></li>
@@ -37,183 +33,138 @@
       </ul>
       <div class="logo"><a href="index.html" aria-label="Atelier home"><span>ATELIER</span></a></div>
       <div class="nav-icons right">
-        <button type="button" class="nav-search-btn" aria-label="Search" id="navSearchBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 6 6"/></svg></button>
+        <button type="button" class="nav-search-btn" aria-label="Search" id="navSearchBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 6 6"/></svg></button>
         <a href="cart.html" class="nav-text nav-cart">Bag (<span class="js-nav-bag-count">0</span>)</a>
         <a href="favourite.html" class="nav-text">Saved</a>
       </div>
     </div>
   </nav>
+
   <div class="nav-search-overlay" id="navSearchOverlay" role="dialog" aria-label="Search products" aria-modal="true">
     <div class="nav-search-form">
-      <label for="navSearchInput">Search</label>
-      <input id="navSearchInput" type="search" placeholder="What are you looking for?" autocomplete="off">
+      <label for="navSearchInput" class="eyebrow">Search the collection</label>
+      <input id="navSearchInput" type="search" placeholder="Product, material or colour" autocomplete="off">
       <button type="button" class="nav-search-close" id="navSearchClose" aria-label="Close search">&times;</button>
       <div class="nav-search-results" id="navSearchResults"></div>
     </div>
   </div>
 
-
   <main>
-    <section class="hero">
+    <section class="hero-editorial" aria-labelledby="home-title">
       <div class="container">
-        <div class="hero-grid">
-          <div class="hero-text-col reveal">
-            <p class="hero-eyebrow">Designed for the reality of everyday life.</p>
-            <h1>Fashion is the armor to survive the reality of everyday life.</h1>
-            <p class="hero-sub">Style is not a roadmap. It's a reflection.</p>
-            <a href="shop.html" class="btn-shop">Discover the Collection</a>
-          </div>
-          <div class="hero-image-col reveal" style="transition-delay: 0.15s;">
-            <div class="hero-img-stack">
-              <div class="hero-img-wrap hero-img-main">
-                <img src="./assets/feedback/home-hero-main.jpg" data-fallback-src="./assets/hero-2.webp" alt="Tailored coat over turtleneck in natural light" fetchpriority="high" decoding="async"  srcset="./assets/feedback/home-hero-main-512.jpg 512w, ./assets/feedback/home-hero-main.jpg 1200w" sizes="(max-width: 720px) 100vw, 50vw">
-              </div>
-              <div class="hero-img-wrap hero-img-offset">
-                <img src="./assets/feedback/home-hero-offset.jpg" data-fallback-src="./assets/hero-1.webp" alt="Structured black ensemble with asymmetric silhouette" loading="lazy" decoding="async"  srcset="./assets/feedback/home-hero-offset-512.jpg 512w, ./assets/feedback/home-hero-offset.jpg 1200w" sizes="(max-width: 720px) 100vw, 50vw">
-              </div>
+        <div class="hero-editorial-grid">
+          <div class="hero-editorial-copy reveal">
+            <p class="eyebrow">ATELIER / FALL 2026</p>
+            <h1 id="home-title">Clothes for a life in motion.</h1>
+            <p class="hero-sub">A concise wardrobe shaped around proportion, material and ease — designed to move from discovery to everyday wear without unnecessary noise.</p>
+            <div class="hero-editorial-actions">
+              <a href="shop.html" class="btn-shop">Shop New In</a>
+              <a href="collections.html" class="btn-outline">View Collections</a>
             </div>
           </div>
+          <figure class="hero-editorial-primary reveal">
+            <img src="./assets/feedback/home-hero-main.jpg" data-fallback-src="./assets/hero-2.webp" alt="Tailored coat over a turtleneck in natural light" fetchpriority="high" decoding="async" srcset="./assets/feedback/home-hero-main-512.jpg 512w, ./assets/feedback/home-hero-main.jpg 1200w" sizes="(max-width: 820px) 70vw, 42vw">
+          </figure>
+          <figure class="hero-editorial-secondary reveal">
+            <img src="./assets/feedback/home-hero-offset.jpg" data-fallback-src="./assets/hero-1.webp" alt="Structured ensemble with an asymmetric silhouette" loading="lazy" decoding="async" srcset="./assets/feedback/home-hero-offset-512.jpg 512w, ./assets/feedback/home-hero-offset.jpg 1200w" sizes="(max-width: 820px) 30vw, 24vw">
+            <figcaption>Study 02 — proportion / movement</figcaption>
+          </figure>
+          <p class="hero-index" aria-hidden="true">01 / FW26 / VIETNAM</p>
         </div>
       </div>
     </section>
 
-    <div class="atelier-marquee" aria-label="Atelier journal themes">
-      <div class="atelier-marquee-track" aria-hidden="true">
-        <span>ATELIER JOURNAL</span><i>—</i><span>FORM / LIGHT / MOVEMENT</span><i>—</i><span>ATELIER JOURNAL</span><i>—</i><span>FORM / LIGHT / MOVEMENT</span><i>—</i>
+    <div class="atelier-index-rail" aria-label="Atelier product principles">
+      <div class="container">
+        <span>01 / Product</span><span>02 / Material</span><span>03 / Fit</span><span>04 / Service</span>
       </div>
     </div>
 
-    <section id="new-in">
+    <section id="new-in" aria-labelledby="new-in-title">
       <div class="container">
         <div class="section-header reveal">
           <div class="title-wrap">
-            <h2>New In</h2>
-            <p class="subtitle">Something you wear. Something you are.</p>
+            <p class="eyebrow">NEW IN / 03 PIECES</p>
+            <h2 id="new-in-title">New In</h2>
+            <p class="subtitle">Three current silhouettes, selected as a direct route into the Fall 2026 catalogue.</p>
           </div>
-          <ul class="section-filters">
+          <ul class="section-filters" aria-label="Shop categories">
             <li><a href="shop.html?category=knitwear">Knitwear</a></li>
-            <li><a href="shop.html?category=denim%20%26%20shirts">Denim & Shirts</a></li>
+            <li><a href="shop.html?category=denim%20%26%20shirts">Denim &amp; Shirts</a></li>
             <li><a href="shop.html?category=tees">Tees</a></li>
             <li><a href="shop.html?category=outerwear">Outerwear</a></li>
           </ul>
         </div>
         <div class="product-grid">
-          <div class="product-card reveal">
-            <img loading="lazy" src="./assets/products/pinkparks/belted-cropped-jacket.jpg" data-fallback-src="./assets/products/pinkparks/belted-cropped-jacket-512.jpg" alt="Tailored Coat in camel wool" srcset="./assets/products/pinkparks/belted-cropped-jacket-512.jpg 512w, ./assets/products/pinkparks/belted-cropped-jacket.jpg 934w" sizes="(max-width: 720px) 100vw, 50vw">
-            <div class="product-info">
-              <h3>Tailored Coat</h3>
-              <p>Fall 2026</p>
-            </div>
-          </div>
-          <div class="product-card reveal" style="transition-delay: 0.2s;">
-            <img loading="lazy" src="./assets/products/pinkparks/tulle-midi-skirt.jpg" data-fallback-src="./assets/products/pinkparks/tulle-midi-skirt-512.jpg" alt="Silk Gown with draping detail" srcset="./assets/products/pinkparks/tulle-midi-skirt-512.jpg 512w, ./assets/products/pinkparks/tulle-midi-skirt.jpg 934w" sizes="(max-width: 720px) 100vw, 50vw">
-            <div class="product-info">
-              <h3>Silk Gown</h3>
-              <p>Evening Collection</p>
-            </div>
-          </div>
-          <div class="product-card reveal" style="transition-delay: 0.4s;">
-            <img loading="lazy" src="./assets/products/pinkparks/striped-open-back-top.jpg" data-fallback-src="./assets/products/pinkparks/striped-open-back-top-512.jpg" alt="Urban Knit sweater in cream" srcset="./assets/products/pinkparks/striped-open-back-top-512.jpg 512w, ./assets/products/pinkparks/striped-open-back-top.jpg 934w" sizes="(max-width: 720px) 100vw, 50vw">
-            <div class="product-info">
-              <h3>Urban Knit</h3>
-              <p>Foundations</p>
-            </div>
-          </div>
+          <article class="product-card reveal">
+            <img loading="lazy" src="./assets/products/pinkparks/belted-cropped-jacket.jpg" data-fallback-src="./assets/products/pinkparks/belted-cropped-jacket-512.jpg" alt="Tailored Coat in camel wool" srcset="./assets/products/pinkparks/belted-cropped-jacket-512.jpg 512w, ./assets/products/pinkparks/belted-cropped-jacket.jpg 934w" sizes="(max-width: 560px) 50vw, (max-width: 820px) 50vw, 33vw">
+            <div class="product-info"><h3>Tailored Coat</h3><p>Fall 2026</p></div>
+          </article>
+          <article class="product-card reveal">
+            <img loading="lazy" src="./assets/products/pinkparks/tulle-midi-skirt.jpg" data-fallback-src="./assets/products/pinkparks/tulle-midi-skirt-512.jpg" alt="Silk Gown with draping detail" srcset="./assets/products/pinkparks/tulle-midi-skirt-512.jpg 512w, ./assets/products/pinkparks/tulle-midi-skirt.jpg 934w" sizes="(max-width: 560px) 50vw, (max-width: 820px) 50vw, 33vw">
+            <div class="product-info"><h3>Silk Gown</h3><p>Evening Collection</p></div>
+          </article>
+          <article class="product-card reveal">
+            <img loading="lazy" src="./assets/products/pinkparks/striped-open-back-top.jpg" data-fallback-src="./assets/products/pinkparks/striped-open-back-top-512.jpg" alt="Urban Knit sweater in cream" srcset="./assets/products/pinkparks/striped-open-back-top-512.jpg 512w, ./assets/products/pinkparks/striped-open-back-top.jpg 934w" sizes="(max-width: 560px) 50vw, (max-width: 820px) 50vw, 33vw">
+            <div class="product-info"><h3>Urban Knit</h3><p>Foundations</p></div>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="quote-section reveal">
-      <div class="container">
-        <blockquote>
-          "Elegance is not about being noticed, it's about being remembered."
-        </blockquote>
-      </div>
-    </section>
-
-    <section id="collections">
+    <section id="collections" aria-labelledby="collection-title">
       <div class="container">
         <div class="section-header reveal">
-          <h2>Featured Collections</h2>
-          <p>Born from the contrast between urban architecture and natural fluidity.</p>
+          <div class="title-wrap">
+            <p class="eyebrow">COLLECTION STUDY / 01</p>
+            <h2 id="collection-title">Fall / Winter 2026</h2>
+          </div>
+          <p>Tailoring, soft layers and evening pieces presented as an edited wardrobe rather than isolated campaign imagery.</p>
         </div>
         <div class="collections-grid">
-          <div class="collection-item large reveal">
-            <img loading="lazy" src="./assets/feedback/home-collection-large-v2.jpg" data-fallback-src="./assets/collection-1.webp" alt="Collection 1" srcset="./assets/feedback/home-collection-large-v2-512.jpg 512w, ./assets/feedback/home-collection-large-v2.jpg 1200w" sizes="(max-width: 720px) 100vw, 50vw">
-          </div>
-          <div class="collection-item small reveal" style="transition-delay: 0.3s;">
-            <img loading="lazy" src="./assets/feedback/home-collection-small-v2.jpg" data-fallback-src="./assets/collection-2.webp" alt="Collection 2" srcset="./assets/feedback/home-collection-small-v2-512.jpg 512w, ./assets/feedback/home-collection-small-v2.jpg 1200w" sizes="(max-width: 720px) 100vw, 50vw">
-          </div>
+          <a class="collection-item large reveal" href="collections.html" aria-label="Explore Fall Winter 2026 collection">
+            <img loading="lazy" src="./assets/feedback/home-collection-large-v2.jpg" data-fallback-src="./assets/collection-1.webp" alt="Fall Winter 2026 tailored look" srcset="./assets/feedback/home-collection-large-v2-512.jpg 512w, ./assets/feedback/home-collection-large-v2.jpg 1200w" sizes="(max-width: 820px) 58vw, 56vw">
+          </a>
+          <a class="collection-item small reveal" href="shop.html?category=knitwear" aria-label="Explore knitwear">
+            <img loading="lazy" src="./assets/feedback/home-collection-small-v2.jpg" data-fallback-src="./assets/collection-2.webp" alt="Fall Winter 2026 knitwear look" srcset="./assets/feedback/home-collection-small-v2-512.jpg 512w, ./assets/feedback/home-collection-small-v2.jpg 1200w" sizes="(max-width: 820px) 42vw, 38vw">
+          </a>
         </div>
       </div>
     </section>
 
-    <section id="editorial">
+    <section id="editorial" aria-labelledby="editorial-title">
       <div class="container">
         <div class="editorial-grid">
           <div class="editorial-img reveal">
-            <img loading="lazy" src="./assets/feedback/home-editorial.jpg" data-fallback-src="./assets/contact.webp" alt="The Edit - Editorial Feature" srcset="./assets/feedback/home-editorial-512.jpg 512w, ./assets/feedback/home-editorial.jpg 1200w" sizes="(max-width: 720px) 100vw, 50vw">
+            <img loading="lazy" src="./assets/feedback/home-editorial.jpg" data-fallback-src="./assets/contact.webp" alt="ATELIER editorial study" srcset="./assets/feedback/home-editorial-512.jpg 512w, ./assets/feedback/home-editorial.jpg 1200w" sizes="(max-width: 820px) 100vw, 55vw">
           </div>
           <div class="editorial-content reveal">
-            <p class="subtitle">The Edit</p>
-            <h2>Art of Minimalism</h2>
-            <p>Explore our latest editorial on curating a timeless wardrobe. Discover the philosophy behind our essential pieces and how to style them for everyday elegance.</p>
-            <a href="collections.html" class="btn-shop">Explore the collection <span aria-hidden="true">→</span></a>
+            <p class="eyebrow">THE EDIT / MATERIAL &amp; FORM</p>
+            <h2 id="editorial-title">A quieter way to choose.</h2>
+            <p>See each piece through the details that matter at the point of purchase: silhouette, fit, material, care and delivery — with the editorial layer supporting the decision rather than hiding it.</p>
+            <a href="shop.html" class="btn-shop">Explore the catalogue <span aria-hidden="true">→</span></a>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-
-
   <footer class="site-footer">
     <div class="container">
       <section class="footer-newsletter footer-editorial" aria-label="ATELIER Journal">
-        <div class="newsletter-text">
-          <p class="eyebrow">ATELIER JOURNAL</p>
-          <h3>Considered notes on dress, form and material.</h3>
-        </div>
+        <div class="newsletter-text"><p class="eyebrow">ATELIER JOURNAL</p><h3>Considered notes on dress, form and material.</h3></div>
         <a class="btn-outline" href="collections.html">Explore the collection <span aria-hidden="true">→</span></a>
       </section>
       <div class="footer-divider"></div>
       <div class="footer-grid">
-        <div class="footer-col brand-col">
-          <div class="logo"><a href="index.html" aria-label="Atelier home"><span>ATELIER</span></a></div>
-          <p>A considered wardrobe for a life in motion. Designed with restraint, intention and lasting presence.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Client Services</h4>
-          <ul class="footer-links">
-            <li><a href="client-services.html">Client Services</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="shipping&returns.html">Shipping &amp; Returns</a></li>
-            <li><a href="size-guide.html">Size Guide</a></li>
-            <li><a href="care-guide.html">Care Guide</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>The House</h4>
-          <ul class="footer-links">
-            <li><a href="about.html">Our Story</a></li>
-            <li><a href="collections.html">Collections</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Legal</h4>
-          <ul class="footer-links">
-            <li><a href="privacy.html">Privacy</a></li>
-            <li><a href="terms.html">Terms of Use</a></li>
-            <li><a href="client-services.html#accessibility">Accessibility</a></li>
-          </ul>
-        </div>
+        <div class="footer-col brand-col"><div class="logo"><a href="index.html" aria-label="Atelier home"><span>ATELIER</span></a></div><p>A considered wardrobe for a life in motion. Designed with restraint, intention and lasting presence.</p></div>
+        <div class="footer-col"><h4>Client Services</h4><ul class="footer-links"><li><a href="client-services.html">Client Services</a></li><li><a href="contact.html">Contact</a></li><li><a href="shipping&returns.html">Shipping &amp; Returns</a></li><li><a href="size-guide.html">Size Guide</a></li><li><a href="care-guide.html">Care Guide</a></li></ul></div>
+        <div class="footer-col"><h4>The House</h4><ul class="footer-links"><li><a href="about.html">Our Story</a></li><li><a href="collections.html">Collections</a></li></ul></div>
+        <div class="footer-col"><h4>Legal</h4><ul class="footer-links"><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms of Use</a></li><li><a href="client-services.html#accessibility">Accessibility</a></li></ul></div>
       </div>
-      <div class="footer-bottom">
-        <p>© 2026 ATELIER. All rights reserved.</p>
-        <p>Desktop edition · Vietnam</p>
-      </div>
+      <div class="footer-bottom"><p>© 2026 ATELIER. All rights reserved.</p><p>Vietnam · English edition</p></div>
     </div>
   </footer>
-  <script type="module" src="./main.js?v=ecommerce-3"></script>
+  <script type="module" src="./main.js?v=white-editorial-v6"></script>
 </body>
 </html>
