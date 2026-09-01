@@ -8,15 +8,14 @@
   <meta name="description" content="Explore ATELIER product details, fit, material, size, delivery and returns before choosing a piece.">
   <meta property="og:title" content="Product Detail — ATELIER">
   <meta property="og:description" content="Review the product, fit, material and service details before choosing a size.">
-  <meta property="og:image" content="https://ngh1aa.github.io/Atelier/assets/products/pinkparks/draped-wide-leg-set.jpg">
   <meta property="og:type" content="product">
   <meta property="og:url" content="https://ngh1aa.github.io/Atelier/detailproduct.html">
-  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./campaign-v7.css">
   <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
   <script>document.documentElement.classList.add("js-enabled")</script>
 </head>
-<body class="js-enabled">
+<body class="js-enabled v7 v7-pdp">
   <nav aria-label="Primary navigation">
     <div class="container nav-container">
       <ul class="nav-links left">
@@ -47,26 +46,21 @@
   <main>
     <section class="product-detail-page" aria-label="Product detail">
       <div class="container">
-        <nav class="breadcrumb js-breadcrumb" aria-label="Breadcrumb">
-          <a href="shop.html">Shop</a><span aria-hidden="true">/</span><span>Product</span>
-        </nav>
+        <nav class="breadcrumb js-breadcrumb" aria-label="Breadcrumb"><a href="shop.html">Shop</a><span aria-hidden="true">/</span><span>Product</span></nav>
 
         <div class="product-detail-grid">
           <div class="product-visuals reveal">
-            <div class="main-img-wrap">
-              <img src="./assets/products/pinkparks/draped-wide-leg-set.jpg" alt="Silk Midnight Gown" id="main-product-img" fetchpriority="high" decoding="async">
-            </div>
+            <div class="main-img-wrap"><img src="./assets/products/pinkparks/draped-wide-leg-set.jpg" alt="Silk Midnight Gown" id="main-product-img" fetchpriority="high" decoding="async"></div>
             <div class="thumbnail-gallery js-thumbnail-gallery" aria-label="Product images"></div>
           </div>
 
-          <div class="product-info-col reveal">
+          <aside class="product-info-col reveal" aria-label="Product fitting and purchase">
+            <div class="v7-pdp-index"><span>FIT / 01</span><span>FALL 2026</span></div>
             <p class="collection-name">Evening Collection</p>
             <h1 class="product-title js-product-title">Silk Midnight Gown</h1>
             <p class="product-price js-product-price">58.900.000 ₫</p>
 
-            <div class="product-description js-product-description">
-              <p>A fluid evening silhouette with a deliberate, minimal line, cut in heavy-weight mulberry silk.</p>
-            </div>
+            <div class="product-description js-product-description"><p>A fluid evening silhouette with a deliberate, minimal line, cut in heavy-weight mulberry silk.</p></div>
 
             <section class="color-selection" aria-labelledby="product-colour-heading">
               <div class="size-header"><span id="product-colour-heading">Colour</span><strong class="js-color-label">Midnight</strong></div>
@@ -74,24 +68,14 @@
             </section>
 
             <section class="size-selection" aria-labelledby="product-size-heading">
-              <div class="size-header">
-                <span id="product-size-heading">Choose size</span>
-                <button type="button" class="size-guide js-pdp-size-guide">Size Guide</button>
-              </div>
+              <div class="size-header"><span id="product-size-heading">Choose size</span><button type="button" class="size-guide js-pdp-size-guide">Size Guide</button></div>
               <div class="size-options js-size-options" role="group" aria-label="Choose size"></div>
               <p class="pdp-selection-error js-pdp-selection-error" aria-live="polite"></p>
             </section>
 
-            <section class="pdp-fit-summary" aria-label="Fit guidance">
-              <span>FIT</span>
-              <p class="js-product-fit">Bias-cut silhouette with a close, fluid line.</p>
-              <small class="js-product-model">Model is 178 cm and wears size S.</small>
-            </section>
+            <section class="pdp-fit-summary" aria-label="Fit guidance"><span>FIT</span><p class="js-product-fit">Bias-cut silhouette with a close, fluid line.</p><small class="js-product-model">Model is 178 cm and wears size S.</small></section>
 
-            <div class="product-actions">
-              <button class="btn-add-cart js-btn-add-cart" type="button">Add to Bag</button>
-              <button class="btn-wishlist js-btn-wishlist" type="button" aria-pressed="false">♡ Save</button>
-            </div>
+            <div class="product-actions"><button class="btn-add-cart js-btn-add-cart" type="button">Add to Bag</button><button class="btn-wishlist js-btn-wishlist" type="button" aria-pressed="false">♡ Save</button></div>
 
             <div class="shipping-info" aria-label="Delivery and returns summary">
               <div><strong>Complimentary delivery</strong><span class="js-delivery-window">Estimated in 2–4 days</span></div>
@@ -104,36 +88,18 @@
               <details><summary>Care</summary><p class="js-product-care">Please follow the care label supplied with the garment.</p></details>
               <details><summary>Origin</summary><p class="js-product-origin">Designed in Vietnam. Origin details are recorded on the garment label.</p></details>
             </div>
-          </div>
+          </aside>
         </div>
 
         <section class="complete-look reveal" aria-labelledby="related-title">
-          <div class="section-header">
-            <div class="title-wrap"><p class="eyebrow">RELATED / CONTINUE</p><h2 id="related-title">Complete the Look</h2><p>Pieces selected from the current catalogue.</p></div>
-            <a href="shop.html" class="text-link">Shop all pieces <span aria-hidden="true">→</span></a>
-          </div>
+          <div class="section-header"><div class="title-wrap"><p class="eyebrow">RELATED / CONTINUE</p><h2 id="related-title">Complete the Look</h2><p>Pieces selected from the current catalogue.</p></div><a href="shop.html" class="text-link">Shop all pieces →</a></div>
           <div class="related-grid js-related-grid"></div>
         </section>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <section class="footer-newsletter footer-editorial" aria-label="ATELIER Journal">
-        <div class="newsletter-text"><p class="eyebrow">ATELIER JOURNAL</p><h3>Considered notes on dress, form and material.</h3></div>
-        <a class="btn-outline" href="collections.html">Explore the collection <span aria-hidden="true">→</span></a>
-      </section>
-      <div class="footer-divider"></div>
-      <div class="footer-grid">
-        <div class="footer-col brand-col"><div class="logo"><a href="index.html" aria-label="Atelier home"><span>ATELIER</span></a></div><p>A considered wardrobe for a life in motion. Designed with restraint, intention and lasting presence.</p></div>
-        <div class="footer-col"><h4>Client Services</h4><ul class="footer-links"><li><a href="client-services.html">Client Services</a></li><li><a href="contact.html">Contact</a></li><li><a href="shipping&returns.html">Shipping &amp; Returns</a></li><li><a href="size-guide.html">Size Guide</a></li><li><a href="care-guide.html">Care Guide</a></li></ul></div>
-        <div class="footer-col"><h4>The House</h4><ul class="footer-links"><li><a href="about.html">Our Story</a></li><li><a href="collections.html">Collections</a></li></ul></div>
-        <div class="footer-col"><h4>Legal</h4><ul class="footer-links"><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms of Use</a></li><li><a href="client-services.html#accessibility">Accessibility</a></li></ul></div>
-      </div>
-      <div class="footer-bottom"><p>© 2026 ATELIER. All rights reserved.</p><p>Vietnam · English edition</p></div>
-    </div>
-  </footer>
-  <script type="module" src="./main.js?v=white-editorial-v6"></script>
+  <footer class="site-footer"><div class="container"><section class="footer-newsletter footer-editorial" aria-label="ATELIER Journal"><div class="newsletter-text"><p class="eyebrow">ATELIER JOURNAL</p><h3>Considered notes on dress, form and material.</h3></div><a class="btn-outline" href="collections.html">Explore the collection →</a></section><div class="footer-divider"></div><div class="footer-grid"><div class="footer-col brand-col"><div class="logo"><a href="index.html"><span>ATELIER</span></a></div><p>A considered wardrobe for a life in motion.</p></div><div class="footer-col"><h4>Client Services</h4><ul class="footer-links"><li><a href="client-services.html">Client Services</a></li><li><a href="shipping&returns.html">Shipping &amp; Returns</a></li><li><a href="size-guide.html">Size Guide</a></li></ul></div><div class="footer-col"><h4>The House</h4><ul class="footer-links"><li><a href="about.html">Our Story</a></li><li><a href="collections.html">Collections</a></li></ul></div><div class="footer-col"><h4>Legal</h4><ul class="footer-links"><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms of Use</a></li></ul></div></div><div class="footer-bottom"><p>© 2026 ATELIER.</p><p>Vietnam · English edition</p></div></div></footer>
+  <script type="module" src="./main.js?v=campaign-commerce-v7"></script>
 </body>
 </html>
