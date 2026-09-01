@@ -10,6 +10,7 @@ function ensureV11DesignOwner() {
   const sheets = [
     ["./atelier-v11.css?v=commerce-reset-v11-1", "atelier-v11.css", "v11-commerce-reset"],
     ["./atelier-v11-fixes.css?v=portrait-media-v11-3", "atelier-v11-fixes.css", "v11-portrait-media"],
+    ["./atelier-v11-portrait.css?v=portrait-hardening-v11-4", "atelier-v11-portrait.css", "v11-portrait-hardening"],
   ];
 
   sheets.forEach(([href, match, owner]) => {
