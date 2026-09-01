@@ -22,9 +22,6 @@ export async function initIndex() {
 
     card.dataset.commerceReady = "true";
     card.classList.add("is-commerce-card");
-    card.setAttribute("tabindex", "0");
-    card.setAttribute("role", "link");
-    card.setAttribute("aria-label", `View ${product.name}`);
 
     const price = document.createElement("p");
     price.className = "product-card-price";
@@ -36,8 +33,7 @@ export async function initIndex() {
     quickAdd.type = "button";
     quickAdd.textContent = "+ Select size & add";
     quickAdd.setAttribute("aria-label", `Select a size for ${product.name}`);
-    quickAdd.addEventListener("click", (event) => {
-      event.stopPropagation();
+    quickAdd.addEventListener("click", () => {
       openVariantPicker(product, { heading: "Select your size" });
     });
     card.appendChild(quickAdd);
@@ -54,25 +50,11 @@ export async function initIndex() {
     };
 
     syncWishlist();
-    wishlist.addEventListener("click", (event) => {
-      event.stopPropagation();
+    wishlist.addEventListener("click", () => {
       const saved = toggleWishlist(product.id);
       syncWishlist();
       showMessage(saved ? "Saved." : "Removed from Saved.");
     });
     card.appendChild(wishlist);
-
-    const openProduct = () => {
-      window.location.href = `detailproduct.html?id=${encodeURIComponent(product.id)}`;
-    };
-    card.addEventListener("click", (event) => {
-      if (!event.target.closest("button")) openProduct();
-    });
-    card.addEventListener("keydown", (event) => {
-      if ((event.key === "Enter" || event.key === " ") && !event.target.closest("button")) {
-        event.preventDefault();
-        openProduct();
-      }
-    });
   });
 }
