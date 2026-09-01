@@ -2,6 +2,16 @@
 import "./src/js/app.js?v=white-editorial-v6";
 import "./src/main.js?v=white-editorial-v6";
 
+const v9StyleHref = "./atelier-v9.css?v=media-safe-v9";
+if (![...document.styleSheets].some((sheet) => sheet.href?.includes("atelier-v9.css"))) {
+  const v9Sheet = document.createElement("link");
+  v9Sheet.rel = "stylesheet";
+  v9Sheet.href = v9StyleHref;
+  v9Sheet.dataset.atelierDesignOwner = "v9-media-safe";
+  document.head.appendChild(v9Sheet);
+}
+document.documentElement.dataset.atelierDesign = "v9-media-safe";
+
 const observerOptions = { threshold: 0.1 };
 const revealObserver = "IntersectionObserver" in window
   ? new IntersectionObserver((entries) => {
