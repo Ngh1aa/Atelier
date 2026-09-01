@@ -58,6 +58,18 @@
   }
 }
 
+/* Keep vertical rhythm white; only the central product divider remains visible. */
+html[data-atelier-design="v10-journey"] body.v7-shop .shop-grid {
+  background: transparent;
+  column-gap: 0;
+}
+html[data-atelier-design="v10-journey"] body.v7-shop .product-item-wrap:nth-child(even) {
+  border-left: 1px solid var(--v10-line);
+}
+html[data-atelier-design="v10-journey"] body.v7-shop .product-item-wrap {
+  border-bottom: 0;
+}
+
 @media (max-width: 820px) {
   html[data-atelier-design="v10-journey"] body.v7-shop .v10-shop-sidebar,
   html[data-atelier-design="v10-journey"] body.v7-shop .v10-shop-results { display: contents; }
