@@ -3,8 +3,8 @@ import "./src/js/app.js?v=white-editorial-v6";
 import "./src/main.js?v=white-editorial-v6";
 
 const designSheets = [
-  { href: "./atelier-v9.css?v=media-safe-v9", match: "atelier-v9.css", owner: "v9-media-safe" },
-  { href: "./atelier-v9-integrity.css?v=media-safe-v9", match: "atelier-v9-integrity.css", owner: "v9-media-integrity" },
+  { href: "./atelier-v9.css?v=media-safe-v9-1", match: "atelier-v9.css", owner: "v9-media-safe" },
+  { href: "./atelier-v9-integrity.css?v=media-safe-v9-1", match: "atelier-v9-integrity.css", owner: "v9-media-integrity" },
 ];
 
 designSheets.forEach(({ href, match, owner }) => {
