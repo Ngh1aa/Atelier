@@ -1,0 +1,64 @@
+/* V10 post-render structural fixes verified from screenshot review. */
+
+@media (min-width: 821px) {
+  html[data-atelier-design="v10-journey"] body.v7-shop .shop-page > .container {
+    display: grid;
+    grid-template-columns: minmax(210px, 260px) minmax(0, 1fr);
+    gap: 0 clamp(28px, 4vw, 70px);
+    align-items: start;
+  }
+
+  html[data-atelier-design="v10-journey"] body.v7-shop .v10-shop-sidebar {
+    grid-column: 1;
+    position: sticky;
+    top: calc(var(--v10-nav) + 24px);
+    align-self: start;
+    max-height: calc(100svh - var(--v10-nav) - 38px);
+    overflow-y: auto;
+    padding-right: 2px;
+  }
+
+  html[data-atelier-design="v10-journey"] body.v7-shop .v10-shop-results {
+    grid-column: 2;
+    min-width: 0;
+  }
+
+  html[data-atelier-design="v10-journey"] body.v7-shop .v10-shop-sidebar .shop-intro,
+  html[data-atelier-design="v10-journey"] body.v7-shop .v10-shop-sidebar .shop-filter-panel,
+  html[data-atelier-design="v10-journey"] body.v7-shop .v10-shop-results .filter-bar,
+  html[data-atelier-design="v10-journey"] body.v7-shop .v10-shop-results .js-applied-filters,
+  html[data-atelier-design="v10-journey"] body.v7-shop .v10-shop-results .shop-grid-container {
+    grid-area: auto;
+  }
+
+  html[data-atelier-design="v10-journey"] body.v7-shop .v10-shop-sidebar .shop-intro {
+    position: static;
+    top: auto;
+    margin: 0;
+    padding: 0 0 24px;
+  }
+
+  html[data-atelier-design="v10-journey"] body.v7-shop .v10-shop-sidebar .shop-filter-panel {
+    position: static !important;
+    top: auto !important;
+    inset: auto !important;
+    max-height: none;
+    margin-top: 2px;
+  }
+
+  html[data-atelier-design="v10-journey"] body.v7-shop .v10-shop-results .filter-bar {
+    position: sticky;
+    top: var(--v10-nav);
+    z-index: 70;
+  }
+
+  html[data-atelier-design="v10-journey"] body.v7-shop .v10-shop-results .shop-grid-container {
+    margin: 18px 0 96px;
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 820px) {
+  html[data-atelier-design="v10-journey"] body.v7-shop .v10-shop-sidebar,
+  html[data-atelier-design="v10-journey"] body.v7-shop .v10-shop-results { display: contents; }
+}
