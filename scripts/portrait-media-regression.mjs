@@ -110,7 +110,6 @@ for (const route of routes) {
         ".campaign-frame-offset",
         ".v7-product-image",
         ".v7-collection-image",
-        ".v7-collection-detail",
         ".v7-editorial-break > figure",
         ".product-grid-item__image",
         ".main-img-wrap",
