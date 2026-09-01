@@ -167,11 +167,19 @@ export async function renderDetail() {
   sticky.innerHTML = `<span>${selectedSize ? `Size ${escapeHtml(selectedSize)}` : "Select size"}</span><button type="button">Add to Bag</button>`;
   sticky.querySelector("button").addEventListener("click", addSelection);
   document.body.appendChild(sticky);
-  if ("IntersectionObserver" in window) {
-    const observer = new IntersectionObserver(([entry]) => {
-      const hasPassedPrimaryAction = !entry.isIntersecting && entry.boundingClientRect.bottom < 0;
-      sticky.classList.toggle("is-visible", hasPassedPrimaryAction);
-    }, { threshold: 0 });
-    observer.observe(addButton);
-  }
+
+  const updateStickyVisibility = () => {
+    sticky.classList.toggle("is-visible", addButton.getBoundingClientRect().bottom < 0);
+  };
+  let stickyFrame = 0;
+  const requestStickyUpdate = () => {
+    if (stickyFrame) return;
+    stickyFrame = window.requestAnimationFrame(() => {
+      stickyFrame = 0;
+      updateStickyVisibility();
+    });
+  };
+  updateStickyVisibility();
+  window.addEventListener("scroll", requestStickyUpdate, { passive: true });
+  window.addEventListener("resize", requestStickyUpdate, { passive: true });
 }
