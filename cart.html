@@ -5,27 +5,23 @@
   <link rel="icon" type="image/svg+xml" href="./assets/logo/atelier-mark.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Your Bag - ATELIER</title>
-  <meta name="description" content="Review your ATELIER bag. Complimentary shipping and luxe packaging on every order.">
-  <meta name="keywords" content="ATELIER, luxury fashion, minimalist clothing, tailoring, knitwear, outerwear, sustainable fashion, Fall 2026">
-  <meta property="og:title" content="Your Cart - ATELIER">
-  <meta property="og:description" content="Review your ATELIER bag. Complimentary shipping and luxe packaging on every order.">
+  <meta name="description" content="Review your ATELIER bag before continuing to the local checkout prototype.">
+  <meta name="keywords" content="ATELIER, luxury fashion, minimalist clothing, tailoring, knitwear, outerwear, Fall 2026">
+  <meta property="og:title" content="Your Bag - ATELIER">
+  <meta property="og:description" content="Review your ATELIER bag before continuing to checkout.">
   <meta property="og:image" content="https://ngh1aa.github.io/Atelier/assets/product-hero.webp">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ngh1aa.github.io/Atelier/cart.html">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Your Cart - ATELIER">
-  <meta name="twitter:description" content="Review your ATELIER bag. Complimentary shipping and luxe packaging on every order.">
+  <meta name="twitter:title" content="Your Bag - ATELIER">
+  <meta name="twitter:description" content="Review your ATELIER bag before continuing to checkout.">
   <meta name="twitter:image" content="https://ngh1aa.github.io/Atelier/assets/product-hero.webp">
-
   <link rel="stylesheet" href="./style.css">
-<noscript>
-  <style>.reveal{opacity:1 !important;transform:none !important;}</style>
-</noscript>
-
+  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
   <script>document.documentElement.classList.add("js-enabled")</script>
 </head>
 <body class="js-enabled">
-    <nav>
+  <nav aria-label="Primary navigation">
     <div class="container nav-container">
       <ul class="nav-links left">
         <li><a href="index.html">Home</a></li>
@@ -36,21 +32,21 @@
       </ul>
       <div class="logo"><a href="index.html" aria-label="Atelier home"><span>ATELIER</span></a></div>
       <div class="nav-icons right">
-        <button type="button" class="nav-search-btn" aria-label="Search" id="navSearchBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 6 6"/></svg></button>
-        <a href="cart.html" class="nav-text nav-cart">Bag (<span class="js-nav-bag-count">0</span>)</a>
+        <button type="button" class="nav-search-btn" aria-label="Search" id="navSearchBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 6 6"/></svg></button>
+        <a href="cart.html" class="nav-text nav-cart active" aria-current="page">Bag (<span class="js-nav-bag-count">0</span>)</a>
         <a href="favourite.html" class="nav-text">Saved</a>
       </div>
     </div>
   </nav>
+
   <div class="nav-search-overlay" id="navSearchOverlay" role="dialog" aria-label="Search products" aria-modal="true">
     <div class="nav-search-form">
-      <label for="navSearchInput">Search</label>
-      <input id="navSearchInput" type="search" placeholder="What are you looking for?" autocomplete="off">
+      <label for="navSearchInput" class="eyebrow">Search the collection</label>
+      <input id="navSearchInput" type="search" placeholder="Product, material or colour" autocomplete="off">
       <button type="button" class="nav-search-close" id="navSearchClose" aria-label="Close search">&times;</button>
       <div class="nav-search-results" id="navSearchResults"></div>
     </div>
   </div>
-
 
   <main>
     <section class="cart-page">
@@ -60,188 +56,50 @@
         </div>
 
         <div class="cart-grid reveal">
-          <!-- Left: Cart Items -->
-          <div class="cart-items-list js-cart-items-list">
-            <!-- Item 1 -->
-            <div class="cart-item">
-              <div class="cart-item-img">
-                <img loading="lazy" src="./assets/new-in-1.webp" alt="Classic Leather Jacket" srcset="./assets/new-in-1-512.webp 512w, ./assets/new-in-1.webp 1024w" sizes="(max-width: 720px) 100vw, 50vw">
-              </div>
-              <div class="cart-item-info">
-                <h3>Classic Leather Jacket</h3>
-                <p>Ref. 56442 | Size: M</p>
-              </div>
-              <div class="qty-selector">
-                <button class="qty-btn minus">-</button>
-                <span class="qty-val">1</span>
-                <button class="qty-btn plus">+</button>
-              </div>
-              <div class="cart-item-price">19.500.000 ₫</div>
-              <button class="btn-remove">&times;</button>
-            </div>
+          <div class="cart-items-list js-cart-items-list" aria-live="polite"></div>
 
-            <!-- Item 2 -->
-            <div class="cart-item">
-              <div class="cart-item-img">
-                <img loading="lazy" src="./assets/product-1.webp" alt="Essential Boxy T-Shirt" srcset="./assets/product-1-512.webp 512w, ./assets/product-1.webp 1024w" sizes="(max-width: 720px) 100vw, 50vw">
-              </div>
-              <div class="cart-item-info">
-                <h3>Essential Boxy T-Shirt</h3>
-                <p>Ref. 98122 | Size: L</p>
-              </div>
-              <div class="qty-selector">
-                <button class="qty-btn minus">-</button>
-                <span class="qty-val">1</span>
-                <button class="qty-btn plus">+</button>
-              </div>
-              <div class="cart-item-price">11.200.000 ₫</div>
-              <button class="btn-remove">&times;</button>
-            </div>
-
-            <a href="shop.html" class="continue-shopping">← Continue Shopping</a>
-          </div>
-
-          <!-- Right: Order Summary -->
-          <aside class="order-summary">
+          <aside class="order-summary" aria-label="Order summary">
             <div class="order-summary-card">
               <h2>ORDER SUMMARY</h2>
-
-              <div class="summary-row">
-                <span>SUBTOTAL</span>
-                <span class="js-summary-subtotal">0 ₫</span>
-              </div>
-
-              <div class="summary-row">
-                <span>DELIVERY</span>
-                <span>COMPLIMENTARY</span>
-              </div>
-
-              <div class="summary-row summary-delivery-row">
-                <span>ESTIMATED</span>
-                <span class="js-cart-delivery">2–4 days</span>
-              </div>
-
-              <div class="summary-row js-summary-discount" hidden>
-                <span>ATELIER10</span>
-                <span>−0 ₫</span>
-              </div>
-
-              <div class="summary-row total">
-                <span>TOTAL</span>
-                <span class="js-summary-total">0 ₫</span>
-              </div>
-
+              <div class="summary-row"><span>SUBTOTAL</span><span class="js-summary-subtotal">0 ₫</span></div>
+              <div class="summary-row"><span>DELIVERY</span><span>COMPLIMENTARY</span></div>
+              <div class="summary-row summary-delivery-row"><span>ESTIMATED</span><span class="js-cart-delivery">Estimated delivery</span></div>
+              <div class="summary-row total"><span>TOTAL</span><span class="js-summary-total">0 ₫</span></div>
               <a href="checkout.html" class="btn-checkout">PROCEED TO CHECKOUT</a>
               <small class="tax-note">TAXES AND DUTIES INCLUDED</small>
-
-              <div class="promo-code-wrap">
-                <div class="promo-header">
-                  <span>ADD A PROMO CODE</span>
-                  <span>+</span>
-                </div>
-              </div>
-
+              <div class="promo-code-wrap"><p class="tax-note">Promo codes are not enabled in this static prototype.</p></div>
               <div class="need-assistance">
                 <h4>NEED ASSISTANCE?</h4>
-                <p class="assistance-text">
-                  OUR SPECIALISTS ARE AVAILABLE MON-FRI 9AM-6PM.<br>
-                  <a href="contact.html">CLIENT SERVICES</a>
-                </p>
+                <p class="assistance-text">For sizing, care or delivery guidance, visit <a href="client-services.html">Client Services</a>.</p>
               </div>
             </div>
           </aside>
         </div>
 
-        <!-- You May Also Like Section -->
-        <section class="you-may-like reveal">
-          <div class="you-may-like-header">
-            <h2>You May Also Like</h2>
-            <div class="slider-controls">
-              <button class="slider-btn">←</button>
-              <button class="slider-btn">→</button>
-            </div>
-          </div>
-
-          <div class="related-products-list">
-            <div class="related-product-item">
-              <img loading="lazy" src="./assets/product-2.webp" alt="Silk Evening Scarf" srcset="./assets/product-2-512.webp 512w, ./assets/product-2.webp 1024w" sizes="(max-width: 720px) 100vw, 50vw">
-              <p class="category">ACCESSORIES</p>
-              <h4>Silk Evening Scarf</h4>
-              <p class="price">11.200.000 ₫</p>
-            </div>
-            <div class="related-product-item">
-              <img loading="lazy" src="./assets/product-3.webp" alt="90s Structured Blazer" srcset="./assets/product-3-512.webp 512w, ./assets/product-3.webp 1024w" sizes="(max-width: 720px) 100vw, 50vw">
-              <p class="category">OUTERWEAR</p>
-              <h4>90s Structured Blazer</h4>
-              <p class="price">19.500.000 ₫</p>
-            </div>
-            <div class="related-product-item">
-              <img loading="lazy" src="./assets/product-4.webp" alt="Monochrome Canvas Tote" srcset="./assets/product-4-512.webp 512w, ./assets/product-4.webp 1024w" sizes="(max-width: 720px) 100vw, 50vw">
-              <p class="category">ACCESSORIES</p>
-              <h4>Monochrome Canvas Tote</h4>
-              <p class="price">21.000.000 ₫</p>
-            </div>
-            <div class="related-product-item">
-              <img loading="lazy" src="./assets/product-5.webp" alt="Ribbed Wool Scarf" srcset="./assets/product-5-512.webp 512w, ./assets/product-5.webp 1024w" sizes="(max-width: 720px) 100vw, 50vw">
-              <p class="category">ESSENTIALS</p>
-              <h4>Ribbed Wool Scarf</h4>
-              <p class="price">7.200.000 ₫</p>
-            </div>
-          </div>
+        <section class="you-may-like reveal" aria-labelledby="bag-related-title">
+          <div class="you-may-like-header"><h2 id="bag-related-title">You May Also Like</h2></div>
+          <div class="related-products-list"></div>
         </section>
       </div>
     </section>
   </main>
 
-
-
   <footer class="site-footer">
     <div class="container">
       <section class="footer-newsletter footer-editorial" aria-label="ATELIER Journal">
-        <div class="newsletter-text">
-          <p class="eyebrow">ATELIER JOURNAL</p>
-          <h3>Considered notes on dress, form and material.</h3>
-        </div>
+        <div class="newsletter-text"><p class="eyebrow">ATELIER JOURNAL</p><h3>Considered notes on dress, form and material.</h3></div>
         <a class="btn-outline" href="collections.html">Explore the collection <span aria-hidden="true">→</span></a>
       </section>
       <div class="footer-divider"></div>
       <div class="footer-grid">
-        <div class="footer-col brand-col">
-          <div class="logo"><a href="index.html" aria-label="Atelier home"><span>ATELIER</span></a></div>
-          <p>A considered wardrobe for a life in motion. Designed with restraint, intention and lasting presence.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Client Services</h4>
-          <ul class="footer-links">
-            <li><a href="client-services.html">Client Services</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="shipping&returns.html">Shipping &amp; Returns</a></li>
-            <li><a href="size-guide.html">Size Guide</a></li>
-            <li><a href="care-guide.html">Care Guide</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>The House</h4>
-          <ul class="footer-links">
-            <li><a href="about.html">Our Story</a></li>
-            <li><a href="collections.html">Collections</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Legal</h4>
-          <ul class="footer-links">
-            <li><a href="privacy.html">Privacy</a></li>
-            <li><a href="terms.html">Terms of Use</a></li>
-            <li><a href="client-services.html#accessibility">Accessibility</a></li>
-          </ul>
-        </div>
+        <div class="footer-col brand-col"><div class="logo"><a href="index.html" aria-label="Atelier home"><span>ATELIER</span></a></div><p>A considered wardrobe for a life in motion. Designed with restraint, intention and lasting presence.</p></div>
+        <div class="footer-col"><h4>Client Services</h4><ul class="footer-links"><li><a href="client-services.html">Client Services</a></li><li><a href="contact.html">Contact</a></li><li><a href="shipping&returns.html">Shipping &amp; Returns</a></li><li><a href="size-guide.html">Size Guide</a></li><li><a href="care-guide.html">Care Guide</a></li></ul></div>
+        <div class="footer-col"><h4>The House</h4><ul class="footer-links"><li><a href="about.html">Our Story</a></li><li><a href="collections.html">Collections</a></li></ul></div>
+        <div class="footer-col"><h4>Legal</h4><ul class="footer-links"><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms of Use</a></li><li><a href="client-services.html#accessibility">Accessibility</a></li></ul></div>
       </div>
-      <div class="footer-bottom">
-        <p>© 2026 ATELIER. All rights reserved.</p>
-        <p>Desktop edition · Vietnam</p>
-      </div>
+      <div class="footer-bottom"><p>© 2026 ATELIER. All rights reserved.</p><p>Vietnam · English edition</p></div>
     </div>
   </footer>
-  <script type="module" src="./main.js?v=ecommerce-3"></script>
+  <script type="module" src="./main.js?v=white-editorial-v6"></script>
 </body>
 </html>
