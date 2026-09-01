@@ -26,11 +26,58 @@ function initNav() {
   hamburger.innerHTML = '<span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>';
   navContainer.appendChild(hamburger);
 
+  const syncMenuSurface = (isOpen) => {
+    if (window.innerWidth > 820) {
+      navLinks.style.removeProperty("position");
+      navLinks.style.removeProperty("inset");
+      navLinks.style.removeProperty("z-index");
+      navLinks.style.removeProperty("width");
+      navLinks.style.removeProperty("height");
+      navLinks.style.removeProperty("min-height");
+      navLinks.style.removeProperty("padding");
+      navLinks.style.removeProperty("background");
+      navLinks.style.removeProperty("overflow-y");
+      navLinks.style.removeProperty("overscroll-behavior");
+      navLinks.style.removeProperty("transform");
+      return;
+    }
+
+    if (!isOpen) {
+      navLinks.style.removeProperty("position");
+      navLinks.style.removeProperty("inset");
+      navLinks.style.removeProperty("z-index");
+      navLinks.style.removeProperty("width");
+      navLinks.style.removeProperty("height");
+      navLinks.style.removeProperty("min-height");
+      navLinks.style.removeProperty("padding");
+      navLinks.style.removeProperty("background");
+      navLinks.style.removeProperty("overflow-y");
+      navLinks.style.removeProperty("overscroll-behavior");
+      navLinks.style.removeProperty("transform");
+      return;
+    }
+
+    Object.assign(navLinks.style, {
+      position: "fixed",
+      inset: "var(--nav-h) 0 0 0",
+      zIndex: "1100",
+      width: "100vw",
+      height: "calc(100dvh - var(--nav-h))",
+      minHeight: "calc(100vh - var(--nav-h))",
+      padding: "1.5rem var(--gutter) 3rem",
+      background: "#fff",
+      overflowY: "auto",
+      overscrollBehavior: "contain",
+      transform: "translateX(0)",
+    });
+  };
+
   const setMenuOpen = (isOpen, moveFocus = false) => {
     nav.classList.toggle("menu-open", isOpen);
     document.body.classList.toggle("atelier-menu-open", isOpen);
     hamburger.setAttribute("aria-expanded", String(isOpen));
     hamburger.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+    syncMenuSurface(isOpen);
     if (moveFocus && isOpen) navLinks.querySelector("a")?.focus();
   };
 
@@ -60,6 +107,7 @@ function initNav() {
 
   window.addEventListener("resize", () => {
     if (window.innerWidth > 820 && nav.classList.contains("menu-open")) setMenuOpen(false);
+    else syncMenuSurface(nav.classList.contains("menu-open"));
   }, { passive: true });
 }
 
