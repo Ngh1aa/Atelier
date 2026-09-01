@@ -9,10 +9,11 @@ function ensureDesignOwner() {
 
   const sheets = [
     ["./atelier-v11.css?v=commerce-reset-v11-1", "atelier-v11.css", "v11-commerce-reset"],
-    ["./atelier-v11-fixes.css?v=portrait-media-v11-3", "atelier-v11-fixes.css", "v11-portrait-media"],
-    ["./atelier-v11-portrait.css?v=portrait-hardening-v11-5", "atelier-v11-portrait.css", "v11-portrait-hardening"],
+    ["./atelier-v11-fixes.css?v=portrait-media-v11-4", "atelier-v11-fixes.css", "v11-portrait-media"],
+    ["./atelier-v11-portrait.css?v=portrait-hardening-v11-6", "atelier-v11-portrait.css", "v11-portrait-hardening"],
     ["./atelier-v12.css?v=sharp-youth-v12-1", "atelier-v12.css", "v12-sharp-youth-luxury"],
-    ["./atelier-v12-white.css?v=full-white-v12-1", "atelier-v12-white.css", "v12-full-white-monochrome"],
+    ["./atelier-v12-white.css?v=full-white-v12-2", "atelier-v12-white.css", "v12-full-white-monochrome"],
+    ["./atelier-media-integrity.css?v=sitewide-media-1", "atelier-media-integrity.css", "sitewide-media-integrity"],
   ];
 
   sheets.forEach(([href, match, owner]) => {
