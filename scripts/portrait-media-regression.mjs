@@ -12,6 +12,11 @@ const routes = [
   "/detailproduct.html?id=tailored-wool-blazer",
   "/collections.html",
   "/about.html",
+  "/client-services.html",
+  "/size-guide.html",
+  "/care-guide.html",
+  "/shipping&returns.html",
+  "/contact.html",
   "/cart.html",
   "/favourite.html",
   "/checkout.html",
@@ -100,10 +105,36 @@ for (const route of routes) {
     await primeLazyMedia(page);
 
     const metrics = await page.evaluate(() => {
+      const frameSelector = [
+        ".campaign-frame-main",
+        ".campaign-frame-offset",
+        ".v7-product-image",
+        ".v7-collection-image",
+        ".v7-collection-detail",
+        ".v7-editorial-break > figure",
+        ".product-grid-item__image",
+        ".main-img-wrap",
+        ".pdp-thumbnail",
+        ".collection-feature-image",
+        ".house-image-frame",
+        ".favourite-img",
+        ".cart-item-img",
+        ".v12-service-media",
+        ".v12-house-hero-media",
+        ".v12-house-code figure",
+        ".v12-house-studio-media",
+        ".v12-shop-visual figure",
+      ].join(",");
+
       const images = [...document.querySelectorAll("main img")]
         .map((img) => {
           const rect = img.getBoundingClientRect();
           const style = getComputedStyle(img);
+          const matrix = new DOMMatrixReadOnly(style.transform === "none" ? undefined : style.transform);
+          const frame = img.closest(frameSelector);
+          const frameRect = frame?.getBoundingClientRect() || null;
+          const frameStyle = frame ? getComputedStyle(frame) : null;
+          const padding = frameStyle ? [frameStyle.paddingTop, frameStyle.paddingRight, frameStyle.paddingBottom, frameStyle.paddingLeft].map(Number.parseFloat) : [];
           return {
             src: img.getAttribute("src") || "",
             className: img.className || "",
@@ -112,15 +143,30 @@ for (const route of routes) {
             ratio: rect.height > 0 ? rect.width / rect.height : null,
             objectFit: style.objectFit,
             objectPosition: style.objectPosition,
+            transform: style.transform,
+            scaleX: matrix.a,
+            scaleY: matrix.d,
+            backgroundColor: style.backgroundColor,
             naturalWidth: img.naturalWidth,
             naturalHeight: img.naturalHeight,
             complete: img.complete,
+            frame: frame ? {
+              className: frame.className || frame.tagName,
+              width: frameRect.width,
+              height: frameRect.height,
+              ratio: frameRect.height > 0 ? frameRect.width / frameRect.height : null,
+              padding,
+              backgroundColor: frameStyle.backgroundColor,
+              fillX: frameRect.width > 0 ? rect.width / frameRect.width : null,
+              fillY: frameRect.height > 0 ? rect.height / frameRect.height : null,
+            } : null,
           };
         })
         .filter((item) => item.width >= 70 && item.height >= 70);
 
       return {
         design: document.documentElement.dataset.atelierDesign || "",
+        mediaOwnerLoaded: Boolean(document.querySelector('link[href*="atelier-media-integrity.css"]')),
         images,
       };
     });
@@ -128,7 +174,7 @@ for (const route of routes) {
     const failures = [];
     if (!response?.ok()) failures.push(`HTTP ${response?.status() ?? "no response"}`);
     if (metrics.design !== "v11-commerce") failures.push(`wrong design owner: ${metrics.design}`);
-    if (!metrics.images.length && !route.includes("checkout")) failures.push("no material content images found");
+    if (!metrics.mediaOwnerLoaded) failures.push("sitewide media owner missing");
 
     for (const image of metrics.images) {
       if (!image.complete || image.naturalWidth < 1 || image.naturalHeight < 1) {
@@ -136,8 +182,31 @@ for (const route of routes) {
         continue;
       }
       if (image.objectFit !== "contain") failures.push(`cropping fit ${image.objectFit}: ${image.src}`);
-      if (image.ratio != null && image.ratio > .84) {
-        failures.push(`non-portrait frame ${image.ratio.toFixed(3)}: ${image.src}`);
+      if (Math.abs(image.scaleX - 1) > .02 || Math.abs(image.scaleY - 1) > .02) {
+        failures.push(`scaled image ${image.scaleX.toFixed(3)}×${image.scaleY.toFixed(3)}: ${image.src}`);
+      }
+      if (image.backgroundColor !== "rgb(255, 255, 255)") {
+        failures.push(`non-white image canvas ${image.backgroundColor}: ${image.src}`);
+      }
+
+      if (image.frame) {
+        if (image.frame.ratio != null && Math.abs(image.frame.ratio - .75) > .05) {
+          failures.push(`frame not 3:4 (${image.frame.ratio.toFixed(3)}): ${image.src}`);
+        }
+        if (image.frame.padding.some((value) => value > 1.5)) {
+          failures.push(`inset frame padding ${image.frame.padding.join("/")}: ${image.src}`);
+        }
+        if (image.frame.backgroundColor !== "rgb(255, 255, 255)") {
+          failures.push(`non-white frame ${image.frame.backgroundColor}: ${image.src}`);
+        }
+        if (image.frame.fillX != null && image.frame.fillX < .96) {
+          failures.push(`image width only ${(image.frame.fillX * 100).toFixed(1)}% of frame: ${image.src}`);
+        }
+        if (image.frame.fillY != null && image.frame.fillY < .96) {
+          failures.push(`image height only ${(image.frame.fillY * 100).toFixed(1)}% of frame: ${image.src}`);
+        }
+      } else if (image.ratio != null && image.ratio > .84) {
+        failures.push(`non-portrait material image ${image.ratio.toFixed(3)}: ${image.src}`);
       }
     }
 
