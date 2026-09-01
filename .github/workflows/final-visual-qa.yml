@@ -13,6 +13,7 @@ on:
       - 'assets/**'
       - 'scripts/final-visual-qa.mjs'
       - 'scripts/pdp-sticky-regression.mjs'
+      - 'scripts/mobile-menu-regression.mjs'
       - '.github/workflows/final-visual-qa.yml'
   workflow_dispatch:
 
@@ -54,6 +55,7 @@ jobs:
         run: |
           node scripts/final-visual-qa.mjs
           node scripts/pdp-sticky-regression.mjs
+          node scripts/mobile-menu-regression.mjs
         env:
           QA_BASE_URL: http://127.0.0.1:4173
           QA_OUT_DIR: qa-artifacts
