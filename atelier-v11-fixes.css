@@ -87,31 +87,29 @@ html[data-atelier-design="v11-commerce"] body.v11-checkout .checkout-reality-not
   margin: 18px 0 0 !important;
   padding: 12px 14px !important;
   border-left: 2px solid var(--v11-ink) !important;
-  background: var(--v11-soft) !important;
+  background: #fff !important;
   line-height: 1.45;
 }
 
 /* --------------------------------------------------------------------------
    GLOBAL PORTRAIT MEDIA POLICY
-   User rule: all content image frames are vertical rectangles and model/product
-   imagery must preserve the full subject instead of using destructive cover crop.
+   All content image frames are vertical rectangles. Full-white presentation means
+   the media canvas is white as well; never create a beige inner/outer picture box.
    -------------------------------------------------------------------------- */
 html[data-atelier-design="v11-commerce"] {
   --v11-media-ratio: 3 / 4;
-  --v11-media-bg: #f7f6f2;
-  --v11-media-position: 50% 8%;
+  --v11-media-bg: #ffffff;
+  --v11-media-position: 50% 6%;
 }
 
-/* Subject integrity is the hard default for every content image in every HTML page. */
 html[data-atelier-design="v11-commerce"] main img,
 html[data-atelier-design="v11-commerce"] .nav-search-results img,
 html[data-atelier-design="v11-commerce"] .commerce-picker-product img {
   object-fit: contain !important;
   object-position: var(--v11-media-position) !important;
-  background: var(--v11-media-bg);
+  background: var(--v11-media-bg) !important;
 }
 
-/* Known image-frame owners all use the same portrait geometry. */
 html[data-atelier-design="v11-commerce"] :is(
   .campaign-frame-main,
   .campaign-frame-offset,
@@ -152,7 +150,6 @@ html[data-atelier-design="v11-commerce"] :is(
   place-items: center;
 }
 
-/* Images nested through anchors/buttons still fill the portrait frame without crop. */
 html[data-atelier-design="v11-commerce"] :is(
   .campaign-frame-main,
   .campaign-frame-offset,
@@ -175,24 +172,27 @@ html[data-atelier-design="v11-commerce"] :is(
   aspect-ratio: auto !important;
   object-fit: contain !important;
   object-position: var(--v11-media-position) !important;
+  transform: none !important;
+  background: var(--v11-media-bg) !important;
 }
 
-/* Dynamically-rendered card and transactional media also stay portrait. */
 html[data-atelier-design="v11-commerce"] :is(
   .related-item > img,
   .summary-item > img,
   .order-item > img,
   .commerce-picker-product > img,
-  .search-product-result > img
+  .search-product-result > img,
+  .mini-bag-item img,
+  .nav-search-results img
 ) {
   aspect-ratio: var(--v11-media-ratio) !important;
   object-fit: contain !important;
   object-position: var(--v11-media-position) !important;
+  transform: none !important;
   background: var(--v11-media-bg) !important;
 }
 
-/* Home hero: keep the portrait image itself compact instead of stretching it
-   into a landscape slot that chops the model at the top/bottom. */
+/* Home hero: portrait, full canvas, no destructive crop. */
 html[data-atelier-design="v11-commerce"] body.v11-home .campaign-sheet {
   grid-template-columns: minmax(360px, 1fr) minmax(380px, .78fr) !important;
   align-items: center !important;
@@ -205,23 +205,28 @@ html[data-atelier-design="v11-commerce"] body.v11-home .campaign-frame-main {
   justify-self: center !important;
   align-self: center !important;
   border-left: 1px solid var(--v11-rule);
+  background: #fff !important;
 }
 
 html[data-atelier-design="v11-commerce"] body.v11-home .campaign-frame-main img {
+  width: 100% !important;
   height: 100% !important;
   min-height: 0 !important;
   object-fit: contain !important;
   object-position: var(--v11-media-position) !important;
+  transform: none !important;
+  background: #fff !important;
 }
 
-/* PDP: the primary media is a portrait fitting frame, not a viewport crop. */
+/* PDP: no inset padding. Image owns the entire portrait media canvas. */
 html[data-atelier-design="v11-commerce"] body.v11-pdp .main-img-wrap {
   width: min(100%, 720px) !important;
   margin-inline: auto !important;
   aspect-ratio: var(--v11-media-ratio) !important;
   height: auto !important;
   min-height: 0 !important;
-  padding: clamp(16px, 2.5vw, 36px) !important;
+  padding: 0 !important;
+  background: #fff !important;
 }
 
 html[data-atelier-design="v11-commerce"] body.v11-pdp .main-img-wrap > img {
@@ -231,6 +236,8 @@ html[data-atelier-design="v11-commerce"] body.v11-pdp .main-img-wrap > img {
   aspect-ratio: auto !important;
   object-fit: contain !important;
   object-position: var(--v11-media-position) !important;
+  transform: none !important;
+  background: #fff !important;
 }
 
 @media (max-width: 820px) {
