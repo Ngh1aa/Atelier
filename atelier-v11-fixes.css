@@ -26,12 +26,86 @@ html[data-atelier-design="v11-commerce"] body.v11-home .campaign-frame-main img 
   height: 100% !important;
 }
 
+/* PDP: keep collection/index metadata legible instead of concatenated. */
+html[data-atelier-design="v11-commerce"] body.v11-pdp .v7-pdp-index {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 18px !important;
+  margin: 0 0 8px !important;
+  font-size: .68rem !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase;
+  color: var(--v11-muted);
+}
+
+html[data-atelier-design="v11-commerce"] body.v11-pdp .v7-pdp-index span {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* Bag: reserve space below the fixed global navigation. */
+html[data-atelier-design="v11-commerce"] body.v11-bag .cart-page {
+  padding-top: calc(var(--v11-nav) + 48px) !important;
+}
+
+html[data-atelier-design="v11-commerce"] body.v11-bag .cart-title {
+  padding-top: 0 !important;
+}
+
+/* Checkout: remove the old three-column editorial header. */
+html[data-atelier-design="v11-commerce"] body.v11-checkout .checkout-page {
+  padding-top: 44px !important;
+}
+
+html[data-atelier-design="v11-commerce"] body.v11-checkout .checkout-header {
+  display: block !important;
+  grid-template-columns: none !important;
+  max-width: 760px !important;
+  margin: 0 0 42px !important;
+  padding: 0 0 30px !important;
+  border-bottom: 1px solid var(--v11-ink) !important;
+}
+
+html[data-atelier-design="v11-commerce"] body.v11-checkout .checkout-header h1 {
+  margin: 10px 0 18px !important;
+  max-width: 10ch;
+}
+
+html[data-atelier-design="v11-commerce"] body.v11-checkout .checkout-header > p:not(.eyebrow):not(.checkout-reality-note) {
+  max-width: 60ch !important;
+  margin: 0 !important;
+  color: var(--v11-muted);
+  line-height: 1.5;
+}
+
+html[data-atelier-design="v11-commerce"] body.v11-checkout .checkout-reality-note {
+  display: block !important;
+  grid-column: auto !important;
+  justify-self: auto !important;
+  max-width: 60ch !important;
+  margin: 18px 0 0 !important;
+  padding: 12px 14px !important;
+  border-left: 2px solid var(--v11-ink) !important;
+  background: var(--v11-soft) !important;
+  line-height: 1.45;
+}
+
 @media (max-width: 820px) {
   html[data-atelier-design="v11-commerce"] body.v11-home .campaign-copy {
     height: auto !important;
   }
   html[data-atelier-design="v11-commerce"] body.v11-home .campaign-frame-main {
     height: 62svh !important;
+  }
+  html[data-atelier-design="v11-commerce"] body.v11-bag .cart-page {
+    padding-top: calc(var(--v11-nav) + 28px) !important;
+  }
+  html[data-atelier-design="v11-commerce"] body.v11-checkout .checkout-page {
+    padding-top: 28px !important;
+  }
+  html[data-atelier-design="v11-commerce"] body.v11-checkout .checkout-header {
+    margin-bottom: 28px !important;
   }
 }
 
