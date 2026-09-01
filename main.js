@@ -12,6 +12,7 @@ function ensureDesignOwner() {
     ["./atelier-v11-fixes.css?v=portrait-media-v11-3", "atelier-v11-fixes.css", "v11-portrait-media"],
     ["./atelier-v11-portrait.css?v=portrait-hardening-v11-5", "atelier-v11-portrait.css", "v11-portrait-hardening"],
     ["./atelier-v12.css?v=sharp-youth-v12-1", "atelier-v12.css", "v12-sharp-youth-luxury"],
+    ["./atelier-v12-white.css?v=full-white-v12-1", "atelier-v12-white.css", "v12-full-white-monochrome"],
   ];
 
   sheets.forEach(([href, match, owner]) => {
@@ -24,9 +25,10 @@ function ensureDesignOwner() {
   });
 
   // Preserve V11 structural owner for the existing regression baseline while exposing
-  // the active art-direction layer explicitly for V12-specific QA.
+  // the active V12 composition with a final monochrome presentation layer.
   document.documentElement.dataset.atelierDesign = "v11-commerce";
   document.documentElement.dataset.atelierStyle = "sharp-youth-luxury";
+  document.documentElement.dataset.atelierPalette = "full-white";
 }
 
 function addPageClass() {
