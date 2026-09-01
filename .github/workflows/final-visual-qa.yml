@@ -16,6 +16,7 @@ on:
       - 'atelier-v11-portrait.css'
       - 'atelier-v12.css'
       - 'atelier-v12-white.css'
+      - 'atelier-media-integrity.css'
       - 'main.js'
       - 'src/**'
       - 'assets/**'
