@@ -11,6 +11,7 @@ on:
       - 'style.css'
       - 'campaign-v7.css'
       - 'atelier-v11.css'
+      - 'atelier-v11-fixes.css'
       - 'main.js'
       - 'src/**'
       - 'assets/**'
