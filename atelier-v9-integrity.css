@@ -1,0 +1,39 @@
+/* ATELIER V9 — visual integrity invariants
+   Loaded after atelier-v9.css. These are release-safety rules, not a theme layer. */
+
+/* Critical content must never become a blank frame because reveal animation did not intersect. */
+html[data-atelier-design="v9-media-safe"] .reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+}
+
+/* A partially filled product row must remain white, never expose the grid gap/background as a fake card. */
+html[data-atelier-design="v9-media-safe"] body.v7-shop .shop-grid {
+  background: #fff !important;
+}
+
+/* Media remains bounded and never becomes a thin slice due to inherited sizing. */
+html[data-atelier-design="v9-media-safe"] .campaign-frame img,
+html[data-atelier-design="v9-media-safe"] .v7-product-image img,
+html[data-atelier-design="v9-media-safe"] .product-grid-item__image img,
+html[data-atelier-design="v9-media-safe"] .main-img-wrap > img,
+html[data-atelier-design="v9-media-safe"] .pdp-thumbnail img,
+html[data-atelier-design="v9-media-safe"] .collection-feature-image img,
+html[data-atelier-design="v9-media-safe"] .house-image-frame img,
+html[data-atelier-design="v9-media-safe"] .cart-item-img img,
+html[data-atelier-design="v9-media-safe"] .favourite-img img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Product metadata must remain visually owned by the same card. */
+html[data-atelier-design="v9-media-safe"] .v7-product-card,
+html[data-atelier-design="v9-media-safe"] .product-item-wrap {
+  overflow: hidden;
+}
+html[data-atelier-design="v9-media-safe"] .v7-product-card > *,
+html[data-atelier-design="v9-media-safe"] .product-item-wrap > * {
+  min-width: 0;
+  max-width: 100%;
+}
