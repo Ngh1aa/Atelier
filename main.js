@@ -7,13 +7,19 @@ function ensureV11DesignOwner() {
     'link[data-atelier-design-owner], link[href*="atelier-v9.css"], link[href*="atelier-v9-integrity.css"], link[href*="atelier-v10.css"], link[href*="atelier-v10-fixes.css"]'
   ).forEach((sheet) => sheet.remove());
 
-  if (!document.querySelector('link[href*="atelier-v11.css"]')) {
+  const sheets = [
+    ["./atelier-v11.css?v=commerce-reset-v11-1", "atelier-v11.css", "v11-commerce-reset"],
+    ["./atelier-v11-fixes.css?v=commerce-reset-v11-2", "atelier-v11-fixes.css", "v11-screenshot-fixes"],
+  ];
+
+  sheets.forEach(([href, match, owner]) => {
+    if (document.querySelector(`link[href*="${match}"]`)) return;
     const sheet = document.createElement("link");
     sheet.rel = "stylesheet";
-    sheet.href = "./atelier-v11.css?v=commerce-reset-v11-1";
-    sheet.dataset.atelierDesignOwner = "v11-commerce-reset";
+    sheet.href = href;
+    sheet.dataset.atelierDesignOwner = owner;
     document.head.appendChild(sheet);
-  }
+  });
 
   document.documentElement.dataset.atelierDesign = "v11-commerce";
 }
