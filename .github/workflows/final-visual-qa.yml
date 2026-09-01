@@ -5,9 +5,11 @@ on:
     branches:
       - main
       - 'qa/**'
+      - 'redesign/**'
     paths:
       - '*.html'
       - 'style.css'
+      - 'campaign-v7.css'
       - 'main.js'
       - 'src/**'
       - 'assets/**'
