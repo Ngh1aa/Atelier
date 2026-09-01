@@ -46,6 +46,33 @@ html[data-atelier-design="v11-commerce"] body.v11-checkout .summary-item img {
   aspect-ratio: 3 / 4 !important;
 }
 
+/* --------------------------------------------------------------------------
+   CATALOGUE CROP CONSISTENCY
+   Same component family = same perceived subject scale, not only same 3:4 box.
+   Asset-level correction is allowed through --catalogue-media-scale when a source
+   is intrinsically tighter than the rest of the merchandising set.
+   -------------------------------------------------------------------------- */
+html[data-atelier-design="v11-commerce"] body.v11-home .v7-product-image,
+html[data-atelier-design="v11-commerce"] body.v11-shop .product-grid-item__image {
+  --catalogue-media-scale: 1;
+  --catalogue-media-origin: 50% 8%;
+}
+
+html[data-atelier-design="v11-commerce"] body.v11-home .v7-product-image img,
+html[data-atelier-design="v11-commerce"] body.v11-shop .product-grid-item__image img {
+  transform: scale(var(--catalogue-media-scale)) !important;
+  transform-origin: var(--catalogue-media-origin) !important;
+  transition: none !important;
+}
+
+/* This source is materially tighter than the rest of the catalogue photography.
+   Pull it back inside the same 3:4 frame so head/body scale matches neighbouring cards. */
+html[data-atelier-design="v11-commerce"] body.v11-home .v7-product-image:has(img[src*="belted-cropped-jacket"]),
+html[data-atelier-design="v11-commerce"] body.v11-shop .product-grid-item__image:has(img[src*="belted-cropped-jacket"]) {
+  --catalogue-media-scale: .82;
+  --catalogue-media-origin: 50% 6%;
+}
+
 /* Hero portrait: never stretch fashion photography into a landscape crop. */
 html[data-atelier-design="v11-commerce"] body.v11-home .campaign-frame-main {
   width: min(100%, 520px) !important;
