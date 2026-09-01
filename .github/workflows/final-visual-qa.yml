@@ -14,6 +14,7 @@ on:
       - 'atelier-v11.css'
       - 'atelier-v11-fixes.css'
       - 'atelier-v11-portrait.css'
+      - 'atelier-v12.css'
       - 'main.js'
       - 'src/**'
       - 'assets/**'
@@ -21,6 +22,7 @@ on:
       - 'scripts/v11-commerce-layout-regression.mjs'
       - 'scripts/portrait-media-regression.mjs'
       - 'scripts/catalogue-crop-regression.mjs'
+      - 'scripts/v12-youth-luxury-regression.mjs'
       - 'scripts/pdp-sticky-regression.mjs'
       - 'scripts/mobile-menu-regression.mjs'
       - '.github/workflows/final-visual-qa.yml'
@@ -70,6 +72,7 @@ jobs:
           node scripts/v11-commerce-layout-regression.mjs
           node scripts/portrait-media-regression.mjs
           node scripts/catalogue-crop-regression.mjs
+          node scripts/v12-youth-luxury-regression.mjs
           node scripts/pdp-sticky-regression.mjs
           node scripts/mobile-menu-regression.mjs
         env:

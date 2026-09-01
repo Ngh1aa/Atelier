@@ -5,18 +5,16 @@
   <link rel="icon" type="image/svg+xml" href="./assets/logo/atelier-mark.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shop New In — ATELIER</title>
-  <meta name="description" content="Browse ATELIER New In. Filter by category, size and colour, then review fit, material and delivery details on each product page.">
-  <meta property="og:title" content="Shop New In — ATELIER">
-  <meta property="og:description" content="Browse the ATELIER catalogue with clear product, filter and fit information.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://ngh1aa.github.io/Atelier/shop.html">
-  <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" href="./campaign-v7.css">
-  <link rel="stylesheet" href="./atelier-v10.css?v=journey-v10-1">
+  <meta name="description" content="Shop ATELIER New In — tailoring, knitwear and evening pieces with fit, material and delivery details." />
+  <meta property="og:title" content="Shop New In — ATELIER" />
+  <meta property="og:description" content="The current ATELIER edit: a sharper catalogue for Fall 2026." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ngh1aa.github.io/Atelier/shop.html" />
+  <link rel="stylesheet" href="./style.css" />
   <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
   <script>document.documentElement.classList.add("js-enabled")</script>
 </head>
-<body class="js-enabled v7 v7-shop">
+<body class="js-enabled v7 v7-shop v12-shop-page">
   <nav aria-label="Primary navigation">
     <div class="container nav-container">
       <ul class="nav-links left">
@@ -38,27 +36,52 @@
   <div class="nav-search-overlay" id="navSearchOverlay" role="dialog" aria-label="Search products" aria-modal="true">
     <div class="nav-search-form">
       <label for="navSearchInput" class="eyebrow">Search the collection</label>
-      <input id="navSearchInput" type="search" placeholder="Product, material or colour" autocomplete="off">
+      <input id="navSearchInput" type="search" placeholder="Product, material or colour" autocomplete="off" />
       <button type="button" class="nav-search-close" id="navSearchClose" aria-label="Close search">&times;</button>
       <div class="nav-search-results" id="navSearchResults"></div>
     </div>
   </div>
 
   <main>
-    <section class="shop-page" aria-labelledby="shop-title">
+    <section class="v12-shop-hero" aria-labelledby="shop-hero-title">
+      <div class="container v12-shop-hero-grid">
+        <div class="v12-shop-copy reveal">
+          <div class="v12-shop-copy-top">
+            <p class="eyebrow">DROP 01 / FALL 2026</p>
+            <h1 class="v12-display" id="shop-hero-title">New.<br><em>Right now.</em></h1>
+            <p class="v12-copy">Tailoring, knits and pieces for the hours after work. The edit is small enough to know, sharp enough to keep moving.</p>
+          </div>
+          <div class="v12-shop-actions">
+            <div class="v12-chip-row" aria-label="Featured categories">
+              <a class="v12-chip" href="shop.html?category=outerwear">Outerwear</a>
+              <a class="v12-chip" href="shop.html?category=knitwear">Knitwear</a>
+              <a class="v12-chip" href="shop.html?category=tees">Tops</a>
+              <a class="v12-chip" href="shop.html?category=accessories">Accessories</a>
+            </div>
+            <a class="text-link" href="#catalogue">Skip to catalogue <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+        <div class="v12-shop-visual reveal" aria-label="ATELIER Fall 2026 edit">
+          <span class="v12-shop-stamp">ATELIER / 26</span>
+          <figure><img src="./assets/feedback/home-collection-large-v2.jpg" alt="ATELIER Fall 2026 styling in black" loading="eager" /></figure>
+          <figure><img src="./assets/feedback/home-editorial.jpg" alt="ATELIER editorial styling study" loading="eager" /></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="shop-page" id="catalogue" aria-labelledby="shop-title">
       <div class="container">
         <header class="shop-intro reveal">
-          <p class="eyebrow">FIND YOUR PIECE / FALL 2026</p>
-          <div class="shop-intro-grid">
-            <h1 id="shop-title">New In / 26</h1>
-            <p class="shop-intro-copy">Start with the category rail, then narrow by size or colour. Product pages carry fit, material, care and delivery evidence before Add to Bag.</p>
+          <div>
+            <p class="eyebrow">THE CATALOGUE / 08 PIECES</p>
+            <div class="shop-intro-grid"><h1 id="shop-title">Shop the edit</h1></div>
           </div>
           <nav class="shop-category-shortcuts" aria-label="Shop by category">
             <a href="shop.html">All pieces</a>
             <a href="shop.html?category=outerwear">Outerwear</a>
             <a href="shop.html?category=knitwear">Knitwear</a>
-            <a href="shop.html?category=tees">Tees</a>
-            <a href="shop.html?category=denim%20%26%20shirts">Denim &amp; Shirts</a>
+            <a href="shop.html?category=tees">Tops</a>
+            <a href="shop.html?category=denim%20%26%20shirts">Bottoms</a>
             <a href="shop.html?category=accessories">Accessories</a>
           </nav>
         </header>
@@ -72,23 +95,39 @@
             <noscript><p class="shop-noscript">JavaScript is required to filter and load the current product catalogue.</p></noscript>
           </div>
         </div>
+
+        <section class="v12-shop-footer-story reveal" aria-labelledby="shop-story-title">
+          <div class="v12-shop-footer-story-inner">
+            <div>
+              <p class="eyebrow">AFTER THE GRID</p>
+              <h2 id="shop-story-title">Want the mood, not just the SKU?</h2>
+            </div>
+            <div class="v12-chip-row">
+              <a class="v12-chip" href="collections.html">See Collections</a>
+              <a class="v12-chip" href="about.html">Enter The House</a>
+            </div>
+          </div>
+        </section>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container">
-      <section class="footer-newsletter footer-editorial" aria-label="ATELIER Journal"><div class="newsletter-text"><p class="eyebrow">ATELIER JOURNAL</p><h3>Considered notes on dress, form and material.</h3></div><a class="btn-outline" href="collections.html">Explore the collection <span aria-hidden="true">→</span></a></section>
+      <section class="footer-newsletter footer-editorial" aria-label="ATELIER Journal">
+        <div class="newsletter-text"><p class="eyebrow">ATELIER JOURNAL</p><h3>Notes on dress, form and what comes next.</h3></div>
+        <a class="btn-outline" href="collections.html">See the current edit <span aria-hidden="true">→</span></a>
+      </section>
       <div class="footer-divider"></div>
       <div class="footer-grid">
-        <div class="footer-col brand-col"><div class="logo"><a href="index.html" aria-label="Atelier home"><span>ATELIER</span></a></div><p>A considered wardrobe for a life in motion.</p></div>
+        <div class="footer-col brand-col"><div class="logo"><a href="index.html" aria-label="Atelier home"><span>ATELIER</span></a></div><p>A wardrobe project from Vietnam. Sharp pieces, quieter rules.</p></div>
         <div class="footer-col"><h4>Client Services</h4><ul class="footer-links"><li><a href="client-services.html">Client Services</a></li><li><a href="contact.html">Contact</a></li><li><a href="shipping&returns.html">Shipping &amp; Returns</a></li><li><a href="size-guide.html">Size Guide</a></li></ul></div>
-        <div class="footer-col"><h4>The House</h4><ul class="footer-links"><li><a href="about.html">Our Story</a></li><li><a href="collections.html">Collections</a></li></ul></div>
+        <div class="footer-col"><h4>The House</h4><ul class="footer-links"><li><a href="about.html">The House</a></li><li><a href="collections.html">Collections</a></li><li><a href="shop.html">New In</a></li></ul></div>
         <div class="footer-col"><h4>Legal</h4><ul class="footer-links"><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms of Use</a></li></ul></div>
       </div>
       <div class="footer-bottom"><p>© 2026 ATELIER.</p><p>Vietnam · English edition</p></div>
     </div>
   </footer>
-  <script type="module" src="./main.js?v=journey-v10-1"></script>
+  <script type="module" src="./main.js?v=sharp-youth-v12-1"></script>
 </body>
 </html>

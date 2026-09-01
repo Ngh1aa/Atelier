@@ -1,8 +1,8 @@
-// App entry: commerce modules + V11 restrained ecommerce layout
+// App entry: commerce modules + V11 structural base + V12 Sharp Youth Luxury presentation
 import "./src/js/app.js?v=white-editorial-v6";
 import "./src/main.js?v=white-editorial-v6";
 
-function ensureV11DesignOwner() {
+function ensureDesignOwner() {
   document.querySelectorAll(
     'link[data-atelier-design-owner], link[href*="atelier-v9.css"], link[href*="atelier-v9-integrity.css"], link[href*="atelier-v10.css"], link[href*="atelier-v10-fixes.css"]'
   ).forEach((sheet) => sheet.remove());
@@ -10,7 +10,8 @@ function ensureV11DesignOwner() {
   const sheets = [
     ["./atelier-v11.css?v=commerce-reset-v11-1", "atelier-v11.css", "v11-commerce-reset"],
     ["./atelier-v11-fixes.css?v=portrait-media-v11-3", "atelier-v11-fixes.css", "v11-portrait-media"],
-    ["./atelier-v11-portrait.css?v=portrait-hardening-v11-4", "atelier-v11-portrait.css", "v11-portrait-hardening"],
+    ["./atelier-v11-portrait.css?v=portrait-hardening-v11-5", "atelier-v11-portrait.css", "v11-portrait-hardening"],
+    ["./atelier-v12.css?v=sharp-youth-v12-1", "atelier-v12.css", "v12-sharp-youth-luxury"],
   ];
 
   sheets.forEach(([href, match, owner]) => {
@@ -22,25 +23,29 @@ function ensureV11DesignOwner() {
     document.head.appendChild(sheet);
   });
 
+  // Preserve V11 structural owner for the existing regression baseline while exposing
+  // the active art-direction layer explicitly for V12-specific QA.
   document.documentElement.dataset.atelierDesign = "v11-commerce";
+  document.documentElement.dataset.atelierStyle = "sharp-youth-luxury";
 }
 
 function addPageClass() {
   const path = location.pathname;
   const routes = [
-    [/index\.html$|\/$/, "v11-home"],
-    [/shop\.html$/, "v11-shop"],
-    [/detailproduct\.html$/, "v11-pdp"],
-    [/cart\.html$/, "v11-bag"],
-    [/checkout\.html$/, "v11-checkout"],
-    [/collections\.html$/, "v11-collections"],
-    [/about\.html$/, "v11-house"],
-    [/favourite\.html$/, "v11-saved"],
-    [/order\.html$/, "v11-order"],
-    [/(client-services|size-guide|care-guide|shipping&returns|contact)\.html$/, "v11-service"],
+    [/index\.html$|\/$/, ["v11-home"]],
+    [/shop\.html$/, ["v11-shop", "v12-shop-page"]],
+    [/detailproduct\.html$/, ["v11-pdp"]],
+    [/cart\.html$/, ["v11-bag"]],
+    [/checkout\.html$/, ["v11-checkout"]],
+    [/collections\.html$/, ["v11-collections"]],
+    [/about\.html$/, ["v11-house", "v12-house-page"]],
+    [/favourite\.html$/, ["v11-saved"]],
+    [/order\.html$/, ["v11-order"]],
+    [/(client-services)\.html$/, ["v11-service", "v12-service-page"]],
+    [/(size-guide|care-guide|shipping&returns|contact)\.html$/, ["v11-service"]],
   ];
-  routes.forEach(([pattern, className]) => {
-    if (pattern.test(path)) document.body.classList.add(className);
+  routes.forEach(([pattern, classNames]) => {
+    if (pattern.test(path)) classNames.forEach((className) => document.body.classList.add(className));
   });
 }
 
@@ -78,7 +83,7 @@ function initBackToTop() {
   window.addEventListener("scroll", sync, { passive: true });
 }
 
-ensureV11DesignOwner();
+ensureDesignOwner();
 
 document.addEventListener("DOMContentLoaded", () => {
   addPageClass();
