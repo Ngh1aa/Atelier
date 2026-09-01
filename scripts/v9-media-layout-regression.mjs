@@ -85,6 +85,7 @@ for (const testCase of cases) {
       const imageChecks = [...document.querySelectorAll(selectors)].filter(visible).map((img) => {
         const s = getComputedStyle(img);
         const r = img.getBoundingClientRect();
+        const ratio = r.height ? r.width / r.height : 0;
         return {
           src: img.currentSrc || img.src,
           objectFit: s.objectFit,
@@ -93,7 +94,9 @@ for (const testCase of cases) {
           height: Math.round(r.height),
           naturalWidth: img.naturalWidth,
           naturalHeight: img.naturalHeight,
-          sliceRisk: r.width < 80 || r.height < 100,
+          renderedRatio: Number(ratio.toFixed(3)),
+          // A genuine sliver is an extreme aspect ratio, not a deliberately small 4:5 thumbnail.
+          sliceRisk: ratio > 0 && (ratio < 0.28 || ratio > 3.5),
         };
       });
 
