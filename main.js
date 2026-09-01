@@ -9,7 +9,7 @@ function ensureV11DesignOwner() {
 
   const sheets = [
     ["./atelier-v11.css?v=commerce-reset-v11-1", "atelier-v11.css", "v11-commerce-reset"],
-    ["./atelier-v11-fixes.css?v=commerce-reset-v11-2", "atelier-v11-fixes.css", "v11-screenshot-fixes"],
+    ["./atelier-v11-fixes.css?v=portrait-media-v11-3", "atelier-v11-fixes.css", "v11-portrait-media"],
   ];
 
   sheets.forEach(([href, match, owner]) => {
@@ -34,6 +34,8 @@ function addPageClass() {
     [/checkout\.html$/, "v11-checkout"],
     [/collections\.html$/, "v11-collections"],
     [/about\.html$/, "v11-house"],
+    [/favourite\.html$/, "v11-saved"],
+    [/order\.html$/, "v11-order"],
     [/(client-services|size-guide|care-guide|shipping&returns|contact)\.html$/, "v11-service"],
   ];
   routes.forEach(([pattern, className]) => {
