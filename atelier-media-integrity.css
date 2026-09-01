@@ -1,0 +1,127 @@
+/* ATELIER — SITEWIDE MEDIA INTEGRITY OWNER
+   Loaded last. Prevents picture-inside-a-box regressions, destructive cover crops,
+   legacy hover zoom and mismatched frame/image backgrounds across page families. */
+
+html[data-atelier-design="v11-commerce"] {
+  --atelier-media-bg: #ffffff;
+  --atelier-media-position: 50% 6%;
+  --atelier-media-ratio: 3 / 4;
+}
+
+/* Single-image content frames: no decorative inset padding. */
+html[data-atelier-design="v11-commerce"] :is(
+  .campaign-frame-main,
+  .campaign-frame-offset,
+  .v7-product-image,
+  .v7-collection-image,
+  .v7-collection-detail,
+  .v7-editorial-break > figure,
+  .product-grid-item__image,
+  .main-img-wrap,
+  .pdp-thumbnail,
+  .collection-feature-image,
+  .house-image-frame,
+  .favourite-img,
+  .cart-item-img,
+  .v12-service-media,
+  .v12-house-hero-media,
+  .v12-house-code figure,
+  .v12-house-studio-media,
+  .v12-shop-visual figure
+) {
+  aspect-ratio: var(--atelier-media-ratio) !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: var(--atelier-media-bg) !important;
+}
+
+/* The image element itself always owns the full 3:4 canvas. Do not shrink it
+   with transform scale or create a second inner canvas through width/height. */
+html[data-atelier-design="v11-commerce"] :is(
+  .campaign-frame-main,
+  .campaign-frame-offset,
+  .v7-product-image,
+  .v7-collection-image,
+  .v7-collection-detail,
+  .v7-editorial-break > figure,
+  .product-grid-item__image,
+  .main-img-wrap,
+  .pdp-thumbnail,
+  .collection-feature-image,
+  .house-image-frame,
+  .favourite-img,
+  .cart-item-img,
+  .v12-service-media,
+  .v12-house-hero-media,
+  .v12-house-code figure,
+  .v12-house-studio-media,
+  .v12-shop-visual figure
+) img {
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  display: block !important;
+  aspect-ratio: auto !important;
+  object-fit: contain !important;
+  object-position: var(--atelier-media-position) !important;
+  transform: none !important;
+  transform-origin: var(--atelier-media-position) !important;
+  transition-property: opacity !important;
+  background: var(--atelier-media-bg) !important;
+}
+
+/* Direct transactional/search media does not always have a named frame wrapper. */
+html[data-atelier-design="v11-commerce"] :is(
+  .related-item > img,
+  .summary-item > img,
+  .order-item > img,
+  .commerce-picker-product > img,
+  .search-product-result > img,
+  .mini-bag-item img,
+  .nav-search-results img
+) {
+  aspect-ratio: var(--atelier-media-ratio) !important;
+  object-fit: contain !important;
+  object-position: var(--atelier-media-position) !important;
+  transform: none !important;
+  transform-origin: var(--atelier-media-position) !important;
+  background: var(--atelier-media-bg) !important;
+}
+
+/* PDP was the remaining picture-inside-a-box case: legacy V11 added 16–36px
+   padding to the 3:4 wrapper. The media owner removes that inset completely. */
+html[data-atelier-design="v11-commerce"] body.v11-pdp .main-img-wrap {
+  padding: 0 !important;
+  background: #fff !important;
+}
+
+/* Full-white palette means media canvas and page surface are the same neutral. */
+html[data-atelier-style="sharp-youth-luxury"] :is(
+  .campaign-frame-main,
+  .campaign-frame-offset,
+  .v7-product-image,
+  .v7-collection-image,
+  .v7-collection-detail,
+  .v7-editorial-break > figure,
+  .product-grid-item__image,
+  .main-img-wrap,
+  .pdp-thumbnail,
+  .collection-feature-image,
+  .house-image-frame,
+  .favourite-img,
+  .cart-item-img,
+  .v12-service-media,
+  .v12-house-hero-media,
+  .v12-house-code figure,
+  .v12-house-studio-media,
+  .v12-shop-visual figure
+),
+html[data-atelier-style="sharp-youth-luxury"] main img {
+  background-color: #fff !important;
+}
