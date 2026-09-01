@@ -8,10 +8,11 @@
   <meta name="description" content="Complete the ATELIER guest checkout prototype with delivery and payment selection.">
   <meta name="robots" content="noindex, follow">
   <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./campaign-v7.css">
   <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
   <script>document.documentElement.classList.add("js-enabled")</script>
 </head>
-<body class="js-enabled checkout-body">
+<body class="js-enabled checkout-body v7 v7-checkout">
   <nav class="checkout-nav" aria-label="Checkout navigation">
     <div class="container checkout-nav-inner">
       <a href="cart.html">← Back to Bag</a>
@@ -25,9 +26,9 @@
       <div class="container">
         <header class="checkout-header reveal">
           <p class="eyebrow">GUEST CHECKOUT / 01—05</p>
-          <h1 id="checkout-title">Complete your order.</h1>
-          <p>No account is required. Review contact, delivery and payment details before recording this order on your device.</p>
-          <p class="checkout-reality-note"><strong>Prototype note:</strong> this static edition stores the order in this browser. It does not capture a card payment, submit to a live fulfilment system or create a customer account.</p>
+          <h1 id="checkout-title">Order sheet.</h1>
+          <p>Complete the five required steps, review the summary and record the order locally on this device.</p>
+          <p class="checkout-reality-note"><strong>Prototype note:</strong> this static edition stores the order in this browser. It does not capture card payment, send to live fulfilment or create a customer account.</p>
         </header>
 
         <form class="checkout-grid js-checkout-form" novalidate>
@@ -99,9 +100,7 @@
     </section>
   </main>
 
-  <footer class="checkout-footer">
-    <div class="container"><p>© 2026 ATELIER</p><a href="shipping&returns.html">Delivery &amp; Returns</a></div>
-  </footer>
-  <script type="module" src="./main.js?v=white-editorial-v6"></script>
+  <footer class="checkout-footer"><div class="container"><p>© 2026 ATELIER</p><a href="shipping&returns.html">Delivery &amp; Returns</a></div></footer>
+  <script type="module" src="./main.js?v=campaign-commerce-v7"></script>
 </body>
 </html>
