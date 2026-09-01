@@ -6,6 +6,7 @@ on:
       - main
       - 'qa/**'
       - 'redesign/**'
+      - 'fix/**'
     paths:
       - '*.html'
       - 'style.css'
@@ -17,6 +18,7 @@ on:
       - 'assets/**'
       - 'scripts/final-visual-qa.mjs'
       - 'scripts/v11-commerce-layout-regression.mjs'
+      - 'scripts/portrait-media-regression.mjs'
       - 'scripts/pdp-sticky-regression.mjs'
       - 'scripts/mobile-menu-regression.mjs'
       - '.github/workflows/final-visual-qa.yml'
@@ -64,6 +66,7 @@ jobs:
         run: |
           node scripts/final-visual-qa.mjs
           node scripts/v11-commerce-layout-regression.mjs
+          node scripts/portrait-media-regression.mjs
           node scripts/pdp-sticky-regression.mjs
           node scripts/mobile-menu-regression.mjs
         env:
