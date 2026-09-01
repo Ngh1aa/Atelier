@@ -10,13 +10,12 @@ on:
       - '*.html'
       - 'style.css'
       - 'campaign-v7.css'
-      - 'atelier-v10.css'
-      - 'atelier-v10-fixes.css'
+      - 'atelier-v11.css'
       - 'main.js'
       - 'src/**'
       - 'assets/**'
       - 'scripts/final-visual-qa.mjs'
-      - 'scripts/v10-journey-regression.mjs'
+      - 'scripts/v11-commerce-layout-regression.mjs'
       - 'scripts/pdp-sticky-regression.mjs'
       - 'scripts/mobile-menu-regression.mjs'
       - '.github/workflows/final-visual-qa.yml'
@@ -63,7 +62,7 @@ jobs:
       - name: Capture representative UI
         run: |
           node scripts/final-visual-qa.mjs
-          node scripts/v10-journey-regression.mjs
+          node scripts/v11-commerce-layout-regression.mjs
           node scripts/pdp-sticky-regression.mjs
           node scripts/mobile-menu-regression.mjs
         env:
