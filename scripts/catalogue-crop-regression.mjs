@@ -33,16 +33,20 @@ for (const width of [390, 1440]) {
     const image = frame?.querySelector("img.js-grid-img-front");
     if (!frame || !image) return null;
     const frameRect = frame.getBoundingClientRect();
+    const imageRect = image.getBoundingClientRect();
     const style = getComputedStyle(image);
     const matrix = new DOMMatrixReadOnly(style.transform === "none" ? undefined : style.transform);
     return {
       id: card.dataset.id || "",
       src: image.getAttribute("src") || "",
       frameRatio: frameRect.height ? frameRect.width / frameRect.height : null,
+      imageWidthRatio: frameRect.width ? imageRect.width / frameRect.width : null,
+      imageHeightRatio: frameRect.height ? imageRect.height / frameRect.height : null,
       objectFit: style.objectFit,
       objectPosition: style.objectPosition,
       scaleX: matrix.a,
       scaleY: matrix.d,
+      backgroundColor: style.backgroundColor,
     };
   }).filter(Boolean));
 
@@ -53,15 +57,13 @@ for (const width of [390, 1440]) {
   for (const card of cards) {
     if (card.objectFit !== "contain") failures.push(`${card.id}: object-fit ${card.objectFit}`);
     if (card.frameRatio == null || Math.abs(card.frameRatio - .75) > .03) failures.push(`${card.id}: frame ratio ${card.frameRatio}`);
+    if (Math.abs(card.scaleX - 1) > .02 || Math.abs(card.scaleY - 1) > .02) failures.push(`${card.id}: image element scaled to ${card.scaleX.toFixed(3)}×${card.scaleY.toFixed(3)}`);
+    if (card.imageWidthRatio == null || card.imageWidthRatio < .98) failures.push(`${card.id}: image element width only ${(card.imageWidthRatio * 100).toFixed(1)}% of frame`);
+    if (card.imageHeightRatio == null || card.imageHeightRatio < .98) failures.push(`${card.id}: image element height only ${(card.imageHeightRatio * 100).toFixed(1)}% of frame`);
   }
 
   const tailored = cards.find((card) => card.id === "tailored-wool-blazer");
   if (!tailored) failures.push("tailored-wool-blazer card missing");
-  else if (tailored.scaleX < .64 || tailored.scaleX > .72) failures.push(`tailored-wool-blazer scale ${tailored.scaleX.toFixed(3)} outside normalized range`);
-
-  for (const card of cards.filter((card) => card.id !== "tailored-wool-blazer")) {
-    if (Math.abs(card.scaleX - 1) > .02) failures.push(`${card.id}: unexpected catalogue scale ${card.scaleX.toFixed(3)}`);
-  }
 
   const grid = page.locator(".js-shop-grid");
   await grid.screenshot({ path: path.join(outputDir, `catalogue-crop-${width}.png`) });
