@@ -91,12 +91,161 @@ html[data-atelier-design="v11-commerce"] body.v11-checkout .checkout-reality-not
   line-height: 1.45;
 }
 
+/* --------------------------------------------------------------------------
+   GLOBAL PORTRAIT MEDIA POLICY
+   User rule: all content image frames are vertical rectangles and model/product
+   imagery must preserve the full subject instead of using destructive cover crop.
+   -------------------------------------------------------------------------- */
+html[data-atelier-design="v11-commerce"] {
+  --v11-media-ratio: 3 / 4;
+  --v11-media-bg: #f7f6f2;
+  --v11-media-position: 50% 8%;
+}
+
+/* Subject integrity is the hard default for every content image in every HTML page. */
+html[data-atelier-design="v11-commerce"] main img,
+html[data-atelier-design="v11-commerce"] .nav-search-results img,
+html[data-atelier-design="v11-commerce"] .commerce-picker-product img {
+  object-fit: contain !important;
+  object-position: var(--v11-media-position) !important;
+  background: var(--v11-media-bg);
+}
+
+/* Known image-frame owners all use the same portrait geometry. */
+html[data-atelier-design="v11-commerce"] :is(
+  .campaign-frame-main,
+  .campaign-frame-offset,
+  .v7-product-image,
+  .v7-collection-image,
+  .v7-collection-detail,
+  .v7-editorial-break > figure,
+  .product-grid-item__image,
+  .main-img-wrap,
+  .pdp-thumbnail,
+  .collection-feature-image,
+  .house-image-frame,
+  .favourite-img,
+  .cart-item-img
+) {
+  aspect-ratio: var(--v11-media-ratio) !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: hidden;
+  background: var(--v11-media-bg) !important;
+}
+
+html[data-atelier-design="v11-commerce"] :is(
+  .campaign-frame-main,
+  .campaign-frame-offset,
+  .v7-collection-image,
+  .v7-collection-detail,
+  .v7-editorial-break > figure,
+  .product-grid-item__image,
+  .main-img-wrap,
+  .collection-feature-image,
+  .house-image-frame,
+  .favourite-img,
+  .cart-item-img
+) {
+  display: grid !important;
+  place-items: center;
+}
+
+/* Images nested through anchors/buttons still fill the portrait frame without crop. */
+html[data-atelier-design="v11-commerce"] :is(
+  .campaign-frame-main,
+  .campaign-frame-offset,
+  .v7-product-image,
+  .v7-collection-image,
+  .v7-collection-detail,
+  .v7-editorial-break > figure,
+  .product-grid-item__image,
+  .main-img-wrap,
+  .pdp-thumbnail,
+  .collection-feature-image,
+  .house-image-frame,
+  .favourite-img,
+  .cart-item-img
+) img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  aspect-ratio: auto !important;
+  object-fit: contain !important;
+  object-position: var(--v11-media-position) !important;
+}
+
+/* Dynamically-rendered card and transactional media also stay portrait. */
+html[data-atelier-design="v11-commerce"] :is(
+  .related-item > img,
+  .summary-item > img,
+  .order-item > img,
+  .commerce-picker-product > img,
+  .search-product-result > img
+) {
+  aspect-ratio: var(--v11-media-ratio) !important;
+  object-fit: contain !important;
+  object-position: var(--v11-media-position) !important;
+  background: var(--v11-media-bg) !important;
+}
+
+/* Home hero: keep the portrait image itself compact instead of stretching it
+   into a landscape slot that chops the model at the top/bottom. */
+html[data-atelier-design="v11-commerce"] body.v11-home .campaign-sheet {
+  grid-template-columns: minmax(360px, 1fr) minmax(380px, .78fr) !important;
+  align-items: center !important;
+}
+
+html[data-atelier-design="v11-commerce"] body.v11-home .campaign-frame-main {
+  width: min(100%, 520px) !important;
+  aspect-ratio: var(--v11-media-ratio) !important;
+  height: auto !important;
+  justify-self: center !important;
+  align-self: center !important;
+  border-left: 1px solid var(--v11-rule);
+}
+
+html[data-atelier-design="v11-commerce"] body.v11-home .campaign-frame-main img {
+  height: 100% !important;
+  min-height: 0 !important;
+  object-fit: contain !important;
+  object-position: var(--v11-media-position) !important;
+}
+
+/* PDP: the primary media is a portrait fitting frame, not a viewport crop. */
+html[data-atelier-design="v11-commerce"] body.v11-pdp .main-img-wrap {
+  width: min(100%, 720px) !important;
+  margin-inline: auto !important;
+  aspect-ratio: var(--v11-media-ratio) !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: clamp(16px, 2.5vw, 36px) !important;
+}
+
+html[data-atelier-design="v11-commerce"] body.v11-pdp .main-img-wrap > img {
+  width: 100% !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  aspect-ratio: auto !important;
+  object-fit: contain !important;
+  object-position: var(--v11-media-position) !important;
+}
+
 @media (max-width: 820px) {
   html[data-atelier-design="v11-commerce"] body.v11-home .campaign-copy {
     height: auto !important;
   }
+  html[data-atelier-design="v11-commerce"] body.v11-home .campaign-sheet {
+    grid-template-columns: 1fr !important;
+  }
   html[data-atelier-design="v11-commerce"] body.v11-home .campaign-frame-main {
-    height: 62svh !important;
+    width: min(100%, 520px) !important;
+    height: auto !important;
+    aspect-ratio: var(--v11-media-ratio) !important;
+    border-left: 0;
+    border-top: 1px solid var(--v11-rule);
   }
   html[data-atelier-design="v11-commerce"] body.v11-bag .cart-page {
     padding-top: calc(var(--v11-nav) + 28px) !important;
@@ -110,7 +259,10 @@ html[data-atelier-design="v11-commerce"] body.v11-checkout .checkout-reality-not
 }
 
 @media (max-width: 520px) {
-  html[data-atelier-design="v11-commerce"] body.v11-home .campaign-frame-main {
-    height: 54svh !important;
+  html[data-atelier-design="v11-commerce"] body.v11-home .campaign-frame-main,
+  html[data-atelier-design="v11-commerce"] body.v11-pdp .main-img-wrap {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: var(--v11-media-ratio) !important;
   }
 }
