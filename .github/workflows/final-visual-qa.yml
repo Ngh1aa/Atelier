@@ -12,6 +12,7 @@ on:
       - 'src/**'
       - 'assets/**'
       - 'scripts/final-visual-qa.mjs'
+      - 'scripts/pdp-sticky-regression.mjs'
       - '.github/workflows/final-visual-qa.yml'
   workflow_dispatch:
 
@@ -50,7 +51,9 @@ jobs:
           exit 1
 
       - name: Capture representative UI
-        run: node scripts/final-visual-qa.mjs
+        run: |
+          node scripts/final-visual-qa.mjs
+          node scripts/pdp-sticky-regression.mjs
         env:
           QA_BASE_URL: http://127.0.0.1:4173
           QA_OUT_DIR: qa-artifacts
