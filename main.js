@@ -2,14 +2,20 @@
 import "./src/js/app.js?v=white-editorial-v6";
 import "./src/main.js?v=white-editorial-v6";
 
-const v9StyleHref = "./atelier-v9.css?v=media-safe-v9";
-if (![...document.styleSheets].some((sheet) => sheet.href?.includes("atelier-v9.css"))) {
-  const v9Sheet = document.createElement("link");
-  v9Sheet.rel = "stylesheet";
-  v9Sheet.href = v9StyleHref;
-  v9Sheet.dataset.atelierDesignOwner = "v9-media-safe";
-  document.head.appendChild(v9Sheet);
-}
+const designSheets = [
+  { href: "./atelier-v9.css?v=media-safe-v9", match: "atelier-v9.css", owner: "v9-media-safe" },
+  { href: "./atelier-v9-integrity.css?v=media-safe-v9", match: "atelier-v9-integrity.css", owner: "v9-media-integrity" },
+];
+
+designSheets.forEach(({ href, match, owner }) => {
+  if ([...document.styleSheets].some((sheet) => sheet.href?.includes(match))) return;
+  const sheet = document.createElement("link");
+  sheet.rel = "stylesheet";
+  sheet.href = href;
+  sheet.dataset.atelierDesignOwner = owner;
+  document.head.appendChild(sheet);
+});
+
 document.documentElement.dataset.atelierDesign = "v9-media-safe";
 
 const observerOptions = { threshold: 0.1 };
