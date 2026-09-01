@@ -1,0 +1,128 @@
+/* ATELIER V12.1 — FULL WHITE MONOCHROME OVERRIDE
+   Keeps V12 composition and youthful luxury rhythm while removing all blue/warm highlights.
+   Loaded last so white/black owns the final presentation. */
+
+html[data-atelier-style="sharp-youth-luxury"] {
+  --v12-paper: #ffffff;
+  --v12-white: #ffffff;
+  --v12-ink: #101010;
+  --v12-muted: #686868;
+  --v12-line: #dedede;
+  --v12-signal: #101010;
+  --v12-signal-dark: #000000;
+  background: #ffffff;
+}
+
+html[data-atelier-style="sharp-youth-luxury"],
+html[data-atelier-style="sharp-youth-luxury"] body,
+html[data-atelier-style="sharp-youth-luxury"] main,
+html[data-atelier-style="sharp-youth-luxury"] section {
+  background-color: #ffffff;
+}
+
+html[data-atelier-style="sharp-youth-luxury"] body > nav:not(.checkout-nav) {
+  border-top: 0 !important;
+  border-bottom: 1px solid var(--v12-line) !important;
+  background: rgba(255,255,255,.97) !important;
+}
+
+html[data-atelier-style="sharp-youth-luxury"] body > nav .nav-links a::after {
+  background: var(--v12-ink) !important;
+}
+
+html[data-atelier-style="sharp-youth-luxury"] .v12-chip,
+html[data-atelier-style="sharp-youth-luxury"] .shop-category-shortcuts a {
+  background: #fff !important;
+  border-color: var(--v12-line) !important;
+  color: var(--v12-ink) !important;
+}
+
+html[data-atelier-style="sharp-youth-luxury"] .v12-chip:hover,
+html[data-atelier-style="sharp-youth-luxury"] .v12-chip:focus-visible,
+html[data-atelier-style="sharp-youth-luxury"] .shop-category-shortcuts a:hover,
+html[data-atelier-style="sharp-youth-luxury"] .shop-category-shortcuts a:focus-visible {
+  background: #fff !important;
+  border-color: var(--v12-ink) !important;
+  color: var(--v12-ink) !important;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+html[data-atelier-style="sharp-youth-luxury"] .text-link:hover,
+html[data-atelier-style="sharp-youth-luxury"] body.v12-service-page .v12-service-link:hover {
+  color: var(--v12-ink) !important;
+}
+
+html[data-atelier-style="sharp-youth-luxury"] body.v12-shop-page .v12-shop-visual,
+html[data-atelier-style="sharp-youth-luxury"] body.v12-service-page .v12-service-media,
+html[data-atelier-style="sharp-youth-luxury"] body.v12-house-page .v12-house-hero-media {
+  background: #fff !important;
+  border: 1px solid var(--v12-line);
+}
+
+html[data-atelier-style="sharp-youth-luxury"] body.v12-shop-page .v12-shop-visual figure,
+html[data-atelier-style="sharp-youth-luxury"] body.v12-shop-page .product-grid-item__image,
+html[data-atelier-style="sharp-youth-luxury"] body.v12-house-page .v12-house-code figure,
+html[data-atelier-style="sharp-youth-luxury"] body.v12-house-page .v12-house-studio-media {
+  background: #fff !important;
+}
+
+html[data-atelier-style="sharp-youth-luxury"] body.v12-shop-page .v12-shop-stamp {
+  background: #fff !important;
+  color: var(--v12-ink) !important;
+  border: 1px solid var(--v12-ink);
+}
+
+html[data-atelier-style="sharp-youth-luxury"] body.v12-shop-page .filter-bar {
+  background: rgba(255,255,255,.97) !important;
+}
+
+html[data-atelier-style="sharp-youth-luxury"] body.v12-shop-page .product-grid-item__add-to-cart {
+  background: var(--v12-ink) !important;
+  color: #fff !important;
+}
+
+html[data-atelier-style="sharp-youth-luxury"] body.v12-shop-page .product-grid-item__add-to-cart:hover,
+html[data-atelier-style="sharp-youth-luxury"] body.v12-shop-page .product-grid-item__add-to-cart:focus-visible {
+  background: #000 !important;
+}
+
+html[data-atelier-style="sharp-youth-luxury"] body.v12-service-page .v12-qa-list summary::after {
+  color: var(--v12-ink) !important;
+}
+
+html[data-atelier-style="sharp-youth-luxury"] body.v12-house-page .v12-house-manifesto {
+  background: #fff !important;
+  color: var(--v12-ink) !important;
+  border-top: 1px solid var(--v12-ink);
+  border-bottom: 1px solid var(--v12-ink);
+}
+
+html[data-atelier-style="sharp-youth-luxury"] .site-footer {
+  background: #fff !important;
+  color: var(--v12-ink) !important;
+  border-top: 1px solid var(--v12-line) !important;
+}
+
+html[data-atelier-style="sharp-youth-luxury"] .site-footer .footer-divider,
+html[data-atelier-style="sharp-youth-luxury"] .site-footer .footer-bottom,
+html[data-atelier-style="sharp-youth-luxury"] .site-footer .footer-newsletter {
+  border-color: var(--v12-line) !important;
+}
+
+html[data-atelier-style="sharp-youth-luxury"] .site-footer .eyebrow {
+  color: var(--v12-muted) !important;
+}
+
+html[data-atelier-style="sharp-youth-luxury"] .site-footer .btn-outline {
+  border-color: var(--v12-ink) !important;
+  color: var(--v12-ink) !important;
+  background: #fff !important;
+}
+
+html[data-atelier-style="sharp-youth-luxury"] .site-footer .btn-outline:hover,
+html[data-atelier-style="sharp-youth-luxury"] .site-footer .btn-outline:focus-visible {
+  background: var(--v12-ink) !important;
+  border-color: var(--v12-ink) !important;
+  color: #fff !important;
+}
