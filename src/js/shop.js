@@ -141,6 +141,7 @@ export async function renderShop() {
   const products = SHOP_IDS.map((id) => allProducts.find((product) => product.id === id)).filter(Boolean);
   const state = createState();
   let filterTrigger = null;
+  const staticCards = new Map([...grid.querySelectorAll(".js-product-item[data-id]")].map((card) => [card.dataset.id, card]));
 
   filterBar.innerHTML = `
     <span id="result-count" class="result-count" aria-live="polite"></span>
@@ -171,8 +172,19 @@ export async function renderShop() {
 
   const repaint = () => {
     const visible = filterProducts(products, state);
-    grid.innerHTML = visible.length ? visible.map(productCard).join("") : `
-      <div class="shop-empty-state"><h2>No pieces found.</h2><p>Adjust your selection or explore the complete collection.</p><button type="button" class="btn-outline js-empty-clear">Clear filters</button></div>`;
+    grid.querySelector(".shop-empty-state")?.remove();
+    if (staticCards.size === products.length) {
+      staticCards.forEach((card) => { card.hidden = true; });
+      visible.forEach((product) => {
+        const card = staticCards.get(product.id);
+        if (!card) return;
+        card.hidden = false;
+        grid.appendChild(card);
+      });
+      if (!visible.length) grid.insertAdjacentHTML("beforeend", `<div class="shop-empty-state"><h2>No pieces found.</h2><p>Adjust your selection or explore the complete collection.</p><button type="button" class="btn-outline js-empty-clear">Clear filters</button></div>`);
+    } else {
+      grid.innerHTML = visible.length ? visible.map(productCard).join("") : `<div class="shop-empty-state"><h2>No pieces found.</h2><p>Adjust your selection or explore the complete collection.</p><button type="button" class="btn-outline js-empty-clear">Clear filters</button></div>`;
+    }
     filterBar.querySelector("#result-count").textContent = `${visible.length} Piece${visible.length === 1 ? "" : "s"}`;
     const filterTotal = state.categories.size + state.sizes.size + state.colors.size;
     filterBar.querySelector(".js-filter-total").textContent = filterTotal ? `(${filterTotal})` : "";
@@ -193,22 +205,31 @@ export async function renderShop() {
   };
 
   function bindGrid() {
-    grid.querySelectorAll(".js-quick-add").forEach((button) => button.addEventListener("click", () => {
+    grid.querySelectorAll(".js-quick-add:not([data-shop-bound])").forEach((button) => {
+      button.dataset.shopBound = "true";
+      button.addEventListener("click", () => {
       const product = products.find((item) => item.id === button.dataset.productId);
       if (product) openVariantPicker(product, { heading: "Select your size" });
-    }));
-    grid.querySelectorAll(".js-wishlist-btn").forEach((button) => button.addEventListener("click", () => {
+      });
+    });
+    grid.querySelectorAll(".js-wishlist-btn:not([data-shop-bound])").forEach((button) => {
+      button.dataset.shopBound = "true";
+      button.addEventListener("click", () => {
       const saved = toggleWishlist(button.dataset.productId);
       button.classList.toggle("is-saved", saved);
       button.setAttribute("aria-pressed", String(saved));
       const product = products.find((item) => item.id === button.dataset.productId);
       button.setAttribute("aria-label", `${saved ? "Remove" : "Save"} ${product?.name || "piece"}`);
       showMessage(saved ? "Saved." : "Removed from Saved.");
-    }));
-    grid.querySelectorAll(".js-plp-product-link").forEach((link) => link.addEventListener("click", () => {
+      });
+    });
+    grid.querySelectorAll(".js-plp-product-link:not([data-shop-bound])").forEach((link) => {
+      link.dataset.shopBound = "true";
+      link.addEventListener("click", () => {
       sessionStorage.setItem(PLP_SCROLL_KEY, JSON.stringify({ url: location.href, y: window.scrollY }));
       track("select_item", { product_id: new URL(link.href).searchParams.get("id") });
-    }));
+      });
+    });
     grid.querySelector(".js-empty-clear")?.addEventListener("click", clearFilters);
   }
 
