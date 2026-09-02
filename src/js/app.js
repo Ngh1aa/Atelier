@@ -1,18 +1,18 @@
 // App entry: bootstrap per-page modules
-import { initNav } from "./nav.js?v=white-editorial-v6";
+import { initNav } from "./nav.js?v=atelier-v13";
 
 function boot() {
   initNav();
 
   const path = location.pathname;
   if (/(^|\/)index\.html?$/.test(path) || path.endsWith("/")) {
-    import("./index.js?v=white-editorial-v6").then((m) => m.initIndex());
+    import("./index.js?v=atelier-v13").then((m) => m.initIndex());
   }
   if (path.includes("shop.html")) {
-    import("./shop.js?v=white-editorial-v6").then((m) => m.renderShop());
+    import("./shop.js?v=atelier-v13").then((m) => m.renderShop());
   }
   if (path.includes("detailproduct.html")) {
-    import("./detail.js?v=white-editorial-v6").then((m) => m.renderDetail());
+    import("./detail.js?v=atelier-v13").then((m) => m.renderDetail());
   }
   if (path.includes("cart.html")) {
     import("./cart.js?v=white-editorial-v6").then((m) => m.renderCart());
@@ -33,4 +33,5 @@ function boot() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", boot);
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot, { once: true });
+else boot();
