@@ -17,12 +17,11 @@
   <meta name="twitter:description" content="Explore ATELIER Fall Winter 2026: tailoring, knitwear and considered silhouettes shaped by proportion and material.">
   <meta name="twitter:image" content="./assets/feedback/home-collection-large-v2.jpg">
 
-  <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" href="./atelier-v10.css?v=journey-v10-1">
+  <link rel="stylesheet" href="./atelier-v13.css?v=atelier-v13">
   <noscript><style>.reveal{opacity:1 !important;transform:none !important;}</style></noscript>
   <script>document.documentElement.classList.add("js-enabled");</script>
 </head>
-<body class="js-enabled">
+<body class="js-enabled v13 page-collections">
   <nav aria-label="Primary navigation">
     <div class="container nav-container">
       <ul class="nav-links left">
@@ -49,43 +48,68 @@
     </div>
   </div>
 
-  <main class="service-page">
-    <section class="service-hero reveal">
-      <div class="container service-hero-grid">
-        <div>
-          <p class="eyebrow">FALL / WINTER 2026</p>
-          <h1>Studies in proportion,<br>texture and restraint.</h1>
-        </div>
-        <p class="service-intro">A collection shaped around deliberate layers, quiet contrast and silhouettes made to live beyond a single season.</p>
-      </div>
-    </section>
-    <div class="service-rule container" aria-hidden="true"></div>
-
-    <section class="collection-feature reveal">
-      <div class="container collection-feature-grid">
-        <div class="collection-feature-image">
-          <img src="./assets/feedback/home-collection-large-v2.jpg" data-fallback-src="./assets/collection-1.webp" alt="Two complete ATELIER Fall Winter 2026 tailored looks" loading="lazy">
-        </div>
-        <div class="collection-feature-copy">
-          <p class="eyebrow">CHAPTER I</p>
-          <h2>Tailoring, softened.</h2>
-          <p>Defined shoulders, long lines and an intention to move. Explore tailoring and outerwear conceived as the foundation of a considered wardrobe.</p>
-          <a class="btn-outline" href="shop.html?category=outerwear">Explore outerwear <span aria-hidden="true">→</span></a>
+  <main>
+    <header class="lookbook-header reveal">
+      <div class="container lookbook-header__grid">
+        <p class="eyebrow">LOOKBOOK / DROP 02</p>
+        <h1>One week.<br><em>Three energies.</em></h1>
+        <p>Not a campaign to admire from a distance. An indexed edit of looks you can open, compare and make your own.</p>
+        <div class="lookbook-index" aria-label="Lookbook chapters">
+          <a href="#workday"><span>01</span>Workday</a>
+          <a href="#after-hours"><span>02</span>After Hours</a>
+          <a href="#weekend"><span>03</span>Weekend</a>
         </div>
       </div>
+    </header>
+
+    <section class="lookbook-chapter" id="workday" aria-labelledby="workday-title">
+      <div class="lookbook-chapter__media reveal">
+        <span class="look-number">01</span>
+        <img src="./assets/feedback/home-collection-large-v2.jpg" alt="Two complete ATELIER workday looks" loading="eager">
+      </div>
+      <div class="lookbook-chapter__copy reveal">
+        <p class="eyebrow">MONDAY–FRIDAY / 08:40</p>
+        <h2 id="workday-title">Hold the line.<br>Lose the stiffness.</h2>
+        <p>A defined jacket, a soft shirt and enough volume to move. The workday edit relies on proportion instead of formality.</p>
+        <div class="look-products">
+          <a href="detailproduct.html?id=tailored-wool-blazer"><span>Belted Cropped Jacket</span><strong>3.490.000 ₫</strong></a>
+          <a href="detailproduct.html?id=leather-minimal-tote"><span>Soft Stripe Shirt</span><strong>1.590.000 ₫</strong></a>
+        </div>
+        <a class="btn-secondary" href="shop.html?category=outerwear">Shop the workday edit</a>
+      </div>
     </section>
 
-    <section class="collection-feature collection-feature-reverse reveal">
-      <div class="container collection-feature-grid">
-        <div class="collection-feature-copy">
-          <p class="eyebrow">CHAPTER II</p>
-          <h2>Texture as a language.</h2>
-          <p>Essential knits and soft layers bring warmth, depth and a subtle sense of dimension to each composition.</p>
-          <a class="btn-outline" href="shop.html?category=knitwear">Explore knitwear <span aria-hidden="true">→</span></a>
+    <section class="lookbook-chapter lookbook-chapter--reverse" id="after-hours" aria-labelledby="after-title">
+      <div class="lookbook-chapter__media reveal">
+        <span class="look-number">02</span>
+        <img src="./assets/feedback/home-editorial.jpg" alt="ATELIER after-hours silhouette study" loading="lazy">
+      </div>
+      <div class="lookbook-chapter__copy reveal">
+        <p class="eyebrow">AFTER HOURS / 19:30</p>
+        <h2 id="after-title">One switch changes the room.</h2>
+        <p>Transparency, a longer line and a little movement. Evening enters through one deliberate layer, not a full costume change.</p>
+        <div class="look-products">
+          <a href="detailproduct.html?id=silk-midnight-gown"><span>Draped Wide-Leg Set</span><strong>2.990.000 ₫</strong></a>
+          <a href="detailproduct.html?id=cashmere-overcoat"><span>Sheer Cape Wrap Top</span><strong>1.790.000 ₫</strong></a>
         </div>
-        <div class="collection-feature-image">
-          <img src="./assets/feedback/home-collection-small-v2.jpg" data-fallback-src="./assets/collection-2.webp" alt="Complete ATELIER Fall Winter 2026 knitwear look" loading="lazy">
+        <a class="btn-secondary" href="shop.html?collection=evening%20collection">Shop after hours</a>
+      </div>
+    </section>
+
+    <section class="lookbook-chapter lookbook-chapter--compact" id="weekend" aria-labelledby="weekend-title">
+      <div class="lookbook-chapter__media reveal">
+        <span class="look-number">03</span>
+        <img src="./assets/feedback/home-collection-small-v2.jpg" alt="ATELIER relaxed weekend styling" loading="lazy">
+      </div>
+      <div class="lookbook-chapter__copy reveal">
+        <p class="eyebrow">WEEKEND / NO SCHEDULE</p>
+        <h2 id="weekend-title">Ease, with a point of view.</h2>
+        <p>Relaxed knit, open texture, one clean line. Built to repeat without feeling repeated.</p>
+        <div class="look-products">
+          <a href="detailproduct.html?id=suede-chelsea-boots"><span>Relaxed V-Neck Knit</span><strong>1.690.000 ₫</strong></a>
+          <a href="detailproduct.html?id=viscose-wrap-top"><span>Sheer Knit Cape Top</span><strong>1.390.000 ₫</strong></a>
         </div>
+        <a class="btn-secondary" href="shop.html?category=knitwear">Shop weekend pieces</a>
       </div>
     </section>
   </main>
@@ -112,6 +136,6 @@
       <div class="footer-bottom"><p>© 2026 ATELIER. All rights reserved.</p><p>Vietnam · English edition</p></div>
     </div>
   </footer>
-  <script type="module" src="./main.js?v=journey-v10-1"></script>
+  <script type="module" src="./main.js?v=atelier-v13"></script>
 </body>
 </html>

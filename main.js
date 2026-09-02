@@ -1,8 +1,9 @@
-// App entry: commerce modules + V11 structural base + V12 Sharp Youth Luxury presentation
-import "./src/js/app.js?v=white-editorial-v6";
-import "./src/main.js?v=white-editorial-v6";
+// App entry: commerce behavior is shared; V13 pages own their CSS explicitly in HTML.
+import "./src/js/app.js?v=atelier-v13";
+import "./src/main.js?v=atelier-v13";
 
-function ensureDesignOwner() {
+function ensureLegacyDesignOwner() {
+  if (document.querySelector('link[href*="atelier-v13.css"]')) return;
   document.querySelectorAll(
     'link[data-atelier-design-owner], link[href*="atelier-v9.css"], link[href*="atelier-v9-integrity.css"], link[href*="atelier-v10.css"], link[href*="atelier-v10-fixes.css"]'
   ).forEach((sheet) => sheet.remove());
@@ -86,7 +87,7 @@ function initBackToTop() {
   window.addEventListener("scroll", sync, { passive: true });
 }
 
-ensureDesignOwner();
+ensureLegacyDesignOwner();
 
 document.addEventListener("DOMContentLoaded", () => {
   addPageClass();

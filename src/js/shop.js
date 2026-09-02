@@ -5,8 +5,8 @@ import {
   loadProducts,
   toggleWishlist,
   track,
-} from "./commerce-store.js?v=white-editorial-v6";
-import { escapeHtml, openVariantPicker, showMessage } from "./commerce-ui.js?v=white-editorial-v6";
+} from "./commerce-store.js?v=atelier-v13";
+import { escapeHtml, openVariantPicker, showMessage } from "./commerce-ui.js?v=atelier-v13";
 
 const SHOP_IDS = [
   "tailored-wool-blazer",

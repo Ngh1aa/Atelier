@@ -11,14 +11,12 @@
   <meta property="og:image" content="./assets/feedback/home-hero-main.jpg">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ngh1aa.github.io/Atelier/index.html">
-  <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" href="./campaign-v7.css">
-  <link rel="stylesheet" href="./atelier-v10.css?v=journey-v10-1">
+  <link rel="stylesheet" href="./atelier-v13.css?v=atelier-v13">
   <link rel="preload" as="image" href="./assets/feedback/home-hero-main.jpg" type="image/jpeg" fetchpriority="high">
   <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
   <script>document.documentElement.classList.add("js-enabled")</script>
 </head>
-<body class="js-enabled v7 v7-home">
+<body class="js-enabled v13 page-home">
   <nav aria-label="Primary navigation">
     <div class="container nav-container">
       <ul class="nav-links left">
@@ -46,80 +44,82 @@
     </div>
   </div>
 
-  <main class="v7-home-main">
-    <section class="campaign-sheet" aria-labelledby="home-title">
-      <div class="campaign-notation" aria-hidden="true">FALL<br>/26</div>
-      <div class="campaign-meta reveal">
-        <p>ATELIER / STUDY 01</p>
-        <span>VIETNAM</span>
-        <span>SEPTEMBER 2026</span>
-      </div>
-
-      <figure class="campaign-frame campaign-frame-main reveal">
-        <img src="./assets/feedback/home-hero-main.jpg" alt="Tailored Fall 2026 look in natural light" fetchpriority="high" decoding="async">
-        <figcaption>01 / Tailoring / Wool</figcaption>
+  <main>
+    <section class="home-poster" aria-labelledby="home-title">
+      <figure class="home-poster__media reveal">
+        <img src="./assets/feedback/home-hero-main.jpg" alt="ATELIER tailored look in natural light" fetchpriority="high" decoding="async">
+        <figcaption><span>LOOK 01</span><span>VIETNAM / 2026</span></figcaption>
       </figure>
-
-      <div class="campaign-copy reveal">
-        <p class="eyebrow">FALL / WINTER 2026</p>
-        <h1 id="home-title">A wardrobe cut for movement.</h1>
-        <p>Tailoring, knitwear and evening pieces organised as a working wardrobe — less campaign theatre, more proportion, material and fit.</p>
-        <div class="campaign-actions">
-          <a href="shop.html" class="btn-shop">Shop New In</a>
-          <a href="collections.html" class="text-link">View the collection →</a>
+      <div class="home-poster__manifesto reveal">
+        <div class="editorial-index"><span>DROP / 02</span><span>ATELIER / DAILY FORM</span></div>
+        <div>
+          <p class="eyebrow">A WARDROBE FOR THE ACTUAL WEEK</p>
+          <h1 id="home-title">Quiet form.<br><em>Real life.</em></h1>
+          <p class="lede">Sharp pieces for workdays, after-hours and everything between—edited for repeat wear, with prices from 1.29M VND.</p>
         </div>
-      </div>
-
-      <figure class="campaign-frame campaign-frame-offset reveal">
-        <img src="./assets/feedback/home-hero-offset.jpg" alt="Structured silhouette from the Fall 2026 edit" loading="eager" decoding="async">
-        <figcaption>02 / Proportion / Movement</figcaption>
-      </figure>
-
-      <div class="campaign-side-note reveal" aria-label="Collection principles">
-        <span>01 Product</span>
-        <span>02 Material</span>
-        <span>03 Fit</span>
-        <span>04 Service</span>
+        <div class="home-poster__actions">
+          <a href="shop.html" class="btn-primary">Shop the edit</a>
+          <a href="collections.html" class="text-link">See the looks <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="bracket-note"><span>01</span><p>Full look first.<br>Fit and material next.</p></div>
       </div>
     </section>
 
-    <section class="v7-product-band" id="new-in" aria-labelledby="new-in-title">
-      <header class="v7-band-head reveal">
-        <div><p class="eyebrow">NOW / 03 PIECES</p><h2 id="new-in-title">New In</h2></div>
-        <p>Three entry points into the current catalogue. Open a piece for fit, material, care and delivery details.</p>
-        <a href="shop.html" class="text-link">Shop all pieces →</a>
+    <section class="wardrobe-moments" aria-labelledby="moments-title">
+      <header class="section-heading reveal">
+        <p class="eyebrow">THREE WAYS IN</p>
+        <h2 id="moments-title">Dress the moment,<br>not the dress code.</h2>
+        <p>Start with where you are going. Each edit moves directly into pieces you can compare and choose.</p>
       </header>
+      <div class="moment-grid">
+        <a class="moment-card reveal" href="shop.html?category=shirts">
+          <span class="moment-card__index">01 / WORKDAY</span>
+          <img src="./assets/products/pinkparks/soft-stripe-shirt.jpg" alt="Soft Stripe Shirt for a workday look" loading="lazy">
+          <div><strong>Build the line</strong><span>Shirts from 1.49M</span></div>
+        </a>
+        <a class="moment-card moment-card--wide reveal" href="shop.html?collection=evening%20collection">
+          <span class="moment-card__index">02 / AFTER HOURS</span>
+          <img src="./assets/products/pinkparks/draped-wide-leg-set.jpg" alt="Draped Wide-Leg Set for after-hours" loading="lazy">
+          <div><strong>Change the energy</strong><span>Evening from 1.79M</span></div>
+        </a>
+        <a class="moment-card reveal" href="shop.html?category=knitwear">
+          <span class="moment-card__index">03 / WEEKEND</span>
+          <img src="./assets/products/pinkparks/relaxed-v-neck-knit.jpg" alt="Relaxed V-Neck Knit for a weekend look" loading="lazy">
+          <div><strong>Keep it easy</strong><span>Knits from 1.39M</span></div>
+        </a>
+      </div>
+    </section>
 
-      <div class="v7-product-strip">
-        <article class="product-card v7-product-card reveal">
-          <a class="v7-product-image" href="detailproduct.html?id=tailored-coat"><img loading="lazy" src="./assets/products/pinkparks/belted-cropped-jacket.jpg" alt="Tailored Coat in camel wool"></a>
-          <div class="product-info"><div><span>01</span><h3><a href="detailproduct.html?id=tailored-coat">Tailored Coat</a></h3></div><p>Fall 2026</p></div>
+    <section class="current-edit" id="new-in" aria-labelledby="new-in-title">
+      <header class="current-edit__head reveal">
+        <div><p class="eyebrow">CURRENT EDIT / 03</p><h2 id="new-in-title">Pieces with a job.</h2></div>
+        <p>One statement layer, one everyday base, one after-hours switch. Product pages carry the practical details before you decide.</p>
+        <a href="shop.html" class="text-link">View all eight <span aria-hidden="true">→</span></a>
+      </header>
+      <div class="edit-grid">
+        <article class="edit-card reveal">
+          <a href="detailproduct.html?id=tailored-wool-blazer"><img src="./assets/products/pinkparks/belted-cropped-jacket.jpg" alt="Belted Cropped Jacket" loading="lazy"></a>
+          <div><h3><a href="detailproduct.html?id=tailored-wool-blazer">Belted Cropped Jacket</a></h3><span>3.490.000 ₫</span></div>
         </article>
-        <article class="product-card v7-product-card reveal">
-          <a class="v7-product-image" href="detailproduct.html?id=silk-gown"><img loading="lazy" src="./assets/products/pinkparks/tulle-midi-skirt.jpg" alt="Silk Gown with draping detail"></a>
-          <div class="product-info"><div><span>02</span><h3><a href="detailproduct.html?id=silk-gown">Silk Gown</a></h3></div><p>Evening Collection</p></div>
+        <article class="edit-card reveal">
+          <a href="detailproduct.html?id=silk-drape-blouse"><img src="./assets/products/pinkparks/sheer-collar-shirt.jpg" alt="Sheer Collar Shirt" loading="lazy"></a>
+          <div><h3><a href="detailproduct.html?id=silk-drape-blouse">Sheer Collar Shirt</a></h3><span>1.490.000 ₫</span></div>
         </article>
-        <article class="product-card v7-product-card reveal">
-          <a class="v7-product-image" href="detailproduct.html?id=urban-knit"><img loading="lazy" src="./assets/products/pinkparks/striped-open-back-top.jpg" alt="Urban Knit in cream"></a>
-          <div class="product-info"><div><span>03</span><h3><a href="detailproduct.html?id=urban-knit">Urban Knit</a></h3></div><p>Foundations</p></div>
+        <article class="edit-card reveal">
+          <a href="detailproduct.html?id=silk-midnight-gown"><img src="./assets/products/pinkparks/draped-wide-leg-set.jpg" alt="Draped Wide-Leg Set" loading="lazy"></a>
+          <div><h3><a href="detailproduct.html?id=silk-midnight-gown">Draped Wide-Leg Set</a></h3><span>2.990.000 ₫</span></div>
         </article>
       </div>
     </section>
 
-    <section class="v7-collection-spread" aria-labelledby="collection-title">
-      <figure class="v7-collection-image reveal"><img loading="lazy" src="./assets/feedback/home-collection-large-v2.jpg" alt="Fall Winter 2026 tailored collection look"></figure>
-      <div class="v7-collection-title reveal">
-        <p class="eyebrow">COLLECTION / 01</p>
-        <h2 id="collection-title">Fall / Winter<br>Twenty Six</h2>
+    <section class="house-bridge" aria-labelledby="bridge-title">
+      <figure class="reveal"><img src="./assets/feedback/home-editorial.jpg" alt="ATELIER material and silhouette study" loading="lazy"></figure>
+      <div class="house-bridge__copy reveal">
+        <p class="eyebrow">THE HOUSE / ONE RULE</p>
+        <h2 id="bridge-title">The piece supports the person.</h2>
+        <p>Luxury lives in how something fits your week: a clear silhouette, honest product information and enough room to make it yours.</p>
+        <a class="btn-secondary" href="about.html">Read the house codes</a>
       </div>
-      <figure class="v7-collection-detail reveal"><img loading="lazy" src="./assets/feedback/home-collection-small-v2.jpg" alt="Fall Winter 2026 knitwear detail"><figcaption>Soft structure / tactile layers / precise line</figcaption></figure>
-      <div class="v7-collection-copy reveal"><p>Built around repeat wear rather than isolated looks: outer layers, softened tailoring, knit structure and evening pieces that share one proportion system.</p><a href="collections.html" class="btn-outline">Enter the collection</a></div>
-    </section>
-
-    <section class="v7-editorial-break" aria-labelledby="editorial-title">
-      <div class="v7-editorial-statement reveal"><p class="eyebrow">THE EDIT / MATERIAL & FORM</p><h2 id="editorial-title">Look closely.<br>Choose slowly.</h2></div>
-      <figure class="reveal"><img loading="lazy" src="./assets/feedback/home-editorial.jpg" alt="ATELIER editorial material and form study"></figure>
-      <div class="v7-editorial-copy reveal"><p>The visual layer creates desire. The product page answers the decision: silhouette, size, fit, material, care and delivery.</p><a href="shop.html" class="text-link">Explore the catalogue →</a></div>
     </section>
   </main>
 
@@ -139,6 +139,6 @@
       <div class="footer-bottom"><p>© 2026 ATELIER. All rights reserved.</p><p>Vietnam · English edition</p></div>
     </div>
   </footer>
-  <script type="module" src="./main.js?v=journey-v10-1"></script>
+  <script type="module" src="./main.js?v=atelier-v13"></script>
 </body>
 </html>

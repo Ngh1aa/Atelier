@@ -1,10 +1,10 @@
 [
   {
     "id": "tailored-wool-blazer",
-    "name": "Tailored Wool Blazer",
+    "name": "Belted Cropped Jacket",
     "category": "Outerwear",
     "collection": "Fall 2026",
-    "price": 19500000,
+    "price": 3490000,
     "images": [
       "./assets/products/pinkparks/belted-cropped-jacket.jpg"
     ],
@@ -15,19 +15,19 @@
       "L",
       "XL"
     ],
-    "description": "A sharply cut wool blazer with a clean minimalist silhouette, designed for modern everyday tailoring.",
-    "fit": "Structured, straight silhouette. Choose your usual size for a considered tailored fit.",
-    "material": "90% wool, 10% cashmere; cupro lining.",
+    "description": "A cropped jacket with a defined waist and easy volume through the sleeve, built for office-to-evening layering.",
+    "fit": "Cropped, shaped silhouette. Choose your usual size for a close waist or size up for easier layering.",
+    "material": "Structured woven fabric. Exact composition is recorded on the garment care label.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
     "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
     "fallback": "./assets/products/pinkparks/belted-cropped-jacket-512.jpg"
   },
   {
     "id": "cashmere-overcoat",
-    "name": "Cashmere Overcoat",
-    "category": "Outerwear",
+    "name": "Sheer Cape Wrap Top",
+    "category": "Tops",
     "collection": "Fall 2026",
-    "price": 34200000,
+    "price": 1790000,
     "images": [
       "./assets/products/pinkparks/sheer-cape-wrap-top.jpg"
     ],
@@ -37,19 +37,19 @@
       "L",
       "XL"
     ],
-    "description": "Luxuriously soft cashmere overcoat with a timeless, relaxed drape that elevates any winter wardrobe.",
-    "fit": "Relaxed, longline silhouette designed for layering.",
-    "material": "100% cashmere; cupro lining.",
+    "description": "A light wrap layer with cape-like movement, designed to shift a simple base into an after-hours look.",
+    "fit": "Relaxed wrap silhouette with adjustable coverage.",
+    "material": "Lightweight sheer fabric. Exact composition is recorded on the garment care label.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
     "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
     "fallback": "./assets/products/pinkparks/sheer-cape-wrap-top-512.jpg"
   },
   {
     "id": "merino-knit-dress",
-    "name": "Merino Knit Dress",
-    "category": "Knitwear",
+    "name": "Off-Shoulder Sheer Top",
+    "category": "Tops",
     "collection": "Foundations",
-    "price": 14500000,
+    "price": 1290000,
     "images": [
       "./assets/products/pinkparks/off-shoulder-sheer-top.jpg"
     ],
@@ -59,19 +59,19 @@
       "M",
       "L"
     ],
-    "description": "A fluid merino knit dress that balances comfort and elegance, made for effortless day-to-night styling.",
-    "fit": "Fluid close-to-body knit silhouette with comfortable movement.",
-    "material": "100% extra-fine merino wool.",
+    "description": "A softly transparent off-shoulder layer that balances a close neckline with fluid drape.",
+    "fit": "Close through the upper body with a soft, flexible line.",
+    "material": "Fine sheer knit. Exact composition is recorded on the garment care label.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
     "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
     "fallback": "./assets/products/pinkparks/off-shoulder-sheer-top-512.jpg"
   },
   {
     "id": "silk-drape-blouse",
-    "name": "Silk Drape Blouse",
-    "category": "Tees",
+    "name": "Sheer Collar Shirt",
+    "category": "Shirts",
     "collection": "Evening Collection",
-    "price": 11200000,
+    "price": 1490000,
     "images": [
       "./assets/products/pinkparks/sheer-collar-shirt.jpg"
     ],
@@ -81,19 +81,19 @@
       "M",
       "L"
     ],
-    "description": "Weightless silk blouse with a softly draped neckline, a refined statement of quiet luxury.",
-    "fit": "Softly draped silhouette; intended to fall away from the body.",
-    "material": "100% silk.",
+    "description": "A transparent collared shirt with a clean long line, made for tonal layering over a fitted base.",
+    "fit": "Straight, relaxed silhouette intended to fall away from the body.",
+    "material": "Lightweight sheer woven fabric. Exact composition is recorded on the garment care label.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
     "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
     "fallback": "./assets/products/pinkparks/sheer-collar-shirt-512.jpg"
   },
   {
     "id": "linen-wide-trousers",
-    "name": "Linen Wide Trousers",
-    "category": "Denim & Shirts",
+    "name": "Layered Barrel Trousers",
+    "category": "Bottoms",
     "collection": "Foundations",
-    "price": 9800000,
+    "price": 1890000,
     "images": [
       "./assets/products/pinkparks/layered-barrel-pants.jpg"
     ],
@@ -104,43 +104,41 @@
       "32",
       "34"
     ],
-    "description": "Breathable wide-leg linen trousers with a relaxed, tailored finish for warm-weather elegance.",
-    "fit": "Relaxed wide-leg cut. Refer to the waist measurement in the size guide.",
-    "material": "100% linen.",
+    "description": "Layered barrel trousers with a sculpted leg and easy volume, designed to carry a simple top.",
+    "fit": "Relaxed barrel leg. Refer to the waist measurement in the size guide.",
+    "material": "Mid-weight woven fabric. Exact composition is recorded on the garment care label.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
     "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
     "fallback": "./assets/products/pinkparks/layered-barrel-pants-512.jpg"
   },
   {
     "id": "suede-chelsea-boots",
-    "name": "Suede Chelsea Boots",
-    "category": "Shoes",
+    "name": "Relaxed V-Neck Knit",
+    "category": "Knitwear",
     "collection": "Fall 2026",
-    "price": 16800000,
+    "price": 1690000,
     "images": [
       "./assets/products/pinkparks/relaxed-v-neck-knit.jpg"
     ],
     "sizes": [
-      "39",
-      "40",
-      "41",
-      "42",
-      "43",
-      "44"
+      "XS",
+      "S",
+      "M",
+      "L"
     ],
-    "description": "Classic suede Chelsea boots with a sculpted last, crafted for enduring comfort and understated style.",
-    "fit": "Regular fit. Choose your usual footwear size.",
-    "material": "Calf suede upper with leather lining and sole.",
+    "description": "A relaxed V-neck knit with dropped volume, intended as an easy foundation for workdays and weekends.",
+    "fit": "Relaxed fit. Choose your usual size for the intended drape.",
+    "material": "Soft knit fabric. Exact composition is recorded on the garment care label.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Designed in Vietnam. Origin details are recorded inside the shoe.",
+    "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
     "fallback": "./assets/products/pinkparks/relaxed-v-neck-knit-512.jpg"
   },
   {
     "id": "viscose-wrap-top",
-    "name": "Viscose Wrap Top",
-    "category": "Tees",
+    "name": "Sheer Knit Cape Top",
+    "category": "Knitwear",
     "collection": "Foundations",
-    "price": 8500000,
+    "price": 1390000,
     "images": [
       "./assets/products/pinkparks/sheer-knit-cape-top.jpg"
     ],
@@ -150,38 +148,41 @@
       "M",
       "L"
     ],
-    "description": "A fluid viscose wrap top with an adjustable silhouette, effortlessly feminine and easy to layer.",
-    "fit": "Adjustable wrap silhouette, designed for a personalised fit.",
-    "material": "100% viscose.",
+    "description": "An open knit cape top that adds movement and texture without weighing down the base layer.",
+    "fit": "Easy cape silhouette with generous movement through the body.",
+    "material": "Open fine-gauge knit. Exact composition is recorded on the garment care label.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
     "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
     "fallback": "./assets/products/pinkparks/sheer-knit-cape-top-512.jpg"
   },
   {
     "id": "leather-minimal-tote",
-    "name": "Leather Minimal Tote",
-    "category": "Accessories",
+    "name": "Soft Stripe Shirt",
+    "category": "Shirts",
     "collection": "Essentials",
-    "price": 21000000,
+    "price": 1590000,
     "images": [
       "./assets/products/pinkparks/soft-stripe-shirt.jpg"
     ],
     "sizes": [
-      "One Size"
+      "XS",
+      "S",
+      "M",
+      "L"
     ],
-    "description": "A structured full-grain leather tote with clean lines and generous capacity for daily essentials.",
-    "fit": "One-size accessory with a structured everyday proportion.",
-    "material": "Full-grain calf leather with cotton lining.",
+    "description": "A soft striped shirt with a relaxed line, designed to move between a clean work layer and an easy weekend piece.",
+    "fit": "Relaxed straight silhouette. Choose your usual size for the intended drape.",
+    "material": "Soft striped woven fabric. Exact composition is recorded on the garment care label.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
-    "origin": "Designed in Vietnam. Origin details are recorded inside the bag.",
+    "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
     "fallback": "./assets/products/pinkparks/soft-stripe-shirt-512.jpg"
   },
   {
     "id": "tailored-coat",
-    "name": "Tailored Coat",
-    "category": "Knitwear",
+    "name": "Cropped Belted Jacket — Archive",
+    "category": "Outerwear",
     "collection": "Fall 2026",
-    "price": 24500000,
+    "price": 3290000,
     "images": [
       "./assets/products/pinkparks/belted-cropped-jacket.jpg"
     ],
@@ -191,19 +192,19 @@
       "L",
       "XL"
     ],
-    "description": "Elegant camel-wool coat with a minimalist silhouette, tailored for the modern wardrobe.",
-    "fit": "Relaxed tailored silhouette designed to layer over knitwear.",
-    "material": "90% wool, 10% cashmere; cupro lining.",
+    "description": "An archive colourway of the cropped belted jacket, with a defined waist and soft sleeve volume.",
+    "fit": "Cropped, shaped silhouette with room for a fine base layer.",
+    "material": "Structured woven fabric. Exact composition is recorded on the garment care label.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
     "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
     "fallback": "./assets/products/pinkparks/belted-cropped-jacket-512.jpg"
   },
   {
     "id": "silk-gown",
-    "name": "Silk Gown",
-    "category": "Evening",
+    "name": "Tulle Midi Skirt",
+    "category": "Bottoms",
     "collection": "Evening Collection",
-    "price": 38000000,
+    "price": 2490000,
     "images": [
       "./assets/products/pinkparks/tulle-midi-skirt.jpg"
     ],
@@ -213,19 +214,19 @@
       "M",
       "L"
     ],
-    "description": "Luxe silk gown with draping detail, perfect for gala events and unforgettable evenings.",
-    "fit": "Fluid draped silhouette with a close, elongated line.",
-    "material": "100% silk with silk lining.",
+    "description": "A layered tulle midi skirt that adds transparent volume to a close knit or simple shirt.",
+    "fit": "Defined waist with a fluid mid-length silhouette.",
+    "material": "Layered tulle with lining. Exact composition is recorded on the garment care label.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
     "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
     "fallback": "./assets/products/pinkparks/tulle-midi-skirt-512.jpg"
   },
   {
     "id": "urban-knit",
-    "name": "Urban Knit",
+    "name": "Striped Open-Back Top",
     "category": "Knitwear",
     "collection": "Foundations",
-    "price": 7200000,
+    "price": 1490000,
     "images": [
       "./assets/products/pinkparks/striped-open-back-top.jpg"
     ],
@@ -235,19 +236,19 @@
       "L",
       "XL"
     ],
-    "description": "A soft urban knit sweater in cream, the quiet foundation of an intentional everyday wardrobe.",
-    "fit": "Easy, relaxed knit silhouette intended for everyday layering.",
-    "material": "100% extra-fine merino wool.",
+    "description": "A striped knit with an open-back detail, balancing a familiar front with an after-hours turn.",
+    "fit": "Close, flexible knit silhouette.",
+    "material": "Fine striped knit. Exact composition is recorded on the garment care label.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
     "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
     "fallback": "./assets/products/pinkparks/striped-open-back-top-512.jpg"
   },
   {
     "id": "silk-midnight-gown",
-    "name": "Silk Midnight Gown",
+    "name": "Draped Wide-Leg Set",
     "category": "Evening",
     "collection": "Evening Collection",
-    "price": 58900000,
+    "price": 2990000,
     "images": [
       "./assets/products/pinkparks/draped-wide-leg-set.jpg"
     ],
@@ -258,9 +259,9 @@
       "L",
       "XL"
     ],
-    "description": "Exquisitely tailored from 100% heavy-weight mulberry silk, the Midnight Gown features a fluid bias-cut silhouette that skims the form. A masterful expression of minimalist luxury, designed for the modern muse.",
-    "fit": "Bias-cut silhouette with a close, fluid line.",
-    "material": "100% heavy-weight mulberry silk.",
+    "description": "A fluid matching set with a long line and wide-leg movement, designed as one decisive evening look.",
+    "fit": "Fluid silhouette with a relaxed wide leg.",
+    "material": "Draped woven fabric. Exact composition is recorded on the garment care label.",
     "care": "Please follow the care label supplied with the garment. General guidance is available in the Care Guide.",
     "origin": "Designed in Vietnam. Origin details are recorded on the garment label.",
     "fallback": "./assets/products/pinkparks/draped-wide-leg-set-512.jpg"

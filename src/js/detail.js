@@ -9,13 +9,13 @@ import {
   loadProducts,
   toggleWishlist,
   track,
-} from "./commerce-store.js?v=white-editorial-v6";
-import { escapeHtml, openMiniBag, openSizeGuide, showMessage } from "./commerce-ui.js?v=white-editorial-v6";
+} from "./commerce-store.js?v=atelier-v13";
+import { escapeHtml, openMiniBag, openSizeGuide, showMessage } from "./commerce-ui.js?v=atelier-v13";
 
 export async function renderDetail() {
   const products = await loadProducts();
   const requestedId = new URLSearchParams(window.location.search).get("id");
-  const product = products.find((item) => item.id === requestedId) || products.find((item) => item.id === "silk-midnight-gown") || products[0];
+  const product = products.find((item) => item.id === requestedId) || products[0];
   if (!product) return;
 
   addRecentlyViewed(product.id);
@@ -72,11 +72,7 @@ export async function renderDetail() {
     history.replaceState({}, "", `${location.pathname}?${next.toString()}`);
   };
 
-  let sticky;
-  const syncSticky = () => {
-    if (!sticky) return;
-    sticky.querySelector("span").textContent = selectedSize ? `Size ${selectedSize}` : "Select size";
-  };
+  const syncSticky = () => {};
 
   const renderSizes = () => {
     const sizes = getAvailableSizes(product, selectedColor);
@@ -162,24 +158,4 @@ export async function renderDetail() {
     relatedWrap.innerHTML = related.map((item) => `<a class="related-item" href="detailproduct.html?id=${encodeURIComponent(item.id)}"><img loading="lazy" src="${escapeHtml(item.images[0])}" alt="${escapeHtml(item.name)}"><h4>${escapeHtml(item.name)}</h4><p>${formatVND(item.price)}</p></a>`).join("");
   }
 
-  sticky = document.createElement("div");
-  sticky.className = "mobile-purchase-bar";
-  sticky.innerHTML = `<span>${selectedSize ? `Size ${escapeHtml(selectedSize)}` : "Select size"}</span><button type="button">Add to Bag</button>`;
-  sticky.querySelector("button").addEventListener("click", addSelection);
-  document.body.appendChild(sticky);
-
-  const updateStickyVisibility = () => {
-    sticky.classList.toggle("is-visible", addButton.getBoundingClientRect().bottom < 0);
-  };
-  let stickyFrame = 0;
-  const requestStickyUpdate = () => {
-    if (stickyFrame) return;
-    stickyFrame = window.requestAnimationFrame(() => {
-      stickyFrame = 0;
-      updateStickyVisibility();
-    });
-  };
-  updateStickyVisibility();
-  window.addEventListener("scroll", requestStickyUpdate, { passive: true });
-  window.addEventListener("resize", requestStickyUpdate, { passive: true });
 }
