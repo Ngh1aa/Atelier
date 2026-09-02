@@ -117,9 +117,9 @@ function productCard(product) {
   return `
     <article class="product-item-wrap js-product-item" data-id="${escapeHtml(product.id)}">
       <div class="product-grid-item">
-        <div class="product-grid-item__image" style="--product-image:url('${escapeHtml(product.images[0])}')">
+        <div class="product-grid-item__image">
           <a class="js-plp-product-link" href="detailproduct.html?id=${encodeURIComponent(product.id)}">
-            <img src="${escapeHtml(product.images[0])}" data-fallback-src="${escapeHtml(product.fallback || "")}" alt="${escapeHtml(product.name)}" loading="eager" decoding="async" width="900" height="1200" class="js-grid-img-front">
+            <img src="${escapeHtml(product.images[0])}" alt="${escapeHtml(product.name)}" class="js-grid-img-front">
             ${product.images[1] ? `<img src="${escapeHtml(product.images[1])}" alt="" aria-hidden="true" class="js-grid-img-back" loading="lazy">` : ""}
           </a>
           <div class="product-grid-item__hover"><button class="product-grid-item__add-to-cart js-quick-add" data-product-id="${escapeHtml(product.id)}" type="button">Select size +</button></div>
