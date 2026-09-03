@@ -63,12 +63,21 @@
 
             <section class="color-selection" aria-labelledby="product-colour-heading">
               <div class="size-header"><span id="product-colour-heading">Colour</span><strong class="js-color-label">Black</strong></div>
-              <div class="pdp-color-options js-color-options" role="group" aria-label="Choose colour"></div>
+              <div class="pdp-color-options js-color-options" role="group" aria-label="Choose colour">
+                <button type="button" class="pdp-color-option is-selected" data-color="black" aria-pressed="true"><i style="--swatch:#151515"></i><span>Black</span></button>
+                <button type="button" class="pdp-color-option" data-color="ivory" aria-pressed="false"><i style="--swatch:#d9d2c4"></i><span>Ivory</span></button>
+              </div>
             </section>
 
             <section class="size-selection" aria-labelledby="product-size-heading">
               <div class="size-header"><span id="product-size-heading">Choose size</span><button type="button" class="size-guide js-pdp-size-guide">Size Guide</button></div>
-              <div class="size-options js-size-options" role="group" aria-label="Choose size"></div>
+              <div class="size-options js-size-options" role="group" aria-label="Choose size">
+                <button type="button" data-size="XS" aria-pressed="false">XS</button>
+                <button type="button" data-size="S" aria-pressed="false">S</button>
+                <button type="button" data-size="M" aria-pressed="false">M</button>
+                <button type="button" data-size="L" aria-pressed="false">L</button>
+                <button type="button" data-size="XL" aria-pressed="false">XL</button>
+              </div>
               <p class="pdp-selection-error js-pdp-selection-error" aria-live="polite"></p>
             </section>
 

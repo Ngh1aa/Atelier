@@ -77,35 +77,71 @@ export async function renderDetail() {
   const renderSizes = () => {
     const sizes = getAvailableSizes(product, selectedColor);
     if (!sizes.some((item) => item.size === selectedSize && item.stock > 0)) selectedSize = product.requiresSize ? null : "One Size";
-    sizeOptions.innerHTML = sizes.map(({ size, stock }) => `<button type="button" data-size="${escapeHtml(size)}" class="${size === selectedSize ? "is-selected" : ""}" aria-pressed="${size === selectedSize}" ${stock < 1 ? `disabled aria-label="${escapeHtml(size)}, unavailable"` : ""}>${escapeHtml(size)}</button>`).join("");
-    sizeOptions.querySelectorAll("button:not(:disabled)").forEach((button) => button.addEventListener("click", () => {
-      selectedSize = button.dataset.size;
-      selectionError.textContent = "";
-      sizeOptions.querySelectorAll("button").forEach((item) => {
-        item.classList.toggle("is-selected", item === button);
-        item.setAttribute("aria-pressed", String(item === button));
-      });
-      syncSticky();
-      track("select_size", { product_id: product.id, size: selectedSize });
-    }));
+    const buttons = [...sizeOptions.querySelectorAll("button")];
+    while (buttons.length < sizes.length) {
+      const button = document.createElement("button");
+      button.type = "button";
+      sizeOptions.appendChild(button);
+      buttons.push(button);
+    }
+    buttons.forEach((button, index) => {
+      const option = sizes[index];
+      button.hidden = !option;
+      if (!option) return;
+      button.dataset.size = option.size;
+      button.textContent = option.size;
+      button.disabled = option.stock < 1;
+      button.setAttribute("aria-pressed", String(option.size === selectedSize));
+      button.classList.toggle("is-selected", option.size === selectedSize);
+      if (option.stock < 1) button.setAttribute("aria-label", `${option.size}, unavailable`);
+      else button.removeAttribute("aria-label");
+      button.onclick = () => {
+        selectedSize = button.dataset.size;
+        selectionError.textContent = "";
+        sizeOptions.querySelectorAll("button").forEach((item) => {
+          item.classList.toggle("is-selected", item === button);
+          item.setAttribute("aria-pressed", String(item === button));
+        });
+        syncSticky();
+        track("select_size", { product_id: product.id, size: selectedSize });
+      };
+    });
     syncSticky();
   };
 
   const renderColors = () => {
     colorLabel.textContent = product.colors.find((color) => color.value === selectedColor)?.name || "";
-    colorOptions.innerHTML = product.colors.map((color) => `<button type="button" class="pdp-color-option${color.value === selectedColor ? " is-selected" : ""}" data-color="${escapeHtml(color.value)}" aria-pressed="${color.value === selectedColor}"><i style="--swatch:${escapeHtml(color.hex)}"></i><span>${escapeHtml(color.name)}</span></button>`).join("");
-    colorOptions.querySelectorAll("button").forEach((button) => button.addEventListener("click", () => {
-      selectedColor = button.dataset.color;
-      colorLabel.textContent = product.colors.find((color) => color.value === selectedColor)?.name || "";
-      colorOptions.querySelectorAll("button").forEach((item) => {
-        item.classList.toggle("is-selected", item === button);
-        item.setAttribute("aria-pressed", String(item === button));
-      });
-      selectionError.textContent = "";
-      renderSizes();
-      syncUrl();
-      track("select_color", { product_id: product.id, color: selectedColor });
-    }));
+    const buttons = [...colorOptions.querySelectorAll("button")];
+    while (buttons.length < product.colors.length) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "pdp-color-option";
+      button.innerHTML = "<i></i><span></span>";
+      colorOptions.appendChild(button);
+      buttons.push(button);
+    }
+    buttons.forEach((button, index) => {
+      const color = product.colors[index];
+      button.hidden = !color;
+      if (!color) return;
+      button.dataset.color = color.value;
+      button.querySelector("i").style.setProperty("--swatch", color.hex);
+      button.querySelector("span").textContent = color.name;
+      button.classList.toggle("is-selected", color.value === selectedColor);
+      button.setAttribute("aria-pressed", String(color.value === selectedColor));
+      button.onclick = () => {
+        selectedColor = button.dataset.color;
+        colorLabel.textContent = product.colors.find((item) => item.value === selectedColor)?.name || "";
+        colorOptions.querySelectorAll("button").forEach((item) => {
+          item.classList.toggle("is-selected", item === button);
+          item.setAttribute("aria-pressed", String(item === button));
+        });
+        selectionError.textContent = "";
+        renderSizes();
+        syncUrl();
+        track("select_color", { product_id: product.id, color: selectedColor });
+      };
+    });
   };
 
   const addSelection = () => {
