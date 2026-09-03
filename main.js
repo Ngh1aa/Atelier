@@ -2,57 +2,6 @@
 import "./src/js/app.js?v=atelier-v13";
 import "./src/main.js?v=atelier-v13";
 
-function ensureLegacyDesignOwner() {
-  if (document.querySelector('link[href*="atelier-v13.css"]')) return;
-  document.querySelectorAll(
-    'link[data-atelier-design-owner], link[href*="atelier-v9.css"], link[href*="atelier-v9-integrity.css"], link[href*="atelier-v10.css"], link[href*="atelier-v10-fixes.css"]'
-  ).forEach((sheet) => sheet.remove());
-
-  const sheets = [
-    ["./atelier-v11.css?v=commerce-reset-v11-1", "atelier-v11.css", "v11-commerce-reset"],
-    ["./atelier-v11-fixes.css?v=portrait-media-v11-4", "atelier-v11-fixes.css", "v11-portrait-media"],
-    ["./atelier-v11-portrait.css?v=portrait-hardening-v11-6", "atelier-v11-portrait.css", "v11-portrait-hardening"],
-    ["./atelier-v12.css?v=sharp-youth-v12-1", "atelier-v12.css", "v12-sharp-youth-luxury"],
-    ["./atelier-v12-white.css?v=full-white-v12-2", "atelier-v12-white.css", "v12-full-white-monochrome"],
-    ["./atelier-media-integrity.css?v=sitewide-media-1", "atelier-media-integrity.css", "sitewide-media-integrity"],
-  ];
-
-  sheets.forEach(([href, match, owner]) => {
-    if (document.querySelector(`link[href*="${match}"]`)) return;
-    const sheet = document.createElement("link");
-    sheet.rel = "stylesheet";
-    sheet.href = href;
-    sheet.dataset.atelierDesignOwner = owner;
-    document.head.appendChild(sheet);
-  });
-
-  // Preserve V11 structural owner for the existing regression baseline while exposing
-  // the active V12 composition with a final monochrome presentation layer.
-  document.documentElement.dataset.atelierDesign = "v11-commerce";
-  document.documentElement.dataset.atelierStyle = "sharp-youth-luxury";
-  document.documentElement.dataset.atelierPalette = "full-white";
-}
-
-function addPageClass() {
-  const path = location.pathname;
-  const routes = [
-    [/index\.html$|\/$/, ["v11-home"]],
-    [/shop\.html$/, ["v11-shop", "v12-shop-page"]],
-    [/detailproduct\.html$/, ["v11-pdp"]],
-    [/cart\.html$/, ["v11-bag"]],
-    [/checkout\.html$/, ["v11-checkout"]],
-    [/collections\.html$/, ["v11-collections"]],
-    [/about\.html$/, ["v11-house", "v12-house-page"]],
-    [/favourite\.html$/, ["v11-saved"]],
-    [/order\.html$/, ["v11-order"]],
-    [/(client-services)\.html$/, ["v11-service", "v12-service-page"]],
-    [/(size-guide|care-guide|shipping&returns|contact)\.html$/, ["v11-service"]],
-  ];
-  routes.forEach(([pattern, classNames]) => {
-    if (pattern.test(path)) classNames.forEach((className) => document.body.classList.add(className));
-  });
-}
-
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const revealObserver = !reducedMotion && "IntersectionObserver" in window
   ? new IntersectionObserver((entries) => {
@@ -87,10 +36,7 @@ function initBackToTop() {
   window.addEventListener("scroll", sync, { passive: true });
 }
 
-ensureLegacyDesignOwner();
-
 document.addEventListener("DOMContentLoaded", () => {
-  addPageClass();
   initReveal();
   initScrollState();
   initBackToTop();

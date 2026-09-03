@@ -54,5 +54,5 @@ test("guest wishlist and local order lifecycle persist", async () => {
     total: 0,
     paymentMethod: "cod",
   });
-  assert.equal(store.getOrder(order.id).paymentStatus, "pending");
+  assert.equal(store.getOrder(order.id).paymentStatus, "pending-local");
 });
