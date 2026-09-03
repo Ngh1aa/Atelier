@@ -1,5 +1,5 @@
-import { formatVND, getWishlist, loadProducts, toggleWishlist } from "./commerce-store.js?v=white-editorial-v6";
-import { escapeHtml, openVariantPicker, showMessage } from "./commerce-ui.js?v=white-editorial-v6";
+import { formatVND, getWishlist, loadProducts, toggleWishlist } from "./commerce-store.js?v=atelier-v13";
+import { escapeHtml, openVariantPicker, showMessage } from "./commerce-ui.js?v=atelier-v13";
 
 export async function renderFavourite() {
   const grid = document.querySelector(".js-favourite-grid");
@@ -12,7 +12,7 @@ export async function renderFavourite() {
     const items = wishlist.map((saved) => ({ saved, product: products.find((product) => product.id === saved.productId) })).filter(({ product }) => product);
     if (count) count.textContent = `${items.length} item${items.length === 1 ? "" : "s"} saved`;
     if (!items.length) {
-      grid.innerHTML = `<div class="saved-empty-state"><h2>No saved pieces yet.</h2><p>Keep considered pieces close while you decide.</p><a href="shop.html" class="btn-outline">Explore the collection <span aria-hidden="true">→</span></a></div>`;
+      if (!grid.querySelector(".saved-empty-state")) grid.innerHTML = `<div class="saved-empty-state"><h2>No saved pieces yet.</h2><p>Keep considered pieces close while you decide.</p><a href="shop.html" class="btn-outline">Explore the collection <span aria-hidden="true">→</span></a></div>`;
       return;
     }
     grid.innerHTML = items.map(({ product, saved }) => `
