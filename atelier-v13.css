@@ -542,6 +542,10 @@
   .summary-items { display: grid; gap: 12px; }
   .summary-item { display: grid; grid-template-columns: 64px 1fr auto; gap: 12px; align-items: center; }
   .summary-item img { width: 64px; height: 82px; object-fit: contain; background: var(--paper); }
+  .summary-item .item-details { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+  .summary-item .item-name { display: block; font-size: 16px; line-height: 1.15; }
+  .summary-item .item-variant { display: block; color: var(--muted); font-size: 11px; line-height: 1.35; }
+  .summary-item .item-price { white-space: nowrap; font-size: 12px; }
   .checkout-footer { border-top: 1px solid var(--rule); padding: 22px 0; }
   .checkout-footer .container { display: flex; justify-content: space-between; }
 
