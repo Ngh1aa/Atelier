@@ -9,8 +9,8 @@ import {
   removeCartItem,
   saveForLater,
   updateCartQuantity,
-} from "./commerce-store.js?v=white-editorial-v6";
-import { escapeHtml, showMessage } from "./commerce-ui.js?v=white-editorial-v6";
+} from "./commerce-store.js?v=atelier-v13";
+import { escapeHtml, showMessage } from "./commerce-ui.js?v=atelier-v13";
 
 const PROMO_KEY = "atelier.promo";
 
@@ -59,7 +59,11 @@ export async function renderCart() {
 
   const paint = async () => {
     const lines = await hydrateCart();
-    list.innerHTML = lines.length ? `${lines.map(lineMarkup).join("")}<a href="shop.html" class="continue-shopping">← Continue Shopping</a>` : emptyState();
+    if (lines.length) {
+      list.innerHTML = `${lines.map(lineMarkup).join("")}<a href="shop.html" class="continue-shopping">← Continue Shopping</a>`;
+    } else if (!list.querySelector(".cart-empty-state")) {
+      list.innerHTML = emptyState();
+    }
     bindLines(lines);
     updateSummary(lines);
   };
