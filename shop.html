@@ -10,11 +10,11 @@
   <meta property="og:description" content="The current ATELIER edit: a sharper catalogue for Fall 2026." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ngh1aa.github.io/Atelier/shop.html" />
-  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./atelier-v13.css?v=atelier-v13" />
   <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
   <script>document.documentElement.classList.add("js-enabled")</script>
 </head>
-<body class="js-enabled v7 v7-shop v12-shop-page">
+<body class="js-enabled v13 page-shop">
   <nav aria-label="Primary navigation">
     <div class="container nav-container">
       <ul class="nav-links left">
@@ -43,46 +43,21 @@
   </div>
 
   <main>
-    <section class="v12-shop-hero" aria-labelledby="shop-hero-title">
-      <div class="container v12-shop-hero-grid">
-        <div class="v12-shop-copy reveal">
-          <div class="v12-shop-copy-top">
-            <p class="eyebrow">DROP 01 / FALL 2026</p>
-            <h1 class="v12-display" id="shop-hero-title">New.<br><em>Right now.</em></h1>
-            <p class="v12-copy">Tailoring, knits and pieces for the hours after work. The edit is small enough to know, sharp enough to keep moving.</p>
-          </div>
-          <div class="v12-shop-actions">
-            <div class="v12-chip-row" aria-label="Featured categories">
-              <a class="v12-chip" href="shop.html?category=outerwear">Outerwear</a>
-              <a class="v12-chip" href="shop.html?category=knitwear">Knitwear</a>
-              <a class="v12-chip" href="shop.html?category=tees">Tops</a>
-              <a class="v12-chip" href="shop.html?category=accessories">Accessories</a>
-            </div>
-            <a class="text-link" href="#catalogue">Skip to catalogue <span aria-hidden="true">↓</span></a>
-          </div>
-        </div>
-        <div class="v12-shop-visual reveal" aria-label="ATELIER Fall 2026 edit">
-          <span class="v12-shop-stamp">ATELIER / 26</span>
-          <figure><img src="./assets/feedback/home-collection-large-v2.jpg" alt="ATELIER Fall 2026 styling in black" loading="eager" /></figure>
-          <figure><img src="./assets/feedback/home-editorial.jpg" alt="ATELIER editorial styling study" loading="eager" /></figure>
-        </div>
-      </div>
-    </section>
-
     <section class="shop-page" id="catalogue" aria-labelledby="shop-title">
       <div class="container">
-        <header class="shop-intro reveal">
-          <div>
-            <p class="eyebrow">THE CATALOGUE / 08 PIECES</p>
-            <div class="shop-intro-grid"><h2 id="shop-title">Shop the edit</h2></div>
+        <header class="catalogue-header reveal">
+          <div class="catalogue-header__title">
+            <p class="eyebrow">NEW IN / DROP 02</p>
+            <h1 id="shop-title">The current edit.</h1>
           </div>
+          <p>Eight pieces for workdays, after-hours and weekends. Start with the role, then compare fit, material and price.</p>
           <nav class="shop-category-shortcuts" aria-label="Shop by category">
             <a href="shop.html">All pieces</a>
             <a href="shop.html?category=outerwear">Outerwear</a>
             <a href="shop.html?category=knitwear">Knitwear</a>
-            <a href="shop.html?category=tees">Tops</a>
-            <a href="shop.html?category=denim%20%26%20shirts">Bottoms</a>
-            <a href="shop.html?category=accessories">Accessories</a>
+            <a href="shop.html?category=tops">Tops</a>
+            <a href="shop.html?category=shirts">Shirts</a>
+            <a href="shop.html?category=bottoms">Bottoms</a>
           </nav>
         </header>
 
@@ -92,19 +67,26 @@
 
         <div class="shop-grid-container reveal">
           <div class="shop-grid js-shop-grid" aria-live="polite">
-            <noscript><p class="shop-noscript">JavaScript is required to filter and load the current product catalogue.</p></noscript>
+            <article class="product-item-wrap js-product-item" data-id="tailored-wool-blazer"><div class="product-grid-item"><div class="product-grid-item__image"><a class="js-plp-product-link" href="detailproduct.html?id=tailored-wool-blazer"><img src="./assets/products/pinkparks/belted-cropped-jacket.jpg" alt="Belted Cropped Jacket"></a><div class="product-grid-item__hover"><button class="product-grid-item__add-to-cart js-quick-add" data-product-id="tailored-wool-blazer" type="button">Select size +</button></div></div><div class="product-grid-item__content"><div><h2 class="product-grid-item__title"><a class="js-plp-product-link" href="detailproduct.html?id=tailored-wool-blazer">Belted Cropped Jacket</a></h2><p class="product-grid-item__price">3.490.000 ₫</p></div><button class="js-wishlist-btn" data-product-id="tailored-wool-blazer" type="button" aria-label="Save Belted Cropped Jacket" aria-pressed="false">♡</button></div></div></article>
+            <article class="product-item-wrap js-product-item" data-id="cashmere-overcoat"><div class="product-grid-item"><div class="product-grid-item__image"><a class="js-plp-product-link" href="detailproduct.html?id=cashmere-overcoat"><img src="./assets/products/pinkparks/sheer-cape-wrap-top.jpg" alt="Sheer Cape Wrap Top"></a><div class="product-grid-item__hover"><button class="product-grid-item__add-to-cart js-quick-add" data-product-id="cashmere-overcoat" type="button">Select size +</button></div></div><div class="product-grid-item__content"><div><h2 class="product-grid-item__title"><a class="js-plp-product-link" href="detailproduct.html?id=cashmere-overcoat">Sheer Cape Wrap Top</a></h2><p class="product-grid-item__price">1.790.000 ₫</p></div><button class="js-wishlist-btn" data-product-id="cashmere-overcoat" type="button" aria-label="Save Sheer Cape Wrap Top" aria-pressed="false">♡</button></div></div></article>
+            <article class="product-item-wrap js-product-item" data-id="merino-knit-dress"><div class="product-grid-item"><div class="product-grid-item__image"><a class="js-plp-product-link" href="detailproduct.html?id=merino-knit-dress"><img src="./assets/products/pinkparks/off-shoulder-sheer-top.jpg" alt="Off-Shoulder Sheer Top"></a><div class="product-grid-item__hover"><button class="product-grid-item__add-to-cart js-quick-add" data-product-id="merino-knit-dress" type="button">Select size +</button></div></div><div class="product-grid-item__content"><div><h2 class="product-grid-item__title"><a class="js-plp-product-link" href="detailproduct.html?id=merino-knit-dress">Off-Shoulder Sheer Top</a></h2><p class="product-grid-item__price">1.290.000 ₫</p></div><button class="js-wishlist-btn" data-product-id="merino-knit-dress" type="button" aria-label="Save Off-Shoulder Sheer Top" aria-pressed="false">♡</button></div></div></article>
+            <article class="product-item-wrap js-product-item" data-id="silk-drape-blouse"><div class="product-grid-item"><div class="product-grid-item__image"><a class="js-plp-product-link" href="detailproduct.html?id=silk-drape-blouse"><img src="./assets/products/pinkparks/sheer-collar-shirt.jpg" alt="Sheer Collar Shirt"></a><div class="product-grid-item__hover"><button class="product-grid-item__add-to-cart js-quick-add" data-product-id="silk-drape-blouse" type="button">Select size +</button></div></div><div class="product-grid-item__content"><div><h2 class="product-grid-item__title"><a class="js-plp-product-link" href="detailproduct.html?id=silk-drape-blouse">Sheer Collar Shirt</a></h2><p class="product-grid-item__price">1.490.000 ₫</p></div><button class="js-wishlist-btn" data-product-id="silk-drape-blouse" type="button" aria-label="Save Sheer Collar Shirt" aria-pressed="false">♡</button></div></div></article>
+            <article class="product-item-wrap js-product-item" data-id="linen-wide-trousers"><div class="product-grid-item"><div class="product-grid-item__image"><a class="js-plp-product-link" href="detailproduct.html?id=linen-wide-trousers"><img src="./assets/products/pinkparks/layered-barrel-pants.jpg" alt="Layered Barrel Trousers" loading="lazy"></a><div class="product-grid-item__hover"><button class="product-grid-item__add-to-cart js-quick-add" data-product-id="linen-wide-trousers" type="button">Select size +</button></div></div><div class="product-grid-item__content"><div><h2 class="product-grid-item__title"><a class="js-plp-product-link" href="detailproduct.html?id=linen-wide-trousers">Layered Barrel Trousers</a></h2><p class="product-grid-item__price">1.890.000 ₫</p></div><button class="js-wishlist-btn" data-product-id="linen-wide-trousers" type="button" aria-label="Save Layered Barrel Trousers" aria-pressed="false">♡</button></div></div></article>
+            <article class="product-item-wrap js-product-item" data-id="suede-chelsea-boots"><div class="product-grid-item"><div class="product-grid-item__image"><a class="js-plp-product-link" href="detailproduct.html?id=suede-chelsea-boots"><img src="./assets/products/pinkparks/relaxed-v-neck-knit.jpg" alt="Relaxed V-Neck Knit" loading="lazy"></a><div class="product-grid-item__hover"><button class="product-grid-item__add-to-cart js-quick-add" data-product-id="suede-chelsea-boots" type="button">Select size +</button></div></div><div class="product-grid-item__content"><div><h2 class="product-grid-item__title"><a class="js-plp-product-link" href="detailproduct.html?id=suede-chelsea-boots">Relaxed V-Neck Knit</a></h2><p class="product-grid-item__price">1.690.000 ₫</p></div><button class="js-wishlist-btn" data-product-id="suede-chelsea-boots" type="button" aria-label="Save Relaxed V-Neck Knit" aria-pressed="false">♡</button></div></div></article>
+            <article class="product-item-wrap js-product-item" data-id="viscose-wrap-top"><div class="product-grid-item"><div class="product-grid-item__image"><a class="js-plp-product-link" href="detailproduct.html?id=viscose-wrap-top"><img src="./assets/products/pinkparks/sheer-knit-cape-top.jpg" alt="Sheer Knit Cape Top" loading="lazy"></a><div class="product-grid-item__hover"><button class="product-grid-item__add-to-cart js-quick-add" data-product-id="viscose-wrap-top" type="button">Select size +</button></div></div><div class="product-grid-item__content"><div><h2 class="product-grid-item__title"><a class="js-plp-product-link" href="detailproduct.html?id=viscose-wrap-top">Sheer Knit Cape Top</a></h2><p class="product-grid-item__price">1.390.000 ₫</p></div><button class="js-wishlist-btn" data-product-id="viscose-wrap-top" type="button" aria-label="Save Sheer Knit Cape Top" aria-pressed="false">♡</button></div></div></article>
+            <article class="product-item-wrap js-product-item" data-id="leather-minimal-tote"><div class="product-grid-item"><div class="product-grid-item__image"><a class="js-plp-product-link" href="detailproduct.html?id=leather-minimal-tote"><img src="./assets/products/pinkparks/soft-stripe-shirt.jpg" alt="Soft Stripe Shirt" loading="lazy"></a><div class="product-grid-item__hover"><button class="product-grid-item__add-to-cart js-quick-add" data-product-id="leather-minimal-tote" type="button">Select size +</button></div></div><div class="product-grid-item__content"><div><h2 class="product-grid-item__title"><a class="js-plp-product-link" href="detailproduct.html?id=leather-minimal-tote">Soft Stripe Shirt</a></h2><p class="product-grid-item__price">1.590.000 ₫</p></div><button class="js-wishlist-btn" data-product-id="leather-minimal-tote" type="button" aria-label="Save Soft Stripe Shirt" aria-pressed="false">♡</button></div></div></article>
           </div>
         </div>
 
-        <section class="v12-shop-footer-story reveal" aria-labelledby="shop-story-title">
-          <div class="v12-shop-footer-story-inner">
+        <section class="catalogue-exit reveal" aria-labelledby="shop-story-title">
+          <div class="catalogue-exit__inner">
             <div>
-              <p class="eyebrow">AFTER THE GRID</p>
-              <h2 id="shop-story-title">Want the mood, not just the SKU?</h2>
+              <p class="eyebrow">NEED THE LOOK?</p>
+              <h2 id="shop-story-title">See how the pieces move together.</h2>
             </div>
-            <div class="v12-chip-row">
-              <a class="v12-chip" href="collections.html">See Collections</a>
-              <a class="v12-chip" href="about.html">Enter The House</a>
+            <div class="catalogue-exit__links">
+              <a class="btn-secondary" href="collections.html">View the lookbook</a>
+              <a class="text-link" href="about.html">Read the house codes →</a>
             </div>
           </div>
         </section>
@@ -128,6 +110,6 @@
       <div class="footer-bottom"><p>© 2026 ATELIER.</p><p>Vietnam · English edition</p></div>
     </div>
   </footer>
-  <script type="module" src="./main.js?v=sharp-youth-v12-1"></script>
+  <script type="module" src="./main.js?v=atelier-v13"></script>
 </body>
 </html>

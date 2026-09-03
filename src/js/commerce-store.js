@@ -108,7 +108,7 @@ function normaliseProduct(product) {
 
 export async function loadProducts() {
   if (!cataloguePromise) {
-    cataloguePromise = fetch("./src/data/products.json?v=white-editorial-v6")
+    cataloguePromise = fetch("./src/data/products.json?v=atelier-v13")
       .then((response) => {
         if (!response.ok) throw new Error("The catalogue could not be loaded.");
         return response.json();

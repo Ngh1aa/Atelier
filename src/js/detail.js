@@ -9,13 +9,13 @@ import {
   loadProducts,
   toggleWishlist,
   track,
-} from "./commerce-store.js?v=white-editorial-v6";
-import { escapeHtml, openMiniBag, openSizeGuide, showMessage } from "./commerce-ui.js?v=white-editorial-v6";
+} from "./commerce-store.js?v=atelier-v13";
+import { escapeHtml, openMiniBag, openSizeGuide, showMessage } from "./commerce-ui.js?v=atelier-v13";
 
 export async function renderDetail() {
   const products = await loadProducts();
   const requestedId = new URLSearchParams(window.location.search).get("id");
-  const product = products.find((item) => item.id === requestedId) || products.find((item) => item.id === "silk-midnight-gown") || products[0];
+  const product = products.find((item) => item.id === requestedId) || products[0];
   if (!product) return;
 
   addRecentlyViewed(product.id);
@@ -72,44 +72,76 @@ export async function renderDetail() {
     history.replaceState({}, "", `${location.pathname}?${next.toString()}`);
   };
 
-  let sticky;
-  const syncSticky = () => {
-    if (!sticky) return;
-    sticky.querySelector("span").textContent = selectedSize ? `Size ${selectedSize}` : "Select size";
-  };
+  const syncSticky = () => {};
 
   const renderSizes = () => {
     const sizes = getAvailableSizes(product, selectedColor);
     if (!sizes.some((item) => item.size === selectedSize && item.stock > 0)) selectedSize = product.requiresSize ? null : "One Size";
-    sizeOptions.innerHTML = sizes.map(({ size, stock }) => `<button type="button" data-size="${escapeHtml(size)}" class="${size === selectedSize ? "is-selected" : ""}" aria-pressed="${size === selectedSize}" ${stock < 1 ? `disabled aria-label="${escapeHtml(size)}, unavailable"` : ""}>${escapeHtml(size)}</button>`).join("");
-    sizeOptions.querySelectorAll("button:not(:disabled)").forEach((button) => button.addEventListener("click", () => {
-      selectedSize = button.dataset.size;
-      selectionError.textContent = "";
-      sizeOptions.querySelectorAll("button").forEach((item) => {
-        item.classList.toggle("is-selected", item === button);
-        item.setAttribute("aria-pressed", String(item === button));
-      });
-      syncSticky();
-      track("select_size", { product_id: product.id, size: selectedSize });
-    }));
+    const buttons = [...sizeOptions.querySelectorAll("button")];
+    while (buttons.length < sizes.length) {
+      const button = document.createElement("button");
+      button.type = "button";
+      sizeOptions.appendChild(button);
+      buttons.push(button);
+    }
+    buttons.forEach((button, index) => {
+      const option = sizes[index];
+      button.hidden = !option;
+      if (!option) return;
+      button.dataset.size = option.size;
+      button.textContent = option.size;
+      button.disabled = option.stock < 1;
+      button.setAttribute("aria-pressed", String(option.size === selectedSize));
+      button.classList.toggle("is-selected", option.size === selectedSize);
+      if (option.stock < 1) button.setAttribute("aria-label", `${option.size}, unavailable`);
+      else button.removeAttribute("aria-label");
+      button.onclick = () => {
+        selectedSize = button.dataset.size;
+        selectionError.textContent = "";
+        sizeOptions.querySelectorAll("button").forEach((item) => {
+          item.classList.toggle("is-selected", item === button);
+          item.setAttribute("aria-pressed", String(item === button));
+        });
+        syncSticky();
+        track("select_size", { product_id: product.id, size: selectedSize });
+      };
+    });
     syncSticky();
   };
 
   const renderColors = () => {
     colorLabel.textContent = product.colors.find((color) => color.value === selectedColor)?.name || "";
-    colorOptions.innerHTML = product.colors.map((color) => `<button type="button" class="pdp-color-option${color.value === selectedColor ? " is-selected" : ""}" data-color="${escapeHtml(color.value)}" aria-pressed="${color.value === selectedColor}"><i style="--swatch:${escapeHtml(color.hex)}"></i><span>${escapeHtml(color.name)}</span></button>`).join("");
-    colorOptions.querySelectorAll("button").forEach((button) => button.addEventListener("click", () => {
-      selectedColor = button.dataset.color;
-      colorLabel.textContent = product.colors.find((color) => color.value === selectedColor)?.name || "";
-      colorOptions.querySelectorAll("button").forEach((item) => {
-        item.classList.toggle("is-selected", item === button);
-        item.setAttribute("aria-pressed", String(item === button));
-      });
-      selectionError.textContent = "";
-      renderSizes();
-      syncUrl();
-      track("select_color", { product_id: product.id, color: selectedColor });
-    }));
+    const buttons = [...colorOptions.querySelectorAll("button")];
+    while (buttons.length < product.colors.length) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "pdp-color-option";
+      button.innerHTML = "<i></i><span></span>";
+      colorOptions.appendChild(button);
+      buttons.push(button);
+    }
+    buttons.forEach((button, index) => {
+      const color = product.colors[index];
+      button.hidden = !color;
+      if (!color) return;
+      button.dataset.color = color.value;
+      button.querySelector("i").style.setProperty("--swatch", color.hex);
+      button.querySelector("span").textContent = color.name;
+      button.classList.toggle("is-selected", color.value === selectedColor);
+      button.setAttribute("aria-pressed", String(color.value === selectedColor));
+      button.onclick = () => {
+        selectedColor = button.dataset.color;
+        colorLabel.textContent = product.colors.find((item) => item.value === selectedColor)?.name || "";
+        colorOptions.querySelectorAll("button").forEach((item) => {
+          item.classList.toggle("is-selected", item === button);
+          item.setAttribute("aria-pressed", String(item === button));
+        });
+        selectionError.textContent = "";
+        renderSizes();
+        syncUrl();
+        track("select_color", { product_id: product.id, color: selectedColor });
+      };
+    });
   };
 
   const addSelection = () => {
@@ -162,24 +194,4 @@ export async function renderDetail() {
     relatedWrap.innerHTML = related.map((item) => `<a class="related-item" href="detailproduct.html?id=${encodeURIComponent(item.id)}"><img loading="lazy" src="${escapeHtml(item.images[0])}" alt="${escapeHtml(item.name)}"><h4>${escapeHtml(item.name)}</h4><p>${formatVND(item.price)}</p></a>`).join("");
   }
 
-  sticky = document.createElement("div");
-  sticky.className = "mobile-purchase-bar";
-  sticky.innerHTML = `<span>${selectedSize ? `Size ${escapeHtml(selectedSize)}` : "Select size"}</span><button type="button">Add to Bag</button>`;
-  sticky.querySelector("button").addEventListener("click", addSelection);
-  document.body.appendChild(sticky);
-
-  const updateStickyVisibility = () => {
-    sticky.classList.toggle("is-visible", addButton.getBoundingClientRect().bottom < 0);
-  };
-  let stickyFrame = 0;
-  const requestStickyUpdate = () => {
-    if (stickyFrame) return;
-    stickyFrame = window.requestAnimationFrame(() => {
-      stickyFrame = 0;
-      updateStickyVisibility();
-    });
-  };
-  updateStickyVisibility();
-  window.addEventListener("scroll", requestStickyUpdate, { passive: true });
-  window.addEventListener("resize", requestStickyUpdate, { passive: true });
 }

@@ -5,8 +5,8 @@ import {
   loadProducts,
   toggleWishlist,
   track,
-} from "./commerce-store.js?v=white-editorial-v6";
-import { escapeHtml, openVariantPicker, showMessage } from "./commerce-ui.js?v=white-editorial-v6";
+} from "./commerce-store.js?v=atelier-v13";
+import { escapeHtml, openVariantPicker, showMessage } from "./commerce-ui.js?v=atelier-v13";
 
 const SHOP_IDS = [
   "tailored-wool-blazer",
@@ -119,7 +119,7 @@ function productCard(product) {
       <div class="product-grid-item">
         <div class="product-grid-item__image">
           <a class="js-plp-product-link" href="detailproduct.html?id=${encodeURIComponent(product.id)}">
-            <img src="${escapeHtml(product.images[0])}" data-fallback-src="${escapeHtml(product.fallback || "")}" alt="${escapeHtml(product.name)}" loading="lazy" width="900" height="1200" class="js-grid-img-front">
+            <img src="${escapeHtml(product.images[0])}" alt="${escapeHtml(product.name)}" class="js-grid-img-front">
             ${product.images[1] ? `<img src="${escapeHtml(product.images[1])}" alt="" aria-hidden="true" class="js-grid-img-back" loading="lazy">` : ""}
           </a>
           <div class="product-grid-item__hover"><button class="product-grid-item__add-to-cart js-quick-add" data-product-id="${escapeHtml(product.id)}" type="button">Select size +</button></div>
@@ -141,6 +141,7 @@ export async function renderShop() {
   const products = SHOP_IDS.map((id) => allProducts.find((product) => product.id === id)).filter(Boolean);
   const state = createState();
   let filterTrigger = null;
+  const staticCards = new Map([...grid.querySelectorAll(".js-product-item[data-id]")].map((card) => [card.dataset.id, card]));
 
   filterBar.innerHTML = `
     <span id="result-count" class="result-count" aria-live="polite"></span>
@@ -171,8 +172,19 @@ export async function renderShop() {
 
   const repaint = () => {
     const visible = filterProducts(products, state);
-    grid.innerHTML = visible.length ? visible.map(productCard).join("") : `
-      <div class="shop-empty-state"><h2>No pieces found.</h2><p>Adjust your selection or explore the complete collection.</p><button type="button" class="btn-outline js-empty-clear">Clear filters</button></div>`;
+    grid.querySelector(".shop-empty-state")?.remove();
+    if (staticCards.size === products.length) {
+      staticCards.forEach((card) => { card.hidden = true; });
+      visible.forEach((product) => {
+        const card = staticCards.get(product.id);
+        if (!card) return;
+        card.hidden = false;
+        grid.appendChild(card);
+      });
+      if (!visible.length) grid.insertAdjacentHTML("beforeend", `<div class="shop-empty-state"><h2>No pieces found.</h2><p>Adjust your selection or explore the complete collection.</p><button type="button" class="btn-outline js-empty-clear">Clear filters</button></div>`);
+    } else {
+      grid.innerHTML = visible.length ? visible.map(productCard).join("") : `<div class="shop-empty-state"><h2>No pieces found.</h2><p>Adjust your selection or explore the complete collection.</p><button type="button" class="btn-outline js-empty-clear">Clear filters</button></div>`;
+    }
     filterBar.querySelector("#result-count").textContent = `${visible.length} Piece${visible.length === 1 ? "" : "s"}`;
     const filterTotal = state.categories.size + state.sizes.size + state.colors.size;
     filterBar.querySelector(".js-filter-total").textContent = filterTotal ? `(${filterTotal})` : "";
@@ -193,22 +205,31 @@ export async function renderShop() {
   };
 
   function bindGrid() {
-    grid.querySelectorAll(".js-quick-add").forEach((button) => button.addEventListener("click", () => {
+    grid.querySelectorAll(".js-quick-add:not([data-shop-bound])").forEach((button) => {
+      button.dataset.shopBound = "true";
+      button.addEventListener("click", () => {
       const product = products.find((item) => item.id === button.dataset.productId);
       if (product) openVariantPicker(product, { heading: "Select your size" });
-    }));
-    grid.querySelectorAll(".js-wishlist-btn").forEach((button) => button.addEventListener("click", () => {
+      });
+    });
+    grid.querySelectorAll(".js-wishlist-btn:not([data-shop-bound])").forEach((button) => {
+      button.dataset.shopBound = "true";
+      button.addEventListener("click", () => {
       const saved = toggleWishlist(button.dataset.productId);
       button.classList.toggle("is-saved", saved);
       button.setAttribute("aria-pressed", String(saved));
       const product = products.find((item) => item.id === button.dataset.productId);
       button.setAttribute("aria-label", `${saved ? "Remove" : "Save"} ${product?.name || "piece"}`);
       showMessage(saved ? "Saved." : "Removed from Saved.");
-    }));
-    grid.querySelectorAll(".js-plp-product-link").forEach((link) => link.addEventListener("click", () => {
+      });
+    });
+    grid.querySelectorAll(".js-plp-product-link:not([data-shop-bound])").forEach((link) => {
+      link.dataset.shopBound = "true";
+      link.addEventListener("click", () => {
       sessionStorage.setItem(PLP_SCROLL_KEY, JSON.stringify({ url: location.href, y: window.scrollY }));
       track("select_item", { product_id: new URL(link.href).searchParams.get("id") });
-    }));
+      });
+    });
     grid.querySelector(".js-empty-clear")?.addEventListener("click", clearFilters);
   }
 
