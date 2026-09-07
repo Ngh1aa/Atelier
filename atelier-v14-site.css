@@ -523,14 +523,14 @@
     color: inherit;
   }
 
-  .page-ledger .btn-checkout,
+  .page-ledger .order-summary-card .btn-checkout,
   .page-checkout .btn-place-order {
     border-color: var(--campaign-text);
     background: var(--campaign-text);
     color: var(--ink);
   }
 
-  .page-ledger .btn-checkout:hover,
+  .page-ledger .order-summary-card .btn-checkout:hover,
   .page-checkout .btn-place-order:hover {
     border-color: var(--signal);
     background: var(--signal);
