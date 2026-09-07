@@ -1,0 +1,80 @@
+name: V14 production smoke
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/v14-production-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  production-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Verify live V14 release
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE="https://ngh1aa.github.io/Atelier"
+          CACHE_BUST="release-${GITHUB_SHA}"
+
+          fetch() {
+            local path="$1"
+            curl --fail --silent --show-error --location --retry 5 --retry-delay 2 \
+              -H 'Cache-Control: no-cache' \
+              "${BASE}${path}?v=${CACHE_BUST}"
+          }
+
+          check_200() {
+            local path="$1"
+            local status
+            status=$(curl --silent --show-error --location --output /dev/null --write-out '%{http_code}' \
+              -H 'Cache-Control: no-cache' "${BASE}${path}?v=${CACHE_BUST}")
+            test "$status" = "200" || { echo "${path}: expected HTTP 200, got ${status}"; exit 1; }
+            echo "PASS ${path} HTTP 200"
+          }
+
+          for path in / /shop.html /detailproduct.html /collections.html /about.html /client-services.html /cart.html /checkout.html /login.html /contact.html /atelier-v14-site.css /atelier-v14.css /main.js; do
+            check_200 "$path"
+          done
+
+          home=$(fetch /)
+          grep -Fq 'atelier-v14-site.css?v=atelier-v14-site' <<<"$home"
+          grep -Eq '<body class="[^"]*\bv14\b' <<<"$home"
+          grep -Fq 'home-campaign-v14' <<<"$home"
+          grep -Fq 'main.js?v=atelier-v14-site' <<<"$home"
+          echo 'PASS home V14 owner and campaign markers'
+
+          shop=$(fetch /shop.html)
+          grep -Fq 'atelier-v14-site.css?v=atelier-v14-site' <<<"$shop"
+          grep -Eq '<body class="[^"]*\bv14\b' <<<"$shop"
+          echo 'PASS shop V14 owner marker'
+
+          checkout=$(fetch /checkout.html)
+          grep -Fq 'Record Order on This Device' <<<"$checkout"
+          grep -Eiq 'static edition|stores the order in this browser' <<<"$checkout"
+          echo 'PASS checkout static-reality disclosure'
+
+          login=$(fetch /login.html)
+          grep -Eiq 'does not currently create client accounts|does not collect passwords|stored locally in this browser' <<<"$login"
+          echo 'PASS auth static-reality disclosure'
+
+          contact=$(fetch /contact.html)
+          grep -Fq '@atelier.example' <<<"$contact"
+          grep -Eiq 'placeholder|not a working mailbox|being prepared' <<<"$contact"
+          echo 'PASS contact placeholder disclosure'
+
+          css=$(fetch /atelier-v14-site.css)
+          grep -Fq '@import url("./atelier-v14.css?v=atelier-v14")' <<<"$css"
+          echo 'PASS V14 site stylesheet resolves'
+
+          js=$(fetch /main.js)
+          grep -Fq 'high-fashion-youth-luxury-v14' <<<"$js"
+          echo 'PASS V14 runtime style marker resolves'
+
+          echo 'V14 PRODUCTION SMOKE: PASS'
