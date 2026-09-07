@@ -1,0 +1,666 @@
+/* ATELIER V14 — whole-site role layer
+   Phase 3 owner: inherits the passed V14 representative system, then differentiates
+   story, service, transaction and account page families without cloning Home. */
+@import url("./atelier-v14.css?v=atelier-v14");
+
+@layer v14-site {
+  /* Shared V14 footer and surface rhythm */
+  body.v14 .site-footer {
+    border-top-color: var(--ink);
+    background: var(--paper);
+  }
+
+  body.v14 .footer-newsletter {
+    padding-block: 64px;
+  }
+
+  body.v14 .footer-newsletter h3 {
+    max-width: 760px;
+    font-size: clamp(30px, 3.6vw, 54px);
+  }
+
+  body.v14 .footer-grid {
+    gap: clamp(36px, 4vw, 64px);
+    padding-block: 52px 64px;
+  }
+
+  body.v14 .footer-col h4,
+  body.v14 .footer-bottom {
+    letter-spacing: .09em;
+  }
+
+  /* COLLECTIONS — season archive / runway family */
+  .page-collections .lookbook-header {
+    border-bottom: 0;
+    background: var(--campaign-ink);
+    color: var(--campaign-text);
+    padding: clamp(72px, 8vw, 120px) 0 clamp(84px, 9vw, 140px);
+  }
+
+  .page-collections .lookbook-header__grid {
+    grid-template-columns: .55fr 2.25fr .9fr;
+    gap: 34px 56px;
+  }
+
+  .page-collections .lookbook-header h1 {
+    max-width: 9ch;
+    font-family: var(--serif);
+    font-size: clamp(74px, 8.4vw, 128px);
+    font-weight: 400;
+    line-height: .86;
+  }
+
+  .page-collections .lookbook-header h1 em {
+    color: #d9aeb4;
+  }
+
+  .page-collections .lookbook-header__grid > p:nth-child(3) {
+    max-width: 360px;
+    color: rgba(245,240,233,.65);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .page-collections .lookbook-index {
+    border-color: rgba(245,240,233,.35);
+  }
+
+  .page-collections .lookbook-index a {
+    border-color: rgba(245,240,233,.22);
+    color: rgba(245,240,233,.9);
+    font-size: 12px;
+  }
+
+  .page-collections .lookbook-index span {
+    color: #d9aeb4;
+  }
+
+  .page-collections .lookbook-index a:hover {
+    background: var(--campaign-text);
+    color: var(--ink);
+  }
+
+  .page-collections .lookbook-chapter {
+    min-height: 760px;
+    height: min(78vw, 820px);
+    border-bottom-color: var(--ink);
+    background: var(--white);
+  }
+
+  .page-collections .lookbook-chapter:nth-of-type(even) {
+    background: var(--paper);
+  }
+
+  .page-collections .lookbook-chapter__media {
+    background: #e7e0d8;
+  }
+
+  .page-collections .lookbook-chapter__media img {
+    object-fit: contain;
+    object-position: center;
+    background: #e7e0d8;
+    filter: saturate(.76) contrast(1.025);
+  }
+
+  .page-collections .look-number {
+    top: 0;
+    left: 0;
+    width: 64px;
+    height: 64px;
+    background: var(--campaign-ink);
+    color: var(--campaign-text);
+  }
+
+  .page-collections .lookbook-chapter__copy {
+    padding-inline: clamp(52px, 6vw, 94px);
+  }
+
+  .page-collections .lookbook-chapter__copy .eyebrow {
+    color: var(--signal);
+  }
+
+  .page-collections .lookbook-chapter__copy h2 {
+    max-width: 9ch;
+    font-family: var(--serif);
+    font-size: clamp(50px, 5.2vw, 78px);
+    font-weight: 400;
+  }
+
+  .page-collections .look-products a {
+    padding-block: 16px;
+  }
+
+  /* HOUSE — manifesto / brand evidence family */
+  .page-house .v12-house-hero {
+    border-bottom: 0;
+    background: var(--campaign-ink);
+  }
+
+  .page-house .v12-house-hero-grid {
+    grid-template-columns: 5fr 7fr;
+    min-height: 760px;
+  }
+
+  .page-house .v12-house-hero-copy {
+    padding: 54px 64px 64px 0;
+    color: var(--campaign-text);
+  }
+
+  .page-house .v12-house-hero-copy .eyebrow {
+    color: #d9aeb4;
+  }
+
+  .page-house .v12-house-hero-copy h1 {
+    max-width: 7ch;
+    font-family: var(--serif);
+    font-size: clamp(72px, 7.4vw, 110px);
+    font-weight: 400;
+    line-height: .86;
+  }
+
+  .page-house .v12-house-hero-copy h1 em {
+    color: #e8d8d8;
+  }
+
+  .page-house .v12-house-hero-copy .v12-copy {
+    color: rgba(245,240,233,.68);
+    font-size: 16px;
+  }
+
+  .page-house .v12-chip {
+    border-color: rgba(245,240,233,.55);
+    color: var(--campaign-text);
+  }
+
+  .page-house .v12-chip:hover {
+    border-color: var(--campaign-text);
+    background: var(--campaign-text);
+    color: var(--ink);
+  }
+
+  .page-house .v12-house-hero-media {
+    border-left-color: rgba(245,240,233,.2);
+    background: #d7d0c8;
+  }
+
+  .page-house .v12-house-hero-media img {
+    object-fit: cover;
+    object-position: center 20%;
+    filter: saturate(.68) contrast(1.04);
+  }
+
+  .page-house .v12-house-manifesto {
+    padding-block: clamp(120px, 13vw, 190px);
+    background: var(--paper);
+  }
+
+  .page-house .v12-house-manifesto h2 {
+    max-width: 11ch;
+    font-family: var(--serif);
+    font-size: clamp(58px, 6.6vw, 100px);
+    font-weight: 400;
+  }
+
+  .page-house .v12-house-codes {
+    padding-block: clamp(110px, 11vw, 170px);
+    background: var(--white);
+  }
+
+  .page-house .v12-house-code-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0,1fr));
+    gap: 22px;
+    align-items: start;
+  }
+
+  .page-house .v12-house-code:nth-child(1) { grid-column: 1 / 5; margin-top: 88px; }
+  .page-house .v12-house-code:nth-child(2) { grid-column: 5 / 10; }
+  .page-house .v12-house-code:nth-child(3) { grid-column: 10 / 13; margin-top: 148px; }
+
+  .page-house .v12-house-code figure {
+    background: #e9e2da;
+  }
+
+  .page-house .v12-house-code img {
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: contain;
+    filter: saturate(.75);
+  }
+
+  .page-house .v12-house-code h3 {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 400;
+  }
+
+  .page-house .v12-house-studio-grid {
+    grid-template-columns: 7fr 5fr;
+    min-height: 720px;
+  }
+
+  .page-house .v12-house-studio-media img {
+    object-fit: cover;
+    object-position: center 20%;
+    filter: saturate(.75);
+  }
+
+  .page-house .v12-house-studio-copy {
+    padding-inline: clamp(52px, 6vw, 92px);
+  }
+
+  .page-house .v12-house-studio-copy h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+  }
+
+  /* CLIENT SERVICES — trust/index family, deliberately not a campaign clone */
+  .page-service .v12-service-hero {
+    background: var(--paper);
+    border-bottom-color: var(--ink);
+  }
+
+  .page-service .v12-service-hero-grid {
+    grid-template-columns: 5fr 7fr;
+    min-height: 650px;
+  }
+
+  .page-service .v12-service-copy {
+    padding: 54px 64px 64px 0;
+  }
+
+  .page-service .v12-service-copy .eyebrow,
+  .page-service .service-hero .eyebrow,
+  .page-legal .service-hero .eyebrow {
+    color: var(--signal);
+  }
+
+  .page-service .v12-service-copy h1 {
+    max-width: 7ch;
+    font-family: var(--serif);
+    font-size: clamp(70px, 7.2vw, 108px);
+    font-weight: 400;
+  }
+
+  .page-service .v12-service-media {
+    background: #e7e0d8;
+    border-left-color: var(--ink);
+  }
+
+  .page-service .v12-service-media img {
+    object-fit: cover;
+    object-position: center 18%;
+    filter: saturate(.72) contrast(1.03);
+  }
+
+  .page-service .v12-service-index {
+    padding-block: clamp(100px, 10vw, 150px);
+    background: var(--campaign-ink);
+    color: var(--campaign-text);
+  }
+
+  .page-service .v12-service-index .eyebrow {
+    color: #d9aeb4;
+  }
+
+  .page-service .v12-service-index h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+  }
+
+  .page-service .v12-service-links {
+    border-color: rgba(245,240,233,.4);
+  }
+
+  .page-service .v12-service-link {
+    border-color: rgba(245,240,233,.2);
+  }
+
+  .page-service .v12-service-link > span:nth-child(3) {
+    color: rgba(245,240,233,.58);
+  }
+
+  .page-service .v12-service-link:hover strong {
+    color: #d9aeb4;
+  }
+
+  .page-service .v12-service-qa {
+    padding-block: clamp(100px, 10vw, 150px);
+    background: var(--paper);
+  }
+
+  .page-service .v12-service-qa h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+  }
+
+  /* Service detail + legal pages — editorial utility, not card dashboard */
+  .page-service .service-hero,
+  .page-legal .service-hero {
+    padding: clamp(78px, 8vw, 120px) 0 52px;
+  }
+
+  .page-service .service-hero-grid,
+  .page-legal .service-hero-grid {
+    grid-template-columns: minmax(0, 1.7fr) minmax(280px, .55fr);
+    gap: 70px;
+  }
+
+  .page-service .service-hero h1,
+  .page-legal .service-hero h1 {
+    max-width: 10ch;
+    font-family: var(--serif);
+    font-size: clamp(68px, 7.5vw, 112px);
+    font-weight: 400;
+    line-height: .88;
+  }
+
+  .page-service .service-intro,
+  .page-legal .service-intro {
+    align-self: end;
+    font-size: 15px;
+  }
+
+  .page-service .service-section,
+  .page-legal .service-section {
+    padding-block: clamp(72px, 7vw, 108px);
+  }
+
+  .page-service .service-section-heading,
+  .page-legal .service-section-heading {
+    grid-template-columns: .55fr 1.5fr .8fr;
+    gap: 44px;
+  }
+
+  .page-service .service-section-heading h2,
+  .page-legal .service-section-heading h2 {
+    font-family: var(--serif);
+    font-size: clamp(38px, 4.2vw, 62px);
+    font-weight: 400;
+  }
+
+  .page-service .service-grid,
+  .page-legal .service-grid {
+    grid-template-columns: repeat(3, 1fr);
+    background: transparent;
+  }
+
+  .page-service .service-card,
+  .page-legal .service-card {
+    min-height: 260px;
+    padding: 30px 28px 34px 0;
+  }
+
+  .page-service .service-card h3,
+  .page-legal .service-card h3 {
+    font-family: var(--serif);
+    font-size: 25px;
+    font-weight: 400;
+  }
+
+  .page-service .service-callout,
+  .page-legal .service-callout {
+    background: var(--campaign-ink);
+    color: var(--campaign-text);
+    padding-block: clamp(88px, 8vw, 126px);
+  }
+
+  .page-service .service-callout .eyebrow,
+  .page-legal .service-callout .eyebrow {
+    color: #d9aeb4;
+  }
+
+  .page-service .service-callout h2,
+  .page-legal .service-callout h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+  }
+
+  .page-legal .service-section p,
+  .page-legal .service-section li {
+    color: #4f4944;
+  }
+
+  /* TRANSACTION LEDGER — bag, saved, account, orders */
+  .page-ledger .cart-page,
+  .page-ledger .favourite-page,
+  .page-ledger .account-page,
+  .page-ledger .order-page,
+  .page-ledger .order-success-page,
+  .page-account .account-page,
+  .page-order .order-page,
+  .page-order-success .order-success-page {
+    padding-top: clamp(62px, 6vw, 92px);
+  }
+
+  .page-ledger .cart-title h1,
+  .page-ledger .page-title h1,
+  .page-ledger .account-page-header h1,
+  .page-ledger .order-page-header h1,
+  .page-account .account-page-header h1,
+  .page-order .order-page-header h1 {
+    font-family: var(--serif);
+    font-size: clamp(68px, 7vw, 104px);
+    font-weight: 400;
+  }
+
+  .page-ledger .cart-grid {
+    grid-template-columns: minmax(0, 2.2fr) minmax(350px, .8fr);
+    gap: clamp(44px, 5vw, 76px);
+  }
+
+  .page-ledger .cart-item-img,
+  .page-ledger .favourite-img,
+  .page-ledger .related-product-item img,
+  .page-account .order-item img,
+  .page-order .order-item img {
+    background: #ece6df;
+  }
+
+  .page-ledger .cart-item-info h3,
+  .page-ledger .item-name,
+  .page-ledger .favourite-info h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+  }
+
+  .page-ledger .order-summary-card,
+  .page-checkout .summary-card {
+    border-color: var(--campaign-ink);
+    background: var(--campaign-ink);
+    color: var(--campaign-text);
+  }
+
+  .page-ledger .order-summary-card .summary-row,
+  .page-checkout .summary-card .summary-row {
+    border-color: rgba(245,240,233,.2);
+  }
+
+  .page-ledger .order-summary-card .summary-row.total,
+  .page-checkout .summary-card .summary-row.total {
+    border-bottom-color: rgba(245,240,233,.7);
+  }
+
+  .page-ledger .order-summary-card .tax-note,
+  .page-ledger .order-summary-card .assistance-text,
+  .page-checkout .summary-card small {
+    color: rgba(245,240,233,.58);
+  }
+
+  .page-ledger .order-summary-card a,
+  .page-checkout .summary-card a {
+    color: inherit;
+  }
+
+  .page-ledger .btn-checkout,
+  .page-checkout .btn-place-order {
+    border-color: var(--campaign-text);
+    background: var(--campaign-text);
+    color: var(--ink);
+  }
+
+  .page-ledger .btn-checkout:hover,
+  .page-checkout .btn-place-order:hover {
+    border-color: var(--signal);
+    background: var(--signal);
+    color: #fff;
+  }
+
+  .page-ledger .favourite-grid {
+    column-gap: 24px;
+    row-gap: 72px;
+  }
+
+  .page-ledger .favourite-img img {
+    height: min(52vw, 610px);
+    filter: saturate(.78);
+  }
+
+  /* CHECKOUT — distraction-reduced but luxury, preserve prototype reality */
+  .page-checkout.checkout-body {
+    background: var(--white);
+  }
+
+  .page-checkout .checkout-nav {
+    border-bottom-color: var(--ink);
+    background: var(--white) !important;
+  }
+
+  .page-checkout .checkout-page {
+    padding-top: 56px;
+  }
+
+  .page-checkout .checkout-header {
+    display: grid;
+    grid-template-columns: minmax(0,1.35fr) minmax(340px,.65fr);
+    gap: 26px 60px;
+    align-items: end;
+    padding-bottom: 34px;
+    margin-bottom: 42px;
+  }
+
+  .page-checkout .checkout-header .eyebrow,
+  .page-checkout .checkout-header h1 {
+    grid-column: 1;
+  }
+
+  .page-checkout .checkout-header h1 {
+    font-family: var(--serif);
+    font-size: clamp(62px, 6.5vw, 98px);
+    font-weight: 400;
+  }
+
+  .page-checkout .checkout-header > p:not(.checkout-reality-note) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: end;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .page-checkout .checkout-reality-note {
+    grid-column: 1 / -1;
+    margin-top: 8px;
+    border-left: 3px solid var(--signal);
+    background: var(--signal-soft);
+    color: #4b2a2f;
+    padding: 14px 16px;
+  }
+
+  .page-checkout .checkout-grid {
+    grid-template-columns: minmax(0,1.75fr) minmax(365px,.75fr);
+    gap: clamp(52px, 5vw, 78px);
+  }
+
+  .page-checkout .checkout-step-heading span {
+    color: var(--signal);
+    letter-spacing: .14em;
+  }
+
+  .page-checkout .form-group input,
+  .page-checkout .form-group select,
+  .page-checkout .form-group textarea {
+    background: #fffefa;
+  }
+
+  .page-checkout .delivery-option:has(input:checked),
+  .page-checkout .payment-option:has(input:checked) {
+    border-color: var(--signal);
+    box-shadow: inset 3px 0 var(--signal);
+  }
+
+  .page-checkout .summary-item img {
+    background: #ddd5cd;
+  }
+
+  /* ACCOUNT / AUTH — explicit static reality, not fake login */
+  .page-auth .account-notice-page {
+    min-height: calc(100vh - var(--nav-h));
+    background: linear-gradient(90deg, var(--campaign-ink) 0 52%, var(--paper) 52% 100%);
+  }
+
+  .page-auth .account-notice-grid {
+    grid-template-columns: 1.08fr .92fr;
+    gap: 0;
+    border: 0;
+    padding: 0;
+    min-height: 610px;
+  }
+
+  .page-auth .account-notice-grid > div:first-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: var(--campaign-text);
+    padding: 70px 72px 70px 0;
+  }
+
+  .page-auth .account-notice-grid > div:first-child .eyebrow {
+    color: #d9aeb4;
+  }
+
+  .page-auth .account-notice-grid h1 {
+    max-width: 8ch;
+    font-family: var(--serif);
+    font-size: clamp(68px, 7vw, 104px);
+    font-weight: 400;
+    line-height: .88;
+  }
+
+  .page-auth .account-notice-copy {
+    align-content: center;
+    padding: 70px 0 70px 72px;
+    color: var(--muted);
+  }
+
+  .page-auth .account-notice-copy .btn-outline {
+    justify-self: start;
+  }
+
+  /* Shared order/status emphasis */
+  .success-order-number,
+  .order-status-panel strong,
+  .account-order-row strong {
+    color: var(--signal);
+  }
+
+  /* Desktop-only pressure point: do not claim tablet/mobile support. */
+  @media (max-width: 1100px) {
+    .page-collections .lookbook-header__grid,
+    .page-service .service-hero-grid,
+    .page-legal .service-hero-grid,
+    .page-checkout .checkout-header {
+      gap-inline: 38px;
+    }
+
+    .page-house .v12-house-hero-copy,
+    .page-service .v12-service-copy {
+      padding-right: 38px;
+    }
+
+    .page-ledger .cart-grid,
+    .page-checkout .checkout-grid {
+      gap: 38px;
+    }
+  }
+}
