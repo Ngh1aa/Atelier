@@ -27,7 +27,7 @@ for (const name of files) {
   });
 
   after = after.replace(/main\.js\?v=atelier-v13/g, "main.js?v=atelier-v14-site");
-  after = after.replace(/main\.js\?v=atelier-v14/g, "main.js?v=atelier-v14-site");
+  after = after.replace(/main\.js\?v=atelier-v14(?!-site)/g, "main.js?v=atelier-v14-site");
 
   if (!after.includes("atelier-v14-site.css?v=atelier-v14-site")) {
     failures.push(`${name}: V14 site stylesheet missing`);
@@ -52,14 +52,16 @@ let mainAfter = mainBefore
     "// App entry: commerce behavior is shared; V13 pages own their CSS explicitly in HTML.",
     "// App entry: commerce behavior is shared; V14 site CSS is the explicit visual owner across root routes."
   )
-  .replace(/atelier-v13/g, "atelier-v14-site")
-  .replace(/atelier-v14(?!-site)/g, "atelier-v14-site");
+  .replace(/atelier-v13/g, "atelier-v14-site");
 
-if (!mainAfter.includes('document.documentElement.dataset.atelierStyle = "high-fashion-youth-luxury-v14";')) {
-  const insertion = '\ndocument.documentElement.dataset.atelierStyle = "high-fashion-youth-luxury-v14";\n';
-  const importEnd = mainAfter.lastIndexOf(";", mainAfter.indexOf("\n\n"));
-  if (importEnd >= 0) mainAfter = mainAfter.slice(0, importEnd + 1) + insertion + mainAfter.slice(importEnd + 1);
-  else mainAfter = insertion + mainAfter;
+const styleMarker = 'document.documentElement.dataset.atelierStyle = "high-fashion-youth-luxury-v14";';
+if (!mainAfter.includes(styleMarker)) {
+  const secondImport = 'import "./src/main.js?v=atelier-v14-site";';
+  if (mainAfter.includes(secondImport)) {
+    mainAfter = mainAfter.replace(secondImport, `${secondImport}\n\n${styleMarker}`);
+  } else {
+    mainAfter = `${styleMarker}\n${mainAfter}`;
+  }
 }
 
 if (mainAfter !== mainBefore) {
@@ -82,8 +84,7 @@ const report = [
   "",
   "## Verification",
   "",
-  failures.length ? ...[] : "",
-].filter(Boolean);
+];
 
 if (failures.length) {
   report.push("Status: **BLOCKED**", "", ...failures.map((item) => `- ${item}`));
@@ -94,6 +95,7 @@ if (failures.length) {
     "- Every root HTML route references `atelier-v14-site.css?v=atelier-v14-site`.",
     "- Every root HTML body carries the `v14` marker.",
     "- No root HTML retains the V13 stylesheet owner or `v13` body marker.",
+    "- `main.js` exposes `data-atelier-style=high-fashion-youth-luxury-v14` for QA.",
     "- Rendered visual QA remains a separate Phase 4 gate."
   );
 }
