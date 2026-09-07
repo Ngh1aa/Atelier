@@ -22,3 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local UIUX library and installed skill resources
+.agents/skills_UIUX/
+.agents/skills/
+
+# Full local QA captures; compact reports and review sheets remain versioned.
+qa-evidence/monochrome-*.png
+qa-evidence/monochrome/*.png
+qa-evidence/monochrome/detailed-report.local.json

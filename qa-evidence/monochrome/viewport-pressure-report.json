@@ -1,0 +1,282 @@
+[
+  {
+    "route": "about.html",
+    "width": 360,
+    "viewport": 360,
+    "document": 360,
+    "passed": true
+  },
+  {
+    "route": "about.html",
+    "width": 1920,
+    "viewport": 1920,
+    "document": 1920,
+    "passed": true
+  },
+  {
+    "route": "account.html",
+    "width": 360,
+    "viewport": 360,
+    "document": 360,
+    "passed": true
+  },
+  {
+    "route": "account.html",
+    "width": 1920,
+    "viewport": 1920,
+    "document": 1920,
+    "passed": true
+  },
+  {
+    "route": "care-guide.html",
+    "width": 360,
+    "viewport": 360,
+    "document": 360,
+    "passed": true
+  },
+  {
+    "route": "care-guide.html",
+    "width": 1920,
+    "viewport": 1920,
+    "document": 1920,
+    "passed": true
+  },
+  {
+    "route": "cart.html",
+    "width": 360,
+    "viewport": 360,
+    "document": 360,
+    "passed": true
+  },
+  {
+    "route": "cart.html",
+    "width": 1920,
+    "viewport": 1920,
+    "document": 1920,
+    "passed": true
+  },
+  {
+    "route": "checkout.html",
+    "width": 360,
+    "viewport": 360,
+    "document": 360,
+    "passed": true
+  },
+  {
+    "route": "checkout.html",
+    "width": 1920,
+    "viewport": 1920,
+    "document": 1920,
+    "passed": true
+  },
+  {
+    "route": "client-services.html",
+    "width": 360,
+    "viewport": 360,
+    "document": 360,
+    "passed": true
+  },
+  {
+    "route": "client-services.html",
+    "width": 1920,
+    "viewport": 1920,
+    "document": 1920,
+    "passed": true
+  },
+  {
+    "route": "collections.html",
+    "width": 360,
+    "viewport": 360,
+    "document": 360,
+    "passed": true
+  },
+  {
+    "route": "collections.html",
+    "width": 1920,
+    "viewport": 1920,
+    "document": 1920,
+    "passed": true
+  },
+  {
+    "route": "contact.html",
+    "width": 360,
+    "viewport": 360,
+    "document": 360,
+    "passed": true
+  },
+  {
+    "route": "contact.html",
+    "width": 1920,
+    "viewport": 1920,
+    "document": 1920,
+    "passed": true
+  },
+  {
+    "route": "detailproduct.html",
+    "width": 360,
+    "viewport": 360,
+    "document": 360,
+    "passed": true
+  },
+  {
+    "route": "detailproduct.html",
+    "width": 1920,
+    "viewport": 1920,
+    "document": 1920,
+    "passed": true
+  },
+  {
+    "route": "favourite.html",
+    "width": 360,
+    "viewport": 360,
+    "document": 360,
+    "passed": true
+  },
+  {
+    "route": "favourite.html",
+    "width": 1920,
+    "viewport": 1920,
+    "document": 1920,
+    "passed": true
+  },
+  {
+    "route": "forgot-password.html",
+    "width": 360,
+    "viewport": 360,
+    "document": 360,
+    "passed": true
+  },
+  {
+    "route": "forgot-password.html",
+    "width": 1920,
+    "viewport": 1920,
+    "document": 1920,
+    "passed": true
+  },
+  {
+    "route": "index.html",
+    "width": 360,
+    "viewport": 360,
+    "document": 360,
+    "passed": true
+  },
+  {
+    "route": "index.html",
+    "width": 1920,
+    "viewport": 1920,
+    "document": 1920,
+    "passed": true
+  },
+  {
+    "route": "login.html",
+    "width": 360,
+    "viewport": 360,
+    "document": 360,
+    "passed": true
+  },
+  {
+    "route": "login.html",
+    "width": 1920,
+    "viewport": 1920,
+    "document": 1920,
+    "passed": true
+  },
+  {
+    "route": "order-success.html",
+    "width": 360,
+    "viewport": 360,
+    "document": 360,
+    "passed": true
+  },
+  {
+    "route": "order-success.html",
+    "width": 1920,
+    "viewport": 1920,
+    "document": 1920,
+    "passed": true
+  },
+  {
+    "route": "order.html",
+    "width": 360,
+    "viewport": 360,
+    "document": 360,
+    "passed": true
+  },
+  {
+    "route": "order.html",
+    "width": 1920,
+    "viewport": 1920,
+    "document": 1920,
+    "passed": true
+  },
+  {
+    "route": "privacy.html",
+    "width": 360,
+    "viewport": 360,
+    "document": 360,
+    "passed": true
+  },
+  {
+    "route": "privacy.html",
+    "width": 1920,
+    "viewport": 1920,
+    "document": 1920,
+    "passed": true
+  },
+  {
+    "route": "shipping&returns.html",
+    "width": 360,
+    "viewport": 360,
+    "document": 360,
+    "passed": true
+  },
+  {
+    "route": "shipping&returns.html",
+    "width": 1920,
+    "viewport": 1920,
+    "document": 1920,
+    "passed": true
+  },
+  {
+    "route": "shop.html",
+    "width": 360,
+    "viewport": 360,
+    "document": 360,
+    "passed": true
+  },
+  {
+    "route": "shop.html",
+    "width": 1920,
+    "viewport": 1920,
+    "document": 1920,
+    "passed": true
+  },
+  {
+    "route": "size-guide.html",
+    "width": 360,
+    "viewport": 360,
+    "document": 360,
+    "passed": true
+  },
+  {
+    "route": "size-guide.html",
+    "width": 1920,
+    "viewport": 1920,
+    "document": 1920,
+    "passed": true
+  },
+  {
+    "route": "terms.html",
+    "width": 360,
+    "viewport": 360,
+    "document": 360,
+    "passed": true
+  },
+  {
+    "route": "terms.html",
+    "width": 1920,
+    "viewport": 1920,
+    "document": 1920,
+    "passed": true
+  }
+]

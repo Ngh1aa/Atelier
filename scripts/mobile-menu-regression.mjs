@@ -6,7 +6,7 @@ const baseURL = process.env.QA_BASE_URL || "http://127.0.0.1:4173";
 const outputDir = path.resolve(process.env.QA_OUT_DIR || "qa-artifacts");
 await mkdir(outputDir, { recursive: true });
 
-const browser = await chromium.launch({ headless: true });
+const browser = await chromium.launch({ headless: true, channel: process.env.QA_BROWSER_CHANNEL || undefined });
 const context = await browser.newContext({
   viewport: { width: 390, height: 844 },
   deviceScaleFactor: 1,
@@ -36,6 +36,7 @@ const openState = await page.evaluate(() => {
     menuWidth: rect ? Math.round(rect.width) : null,
     viewportWidth: window.innerWidth,
     viewportHeight: window.innerHeight,
+    navHeight: document.querySelector("body > nav")?.getBoundingClientRect().height,
     linkCount: links.length,
     visibleLinkCount: visibleLinks.length,
     labels: visibleLinks.map((link) => link.textContent.trim()),
@@ -57,8 +58,9 @@ const passed =
   openState.bodyLocked &&
   openState.linkCount >= 5 &&
   openState.visibleLinkCount === openState.linkCount &&
-  openState.menuWidth >= openState.viewportWidth - 2 &&
-  openState.menuBottom >= openState.viewportHeight - 2 &&
+  Math.abs(openState.menuWidth - openState.viewportWidth) <= 2 &&
+  Math.abs(openState.menuTop - openState.navHeight) <= 2 &&
+  Math.abs(openState.menuBottom - openState.viewportHeight) <= 2 &&
   !closedState.menuOpenClass &&
   closedState.expanded === "false" &&
   !closedState.bodyLocked;

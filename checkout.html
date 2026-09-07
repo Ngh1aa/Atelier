@@ -7,7 +7,7 @@
   <title>Checkout — ATELIER</title>
   <meta name="description" content="Complete the ATELIER guest checkout prototype with delivery and payment selection.">
   <meta name="robots" content="noindex, follow">
-  <link rel="stylesheet" href="./atelier-v14-site.css?v=atelier-v14-site">
+  <link rel="stylesheet" href="./atelier-v14-site.css?v=monochrome-20260907">
   <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
   <script>document.documentElement.classList.add("js-enabled")</script>
 </head>
@@ -31,6 +31,17 @@
         </header>
 
         <form class="checkout-grid js-checkout-form" novalidate>
+          <aside class="checkout-summary reveal" aria-label="Order summary">
+            <div class="summary-card">
+              <div class="checkout-summary-head"><h3>YOUR ORDER</h3><a href="cart.html">Edit Bag</a></div>
+              <div class="summary-items js-checkout-items"></div>
+              <div class="summary-row"><span>Subtotal</span><span class="js-checkout-subtotal">0 ₫</span></div>
+              <div class="summary-row"><span>Delivery</span><span class="js-checkout-delivery-fee">Complimentary</span></div>
+              <div class="summary-row total"><span>Total</span><span class="js-checkout-total">0 ₫</span></div>
+              <small>Taxes and duties included in the displayed prototype total.</small>
+            </div>
+          </aside>
+
           <div class="checkout-form-section reveal">
             <section class="checkout-section" aria-labelledby="checkout-contact">
               <div class="checkout-step-heading"><span>01</span><h2 id="checkout-contact">CONTACT</h2></div>
@@ -84,22 +95,13 @@
             </section>
           </div>
 
-          <aside class="checkout-summary reveal" aria-label="Order summary">
-            <div class="summary-card">
-              <div class="checkout-summary-head"><h3>YOUR ORDER</h3><a href="cart.html">Edit Bag</a></div>
-              <div class="summary-items js-checkout-items"></div>
-              <div class="summary-row"><span>Subtotal</span><span class="js-checkout-subtotal">0 ₫</span></div>
-              <div class="summary-row"><span>Delivery</span><span class="js-checkout-delivery-fee">Complimentary</span></div>
-              <div class="summary-row total"><span>Total</span><span class="js-checkout-total">0 ₫</span></div>
-              <small>Taxes and duties included in the displayed prototype total.</small>
-            </div>
-          </aside>
+
         </form>
       </div>
     </section>
   </main>
 
   <footer class="checkout-footer"><div class="container"><p>© 2026 ATELIER</p><a href="shipping&returns.html">Delivery &amp; Returns</a></div></footer>
-  <script type="module" src="./main.js?v=atelier-v14-site"></script>
+  <script type="module" src="./main.js?v=monochrome-20260907"></script>
 </body>
 </html>

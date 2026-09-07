@@ -1,5 +1,5 @@
 // App entry: bootstrap per-page modules
-import { initNav } from "./nav.js?v=atelier-v13";
+import { initNav } from "./nav.js?v=monochrome-20260907";
 
 function boot() {
   initNav();

@@ -1,0 +1,27 @@
+{
+  "openState": {
+    "menuOpenClass": true,
+    "bodyLocked": true,
+    "menuTop": 68,
+    "menuBottom": 844,
+    "menuWidth": 390,
+    "viewportWidth": 390,
+    "viewportHeight": 844,
+    "navHeight": 68,
+    "linkCount": 5,
+    "visibleLinkCount": 5,
+    "labels": [
+      "Home",
+      "Shop",
+      "Collections",
+      "The House",
+      "Client Services"
+    ]
+  },
+  "closedState": {
+    "menuOpenClass": false,
+    "expanded": "false",
+    "bodyLocked": false
+  },
+  "passed": true
+}

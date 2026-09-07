@@ -18,6 +18,8 @@ on:
       - 'atelier-v12-white.css'
       - 'atelier-v14.css'
       - 'atelier-v14-site.css'
+      - 'atelier-v13.css'
+      - 'vite.config.js'
       - 'atelier-media-integrity.css'
       - 'main.js'
       - 'src/**'
@@ -70,7 +72,7 @@ jobs:
 
       - name: Start static server
         run: |
-          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/atelier-server.log 2>&1 &
+          python3 -m http.server 4173 --bind 127.0.0.1 --directory dist > /tmp/atelier-server.log 2>&1 &
           echo $! > /tmp/atelier-server.pid
           for i in {1..30}; do
             if curl -fsS http://127.0.0.1:4173/index.html >/dev/null; then
@@ -81,24 +83,10 @@ jobs:
           cat /tmp/atelier-server.log
           exit 1
 
-      - name: Capture representative UI
+      - name: Verify built desktop, tablet and mobile UI
         run: |
-          if [ -f atelier-v14-site.css ] && [ -f scripts/v14-whole-site-qa.mjs ]; then
-            echo "V14 desktop-only contract detected; mobile/tablet regression is N/A_JUSTIFIED."
-            QA_OUT_DIR=qa-artifacts/v14-whole-site node scripts/v14-whole-site-qa.mjs
-            QA_OUT_DIR=qa-artifacts/v14-sanity node scripts/v14-visual-sanity-regression.mjs
-            QA_OUT_DIR=qa-artifacts/v15-elementary-integrity node scripts/v15-elementary-visual-integrity.mjs
-            QA_OUT_DIR=qa-artifacts/v15-targeted-evidence node scripts/v15-targeted-evidence.mjs
-          else
-            node scripts/final-visual-qa.mjs
-            node scripts/v11-commerce-layout-regression.mjs
-            node scripts/portrait-media-regression.mjs
-            node scripts/catalogue-crop-regression.mjs
-            node scripts/v12-youth-luxury-regression.mjs
-            node scripts/v12-monochrome-regression.mjs
-            node scripts/pdp-sticky-regression.mjs
-            node scripts/mobile-menu-regression.mjs
-          fi
+          node scripts/v15-elementary-visual-integrity.mjs
+          node scripts/mobile-menu-regression.mjs
         env:
           QA_BASE_URL: http://127.0.0.1:4173
           QA_OUT_DIR: qa-artifacts

@@ -5,12 +5,21 @@
 - Repository: `Ngh1aa/skills_UIUX`
 - Library version: **V5.4**
 - Branch resolved: `main`
-- Immutable commit SHA: `b8e0f8a0efccbb468834a10de6dcfa32bf2dfb02`
+- Immutable commit SHA: `aa9c04e48a32cd1b643c6e9e6129be4ba70c38de`
 - Checked: **2026-09-07**
 - Source: GitHub `main` after V5.4 visual-sanity hardening
 - Project baseline at migration: `175f9aa5677f3384a678440a8d2f8e2f0fb812a5`
 
 All subsequent ATELIER phases must use this SHA unless another explicit migration review records conflict, decision and ledger impact.
+
+## Current migration — luxury monochrome, 2026-09-07
+
+The user explicitly requested installing the latest skills_UIUX and applying it
+to the whole interface. The installed revision in `.uiux-profile.json` is the
+current lock above. V5.4 elementary visual sanity gates remain applicable.
+White/black/grey and desktop/tablet/mobile replace earlier burgundy and
+desktop-only design constraints; see `Monochrome-Upgrade.md`. The migration
+history below records earlier runs and does not override the current lock.
 
 ## Migration review — V5.3 → V5.4
 

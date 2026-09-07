@@ -1,8 +1,8 @@
 // App entry: commerce behavior is shared; V14 site CSS is the explicit visual owner across root routes.
-import "./src/js/app.js?v=atelier-v14-site";
+import "./src/js/app.js?v=monochrome-20260907";
 import "./src/main.js?v=atelier-v14-site";
 
-document.documentElement.dataset.atelierStyle = "high-fashion-youth-luxury-v14";
+document.documentElement.dataset.atelierStyle = "luxury-monochrome";
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const revealObserver = !reducedMotion && "IntersectionObserver" in window

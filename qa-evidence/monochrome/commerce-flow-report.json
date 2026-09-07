@@ -1,0 +1,15 @@
+{
+  "baseURL": "http://127.0.0.1:4174",
+  "passed": true,
+  "checks": [
+    "select variant",
+    "add to Bag",
+    "change quantity",
+    "summary before mobile checkout form",
+    "submit local order",
+    "open and close filters",
+    "product search",
+    "menu resize reset"
+  ],
+  "pageErrors": []
+}

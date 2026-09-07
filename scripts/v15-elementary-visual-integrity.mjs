@@ -32,6 +32,8 @@ const routes = [
 const viewports = [
   { name: "desktop", width: 1363, height: 936 },
   { name: "pressure", width: 1100, height: 900 },
+  { name: "tablet", width: 768, height: 1024 },
+  { name: "mobile", width: 390, height: 844 },
 ];
 
 const seededCart = [{
@@ -84,18 +86,19 @@ const seededOrders = [{
 
 const report = {
   generatedAt: new Date().toISOString(),
-  scope: "desktop_only",
+  baseURL,
+  scope: "desktop_tablet_mobile",
   policy: {
     allVisibleTextCatastrophicFloor: 2.6,
     interactiveTextUsesNormalContrastThreshold: true,
     unverifiedPrimaryCoverCropIsBlocker: true,
-    sharedOwnerCoverage: "all routes x both declared desktop viewports",
+    sharedOwnerCoverage: "all routes x desktop, pressure, tablet and mobile",
   },
   routes: [],
   blockers: [],
 };
 
-const browser = await chromium.launch({ headless: true });
+const browser = await chromium.launch({ headless: true, channel: process.env.QA_BROWSER_CHANNEL || undefined });
 const addBlocker = (key, message, detail = null) => report.blockers.push({ key, message, detail });
 
 async function primeContext(context) {
@@ -383,7 +386,7 @@ async function captureKnownRiskStates(page, routeKey, viewportName) {
   }
 }
 
-for (const viewport of viewports) {
+await Promise.all(viewports.map(async (viewport) => {
   for (const [routeKey, pathname] of routes) {
     const key = `${routeKey}@${viewport.name}`;
     const context = await browser.newContext({
@@ -404,6 +407,14 @@ for (const viewport of viewports) {
     await freezeMotion(page);
     await page.waitForTimeout(80);
 
+    // Load lazy media before inspecting layout or capturing a full section.
+    await page.evaluate(async () => {
+      await Promise.all([...document.images].map(async (img) => {
+        img.loading = "eager";
+        try { await img.decode(); } catch { /* Report broken sources below. */ }
+      }));
+    });
+
     const entry = {
       key,
       routeKey,
@@ -418,18 +429,52 @@ for (const viewport of viewports) {
     if (consoleErrors.length) addBlocker(key, `console errors: ${consoleErrors.join(" | ")}`);
     if (pageErrors.length) addBlocker(key, `page errors: ${pageErrors.join(" | ")}`);
 
+    entry.layout = await page.evaluate(() => {
+      const width = document.documentElement.clientWidth;
+      const overflow = [...document.querySelectorAll('main *, footer *')].filter((el) => {
+        const box = el.getBoundingClientRect();
+        if (!box.width || !box.height || getComputedStyle(el).visibility === 'hidden') return false;
+        // Tables and rails may scroll locally without widening the page.
+        if (el.closest('.size-table-wrap,.thumbnail-gallery')) return false;
+        return box.right > width + 2 || box.left < -2;
+      }).map((el) => `${el.tagName}.${el.className}`).slice(0, 12);
+      const brokenImages = [...document.images].filter((img) => !img.naturalWidth).map((img) => img.getAttribute('src'));
+      const hero = document.querySelector('.home-campaign-v14');
+      let heroIntegrity = true;
+      if (hero) {
+        const outer = hero.getBoundingClientRect();
+        const media = hero.querySelector('figure').getBoundingClientRect();
+        const panel = hero.querySelector('.home-campaign-v14__panel').getBoundingClientRect();
+        const actions = hero.querySelector('.home-campaign-v14__actions').getBoundingClientRect();
+        heroIntegrity = actions.bottom <= outer.bottom + 1 && actions.right <= outer.right + 1;
+        if (innerWidth > 600) heroIntegrity &&= Math.abs(media.width - panel.width) < 2 && Math.abs(media.bottom - panel.bottom) < 2;
+      }
+      return { width, scrollWidth: document.documentElement.scrollWidth, overflow, brokenImages, heroIntegrity };
+    });
+    if (entry.layout.scrollWidth > entry.layout.width + 2 || entry.layout.overflow.length) addBlocker(key, 'horizontal layout overflow', entry.layout);
+    if (entry.layout.brokenImages.length) addBlocker(key, 'broken images', entry.layout.brokenImages);
+    if (!entry.layout.heroIntegrity) addBlocker(key, 'unequal hero columns or clipped actions', entry.layout);
+
     await auditVisibleText(page, key, entry);
     await auditInteractiveStates(page, key, entry);
     await auditPrimaryMedia(page, key, entry);
     await captureKnownRiskStates(page, routeKey, viewport.name);
 
     report.routes.push(entry);
+    console.log(`${key}: ${report.blockers.filter((item) => item.key === key).length} blockers`);
     await context.close();
   }
-}
+}));
 
 await browser.close();
-await writeFile(path.join(outputDir, "report.json"), JSON.stringify(report, null, 2));
+await writeFile(path.join(outputDir, "detailed-report.local.json"), JSON.stringify(report, null, 2));
+await writeFile(path.join(outputDir, "report.json"), JSON.stringify({
+  ...report,
+  routes: report.routes.map(({ interactiveAudit, ...entry }) => ({
+    ...entry,
+    interactiveControlsChecked: interactiveAudit.length,
+  })),
+}, null, 2));
 
 console.log(`V15 elementary visual integrity: ${report.routes.length} route/viewport states.`);
 console.log(`Blockers: ${report.blockers.length}`);

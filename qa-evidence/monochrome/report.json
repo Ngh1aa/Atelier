@@ -1,0 +1,3630 @@
+{
+  "generatedAt": "2026-09-07T08:28:04.144Z",
+  "baseURL": "http://127.0.0.1:4174",
+  "scope": "desktop_tablet_mobile",
+  "policy": {
+    "allVisibleTextCatastrophicFloor": 2.6,
+    "interactiveTextUsesNormalContrastThreshold": true,
+    "unverifiedPrimaryCoverCropIsBlocker": true,
+    "sharedOwnerCoverage": "all routes x desktop, pressure, tablet and mobile"
+  },
+  "routes": [
+    {
+      "key": "home@mobile",
+      "routeKey": "home",
+      "pathname": "/index.html",
+      "viewport": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 390,
+        "scrollWidth": 390,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 66,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/home-hero-main-D9SYcwmm.jpg",
+          "alt": "ATELIER tailored look in natural light",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 390,
+          "height": 460,
+          "naturalWidth": 1200,
+          "naturalHeight": 1920,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/soft-stripe-shirt-CdG6HMJy.jpg",
+          "alt": "Soft Stripe Shirt for a workday look",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 350,
+          "height": 438,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/draped-wide-leg-set-Jj5CcEK_.jpg",
+          "alt": "Draped Wide-Leg Set for after-hours",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 350,
+          "height": 438,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/relaxed-v-neck-knit-BPDwW9xg.jpg",
+          "alt": "Relaxed V-Neck Knit for a weekend look",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 350,
+          "height": 438,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/belted-cropped-jacket-By-23_00.jpg",
+          "alt": "Belted Cropped Jacket",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 350,
+          "height": 438,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/sheer-collar-shirt-wgTlv848.jpg",
+          "alt": "Sheer Collar Shirt",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 350,
+          "height": 438,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/draped-wide-leg-set-Jj5CcEK_.jpg",
+          "alt": "Draped Wide-Leg Set",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 350,
+          "height": 438,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/home-editorial-CcEzbfpi.jpg",
+          "alt": "ATELIER material and silhouette study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 390,
+          "height": 468,
+          "naturalWidth": 1199,
+          "naturalHeight": 2133,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 25
+    },
+    {
+      "key": "home@tablet",
+      "routeKey": "home",
+      "pathname": "/index.html",
+      "viewport": {
+        "name": "tablet",
+        "width": 768,
+        "height": 1024
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 768,
+        "scrollWidth": 768,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 66,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/home-hero-main-D9SYcwmm.jpg",
+          "alt": "ATELIER tailored look in natural light",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 384,
+          "height": 540,
+          "naturalWidth": 1200,
+          "naturalHeight": 1920,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/home-editorial-CcEzbfpi.jpg",
+          "alt": "ATELIER material and silhouette study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 384,
+          "height": 480,
+          "naturalWidth": 1199,
+          "naturalHeight": 2133,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 25
+    },
+    {
+      "key": "home@pressure",
+      "routeKey": "home",
+      "pathname": "/index.html",
+      "viewport": {
+        "name": "pressure",
+        "width": 1100,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1100,
+        "scrollWidth": 1100,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 72,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/home-hero-main-D9SYcwmm.jpg",
+          "alt": "ATELIER tailored look in natural light",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 550,
+          "height": 600,
+          "naturalWidth": 1200,
+          "naturalHeight": 1920,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/soft-stripe-shirt-CdG6HMJy.jpg",
+          "alt": "Soft Stripe Shirt for a workday look",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 321,
+          "height": 428,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/draped-wide-leg-set-Jj5CcEK_.jpg",
+          "alt": "Draped Wide-Leg Set for after-hours",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 321,
+          "height": 428,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/relaxed-v-neck-knit-BPDwW9xg.jpg",
+          "alt": "Relaxed V-Neck Knit for a weekend look",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 321,
+          "height": 428,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/belted-cropped-jacket-By-23_00.jpg",
+          "alt": "Belted Cropped Jacket",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 321,
+          "height": 428,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/sheer-collar-shirt-wgTlv848.jpg",
+          "alt": "Sheer Collar Shirt",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 321,
+          "height": 428,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/draped-wide-leg-set-Jj5CcEK_.jpg",
+          "alt": "Draped Wide-Leg Set",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 321,
+          "height": 428,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/home-editorial-CcEzbfpi.jpg",
+          "alt": "ATELIER material and silhouette study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 550,
+          "height": 600,
+          "naturalWidth": 1199,
+          "naturalHeight": 2133,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 30
+    },
+    {
+      "key": "home@desktop",
+      "routeKey": "home",
+      "pathname": "/index.html",
+      "viewport": {
+        "name": "desktop",
+        "width": 1363,
+        "height": 936
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1363,
+        "scrollWidth": 1363,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 72,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/home-hero-main-D9SYcwmm.jpg",
+          "alt": "ATELIER tailored look in natural light",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 682,
+          "height": 654,
+          "naturalWidth": 1200,
+          "naturalHeight": 1920,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/soft-stripe-shirt-CdG6HMJy.jpg",
+          "alt": "Soft Stripe Shirt for a workday look",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 402,
+          "height": 536,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/draped-wide-leg-set-Jj5CcEK_.jpg",
+          "alt": "Draped Wide-Leg Set for after-hours",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 402,
+          "height": 536,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/relaxed-v-neck-knit-BPDwW9xg.jpg",
+          "alt": "Relaxed V-Neck Knit for a weekend look",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 402,
+          "height": 536,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/belted-cropped-jacket-By-23_00.jpg",
+          "alt": "Belted Cropped Jacket",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 402,
+          "height": 536,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/sheer-collar-shirt-wgTlv848.jpg",
+          "alt": "Sheer Collar Shirt",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 402,
+          "height": 536,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/draped-wide-leg-set-Jj5CcEK_.jpg",
+          "alt": "Draped Wide-Leg Set",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 402,
+          "height": 536,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/home-editorial-CcEzbfpi.jpg",
+          "alt": "ATELIER material and silhouette study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 682,
+          "height": 600,
+          "naturalWidth": 1199,
+          "naturalHeight": 2133,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 30
+    },
+    {
+      "key": "shop@mobile",
+      "routeKey": "shop",
+      "pathname": "/shop.html",
+      "viewport": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 390,
+        "scrollWidth": 390,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 74,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 47
+    },
+    {
+      "key": "shop@tablet",
+      "routeKey": "shop",
+      "pathname": "/shop.html",
+      "viewport": {
+        "name": "tablet",
+        "width": 768,
+        "height": 1024
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 768,
+        "scrollWidth": 768,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 74,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 47
+    },
+    {
+      "key": "shop@pressure",
+      "routeKey": "shop",
+      "pathname": "/shop.html",
+      "viewport": {
+        "name": "pressure",
+        "width": 1100,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1100,
+        "scrollWidth": 1100,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 79,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/belted-cropped-jacket-By-23_00.jpg",
+          "alt": "Belted Cropped Jacket",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 321,
+          "height": 428,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/sheer-cape-wrap-top-B80Lth7t.jpg",
+          "alt": "Sheer Cape Wrap Top",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 321,
+          "height": 428,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/off-shoulder-sheer-top-C4LLD_Sf.jpg",
+          "alt": "Off-Shoulder Sheer Top",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 321,
+          "height": 428,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/sheer-collar-shirt-wgTlv848.jpg",
+          "alt": "Sheer Collar Shirt",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 321,
+          "height": 428,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/layered-barrel-pants--r2B_2wy.jpg",
+          "alt": "Layered Barrel Trousers",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 321,
+          "height": 428,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/relaxed-v-neck-knit-BPDwW9xg.jpg",
+          "alt": "Relaxed V-Neck Knit",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 321,
+          "height": 428,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/sheer-knit-cape-top-C889UlW_.jpg",
+          "alt": "Sheer Knit Cape Top",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 321,
+          "height": 428,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/soft-stripe-shirt-CdG6HMJy.jpg",
+          "alt": "Soft Stripe Shirt",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 321,
+          "height": 428,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 52
+    },
+    {
+      "key": "shop@desktop",
+      "routeKey": "shop",
+      "pathname": "/shop.html",
+      "viewport": {
+        "name": "desktop",
+        "width": 1363,
+        "height": 936
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1363,
+        "scrollWidth": 1363,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 79,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/belted-cropped-jacket-By-23_00.jpg",
+          "alt": "Belted Cropped Jacket",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 402,
+          "height": 536,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/sheer-cape-wrap-top-B80Lth7t.jpg",
+          "alt": "Sheer Cape Wrap Top",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 402,
+          "height": 536,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/off-shoulder-sheer-top-C4LLD_Sf.jpg",
+          "alt": "Off-Shoulder Sheer Top",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 402,
+          "height": 536,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/sheer-collar-shirt-wgTlv848.jpg",
+          "alt": "Sheer Collar Shirt",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 402,
+          "height": 536,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/layered-barrel-pants--r2B_2wy.jpg",
+          "alt": "Layered Barrel Trousers",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 402,
+          "height": 536,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/relaxed-v-neck-knit-BPDwW9xg.jpg",
+          "alt": "Relaxed V-Neck Knit",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 402,
+          "height": 536,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/sheer-knit-cape-top-C889UlW_.jpg",
+          "alt": "Sheer Knit Cape Top",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 402,
+          "height": 536,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/soft-stripe-shirt-CdG6HMJy.jpg",
+          "alt": "Soft Stripe Shirt",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 402,
+          "height": 536,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 52
+    },
+    {
+      "key": "pdp@mobile",
+      "routeKey": "pdp",
+      "pathname": "/detailproduct.html?id=tailored-wool-blazer",
+      "viewport": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 390,
+        "scrollWidth": 390,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 79,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/products/pinkparks/belted-cropped-jacket.jpg",
+          "alt": "Belted Cropped Jacket",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 350,
+          "height": 460,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 30
+    },
+    {
+      "key": "pdp@tablet",
+      "routeKey": "pdp",
+      "pathname": "/detailproduct.html?id=tailored-wool-blazer",
+      "viewport": {
+        "name": "tablet",
+        "width": 768,
+        "height": 1024
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 768,
+        "scrollWidth": 768,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 79,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/products/pinkparks/belted-cropped-jacket.jpg",
+          "alt": "Belted Cropped Jacket",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 629,
+          "height": 700,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/products/pinkparks/belted-cropped-jacket.jpg",
+          "alt": "Cropped Belted Jacket — Archive",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 341,
+          "height": 455,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/products/pinkparks/sheer-cape-wrap-top.jpg",
+          "alt": "Sheer Cape Wrap Top",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 341,
+          "height": 455,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/products/pinkparks/off-shoulder-sheer-top.jpg",
+          "alt": "Off-Shoulder Sheer Top",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 341,
+          "height": 455,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/products/pinkparks/sheer-collar-shirt.jpg",
+          "alt": "Sheer Collar Shirt",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 341,
+          "height": 455,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 30
+    },
+    {
+      "key": "pdp@pressure",
+      "routeKey": "pdp",
+      "pathname": "/detailproduct.html?id=tailored-wool-blazer",
+      "viewport": {
+        "name": "pressure",
+        "width": 1100,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1100,
+        "scrollWidth": 1100,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 84,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/products/pinkparks/belted-cropped-jacket.jpg",
+          "alt": "Belted Cropped Jacket",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 470,
+          "height": 715,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 35
+    },
+    {
+      "key": "pdp@desktop",
+      "routeKey": "pdp",
+      "pathname": "/detailproduct.html?id=tailored-wool-blazer",
+      "viewport": {
+        "name": "desktop",
+        "width": 1363,
+        "height": 936
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1363,
+        "scrollWidth": 1363,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 84,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/products/pinkparks/belted-cropped-jacket.jpg",
+          "alt": "Belted Cropped Jacket",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 609,
+          "height": 800,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/products/pinkparks/belted-cropped-jacket.jpg",
+          "alt": "Cropped Belted Jacket — Archive",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 295,
+          "height": 394,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/products/pinkparks/sheer-cape-wrap-top.jpg",
+          "alt": "Sheer Cape Wrap Top",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 295,
+          "height": 394,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/products/pinkparks/off-shoulder-sheer-top.jpg",
+          "alt": "Off-Shoulder Sheer Top",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 295,
+          "height": 394,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/products/pinkparks/sheer-collar-shirt.jpg",
+          "alt": "Sheer Collar Shirt",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 296,
+          "height": 394,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 35
+    },
+    {
+      "key": "collections@mobile",
+      "routeKey": "collections",
+      "pathname": "/collections.html",
+      "viewport": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 390,
+        "scrollWidth": 390,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 69,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/home-collection-large-v2-DVH9vyNl.jpg",
+          "alt": "Two complete ATELIER workday looks",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 390,
+          "height": 468,
+          "naturalWidth": 736,
+          "naturalHeight": 1177,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/home-editorial-CcEzbfpi.jpg",
+          "alt": "ATELIER after-hours silhouette study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 390,
+          "height": 468,
+          "naturalWidth": 1199,
+          "naturalHeight": 2133,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/home-collection-small-v2-CLBY-W1L.jpg",
+          "alt": "ATELIER relaxed weekend styling",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 390,
+          "height": 468,
+          "naturalWidth": 736,
+          "naturalHeight": 1177,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 27
+    },
+    {
+      "key": "collections@tablet",
+      "routeKey": "collections",
+      "pathname": "/collections.html",
+      "viewport": {
+        "name": "tablet",
+        "width": 768,
+        "height": 1024
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 768,
+        "scrollWidth": 768,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 69,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/home-collection-large-v2-DVH9vyNl.jpg",
+          "alt": "Two complete ATELIER workday looks",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 384,
+          "height": 574,
+          "naturalWidth": 736,
+          "naturalHeight": 1177,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/home-editorial-CcEzbfpi.jpg",
+          "alt": "ATELIER after-hours silhouette study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 384,
+          "height": 574,
+          "naturalWidth": 1199,
+          "naturalHeight": 2133,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/home-collection-small-v2-CLBY-W1L.jpg",
+          "alt": "ATELIER relaxed weekend styling",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 384,
+          "height": 540,
+          "naturalWidth": 736,
+          "naturalHeight": 1177,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 27
+    },
+    {
+      "key": "collections@pressure",
+      "routeKey": "collections",
+      "pathname": "/collections.html",
+      "viewport": {
+        "name": "pressure",
+        "width": 1100,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1100,
+        "scrollWidth": 1100,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 74,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/home-collection-large-v2-DVH9vyNl.jpg",
+          "alt": "Two complete ATELIER workday looks",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 550,
+          "height": 620,
+          "naturalWidth": 736,
+          "naturalHeight": 1177,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/home-editorial-CcEzbfpi.jpg",
+          "alt": "ATELIER after-hours silhouette study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 550,
+          "height": 620,
+          "naturalWidth": 1199,
+          "naturalHeight": 2133,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/home-collection-small-v2-CLBY-W1L.jpg",
+          "alt": "ATELIER relaxed weekend styling",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 550,
+          "height": 620,
+          "naturalWidth": 736,
+          "naturalHeight": 1177,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 32
+    },
+    {
+      "key": "collections@desktop",
+      "routeKey": "collections",
+      "pathname": "/collections.html",
+      "viewport": {
+        "name": "desktop",
+        "width": 1363,
+        "height": 936
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1363,
+        "scrollWidth": 1363,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 74,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/home-collection-large-v2-DVH9vyNl.jpg",
+          "alt": "Two complete ATELIER workday looks",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 682,
+          "height": 634,
+          "naturalWidth": 736,
+          "naturalHeight": 1177,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/home-editorial-CcEzbfpi.jpg",
+          "alt": "ATELIER after-hours silhouette study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 682,
+          "height": 634,
+          "naturalWidth": 1199,
+          "naturalHeight": 2133,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/home-collection-small-v2-CLBY-W1L.jpg",
+          "alt": "ATELIER relaxed weekend styling",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 682,
+          "height": 620,
+          "naturalWidth": 736,
+          "naturalHeight": 1177,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 32
+    },
+    {
+      "key": "house@mobile",
+      "routeKey": "house",
+      "pathname": "/about.html",
+      "viewport": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 390,
+        "scrollWidth": 390,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 56,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/about-story-CirBNC6R.jpg",
+          "alt": "ATELIER monochrome styling study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 350,
+          "height": 449,
+          "naturalWidth": 1200,
+          "naturalHeight": 1600,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/collections-chapter-1-DU-K74hU.jpg",
+          "alt": "ATELIER proportion and movement study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 350,
+          "height": 438,
+          "naturalWidth": 1080,
+          "naturalHeight": 1440,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/home-editorial-CcEzbfpi.jpg",
+          "alt": "ATELIER texture and material study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 350,
+          "height": 438,
+          "naturalWidth": 1199,
+          "naturalHeight": 2133,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/home-collection-small-v2-CLBY-W1L.jpg",
+          "alt": "ATELIER wardrobe styling study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 350,
+          "height": 438,
+          "naturalWidth": 736,
+          "naturalHeight": 1177,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/home-collection-large-v2-DVH9vyNl.jpg",
+          "alt": "ATELIER Fall 2026 collection styling",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 349,
+          "height": 449,
+          "naturalWidth": 736,
+          "naturalHeight": 1177,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 18
+    },
+    {
+      "key": "house@tablet",
+      "routeKey": "house",
+      "pathname": "/about.html",
+      "viewport": {
+        "name": "tablet",
+        "width": 768,
+        "height": 1024
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 768,
+        "scrollWidth": 768,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 56,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/about-story-CirBNC6R.jpg",
+          "alt": "ATELIER monochrome styling study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 353,
+          "height": 540,
+          "naturalWidth": 1200,
+          "naturalHeight": 1600,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/home-collection-large-v2-DVH9vyNl.jpg",
+          "alt": "ATELIER Fall 2026 collection styling",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 352,
+          "height": 585,
+          "naturalWidth": 736,
+          "naturalHeight": 1177,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 18
+    },
+    {
+      "key": "house@pressure",
+      "routeKey": "house",
+      "pathname": "/about.html",
+      "viewport": {
+        "name": "pressure",
+        "width": 1100,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1100,
+        "scrollWidth": 1100,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 61,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/about-story-CirBNC6R.jpg",
+          "alt": "ATELIER monochrome styling study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 506,
+          "height": 660,
+          "naturalWidth": 1200,
+          "naturalHeight": 1600,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/collections-chapter-1-DU-K74hU.jpg",
+          "alt": "ATELIER proportion and movement study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 321,
+          "height": 428,
+          "naturalWidth": 1080,
+          "naturalHeight": 1440,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/home-editorial-CcEzbfpi.jpg",
+          "alt": "ATELIER texture and material study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 321,
+          "height": 428,
+          "naturalWidth": 1199,
+          "naturalHeight": 2133,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/home-collection-small-v2-CLBY-W1L.jpg",
+          "alt": "ATELIER wardrobe styling study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 321,
+          "height": 428,
+          "naturalWidth": 736,
+          "naturalHeight": 1177,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/home-collection-large-v2-DVH9vyNl.jpg",
+          "alt": "ATELIER Fall 2026 collection styling",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 505,
+          "height": 589,
+          "naturalWidth": 736,
+          "naturalHeight": 1177,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 23
+    },
+    {
+      "key": "house@desktop",
+      "routeKey": "house",
+      "pathname": "/about.html",
+      "viewport": {
+        "name": "desktop",
+        "width": 1363,
+        "height": 936
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1363,
+        "scrollWidth": 1363,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 61,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/about-story-CirBNC6R.jpg",
+          "alt": "ATELIER monochrome styling study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 627,
+          "height": 660,
+          "naturalWidth": 1200,
+          "naturalHeight": 1600,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/collections-chapter-1-DU-K74hU.jpg",
+          "alt": "ATELIER proportion and movement study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 402,
+          "height": 536,
+          "naturalWidth": 1080,
+          "naturalHeight": 1440,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/home-editorial-CcEzbfpi.jpg",
+          "alt": "ATELIER texture and material study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 402,
+          "height": 536,
+          "naturalWidth": 1199,
+          "naturalHeight": 2133,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/home-collection-small-v2-CLBY-W1L.jpg",
+          "alt": "ATELIER wardrobe styling study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 0%",
+          "width": 402,
+          "height": 536,
+          "naturalWidth": 736,
+          "naturalHeight": 1177,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/home-collection-large-v2-DVH9vyNl.jpg",
+          "alt": "ATELIER Fall 2026 collection styling",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 626,
+          "height": 600,
+          "naturalWidth": 736,
+          "naturalHeight": 1177,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 23
+    },
+    {
+      "key": "services@mobile",
+      "routeKey": "services",
+      "pathname": "/client-services.html",
+      "viewport": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 390,
+        "scrollWidth": 390,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 67,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/home-editorial-CcEzbfpi.jpg",
+          "alt": "ATELIER editorial styling study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 350,
+          "height": 449,
+          "naturalWidth": 1199,
+          "naturalHeight": 2133,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 24
+    },
+    {
+      "key": "services@tablet",
+      "routeKey": "services",
+      "pathname": "/client-services.html",
+      "viewport": {
+        "name": "tablet",
+        "width": 768,
+        "height": 1024
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 768,
+        "scrollWidth": 768,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 67,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/home-editorial-CcEzbfpi.jpg",
+          "alt": "ATELIER editorial styling study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 353,
+          "height": 540,
+          "naturalWidth": 1199,
+          "naturalHeight": 2133,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 24
+    },
+    {
+      "key": "services@pressure",
+      "routeKey": "services",
+      "pathname": "/client-services.html",
+      "viewport": {
+        "name": "pressure",
+        "width": 1100,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1100,
+        "scrollWidth": 1100,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 72,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/home-editorial-CcEzbfpi.jpg",
+          "alt": "ATELIER editorial styling study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 506,
+          "height": 600,
+          "naturalWidth": 1199,
+          "naturalHeight": 2133,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 29
+    },
+    {
+      "key": "services@desktop",
+      "routeKey": "services",
+      "pathname": "/client-services.html",
+      "viewport": {
+        "name": "desktop",
+        "width": 1363,
+        "height": 936
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1363,
+        "scrollWidth": 1363,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 72,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/home-editorial-CcEzbfpi.jpg",
+          "alt": "ATELIER editorial styling study",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 627,
+          "height": 600,
+          "naturalWidth": 1199,
+          "naturalHeight": 2133,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 29
+    },
+    {
+      "key": "contact@mobile",
+      "routeKey": "contact",
+      "pathname": "/contact.html",
+      "viewport": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 390,
+        "scrollWidth": 390,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 53,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 18
+    },
+    {
+      "key": "contact@tablet",
+      "routeKey": "contact",
+      "pathname": "/contact.html",
+      "viewport": {
+        "name": "tablet",
+        "width": 768,
+        "height": 1024
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 768,
+        "scrollWidth": 768,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 53,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 18
+    },
+    {
+      "key": "contact@pressure",
+      "routeKey": "contact",
+      "pathname": "/contact.html",
+      "viewport": {
+        "name": "pressure",
+        "width": 1100,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1100,
+        "scrollWidth": 1100,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 58,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 23
+    },
+    {
+      "key": "shipping@mobile",
+      "routeKey": "shipping",
+      "pathname": "/shipping&returns.html",
+      "viewport": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 390,
+        "scrollWidth": 390,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 48,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 16
+    },
+    {
+      "key": "contact@desktop",
+      "routeKey": "contact",
+      "pathname": "/contact.html",
+      "viewport": {
+        "name": "desktop",
+        "width": 1363,
+        "height": 936
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1363,
+        "scrollWidth": 1363,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 58,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 23
+    },
+    {
+      "key": "shipping@tablet",
+      "routeKey": "shipping",
+      "pathname": "/shipping&returns.html",
+      "viewport": {
+        "name": "tablet",
+        "width": 768,
+        "height": 1024
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 768,
+        "scrollWidth": 768,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 48,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 16
+    },
+    {
+      "key": "shipping@pressure",
+      "routeKey": "shipping",
+      "pathname": "/shipping&returns.html",
+      "viewport": {
+        "name": "pressure",
+        "width": 1100,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1100,
+        "scrollWidth": 1100,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 53,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 21
+    },
+    {
+      "key": "size@mobile",
+      "routeKey": "size",
+      "pathname": "/size-guide.html",
+      "viewport": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 390,
+        "scrollWidth": 390,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 75,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 16
+    },
+    {
+      "key": "shipping@desktop",
+      "routeKey": "shipping",
+      "pathname": "/shipping&returns.html",
+      "viewport": {
+        "name": "desktop",
+        "width": 1363,
+        "height": 936
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1363,
+        "scrollWidth": 1363,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 53,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 21
+    },
+    {
+      "key": "size@tablet",
+      "routeKey": "size",
+      "pathname": "/size-guide.html",
+      "viewport": {
+        "name": "tablet",
+        "width": 768,
+        "height": 1024
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 768,
+        "scrollWidth": 768,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 75,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 16
+    },
+    {
+      "key": "care@mobile",
+      "routeKey": "care",
+      "pathname": "/care-guide.html",
+      "viewport": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 390,
+        "scrollWidth": 390,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 57,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 16
+    },
+    {
+      "key": "size@pressure",
+      "routeKey": "size",
+      "pathname": "/size-guide.html",
+      "viewport": {
+        "name": "pressure",
+        "width": 1100,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1100,
+        "scrollWidth": 1100,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 80,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 21
+    },
+    {
+      "key": "care@tablet",
+      "routeKey": "care",
+      "pathname": "/care-guide.html",
+      "viewport": {
+        "name": "tablet",
+        "width": 768,
+        "height": 1024
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 768,
+        "scrollWidth": 768,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 57,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 16
+    },
+    {
+      "key": "size@desktop",
+      "routeKey": "size",
+      "pathname": "/size-guide.html",
+      "viewport": {
+        "name": "desktop",
+        "width": 1363,
+        "height": 936
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1363,
+        "scrollWidth": 1363,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 80,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 21
+    },
+    {
+      "key": "care@pressure",
+      "routeKey": "care",
+      "pathname": "/care-guide.html",
+      "viewport": {
+        "name": "pressure",
+        "width": 1100,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1100,
+        "scrollWidth": 1100,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 62,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 21
+    },
+    {
+      "key": "care@desktop",
+      "routeKey": "care",
+      "pathname": "/care-guide.html",
+      "viewport": {
+        "name": "desktop",
+        "width": 1363,
+        "height": 936
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1363,
+        "scrollWidth": 1363,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 62,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 21
+    },
+    {
+      "key": "cart@mobile",
+      "routeKey": "cart",
+      "pathname": "/cart.html",
+      "viewport": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 390,
+        "scrollWidth": 390,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 69,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 28
+    },
+    {
+      "key": "cart@tablet",
+      "routeKey": "cart",
+      "pathname": "/cart.html",
+      "viewport": {
+        "name": "tablet",
+        "width": 768,
+        "height": 1024
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 768,
+        "scrollWidth": 768,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 69,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/products/pinkparks/belted-cropped-jacket.jpg",
+          "alt": "Belted Cropped Jacket",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 346,
+          "height": 462,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/products/pinkparks/sheer-cape-wrap-top.jpg",
+          "alt": "Sheer Cape Wrap Top",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 346,
+          "height": 462,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/products/pinkparks/off-shoulder-sheer-top.jpg",
+          "alt": "Off-Shoulder Sheer Top",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 346,
+          "height": 462,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/products/pinkparks/sheer-collar-shirt.jpg",
+          "alt": "Sheer Collar Shirt",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 346,
+          "height": 462,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 28
+    },
+    {
+      "key": "checkout@mobile",
+      "routeKey": "checkout",
+      "pathname": "/checkout.html",
+      "viewport": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 390,
+        "scrollWidth": 390,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 65,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 6
+    },
+    {
+      "key": "checkout@tablet",
+      "routeKey": "checkout",
+      "pathname": "/checkout.html",
+      "viewport": {
+        "name": "tablet",
+        "width": 768,
+        "height": 1024
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 768,
+        "scrollWidth": 768,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 65,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 6
+    },
+    {
+      "key": "cart@pressure",
+      "routeKey": "cart",
+      "pathname": "/cart.html",
+      "viewport": {
+        "name": "pressure",
+        "width": 1100,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1100,
+        "scrollWidth": 1100,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 74,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/products/pinkparks/belted-cropped-jacket.jpg",
+          "alt": "Belted Cropped Jacket",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 243,
+          "height": 323,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/products/pinkparks/sheer-cape-wrap-top.jpg",
+          "alt": "Sheer Cape Wrap Top",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 243,
+          "height": 323,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/products/pinkparks/off-shoulder-sheer-top.jpg",
+          "alt": "Off-Shoulder Sheer Top",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 243,
+          "height": 323,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/products/pinkparks/sheer-collar-shirt.jpg",
+          "alt": "Sheer Collar Shirt",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 243,
+          "height": 323,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 33
+    },
+    {
+      "key": "cart@desktop",
+      "routeKey": "cart",
+      "pathname": "/cart.html",
+      "viewport": {
+        "name": "desktop",
+        "width": 1363,
+        "height": 936
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1363,
+        "scrollWidth": 1363,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 74,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/products/pinkparks/belted-cropped-jacket.jpg",
+          "alt": "Belted Cropped Jacket",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 303,
+          "height": 404,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/products/pinkparks/sheer-cape-wrap-top.jpg",
+          "alt": "Sheer Cape Wrap Top",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 303,
+          "height": 404,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/products/pinkparks/off-shoulder-sheer-top.jpg",
+          "alt": "Off-Shoulder Sheer Top",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 303,
+          "height": 404,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        },
+        {
+          "src": "./assets/products/pinkparks/sheer-collar-shirt.jpg",
+          "alt": "Sheer Collar Shirt",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 303,
+          "height": 404,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 33
+    },
+    {
+      "key": "saved@mobile",
+      "routeKey": "saved",
+      "pathname": "/favourite.html",
+      "viewport": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 390,
+        "scrollWidth": 390,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 35,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 19
+    },
+    {
+      "key": "saved@tablet",
+      "routeKey": "saved",
+      "pathname": "/favourite.html",
+      "viewport": {
+        "name": "tablet",
+        "width": 768,
+        "height": 1024
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 768,
+        "scrollWidth": 768,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 35,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/products/pinkparks/sheer-cape-wrap-top.jpg",
+          "alt": "Sheer Cape Wrap Top",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 341,
+          "height": 455,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 19
+    },
+    {
+      "key": "checkout@pressure",
+      "routeKey": "checkout",
+      "pathname": "/checkout.html",
+      "viewport": {
+        "name": "pressure",
+        "width": 1100,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1100,
+        "scrollWidth": 1100,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 65,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 6
+    },
+    {
+      "key": "checkout@desktop",
+      "routeKey": "checkout",
+      "pathname": "/checkout.html",
+      "viewport": {
+        "name": "desktop",
+        "width": 1363,
+        "height": 936
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1363,
+        "scrollWidth": 1363,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 65,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 6
+    },
+    {
+      "key": "account@mobile",
+      "routeKey": "account",
+      "pathname": "/account.html",
+      "viewport": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 390,
+        "scrollWidth": 390,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 37,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 19
+    },
+    {
+      "key": "account@tablet",
+      "routeKey": "account",
+      "pathname": "/account.html",
+      "viewport": {
+        "name": "tablet",
+        "width": 768,
+        "height": 1024
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 768,
+        "scrollWidth": 768,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 37,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 19
+    },
+    {
+      "key": "saved@pressure",
+      "routeKey": "saved",
+      "pathname": "/favourite.html",
+      "viewport": {
+        "name": "pressure",
+        "width": 1100,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1100,
+        "scrollWidth": 1100,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 40,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/products/pinkparks/sheer-cape-wrap-top.jpg",
+          "alt": "Sheer Cape Wrap Top",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 321,
+          "height": 428,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 24
+    },
+    {
+      "key": "saved@desktop",
+      "routeKey": "saved",
+      "pathname": "/favourite.html",
+      "viewport": {
+        "name": "desktop",
+        "width": 1363,
+        "height": 936
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1363,
+        "scrollWidth": 1363,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 40,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [
+        {
+          "src": "./assets/products/pinkparks/sheer-cape-wrap-top.jpg",
+          "alt": "Sheer Cape Wrap Top",
+          "className": "",
+          "objectFit": "contain",
+          "objectPosition": "50% 50%",
+          "width": 402,
+          "height": 536,
+          "naturalWidth": 934,
+          "naturalHeight": 1556,
+          "visible": true,
+          "verified": false,
+          "focalSubject": ""
+        }
+      ],
+      "interactiveControlsChecked": 24
+    },
+    {
+      "key": "order@mobile",
+      "routeKey": "order",
+      "pathname": "/order.html?id=QA-ORDER-001",
+      "viewport": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 390,
+        "scrollWidth": 390,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 44,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 14
+    },
+    {
+      "key": "order@tablet",
+      "routeKey": "order",
+      "pathname": "/order.html?id=QA-ORDER-001",
+      "viewport": {
+        "name": "tablet",
+        "width": 768,
+        "height": 1024
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 768,
+        "scrollWidth": 768,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 44,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 14
+    },
+    {
+      "key": "account@pressure",
+      "routeKey": "account",
+      "pathname": "/account.html",
+      "viewport": {
+        "name": "pressure",
+        "width": 1100,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1100,
+        "scrollWidth": 1100,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 42,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 24
+    },
+    {
+      "key": "account@desktop",
+      "routeKey": "account",
+      "pathname": "/account.html",
+      "viewport": {
+        "name": "desktop",
+        "width": 1363,
+        "height": 936
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1363,
+        "scrollWidth": 1363,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 42,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 24
+    },
+    {
+      "key": "order-success@mobile",
+      "routeKey": "order-success",
+      "pathname": "/order-success.html?id=QA-ORDER-001",
+      "viewport": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 390,
+        "scrollWidth": 390,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 40,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 17
+    },
+    {
+      "key": "order-success@tablet",
+      "routeKey": "order-success",
+      "pathname": "/order-success.html?id=QA-ORDER-001",
+      "viewport": {
+        "name": "tablet",
+        "width": 768,
+        "height": 1024
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 768,
+        "scrollWidth": 768,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 40,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 17
+    },
+    {
+      "key": "login@mobile",
+      "routeKey": "login",
+      "pathname": "/login.html",
+      "viewport": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 390,
+        "scrollWidth": 390,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 12,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 4
+    },
+    {
+      "key": "login@tablet",
+      "routeKey": "login",
+      "pathname": "/login.html",
+      "viewport": {
+        "name": "tablet",
+        "width": 768,
+        "height": 1024
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 768,
+        "scrollWidth": 768,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 12,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 4
+    },
+    {
+      "key": "order@pressure",
+      "routeKey": "order",
+      "pathname": "/order.html?id=QA-ORDER-001",
+      "viewport": {
+        "name": "pressure",
+        "width": 1100,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1100,
+        "scrollWidth": 1100,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 49,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 19
+    },
+    {
+      "key": "order@desktop",
+      "routeKey": "order",
+      "pathname": "/order.html?id=QA-ORDER-001",
+      "viewport": {
+        "name": "desktop",
+        "width": 1363,
+        "height": 936
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1363,
+        "scrollWidth": 1363,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 49,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 19
+    },
+    {
+      "key": "forgot@mobile",
+      "routeKey": "forgot",
+      "pathname": "/forgot-password.html",
+      "viewport": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 390,
+        "scrollWidth": 390,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 33,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 16
+    },
+    {
+      "key": "forgot@tablet",
+      "routeKey": "forgot",
+      "pathname": "/forgot-password.html",
+      "viewport": {
+        "name": "tablet",
+        "width": 768,
+        "height": 1024
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 768,
+        "scrollWidth": 768,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 33,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 16
+    },
+    {
+      "key": "order-success@pressure",
+      "routeKey": "order-success",
+      "pathname": "/order-success.html?id=QA-ORDER-001",
+      "viewport": {
+        "name": "pressure",
+        "width": 1100,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1100,
+        "scrollWidth": 1100,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 45,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 22
+    },
+    {
+      "key": "order-success@desktop",
+      "routeKey": "order-success",
+      "pathname": "/order-success.html?id=QA-ORDER-001",
+      "viewport": {
+        "name": "desktop",
+        "width": 1363,
+        "height": 936
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1363,
+        "scrollWidth": 1363,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 45,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 22
+    },
+    {
+      "key": "privacy@mobile",
+      "routeKey": "privacy",
+      "pathname": "/privacy.html",
+      "viewport": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 390,
+        "scrollWidth": 390,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 48,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 16
+    },
+    {
+      "key": "privacy@tablet",
+      "routeKey": "privacy",
+      "pathname": "/privacy.html",
+      "viewport": {
+        "name": "tablet",
+        "width": 768,
+        "height": 1024
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 768,
+        "scrollWidth": 768,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 48,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 16
+    },
+    {
+      "key": "login@pressure",
+      "routeKey": "login",
+      "pathname": "/login.html",
+      "viewport": {
+        "name": "pressure",
+        "width": 1100,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1100,
+        "scrollWidth": 1100,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 17,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 9
+    },
+    {
+      "key": "login@desktop",
+      "routeKey": "login",
+      "pathname": "/login.html",
+      "viewport": {
+        "name": "desktop",
+        "width": 1363,
+        "height": 936
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1363,
+        "scrollWidth": 1363,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 17,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 9
+    },
+    {
+      "key": "terms@mobile",
+      "routeKey": "terms",
+      "pathname": "/terms.html",
+      "viewport": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 390,
+        "scrollWidth": 390,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 48,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 16
+    },
+    {
+      "key": "terms@tablet",
+      "routeKey": "terms",
+      "pathname": "/terms.html",
+      "viewport": {
+        "name": "tablet",
+        "width": 768,
+        "height": 1024
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 768,
+        "scrollWidth": 768,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 48,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 16
+    },
+    {
+      "key": "forgot@pressure",
+      "routeKey": "forgot",
+      "pathname": "/forgot-password.html",
+      "viewport": {
+        "name": "pressure",
+        "width": 1100,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1100,
+        "scrollWidth": 1100,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 38,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 21
+    },
+    {
+      "key": "forgot@desktop",
+      "routeKey": "forgot",
+      "pathname": "/forgot-password.html",
+      "viewport": {
+        "name": "desktop",
+        "width": 1363,
+        "height": 936
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1363,
+        "scrollWidth": 1363,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 38,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 21
+    },
+    {
+      "key": "privacy@pressure",
+      "routeKey": "privacy",
+      "pathname": "/privacy.html",
+      "viewport": {
+        "name": "pressure",
+        "width": 1100,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1100,
+        "scrollWidth": 1100,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 53,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 21
+    },
+    {
+      "key": "privacy@desktop",
+      "routeKey": "privacy",
+      "pathname": "/privacy.html",
+      "viewport": {
+        "name": "desktop",
+        "width": 1363,
+        "height": 936
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1363,
+        "scrollWidth": 1363,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 53,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 21
+    },
+    {
+      "key": "terms@pressure",
+      "routeKey": "terms",
+      "pathname": "/terms.html",
+      "viewport": {
+        "name": "pressure",
+        "width": 1100,
+        "height": 900
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1100,
+        "scrollWidth": 1100,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 53,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 21
+    },
+    {
+      "key": "terms@desktop",
+      "routeKey": "terms",
+      "pathname": "/terms.html",
+      "viewport": {
+        "name": "desktop",
+        "width": 1363,
+        "height": 936
+      },
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "layout": {
+        "width": 1363,
+        "scrollWidth": 1363,
+        "overflow": [],
+        "brokenImages": [],
+        "heroIntegrity": true
+      },
+      "textAudit": {
+        "checked": 53,
+        "mediaContexts": 0,
+        "catastrophic": []
+      },
+      "mediaAudit": [],
+      "interactiveControlsChecked": 21
+    }
+  ],
+  "blockers": []
+}
