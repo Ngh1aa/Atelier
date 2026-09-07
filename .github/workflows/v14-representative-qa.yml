@@ -1,0 +1,89 @@
+name: V14 representative rendered QA
+
+on:
+  push:
+    branches:
+      - 'redesign/high-fashion-youth-luxury-v14'
+    paths:
+      - 'index.html'
+      - 'shop.html'
+      - 'detailproduct.html'
+      - 'atelier-v14.css'
+      - 'atelier-v13.css'
+      - 'main.js'
+      - 'src/**'
+      - 'assets/**'
+      - 'scripts/v14-representative-qa.mjs'
+      - '.github/workflows/v14-representative-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: v14-representative-qa-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  representative:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout V14 branch
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Playwright
+        run: |
+          npm install --no-save --no-package-lock playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Start static server
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/atelier-v14-server.log 2>&1 &
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:4173/index.html >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/atelier-v14-server.log
+          exit 1
+
+      - name: Render and verify representative roles
+        run: node scripts/v14-representative-qa.mjs
+        env:
+          QA_BASE_URL: http://127.0.0.1:4173
+          QA_OUT_DIR: qa-artifacts/v14
+
+      - name: Upload binary rendered evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: atelier-v14-representative-qa
+          path: qa-artifacts/v14
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Persist inspectable evidence on the working branch
+        if: success()
+        run: |
+          mkdir -p qa-evidence/v14
+          cp qa-artifacts/v14/report.json qa-evidence/v14/report.json
+          for file in qa-artifacts/v14/*.png; do
+            name="$(basename "$file")"
+            base64 -w 0 "$file" > "qa-evidence/v14/${name}.b64"
+          done
+          git config user.name "atelier-v14-qa[bot]"
+          git config user.email "atelier-v14-qa[bot]@users.noreply.github.com"
+          git add qa-evidence/v14
+          if git diff --cached --quiet; then
+            echo "No evidence changes to persist."
+            exit 0
+          fi
+          git commit -m "chore(qa): persist V14 representative rendered evidence [skip ci]"
+          git push
