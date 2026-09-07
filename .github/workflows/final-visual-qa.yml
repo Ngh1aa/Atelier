@@ -34,6 +34,7 @@ on:
       - 'scripts/v14-visual-sanity-regression.mjs'
       - 'scripts/v15-elementary-visual-integrity.mjs'
       - 'scripts/v15-targeted-evidence.mjs'
+      - 'scripts/v16-home-hero-geometry.mjs'
       - '.github/workflows/final-visual-qa.yml'
   workflow_dispatch:
 
@@ -89,6 +90,7 @@ jobs:
             QA_OUT_DIR=qa-artifacts/v14-sanity node scripts/v14-visual-sanity-regression.mjs
             QA_OUT_DIR=qa-artifacts/v15-elementary-integrity node scripts/v15-elementary-visual-integrity.mjs
             QA_OUT_DIR=qa-artifacts/v15-targeted-evidence node scripts/v15-targeted-evidence.mjs
+            QA_OUT_DIR=qa-artifacts/v16-home-hero-geometry node scripts/v16-home-hero-geometry.mjs
           else
             node scripts/final-visual-qa.mjs
             node scripts/v11-commerce-layout-regression.mjs
