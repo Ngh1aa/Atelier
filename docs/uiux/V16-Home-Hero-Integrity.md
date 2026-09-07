@@ -29,6 +29,13 @@
 - Impact: large accidental dead field and unclear relationship between media caption and decision panel; future stacking regressions remain possible.
 - Owner: Home media-frame contract in `atelier-v14.css`.
 
+### V16-F03 — wide/low-height panel content overflow
+
+- Label: `FACT`
+- Evidence: first V16 geometry run found the decision panel at 1900×820 ended 40px below the hero even though 1363×936 and 1100×900 were clean.
+- Root cause: content-driven panel height exceeded the fixed/absolute hero geometry at wide + shallow desktop dimensions.
+- Remediation: compact only the wide/low-height panel vertical spacing; preserve all already-correct desktop compositions.
+
 ## Decision log
 
 ### D-V16-01 — use a portrait media rail, not universal crop
@@ -46,7 +53,8 @@
   - caption intersects decision panel or decision actions;
   - Home media changes away from `contain`;
   - media rail geometry drifts outside the intended desktop range;
-  - caption loses its stable backplate.
+  - caption loses its stable backplate;
+  - decision panel escapes the hero bounds.
 - Rationale: color contrast alone cannot detect a correctly colored element that is physically covered by a higher stacking context.
 
 ## Skill Activation / Usage
@@ -58,19 +66,35 @@
 | `project-context` | existing V14 contract and desktop-only scope | preserve brand/behavior/source owners | no unrelated route/commerce changes | diff + whole-site QA | project source/docs |
 | `ui-improvement` | existing implemented UI needs root-cause fix | inspect rendered evidence + fix owner, not taste patch | edited `atelier-v14.css` owner | rendered comparison | user screenshots + source |
 | `asset-media-and-art-direction` | primary human media | no-cut focal subject; source-aware layout over universal cover | portrait media rail + `contain` | 1900/1363/1100 screenshots | V16 geometry artifacts |
-| `ui-craft-and-visual-qa` | obvious defect escaped previous QA | elementary sanity + overlap/overlay checks + opened screenshots | V16 geometry hard gate | CI + manual artifact inspection | pending final run |
+| `ui-craft-and-visual-qa` | obvious defect escaped previous QA | elementary sanity + overlap/overlay checks + opened screenshots | V16 geometry hard gate | CI + manual artifact inspection | run `34095534249`, artifact `10008555416` |
+
+## Verification evidence
+
+- `npm test`: PASS.
+- Production build: PASS.
+- V14 whole-site QA: PASS, 0 blockers.
+- V14 visual sanity: PASS, 0 blockers.
+- V15 elementary visual integrity: PASS, 40 route/viewport states, 0 blockers.
+- V15 targeted evidence: captured successfully.
+- V16 Home geometry: PASS at 1900×820, 1363×936 and 1100×900, 0 blockers.
+- GitHub Actions run: `34095534249` — SUCCESS.
+- Visual artifact: `10008555416`.
+- Rendered screenshots were opened and manually inspected after the final CSS change:
+  - 1900×820: model/focal subject fully retained; both campaign captions remain in the media rail; noir panel fully inside hero; CTA row visible; no overlay/caption collision.
+  - 1363×936: model remains intact; panel/captions separated; no crop or overlap regression.
+  - 1100×900: pressure layout remains intact; both captions readable; model/focal subject preserved; panel remains inside hero.
 
 ## Requirement Coverage Ledger
 
 | ID | Requirement | Status | Verification | Evidence |
 |---|---|---|---|---|
-| V16-R01 | `ATELIER / VIETNAM` and `LOOK 01 / FALL 2026` remain fully visible and inside their media owner | `BLOCKED` | geometry regression + screenshot inspection | pending latest branch QA |
-| V16-R02 | Home decision panel must not obscure/collide with media captions | `BLOCKED` | bounding-box intersection check at 1900/1363/1100 | pending latest branch QA |
-| V16-R03 | Human hero subject remains non-destructively rendered | `BLOCKED` | computed `object-fit: contain` + rendered inspection | pending latest branch QA |
-| V16-R04 | Existing routes/interactions do not regress | `BLOCKED` | npm test + build + V14/V15 suites | pending latest branch QA |
+| V16-R01 | `ATELIER / VIETNAM` and `LOOK 01 / FALL 2026` remain fully visible and inside their media owner | `DONE_VERIFIED` | geometry regression + opened screenshot inspection | run `34095534249`, artifact `10008555416` |
+| V16-R02 | Home decision panel must not obscure/collide with media captions | `DONE_VERIFIED` | bounding-box intersection check at 1900/1363/1100 + opened screenshots | V16 geometry report/screenshots |
+| V16-R03 | Human hero subject remains non-destructively rendered | `DONE_VERIFIED` | computed `object-fit: contain` + rendered inspection at all declared desktop states | V16 screenshots |
+| V16-R04 | Existing routes/interactions do not regress | `DONE_VERIFIED` | npm test + build + V14/V15 suites | run `34095534249` |
 | V16-R05 | Mobile/tablet QA | `N/A_JUSTIFIED` | project remains `desktop_only` | active project contract |
-| V16-R06 | Merge/release to `main` | `BLOCKED` | explicit release authorization required after PASS | not yet authorized for this new fix |
+| V16-R06 | Merge/release to `main` | `N/A_JUSTIFIED` | release is outside this remediation/QA phase and requires a new explicit authorization | branch remains unmerged |
 
 ## Phase result
 
-`BLOCKED` until the latest branch run completes and rendered artifacts are opened/inspected.
+`PASSED` — implementation and desktop rendered QA are complete. The branch is intentionally not merged/released to `main` until the user explicitly authorizes this new fix.
