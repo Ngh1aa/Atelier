@@ -188,7 +188,7 @@ for (const [key, pathname] of routes) {
   }
 
   if (key === "login" || key === "forgot") {
-    if (!/does not currently create client accounts|does not collect|locally|browser/i.test(entry.bodyText)) addBlocker(key, "auth static-reality disclosure missing");
+    if (!/does not currently create client accounts|does not store passwords|does not collect|static edition|locally|browser/i.test(entry.bodyText)) addBlocker(key, "auth static-reality disclosure missing");
   }
 
   if (key === "contact") {
@@ -201,6 +201,26 @@ for (const [key, pathname] of routes) {
       items: document.querySelectorAll(".order-item").length,
     }));
     if (entry.orderReality.items < 1) addBlocker(key, "seeded local order not rendered");
+  }
+
+  if (key === "house") {
+    const anchor = page.locator('a[href="#house-codes"]').first();
+    if (await anchor.count()) {
+      await anchor.click();
+      await page.waitForTimeout(100);
+      entry.houseAnchor = await page.evaluate(() => {
+        const nav = document.querySelector("body > nav");
+        const target = document.querySelector("#house-codes");
+        const navHeight = nav ? nav.getBoundingClientRect().height : 0;
+        const targetTop = target ? target.getBoundingClientRect().top : -1;
+        return { navHeight: Math.round(navHeight), targetTop: Math.round(targetTop) };
+      });
+      if (entry.houseAnchor.targetTop < entry.houseAnchor.navHeight + 8) {
+        addBlocker(key, `House codes anchor sits under sticky nav: target=${entry.houseAnchor.targetTop}, nav=${entry.houseAnchor.navHeight}`);
+      }
+      await page.evaluate(() => window.scrollTo(0, 0));
+      await page.waitForTimeout(60);
+    }
   }
 
   if (screenshotRoles.has(key)) {
