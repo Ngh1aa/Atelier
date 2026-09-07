@@ -32,6 +32,7 @@ on:
       - 'scripts/mobile-menu-regression.mjs'
       - 'scripts/v14-whole-site-qa.mjs'
       - 'scripts/v14-visual-sanity-regression.mjs'
+      - 'scripts/v15-elementary-visual-integrity.mjs'
       - '.github/workflows/final-visual-qa.yml'
   workflow_dispatch:
 
@@ -79,6 +80,7 @@ jobs:
             echo "V14 desktop-only contract detected; mobile/tablet regression is N/A_JUSTIFIED."
             QA_OUT_DIR=qa-artifacts/v14-whole-site node scripts/v14-whole-site-qa.mjs
             QA_OUT_DIR=qa-artifacts/v14-sanity node scripts/v14-visual-sanity-regression.mjs
+            QA_OUT_DIR=qa-artifacts/v15-elementary-integrity node scripts/v15-elementary-visual-integrity.mjs
           else
             node scripts/final-visual-qa.mjs
             node scripts/v11-commerce-layout-regression.mjs
