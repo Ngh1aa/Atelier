@@ -80,7 +80,7 @@ jobs:
           cp qa-artifacts/v14/report.json qa-evidence/v14/report.json
           for file in qa-artifacts/v14/preview-*.jpg; do
             name="$(basename "$file")"
-            base64 -w 0 "$file" | split -b 24000 - "qa-evidence/v14/previews/${name}.b64.part."
+            base64 -w 0 "$file" | split -b 8000 - "qa-evidence/v14/previews/${name}.b64.part."
           done
           git config user.name "atelier-v14-qa[bot]"
           git config user.email "atelier-v14-qa[bot]@users.noreply.github.com"
