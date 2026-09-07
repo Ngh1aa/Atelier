@@ -8,6 +8,7 @@ await mkdir(outputDir, { recursive: true });
 
 const browser = await chromium.launch({ headless: true });
 const viewport = { width: 1363, height: 936 };
+const preview = { type: "jpeg", quality: 8 };
 
 async function makePage(pathname) {
   const context = await browser.newContext({ viewport, deviceScaleFactor: 1, colorScheme: "light", reducedMotion: "reduce" });
@@ -21,26 +22,26 @@ async function makePage(pathname) {
 
 {
   const { context, page } = await makePage("/index.html");
-  await page.screenshot({ path: path.join(outputDir, "preview-home-top.jpg"), type: "jpeg", quality: 24, fullPage: false });
-  await page.locator(".wardrobe-moments").screenshot({ path: path.join(outputDir, "preview-home-runway.jpg"), type: "jpeg", quality: 24 });
-  await page.locator(".current-edit").screenshot({ path: path.join(outputDir, "preview-home-current-edit.jpg"), type: "jpeg", quality: 24 });
+  await page.screenshot({ path: path.join(outputDir, "preview-home-top.jpg"), ...preview, fullPage: false });
+  await page.locator(".wardrobe-moments").screenshot({ path: path.join(outputDir, "preview-home-runway.jpg"), ...preview });
+  await page.locator(".current-edit").screenshot({ path: path.join(outputDir, "preview-home-current-edit.jpg"), ...preview });
   await context.close();
 }
 
 {
   const { context, page } = await makePage("/shop.html");
   await page.waitForTimeout(250);
-  await page.screenshot({ path: path.join(outputDir, "preview-shop-top.jpg"), type: "jpeg", quality: 24, fullPage: false });
-  await page.locator(".shop-grid").screenshot({ path: path.join(outputDir, "preview-shop-grid.jpg"), type: "jpeg", quality: 24 });
+  await page.screenshot({ path: path.join(outputDir, "preview-shop-top.jpg"), ...preview, fullPage: false });
+  await page.locator(".shop-grid").screenshot({ path: path.join(outputDir, "preview-shop-grid.jpg"), ...preview });
   await context.close();
 }
 
 {
   const { context, page } = await makePage("/detailproduct.html?id=tailored-wool-blazer");
   await page.waitForTimeout(300);
-  await page.screenshot({ path: path.join(outputDir, "preview-pdp-top.jpg"), type: "jpeg", quality: 24, fullPage: false });
+  await page.screenshot({ path: path.join(outputDir, "preview-pdp-top.jpg"), ...preview, fullPage: false });
   await context.close();
 }
 
 await browser.close();
-console.log("V14 lightweight previews captured.");
+console.log("V14 compressed inspection previews captured.");
