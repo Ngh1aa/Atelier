@@ -14,6 +14,7 @@ on:
       - 'src/**'
       - 'assets/**'
       - 'scripts/v14-representative-qa.mjs'
+      - 'scripts/v14-preview-capture.mjs'
       - '.github/workflows/v14-representative-qa.yml'
   workflow_dispatch:
 
@@ -55,7 +56,9 @@ jobs:
           exit 1
 
       - name: Render and verify representative roles
-        run: node scripts/v14-representative-qa.mjs
+        run: |
+          node scripts/v14-representative-qa.mjs
+          node scripts/v14-preview-capture.mjs
         env:
           QA_BASE_URL: http://127.0.0.1:4173
           QA_OUT_DIR: qa-artifacts/v14
@@ -72,11 +75,12 @@ jobs:
       - name: Persist inspectable evidence on the working branch
         if: success()
         run: |
-          mkdir -p qa-evidence/v14
+          rm -rf qa-evidence/v14
+          mkdir -p qa-evidence/v14/previews
           cp qa-artifacts/v14/report.json qa-evidence/v14/report.json
-          for file in qa-artifacts/v14/*.png; do
+          for file in qa-artifacts/v14/preview-*.jpg; do
             name="$(basename "$file")"
-            base64 -w 0 "$file" > "qa-evidence/v14/${name}.b64"
+            base64 -w 0 "$file" | split -b 24000 - "qa-evidence/v14/previews/${name}.b64.part."
           done
           git config user.name "atelier-v14-qa[bot]"
           git config user.email "atelier-v14-qa[bot]@users.noreply.github.com"
