@@ -115,6 +115,7 @@ async function stateSnapshot(locator) {
       visibility: style.visibility,
       opacity: Number.parseFloat(style.opacity || "1"),
       disabled: !!el.disabled,
+      ariaDisabled: el.getAttribute("aria-disabled") === "true",
       width: Math.round(rect.width),
       height: Math.round(rect.height),
       color: style.color,
@@ -125,6 +126,7 @@ async function stateSnapshot(locator) {
       ratio: Number(contrast(fg, bg).toFixed(2)),
       threshold,
       visible: rect.width > 0 && rect.height > 0 && style.display !== "none" && style.visibility !== "hidden" && Number.parseFloat(style.opacity || "1") > 0.05,
+      inViewport: rect.right > 0 && rect.bottom > 0 && rect.left < window.innerWidth && rect.top < window.innerHeight,
     };
   });
 }
@@ -151,15 +153,30 @@ async function auditButtons(page, key, entry) {
   entry.buttons = [];
   for (let i = 0; i < count; i += 1) {
     const node = nodes.nth(i);
+    const discovered = await stateSnapshot(node);
+    if (!discovered.visible || !discovered.text) continue;
+
+    try {
+      await node.scrollIntoViewIfNeeded();
+      await page.waitForTimeout(20);
+    } catch {
+      continue;
+    }
+
     const initial = await stateSnapshot(node);
-    if (!initial.visible || initial.disabled || !initial.text) continue;
+    if (!initial.visible || !initial.inViewport) continue;
+
     const item = { index: i, initial };
     if (initial.ratio < initial.threshold) {
       block(key, `button default contrast ${initial.ratio}:1 below ${initial.threshold}:1`, { index: i, text: initial.text, className: initial.className, color: initial.color, background: initial.effectiveBackground });
     }
 
+    if (initial.disabled || initial.ariaDisabled) {
+      entry.buttons.push(item);
+      continue;
+    }
+
     try {
-      await node.scrollIntoViewIfNeeded();
       await node.hover({ force: true });
       await page.waitForTimeout(30);
       item.hover = await stateSnapshot(node);
