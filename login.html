@@ -55,8 +55,15 @@
   <main>
     <section class="account-notice-page">
       <div class="container account-notice-grid reveal">
-        <div><p class="eyebrow">CLIENT ACCOUNT</p><h1>Accounts are<br>being prepared.</h1></div>
-        <div class="account-notice-copy"><p>ATELIER does not currently create client accounts, collect passwords or display purchase history through this static edition.</p><p>Saved pieces and your Bag are stored locally in this browser only. They are not connected to a customer profile.</p><a class="btn-outline" href="favourite.html">View saved pieces <span aria-hidden="true">→</span></a></div>
+        <div><p class="eyebrow">YOUR ATELIER</p><h1>A space for<br>your edit.</h1><p class="client-section-intro">Return to saved pieces, keep your details close and revisit your orders.</p><a class="text-link" href="account.html">Continue without adding details →</a></div>
+        <div class="account-notice-copy client-entry-panel"><p class="eyebrow">START ON THIS DEVICE</p><h2>Make it yours.</h2><p>Add your name and email if you would like to reuse them at checkout. Both are optional and stay in this browser.</p>
+          <form class="js-client-profile" data-entry="true" novalidate>
+            <div class="form-group"><label for="entryName">Full name <span>(optional)</span></label><input id="entryName" name="fullName" autocomplete="name" maxlength="100"></div>
+            <div class="form-group"><label for="entryEmail">Email <span>(optional)</span></label><input id="entryEmail" name="email" type="email" autocomplete="email" maxlength="254"></div>
+            <button class="commerce-primary-action" type="submit">Save &amp; open my Atelier</button><p class="form-status js-profile-status" role="status"></p>
+          </form>
+          <p class="client-storage-note">Online sign-in and cross-device sync are not connected in this edition. No password is requested. <a href="forgot-password.html">Find an order on this device →</a></p>
+        </div>
       </div>
     </section>
   </main>

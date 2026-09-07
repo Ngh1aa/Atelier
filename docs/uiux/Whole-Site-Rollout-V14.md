@@ -36,5 +36,5 @@ Status: **DONE_VERIFIED (source ownership gate)**
 - Every root HTML route references `atelier-v14-site.css?v=atelier-v14-site`.
 - Every root HTML body carries the `v14` marker.
 - No root HTML retains the V13 stylesheet owner or `v13` body marker.
-- `main.js` exposes `data-atelier-style=high-fashion-youth-luxury-v14` for QA.
+- `main.js` exposes `data-atelier-style=luxury-monochrome` for QA.
 - Rendered visual QA remains a separate Phase 4 gate.

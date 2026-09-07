@@ -10,10 +10,12 @@ import {
   isWishlisted,
   loadProducts,
   removeCartItem,
+  SIZE_GUIDE,
   toggleWishlist,
 } from "./commerce-store.js?v=white-editorial-v6";
 
 let lastFocusedElement = null;
+let closeTimer;
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -42,10 +44,62 @@ export function showMessage(message, { assertive = false } = {}) {
     region.setAttribute("aria-live", assertive ? "assertive" : "polite");
     document.body.appendChild(region);
   }
+  region.setAttribute("role", assertive ? "alert" : "status");
+  region.setAttribute("aria-live", assertive ? "assertive" : "polite");
   region.textContent = message;
   region.classList.add("is-visible");
   clearTimeout(showMessage.timer);
   showMessage.timer = setTimeout(() => region.classList.remove("is-visible"), 2600);
+}
+
+export function attemptLocalAction(action, errorElement = null) {
+  try { return action(); }
+  catch {
+    const message = "This browser could not save the change. Free up storage or allow site data, then try again.";
+    if (errorElement) errorElement.textContent = message;
+    else showMessage(message, { assertive: true });
+    return null;
+  }
+}
+
+// Shared inline validation for checkout, profile, lookup and service drafts.
+export function bindFormValidation(form) {
+  form.noValidate = true;
+  const fields = [...form.querySelectorAll("input:not([type=hidden]), select, textarea")];
+  const validateField = (field) => {
+    if (field.disabled || field.type === "radio") return true;
+    field.setCustomValidity("");
+    if (field.required && field.type !== "checkbox" && !field.value.trim()) field.setCustomValidity("Complete this field.");
+    if (field.type === "tel" && field.value && !/^[+()\d\s.-]{7,20}$/.test(field.value)) field.setCustomValidity("Enter a phone number with 7–20 digits and dialling symbols.");
+    const valid = field.validity.valid;
+    const id = `${field.id || field.name}-error`;
+    let error = form.querySelector(`#${CSS.escape(id)}`);
+    if (!error) {
+      error = document.createElement("small"); error.id = id; error.className = "field-error";
+      field.closest(".form-group, .checkout-consent")?.appendChild(error);
+      const describedBy = new Set((field.getAttribute("aria-describedby") || "").split(" ").filter(Boolean));
+      describedBy.add(id); field.setAttribute("aria-describedby", [...describedBy].join(" "));
+    }
+    error.textContent = valid ? "" : field.type === "checkbox" ? "Please acknowledge the terms to continue." : field.validity.typeMismatch ? "Enter a valid email address." : field.validationMessage;
+    field.setAttribute("aria-invalid", String(!valid));
+    return valid;
+  };
+  fields.forEach((field) => {
+    field.addEventListener("blur", () => validateField(field));
+    field.addEventListener("input", () => { if (field.getAttribute("aria-invalid") === "true") validateField(field); });
+    field.addEventListener("change", () => { if (field.getAttribute("aria-invalid") === "true") validateField(field); });
+  });
+  return () => {
+    const invalid = fields.filter((field) => !validateField(field));
+    invalid[0]?.focus();
+    return !invalid.length;
+  };
+}
+
+export function downloadText(filename, content, type = "text/plain;charset=utf-8") {
+  const url = URL.createObjectURL(new Blob([content], { type }));
+  const link = document.createElement("a"); link.href = url; link.download = filename;
+  link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 function ensureOverlay() {
@@ -65,13 +119,14 @@ export function closeDrawer() {
   if (!overlay) return;
   overlay.classList.remove("is-open");
   document.body.classList.remove("commerce-drawer-open");
-  setTimeout(() => { overlay.querySelector(".js-commerce-drawer-content").innerHTML = ""; }, 320);
+  closeTimer = setTimeout(() => { overlay.querySelector(".js-commerce-drawer-content").innerHTML = ""; }, 320);
   lastFocusedElement?.focus?.();
 }
 
 function openDrawer(content) {
   const overlay = ensureOverlay();
-  lastFocusedElement = document.activeElement;
+  clearTimeout(closeTimer);
+  if (!overlay.classList.contains("is-open")) lastFocusedElement = document.activeElement;
   overlay.querySelector(".js-commerce-drawer-content").innerHTML = content;
   overlay.classList.add("is-open");
   document.body.classList.add("commerce-drawer-open");
@@ -129,15 +184,14 @@ function bindVariantControls(container, product, initialColor, initialSize, onCh
     container.querySelector(".js-variant-color-label").textContent = product.colors.find((item) => item.value === color)?.name || "";
     repaintSizes();
   }));
-  container.querySelector(".js-open-size-guide")?.addEventListener("click", () => openSizeGuide());
   bindSizeButtons();
   return () => ({ color, size, variant: size ? findVariant(product, color, size) : null });
 }
 
-export function openVariantPicker(product, { heading = "Select an option", preferredVariantId = null, onAdded = null } = {}) {
+export function openVariantPicker(product, { heading = "Select an option", preferredVariantId = null, onAdded = null, selectedSize = undefined } = {}) {
   const preferred = product.variants.find((variant) => variant.id === preferredVariantId);
   const initialColor = preferred?.color || product.colors[0].value;
-  const initialSize = preferred?.size || (product.requiresSize ? null : "One Size");
+  const initialSize = selectedSize !== undefined ? selectedSize : preferred?.size || (product.requiresSize ? null : "One Size");
   const overlay = openDrawer(`
     <p class="eyebrow">QUICK ADD</p>
     <h2 id="commerce-drawer-title">${escapeHtml(heading)}</h2>
@@ -146,13 +200,20 @@ export function openVariantPicker(product, { heading = "Select an option", prefe
     <button type="button" class="commerce-primary-action js-confirm-variant">Add to Bag</button>`);
   const content = overlay.querySelector(".js-commerce-drawer-content");
   const getSelection = bindVariantControls(content, product, initialColor, initialSize);
+  content.querySelector(".js-open-size-guide")?.addEventListener("click", () => {
+    const selection = getSelection();
+    openSizeGuide({ onBack: () => openVariantPicker(product, { heading,
+      preferredVariantId: selection.variant?.id || product.variants.find((variant) => variant.color === selection.color)?.id,
+      onAdded, selectedSize: selection.size }), });
+  });
   content.querySelector(".js-confirm-variant").addEventListener("click", () => {
     const selection = getSelection();
     if (!selection.variant) {
       content.querySelector(".js-variant-error").textContent = "Please select a size.";
       return;
     }
-    const result = addCartItem(product, selection.variant.id);
+    const result = attemptLocalAction(() => addCartItem(product, selection.variant.id), content.querySelector(".js-variant-error"));
+    if (!result) return;
     if (!result.ok) {
       content.querySelector(".js-variant-error").textContent = result.message;
       return;
@@ -185,13 +246,15 @@ export async function openMiniBag() {
   }));
 }
 
-export function openSizeGuide() {
+export function openSizeGuide({ onBack = null } = {}) {
   const overlay = openDrawer(`
     <p class="eyebrow">ATELIER CLIENT SERVICES</p>
     <h2 id="commerce-drawer-title">Size Guide</h2>
     <p class="commerce-drawer-intro">Measurements are body measurements in centimetres. For a relaxed silhouette, consider the larger size.</p>
-    <div class="size-guide-table-wrap"><table class="size-guide-table"><thead><tr><th>Size</th><th>Chest</th><th>Waist</th><th>Hip</th></tr></thead><tbody><tr><td>XS</td><td>80–84</td><td>62–66</td><td>86–90</td></tr><tr><td>S</td><td>84–88</td><td>66–70</td><td>90–94</td></tr><tr><td>M</td><td>88–92</td><td>70–74</td><td>94–98</td></tr><tr><td>L</td><td>92–98</td><td>74–80</td><td>98–104</td></tr><tr><td>XL</td><td>98–104</td><td>80–86</td><td>104–110</td></tr></tbody></table></div>
+    <div class="size-guide-table-wrap"><table class="size-guide-table"><thead><tr><th scope="col">Size</th><th scope="col">Chest</th><th scope="col">Waist</th><th scope="col">Hip</th></tr></thead><tbody>${SIZE_GUIDE.map((row) => `<tr><th scope="row">${row.size}</th><td>${row.chest.join("–")}</td><td>${row.waist.join("–")}</td><td>${row.hip.join("–")}</td></tr>`).join("")}</tbody></table></div>
+    ${onBack ? '<button type="button" class="commerce-primary-action js-size-guide-back">Back to your selection</button>' : ""}
     <a class="commerce-secondary-action" href="size-guide.html">Full measuring guide</a>`);
+  overlay.querySelector(".js-size-guide-back")?.addEventListener("click", onBack);
   overlay.querySelector(".commerce-secondary-action")?.addEventListener("click", closeDrawer);
 }
 

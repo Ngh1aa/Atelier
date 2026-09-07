@@ -1,20 +1,5 @@
-import { cartCount, formatVND, loadProducts, track } from "./commerce-store.js?v=white-editorial-v6";
+import { cartCount, formatVND, loadProducts, matchesProductSearch, SEARCH_SYNONYMS, track } from "./commerce-store.js?v=white-editorial-v6";
 import { escapeHtml, initCommerceUi, updateGlobalIndicators } from "./commerce-ui.js?v=white-editorial-v6";
-
-const SEARCH_SYNONYMS = {
-  coat: ["outerwear", "overcoat"],
-  tee: ["t-shirt", "tees", "top"],
-  blazer: ["tailoring", "outerwear"],
-  dress: ["gown", "evening"],
-  bag: ["tote", "accessories"],
-};
-
-function searchTerms(product) {
-  return [product.name, product.category, product.collection, product.description, product.material, ...product.colors.map((color) => color.name)]
-    .filter(Boolean)
-    .join(" ")
-    .toLowerCase();
-}
 
 export function initSearchOverlay() {
   const btn = document.getElementById("navSearchBtn");
@@ -34,6 +19,7 @@ export function initSearchOverlay() {
     requestAnimationFrame(() => input.focus());
   };
   const closeSearch = () => {
+    searchRequest += 1;
     overlay.classList.remove("open");
     btn.setAttribute("aria-expanded", "false");
     document.body.style.overflow = "";
@@ -69,16 +55,26 @@ export function initSearchOverlay() {
     }
   });
 
-  const loaded = loadProducts().catch(() => []);
-  input.addEventListener("input", async () => {
-    const products = await loaded;
+  let searchRequest = 0;
+  const search = async () => {
+    const request = ++searchRequest;
     const query = input.value.trim().toLowerCase();
     if (query.length < 2) {
       results.innerHTML = "";
       return;
     }
+    results.innerHTML = '<p class="search-result-label" role="status">Finding pieces…</p>';
+    let products;
+    try { products = await loadProducts(); }
+    catch {
+      if (request !== searchRequest) return;
+      results.innerHTML = '<div class="search-empty-state"><p>The catalogue could not be loaded.</p><button type="button" class="btn-outline js-search-retry">Try again</button></div>';
+      results.querySelector(".js-search-retry").addEventListener("click", search);
+      return;
+    }
+    if (request !== searchRequest || !overlay.classList.contains("open")) return;
     const expanded = [query, ...(SEARCH_SYNONYMS[query] || [])];
-    const matchedProducts = products.filter((product) => expanded.some((term) => searchTerms(product).includes(term))).slice(0, 5);
+    const matchedProducts = products.filter((product) => matchesProductSearch(product, query)).slice(0, 5);
     const matchedCategories = [...new Set(products.map((product) => product.category))]
       .filter((category) => expanded.some((term) => category.toLowerCase().includes(term)))
       .slice(0, 3);
@@ -94,7 +90,8 @@ export function initSearchOverlay() {
       ${matchedCategories.length ? `<p class="search-result-label">CATEGORIES</p>${matchedCategories.map((category) => `<a href="shop.html?category=${encodeURIComponent(category.toLowerCase())}"><span>${escapeHtml(category)}</span><span aria-hidden="true">→</span></a>`).join("")}` : ""}
       <a class="search-view-all" href="shop.html?search=${encodeURIComponent(query)}"><span>View all results for “${escapeHtml(input.value.trim())}”</span><span aria-hidden="true">→</span></a>`;
     track("search", { search_term: query });
-  });
+  };
+  input.addEventListener("input", search);
 
   input.addEventListener("keydown", (event) => {
     if (event.key === "Enter" && input.value.trim().length >= 2) {

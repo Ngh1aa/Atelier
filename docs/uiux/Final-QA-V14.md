@@ -26,14 +26,14 @@ Responsive contract: `desktop_only`
 Verified automatically:
 - HTTP 200 for all root routes under test.
 - exactly one main H1 per route.
-- `body.v14` and `data-atelier-style=high-fashion-youth-luxury-v14` active.
+- `body.v14` and `data-atelier-style=luxury-monochrome` active.
 - exactly one `atelier-v14-site.css` entrypoint and no root V13 stylesheet owner.
 - no horizontal overflow at the declared desktop viewports.
 - no broken rendered images or page/console errors in the tested states.
 - seeded Bag, Saved and local Order states render.
 - Checkout keeps prototype truth and the action label `Record Order on This Device`.
 - Login/Forgot Password preserve no-account/no-password static reality.
-- Contact keeps `@atelier.example` explicitly marked as a non-live placeholder.
+- Contact explicitly states that direct messaging is not connected and drafts are not sent.
 - House-codes anchor lands below sticky navigation (`targetTop=84`, `navHeight=66`).
 
 ## Manual visual inspection

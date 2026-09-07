@@ -4,6 +4,31 @@ const WISHLIST_KEY = "atelier.wishlist.v2";
 const LEGACY_WISHLIST_KEY = "atelier.wishlist";
 const ORDER_KEY = "atelier.orders";
 const RECENT_KEY = "atelier.recently-viewed";
+const PROFILE_KEY = "atelier.client-profile.v1";
+const ENQUIRY_KEY = "atelier.enquiry-draft.v1";
+
+// Body measurements from the existing full Size Guide, shared with Quick Add.
+export const SIZE_GUIDE = [
+  { size: "XS", chest: [78, 82], waist: [60, 64], hip: [86, 90] },
+  { size: "S", chest: [83, 87], waist: [65, 69], hip: [91, 95] },
+  { size: "M", chest: [88, 92], waist: [70, 74], hip: [96, 100] },
+  { size: "L", chest: [93, 97], waist: [75, 79], hip: [101, 105] },
+  { size: "XL", chest: [98, 102], waist: [80, 84], hip: [106, 110] },
+];
+
+export const SEARCH_SYNONYMS = {
+  coat: ["outerwear", "overcoat"], tee: ["t-shirt", "tees", "top"],
+  blazer: ["tailoring", "outerwear"], dress: ["gown", "evening"],
+  bag: ["tote", "accessories"], trousers: ["bottoms", "pants"],
+};
+
+export function matchesProductSearch(product, query) {
+  const term = String(query || "").trim().toLowerCase();
+  if (!term) return true;
+  const haystack = [product.name, product.category, product.collection, product.description,
+    product.material, ...(product.colors || []).map((color) => color.name)].join(" ").toLowerCase();
+  return [term, ...(SEARCH_SYNONYMS[term] || [])].some((word) => haystack.includes(word));
+}
 
 const COLOR_PRESETS = {
   "tailored-wool-blazer": [
@@ -113,7 +138,8 @@ export async function loadProducts() {
         if (!response.ok) throw new Error("The catalogue could not be loaded.");
         return response.json();
       })
-      .then((products) => products.map(normaliseProduct));
+      .then((products) => products.map(normaliseProduct))
+      .catch((error) => { cataloguePromise = undefined; throw error; });
   }
   return cataloguePromise;
 }
@@ -220,6 +246,8 @@ export function addCartItem(product, variantId, quantity = 1) {
   const variant = getVariant(product, variantId);
   if (!variant) return { ok: false, message: "Please select a size." };
   if (variant.stock < 1) return { ok: false, message: `Size ${variant.size} is unavailable.` };
+  if (!Number.isSafeInteger(quantity) || quantity < 1) return { ok: false, message: "Choose a whole quantity of at least one." };
+  if (variant.inventoryKnown && quantity > variant.stock) return { ok: false, message: "The requested quantity is not available for this size." };
 
   const cart = getCart();
   const existing = cart.find((item) => item.variantId === variant.id);
@@ -250,7 +278,7 @@ export function updateCartQuantity(lineId, quantity) {
   const cart = getCart();
   const item = cart.find((line) => line.id === lineId);
   if (!item) return;
-  item.quantity = Math.max(1, Number(quantity) || 1);
+  item.quantity = Math.max(1, Math.floor(Number(quantity) || 1));
   saveCart(cart);
 }
 
@@ -268,10 +296,11 @@ export function changeCartVariant(lineId, product, variantId) {
   const line = cart.find((item) => item.id === lineId);
   if (!line) return { ok: false, message: "This Bag item could not be found." };
   const duplicate = cart.find((item) => item.id !== lineId && item.variantId === variant.id);
+  if (variant.inventoryKnown && line.quantity + (duplicate?.quantity || 0) > variant.stock) {
+    return { ok: false, message: "This size cannot fulfil the combined quantity. Reduce the quantity first." };
+  }
   if (duplicate) {
-    duplicate.quantity = variant.inventoryKnown
-      ? Math.min(variant.stock, duplicate.quantity + line.quantity)
-      : duplicate.quantity + line.quantity;
+    duplicate.quantity += line.quantity;
     saveCart(cart.filter((item) => item.id !== lineId));
   } else {
     line.id = `${product.id}::${variant.id}`;
@@ -375,7 +404,8 @@ export function createOrder(orderInput) {
 }
 
 export function getOrders() {
-  return safeRead(ORDER_KEY, []);
+  const orders = safeRead(ORDER_KEY, []);
+  return Array.isArray(orders) ? orders : [];
 }
 
 export function getOrder(orderId) {
@@ -391,6 +421,15 @@ export function updateOrder(orderId, update) {
   return orders[index];
 }
 
+export function saveOrderServiceRequest(orderId, request) {
+  const order = getOrder(orderId);
+  if (!order) return { ok: false, message: "This order is no longer on this device." };
+  if (order.serviceRequests?.some((item) => item.itemIndex === request.itemIndex)) {
+    return { ok: false, message: "This piece already has a service note. Remove that note before choosing a different request." };
+  }
+  return { ok: true, order: updateOrder(orderId, { serviceRequests: [...(order.serviceRequests || []), request] }) };
+}
+
 export function addRecentlyViewed(productId) {
   const current = safeRead(RECENT_KEY, []).filter((id) => id !== productId);
   current.unshift(productId);
@@ -400,6 +439,28 @@ export function addRecentlyViewed(productId) {
 export function getRecentlyViewed() {
   return safeRead(RECENT_KEY, []);
 }
+
+export function getClientProfile() {
+  const profile = safeRead(PROFILE_KEY, {});
+  return profile && typeof profile === "object" && !Array.isArray(profile) ? profile : {};
+}
+
+export function saveClientProfile(values) {
+  const fields = ["fullName", "email", "phone", "address", "apartment", "district", "province", "postalCode"];
+  const profile = Object.fromEntries(fields.map((key) => [key, String(values[key] || "").trim()]));
+  safeWrite(PROFILE_KEY, profile);
+  return profile;
+}
+
+export function clearClientProfile() { localStorage.removeItem(PROFILE_KEY); }
+export function getEnquiryDraft() { return safeRead(ENQUIRY_KEY, null); }
+export function saveEnquiryDraft(values) {
+  const draft = { topic: String(values.topic || "product"), orderId: String(values.orderId || ""),
+    message: String(values.message || "").trim(), updatedAt: new Date().toISOString() };
+  safeWrite(ENQUIRY_KEY, draft);
+  return draft;
+}
+export function clearEnquiryDraft() { localStorage.removeItem(ENQUIRY_KEY); }
 
 export function getDeliveryWindow(express = false) {
   const start = new Date();

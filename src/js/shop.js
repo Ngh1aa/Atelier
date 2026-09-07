@@ -3,6 +3,7 @@ import {
   getWishlist,
   isWishlisted,
   loadProducts,
+  matchesProductSearch,
   toggleWishlist,
   track,
 } from "./commerce-store.js?v=atelier-v13";
@@ -53,28 +54,14 @@ function syncUrl(state) {
   history.replaceState({ atelierPlp: true }, "", `${location.pathname}${query ? `?${query}` : ""}`);
 }
 
-function matchesSearch(product, query) {
-  if (!query) return true;
-  const synonyms = { coat: "outerwear", tee: "tees", blazer: "outerwear", bag: "accessories" };
-  const expanded = [query, synonyms[query]].filter(Boolean);
-  const haystack = [
-    product.name,
-    product.category,
-    product.collection,
-    product.description,
-    product.material,
-    ...product.colors.map((color) => color.name),
-  ].join(" ").toLowerCase();
-  return expanded.some((term) => haystack.includes(term));
-}
-
 function filterProducts(products, state) {
   const filtered = products.filter((product) => {
-    if (!matchesSearch(product, state.search)) return false;
+    if (!matchesProductSearch(product, state.search)) return false;
     if (state.collection && product.collection.toLowerCase() !== state.collection) return false;
     if (state.categories.size && !state.categories.has(product.category.toLowerCase())) return false;
-    if (state.sizes.size && !product.variants.some((variant) => state.sizes.has(variant.size.toLowerCase()) && variant.stock > 0)) return false;
-    if (state.colors.size && !product.colors.some((color) => state.colors.has(color.value))) return false;
+    if ((state.sizes.size || state.colors.size) && !product.variants.some((variant) =>
+      (!state.sizes.size || state.sizes.has(variant.size.toLowerCase())) &&
+      (!state.colors.size || state.colors.has(variant.color)) && variant.stock > 0)) return false;
     return true;
   });
   if (state.sort === "price-asc") filtered.sort((a, b) => a.price - b.price);
@@ -108,6 +95,7 @@ function appliedFilterMarkup(state) {
     ...[...state.colors].map((value) => ({ type: "color", value, label: value })),
   ];
   if (state.search) filters.unshift({ type: "search", value: state.search, label: `“${state.search}”` });
+  if (state.collection) filters.unshift({ type: "collection", value: state.collection, label: state.collection });
   if (!filters.length) return "";
   return `<div class="applied-filters" aria-label="Applied filters">${filters.map((filter) => `<button type="button" data-filter-type="${filter.type}" data-filter-value="${escapeHtml(filter.value)}">${escapeHtml(filter.label)} <span aria-hidden="true">×</span></button>`).join("")}<button type="button" class="js-clear-filters">Clear all</button></div>`;
 }
@@ -164,6 +152,10 @@ export async function renderShop() {
   };
   const openFilters = () => {
     filterTrigger = document.activeElement;
+    panel.querySelectorAll('input[type="checkbox"]').forEach((input) => {
+      const values = input.name === "category" ? state.categories : state[`${input.name}s`];
+      input.checked = values.has(input.value);
+    });
     panel.classList.add("is-open");
     panel.setAttribute("aria-hidden", "false");
     document.body.classList.add("shop-filters-open");
@@ -200,6 +192,7 @@ export async function renderShop() {
     state.sizes.clear();
     state.colors.clear();
     state.search = "";
+    state.collection = "";
     panel.querySelectorAll('input[type="checkbox"]').forEach((input) => { input.checked = false; });
     repaint();
   };
@@ -236,7 +229,7 @@ export async function renderShop() {
   function bindApplied() {
     applied.querySelectorAll("[data-filter-type]").forEach((button) => button.addEventListener("click", () => {
       const { filterType, filterValue } = button.dataset;
-      if (filterType === "search") state.search = "";
+      if (filterType === "search" || filterType === "collection") state[filterType] = "";
       else state[`${filterType === "category" ? "categories" : `${filterType}s`}`]?.delete(filterValue);
       const checkbox = panel.querySelector(`input[name="${filterType}"][value="${CSS.escape(filterValue)}"]`);
       if (checkbox) checkbox.checked = false;

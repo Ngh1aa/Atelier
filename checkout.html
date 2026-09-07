@@ -45,6 +45,8 @@
           <div class="checkout-form-section reveal">
             <section class="checkout-section" aria-labelledby="checkout-contact">
               <div class="checkout-step-heading"><span>01</span><h2 id="checkout-contact">CONTACT</h2></div>
+              <button type="button" class="text-action js-use-client-details" hidden>Use my saved details</button>
+              <p class="form-status js-draft-status" role="status">Your progress is saved in this browser. Required fields are marked *.</p>
               <div class="form-row">
                 <div class="form-group"><label for="checkoutEmail">Email*</label><input id="checkoutEmail" name="email" type="email" autocomplete="email" required></div>
                 <div class="form-group"><label for="checkoutPhone">Phone*</label><input id="checkoutPhone" name="phone" type="tel" autocomplete="tel" required><small>Stored with this local order for the prototype.</small></div>
@@ -89,7 +91,7 @@
                 <div><dt>Method</dt><dd class="js-review-delivery">STANDARD</dd></div>
                 <div><dt>Payment</dt><dd class="js-review-payment">Cash on delivery</dd></div>
               </dl>
-              <label class="checkout-consent"><input type="checkbox" name="terms" value="accepted" required><span>I agree to the Terms of Use and acknowledge the Returns policy.</span></label>
+              <label class="checkout-consent"><input id="checkoutTerms" type="checkbox" name="terms" value="accepted" required><span>I agree to the <a href="terms.html" target="_blank" rel="noopener">Terms of Use (new tab)</a> and acknowledge the <a href="shipping&amp;returns.html" target="_blank" rel="noopener">Returns policy (new tab)</a>.</span></label>
               <p class="checkout-error js-checkout-error" role="alert" tabindex="-1"></p>
               <button type="submit" class="btn-place-order js-place-order">Record Order on This Device</button>
             </section>

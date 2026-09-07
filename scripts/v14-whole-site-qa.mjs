@@ -148,7 +148,7 @@ async function openPage(key, pathname, size = viewport) {
   if (pageErrors.length) addBlocker(key, `page errors: ${pageErrors.join(" | ")}`);
   if (metrics.h1Count !== 1) addBlocker(key, `expected one main H1, found ${metrics.h1Count}`);
   if (!metrics.bodyV14) addBlocker(key, "body.v14 missing");
-  if (metrics.styleOwner !== "high-fashion-youth-luxury-v14") addBlocker(key, `wrong style owner: ${metrics.styleOwner || "missing"}`);
+  if (metrics.styleOwner !== "luxury-monochrome") addBlocker(key, `wrong style owner: ${metrics.styleOwner || "missing"}`);
   if (metrics.siteStyles.length !== 1) addBlocker(key, `expected one V14 site entrypoint, found ${metrics.siteStyles.length}`);
   if (metrics.legacyStyles.length) addBlocker(key, `legacy stylesheet remains: ${metrics.legacyStyles.join(", ")}`);
   if (metrics.horizontalOverflow) addBlocker(key, `horizontal overflow ${metrics.documentWidth}/${metrics.viewportWidth}`);
@@ -192,7 +192,7 @@ for (const [key, pathname] of routes) {
   }
 
   if (key === "contact") {
-    if (!/@atelier\.example/i.test(entry.bodyText) || !/placeholder|not a working mailbox|being prepared/i.test(entry.bodyText)) addBlocker(key, "contact placeholder reality disclosure missing");
+    if (!/direct messaging is not connected|will not be sent|not be sent/i.test(entry.bodyText)) addBlocker(key, "contact local-draft reality disclosure missing");
   }
 
   if (key === "order") {

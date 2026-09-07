@@ -4,11 +4,12 @@ import {
   createOrder,
   formatVND,
   getDeliveryWindow,
+  getClientProfile,
   hydrateCart,
   track,
   validateInventory,
 } from "./commerce-store.js?v=white-editorial-v6";
-import { escapeHtml } from "./commerce-ui.js?v=white-editorial-v6";
+import { attemptLocalAction, bindFormValidation, escapeHtml } from "./commerce-ui.js?v=white-editorial-v6";
 
 const DRAFT_KEY = "atelier.checkout-draft";
 const PROMO_KEY = "atelier.promo";
@@ -20,13 +21,14 @@ function readJson(key, fallback = null) {
 
 function saveDraft(form) {
   const values = {};
-  new FormData(form).forEach((value, key) => { values[key] = value; });
+  new FormData(form).forEach((value, key) => { if (key !== "terms") values[key] = value; });
   localStorage.setItem(DRAFT_KEY, JSON.stringify(values));
 }
 
 function restoreDraft(form) {
   const draft = readJson(DRAFT_KEY, {});
   Object.entries(draft).forEach(([name, value]) => {
+    if (name === "terms") return;
     const fields = form.querySelectorAll(`[name="${CSS.escape(name)}"]`);
     fields.forEach((field) => {
       if (field.type === "radio" || field.type === "checkbox") field.checked = field.value === value;
@@ -48,6 +50,9 @@ export async function initPrecommerceCheckout() {
   let lines = await hydrateCart();
   const submit = form.querySelector(".js-place-order");
   const error = form.querySelector(".js-checkout-error");
+  const validate = bindFormValidation(form);
+  let submitting = false;
+  let recordedOrder = null;
   restoreDraft(form);
   track("begin_checkout", { item_count: lines.length, reality: "local_prototype" });
 
@@ -70,6 +75,15 @@ export async function initPrecommerceCheckout() {
     document.querySelectorAll(".delivery-option, .payment-option").forEach((label) => label.classList.toggle("selected", Boolean(label.querySelector("input:checked"))));
   };
 
+  const fingerprint = () => JSON.stringify(lines.map((line) => [line.variantId, line.quantity, line.unitPrice]));
+  const refreshBag = async () => {
+    const before = fingerprint();
+    lines = await hydrateCart();
+    renderItems();
+    updateTotals();
+    return before !== fingerprint();
+  };
+
   const updateTotals = () => {
     const express = form.querySelector('[name="deliveryMethod"]:checked')?.value === "express";
     const totals = cartTotals(lines, express ? EXPRESS_FEE : 0, 0);
@@ -88,8 +102,28 @@ export async function initPrecommerceCheckout() {
   };
 
   form.addEventListener("input", () => {
-    saveDraft(form);
+    attemptLocalAction(() => saveDraft(form), document.querySelector(".js-draft-status"));
     updateReview();
+  });
+  const savedDetails = getClientProfile();
+  const useDetails = form.querySelector(".js-use-client-details");
+  if (useDetails) {
+    useDetails.hidden = !Object.values(savedDetails).some(Boolean);
+    useDetails.addEventListener("click", () => {
+      Object.entries(savedDetails).forEach(([name, value]) => { if (value && form.elements.namedItem(name)) form.elements.namedItem(name).value = value; });
+      updateReview();
+      attemptLocalAction(() => saveDraft(form), document.querySelector(".js-draft-status"));
+      document.querySelector(".js-draft-status").textContent = "Saved details applied. Review your address before recording the order.";
+    });
+  }
+  window.addEventListener("storage", async (event) => {
+    if (event.key !== "atelier.cart.v2" || submitting) return;
+    try {
+      if (await refreshBag()) {
+        form.elements.terms.checked = false;
+        error.textContent = "Your Bag changed in another tab. Review the updated items and total.";
+      }
+    } catch { error.textContent = "Your Bag could not be refreshed. Return to Bag and try again."; }
   });
   form.querySelectorAll('[name="deliveryMethod"]').forEach((input) => input.addEventListener("change", () => {
     updateTotals();
@@ -102,28 +136,27 @@ export async function initPrecommerceCheckout() {
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
+    if (submitting) return;
     error.textContent = "";
-    if (!form.reportValidity()) return;
-
-    lines = await hydrateCart();
-    const inventory = validateInventory(lines);
-    if (!inventory.ok) {
-      error.textContent = inventory.message;
-      error.focus();
-      return;
-    }
-    if (!lines.length) {
-      error.textContent = "Your Bag is empty.";
-      return;
-    }
-
+    if (!validate()) { error.textContent = "Check the highlighted fields before continuing."; return; }
+    submitting = true;
     submit.disabled = true;
     submit.textContent = "Recording…";
     form.setAttribute("aria-busy", "true");
 
     try {
+      const changed = await refreshBag();
+      submit.disabled = true;
+      if (!lines.length) { error.textContent = "Your Bag is empty. Return to the collection to choose a piece."; return; }
+      const inventory = validateInventory(lines);
+      if (!inventory.ok) { error.textContent = inventory.message; error.focus(); return; }
+      if (changed) {
+        form.elements.terms.checked = false;
+        error.textContent = "Your Bag changed. Review the updated items and total, then acknowledge the terms again.";
+        error.focus(); return;
+      }
       const data = new FormData(form);
-      const order = createOrder({
+      const order = recordedOrder || createOrder({
         customer: { email: data.get("email"), phone: data.get("phone"), fullName: data.get("fullName") },
         address: { country: data.get("country"), address: data.get("address"), apartment: data.get("apartment"), district: data.get("district"), province: data.get("province"), postalCode: data.get("postalCode") },
         deliveryMethod: data.get("deliveryMethod"),
@@ -135,12 +168,15 @@ export async function initPrecommerceCheckout() {
         discount: 0,
         total: Number(form.dataset.total),
       });
+      recordedOrder = order;
       clearCart();
       localStorage.removeItem(DRAFT_KEY);
       window.location.href = `order-success.html?id=${encodeURIComponent(order.id)}`;
     } catch {
       error.textContent = "The local order could not be recorded. Your details and Bag have been preserved; please try again.";
-      submit.disabled = false;
+    } finally {
+      submitting = false;
+      submit.disabled = !lines.length;
       submit.textContent = "Record Order on This Device";
       form.removeAttribute("aria-busy");
     }

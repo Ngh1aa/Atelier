@@ -1,5 +1,5 @@
-import { formatVND, getOrder, loadProducts, track, updateOrder } from "./commerce-store.js?v=white-editorial-v6";
-import { escapeHtml, showMessage } from "./commerce-ui.js?v=white-editorial-v6";
+import { formatVND, getOrder, loadProducts, saveOrderServiceRequest, track, updateOrder } from "./commerce-store.js?v=white-editorial-v6";
+import { attemptLocalAction, downloadText, escapeHtml, showMessage } from "./commerce-ui.js?v=white-editorial-v6";
 
 function setHidden(element, hidden) {
   if (!element) return;
@@ -27,6 +27,7 @@ export async function renderOrder() {
         <div><p class="eyebrow">LOCAL ORDER / SIMULATED</p><h1>${escapeHtml(order.id)}</h1></div>
         <div><span>${created}</span><strong>${formatVND(order.total)}</strong></div>
       </header>
+      <nav class="order-tools" aria-label="Order actions"><a class="text-link" href="account.html">← All orders</a><button type="button" class="text-action js-order-download">Download order notes ↓</button><a class="text-link" href="contact.html?topic=delivery&amp;order=${encodeURIComponent(order.id)}">Prepare an enquiry →</a></nav>
 
       <div class="order-page-grid">
         <section class="order-status-panel">
@@ -36,8 +37,12 @@ export async function renderOrder() {
         </section>
         <section class="order-details-panel">
           <div class="order-detail-row"><span>Estimate</span><strong>${escapeHtml(order.deliveryEstimate)}</strong></div>
-          <div class="order-detail-row"><span>Address</span><strong>${escapeHtml([order.address?.address, order.address?.district, order.address?.province].filter(Boolean).join(", "))}</strong></div>
+          <div class="order-detail-row"><span>Deliver to</span><strong>${escapeHtml(order.customer?.fullName)}</strong></div>
+          <div class="order-detail-row"><span>Address</span><strong>${escapeHtml([order.address?.address, order.address?.apartment, order.address?.district, order.address?.province, order.address?.postalCode].filter(Boolean).join(", "))}</strong></div>
           <div class="order-detail-row"><span>Payment</span><strong>${order.paymentMethod === "cod" ? "Cash on delivery · local record" : "Bank transfer · local record"}</strong></div>
+          <div class="order-detail-row"><span>Subtotal</span><strong>${formatVND(order.subtotal)}</strong></div>
+          <div class="order-detail-row"><span>Delivery</span><strong>${order.shippingFee ? formatVND(order.shippingFee) : "Complimentary"}</strong></div>
+          <div class="order-detail-row"><span>Total</span><strong>${formatVND(order.total)}</strong></div>
         </section>
       </div>
 
@@ -48,7 +53,7 @@ export async function renderOrder() {
 
       <section class="order-service-panel js-order-service-panel" hidden style="display:none">
         <div class="order-service-head"><h2>LOCAL SERVICE REQUEST</h2><button type="button" class="js-service-close" aria-label="Close">×</button></div>
-        <p>This demonstration stores the request in this browser only. It is not sent to Client Services.</p>
+        <p class="js-service-piece"></p><p>Save a note for this piece on your device. It is not sent to Client Services. <a class="text-link" href="shipping&amp;returns.html">Review return conditions →</a></p>
         <form class="js-service-form">
           <input type="hidden" name="itemIndex">
           <label>Request<select name="action"><option value="exchange">Exchange size</option><option value="return">Return</option></select></label>
@@ -59,7 +64,7 @@ export async function renderOrder() {
         </form>
       </section>
 
-      ${order.serviceRequests?.length ? `<section class="order-requests"><h2>LOCAL SERVICE NOTES</h2>${order.serviceRequests.map((request) => `<article><span>${escapeHtml(request.action.toUpperCase())}</span><strong>${escapeHtml(request.itemName)}</strong><p>${request.action === "exchange" ? `Size ${escapeHtml(request.fromSize)} → ${escapeHtml(request.newSize)}` : "Return intent"} · Saved locally</p></article>`).join("")}</section>` : ""}`;
+      ${order.serviceRequests?.length ? `<section class="order-requests"><h2>LOCAL SERVICE NOTES</h2>${order.serviceRequests.map((request) => `<article><span class="status-label">${escapeHtml(request.action.toUpperCase())}</span><strong>${escapeHtml(request.itemName)}</strong><p>${request.action === "exchange" ? `Size ${escapeHtml(request.fromSize)} → ${escapeHtml(request.newSize)}` : "Return intent"} · Saved locally</p><button type="button" class="text-action js-remove-service" data-request-id="${escapeHtml(request.id)}" aria-label="Remove ${escapeHtml(request.action)} note for ${escapeHtml(request.itemName)}">Remove note</button></article>`).join("")}</section>` : ""}`;
     bind();
   };
 
@@ -67,14 +72,30 @@ export async function renderOrder() {
     const panel = root.querySelector(".js-order-service-panel");
     const form = root.querySelector(".js-service-form");
     if (!panel || !form) return;
+    let serviceTrigger;
+    root.querySelector(".js-order-download").addEventListener("click", () => {
+      downloadText(`${order.id}-notes.txt`, `ATELIER — Local order notes\n${order.id}\nRecorded: ${order.createdAt}\nNo payment or fulfilment has been processed.\n\n${order.items.map((item) => `${item.name} / ${item.color} / ${item.size} / Qty ${item.quantity} / ${formatVND(item.unitPrice * item.quantity)}`).join("\n")}\n\nSubtotal: ${formatVND(order.subtotal)}\nDelivery: ${formatVND(order.shippingFee)}\nTotal: ${formatVND(order.total)}\n\n${(order.serviceRequests || []).map((request) => `${request.action}: ${request.itemName}${request.newSize ? ` / ${request.fromSize} to ${request.newSize}` : ""} / saved locally`).join("\n")}`);
+    });
+    root.querySelectorAll(".js-remove-service").forEach((button) => button.addEventListener("click", () => {
+      const current = getOrder(order.id);
+      const saved = attemptLocalAction(() => updateOrder(order.id, { serviceRequests: (current?.serviceRequests || []).filter((request) => request.id !== button.dataset.requestId) }));
+      if (!saved) return;
+      order = saved; paint(); showMessage("Local service note removed.");
+      root.querySelector(".js-service-open")?.focus();
+    }));
 
     root.querySelectorAll(".js-service-open").forEach((button) => button.addEventListener("click", () => {
       const index = Number(button.dataset.itemIndex);
       const item = order.items[index];
       const product = products.find((entry) => entry.id === item.productId);
+      serviceTrigger = button;
+      form.reset();
+      root.querySelector(".js-service-error").textContent = "";
+      root.querySelector(".js-service-piece").textContent = `${item.name} · ${item.color} · Size ${item.size}`;
+      setHidden(root.querySelector(".js-exchange-size"), false);
       form.elements.itemIndex.value = String(index);
       form.elements.newSize.innerHTML = (product?.sizes || [])
-        .filter((size) => size !== item.size)
+        .filter((size) => size !== item.size && product.variants.some((variant) => variant.size === size && variant.colorName === item.color && variant.stock > 0))
         .map((size) => `<option value="${escapeHtml(size)}">${escapeHtml(size)}</option>`)
         .join("");
       setHidden(panel, false);
@@ -82,7 +103,7 @@ export async function renderOrder() {
       form.elements.action.focus();
     }));
 
-    root.querySelector(".js-service-close")?.addEventListener("click", () => { setHidden(panel, true); });
+    root.querySelector(".js-service-close")?.addEventListener("click", () => { setHidden(panel, true); serviceTrigger?.focus(); });
     form.elements.action.addEventListener("change", () => {
       setHidden(root.querySelector(".js-exchange-size"), form.elements.action.value !== "exchange");
     });
@@ -107,10 +128,14 @@ export async function renderOrder() {
         status: "saved-local",
         createdAt: new Date().toISOString(),
       };
-      order = updateOrder(order.id, { serviceRequests: [...(order.serviceRequests || []), request] });
+      const result = attemptLocalAction(() => saveOrderServiceRequest(order.id, request), root.querySelector(".js-service-error"));
+      if (!result) return;
+      if (!result.ok) { root.querySelector(".js-service-error").textContent = result.message; return; }
+      order = result.order;
       track(data.get("action") === "exchange" ? "exchange_requested" : "return_requested", { order_id: order.id, product_id: item.productId, reality: "local_prototype" });
       showMessage("Request saved on this device.");
       paint();
+      root.querySelector(".js-remove-service:last-child")?.focus();
     });
   };
 
