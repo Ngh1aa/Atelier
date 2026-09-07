@@ -97,7 +97,17 @@
   .btn-secondary,
   .btn-outline,
   .commerce-secondary-action {
+    border-color: var(--ink);
     background: transparent;
+    color: var(--ink);
+  }
+
+  .btn-secondary:hover,
+  .btn-outline:hover,
+  .commerce-secondary-action:hover {
+    border-color: var(--ink);
+    background: var(--ink);
+    color: var(--campaign-text);
   }
 
   .text-link:hover,
@@ -153,7 +163,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 20%;
+    object-position: center top;
     filter: saturate(.88) contrast(1.02);
   }
 
