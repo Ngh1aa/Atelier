@@ -78,10 +78,7 @@ jobs:
           rm -rf qa-evidence/v14
           mkdir -p qa-evidence/v14/previews
           cp qa-artifacts/v14/report.json qa-evidence/v14/report.json
-          for file in qa-artifacts/v14/preview-*.jpg; do
-            name="$(basename "$file")"
-            base64 -w 0 "$file" | split -b 8000 - "qa-evidence/v14/previews/${name}.b64.part."
-          done
+          cp qa-artifacts/v14/preview-*.jpg qa-evidence/v14/previews/
           git config user.name "atelier-v14-qa[bot]"
           git config user.email "atelier-v14-qa[bot]@users.noreply.github.com"
           git add qa-evidence/v14
