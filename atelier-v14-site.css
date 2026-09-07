@@ -8,6 +8,37 @@
   body.v14 .site-footer {
     border-top-color: var(--ink);
     background: var(--paper);
+    color: var(--ink);
+  }
+
+  body.v14 .site-footer .footer-divider,
+  body.v14 .site-footer .footer-bottom {
+    border-color: var(--rule);
+  }
+
+  body.v14 .site-footer .footer-col p,
+  body.v14 .site-footer .footer-bottom {
+    color: var(--muted);
+  }
+
+  body.v14 .site-footer .footer-links {
+    color: #353330;
+  }
+
+  body.v14 .site-footer .footer-links a:hover {
+    color: var(--signal);
+  }
+
+  body.v14 .footer-newsletter .btn-outline {
+    border-color: var(--ink);
+    background: transparent;
+    color: var(--ink);
+  }
+
+  body.v14 .footer-newsletter .btn-outline:hover {
+    border-color: var(--ink);
+    background: var(--ink);
+    color: var(--campaign-text);
   }
 
   body.v14 .footer-newsletter {
