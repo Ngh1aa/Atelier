@@ -1,0 +1,52 @@
+name: V14 whole-site rollout
+
+on:
+  push:
+    branches:
+      - 'redesign/high-fashion-youth-luxury-v14-phase3'
+    paths:
+      - 'atelier-v14-site.css'
+      - 'scripts/v14-whole-site-rollout.mjs'
+      - '.github/workflows/v14-whole-site-rollout.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: v14-whole-site-rollout-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  rollout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout working branch
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Syntax gate
+        run: node --check scripts/v14-whole-site-rollout.mjs
+
+      - name: Apply deterministic V14 ownership
+        run: node scripts/v14-whole-site-rollout.mjs
+
+      - name: Validate app entry
+        run: node --check main.js
+
+      - name: Persist rollout
+        run: |
+          git config user.name "atelier-v14-rollout[bot]"
+          git config user.email "atelier-v14-rollout[bot]@users.noreply.github.com"
+          git add -- '*.html' main.js docs/uiux/Whole-Site-Rollout-V14.md
+          if git diff --cached --quiet; then
+            echo "No rollout changes to persist."
+            exit 0
+          fi
+          git commit -m "feat(ui): roll V14 luxury system across all routes [skip ci]"
+          git push

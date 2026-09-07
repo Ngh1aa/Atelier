@@ -1,0 +1,122 @@
+{
+  "generatedAt": "2026-09-07T04:19:19.451Z",
+  "viewport": {
+    "width": 1363,
+    "height": 936
+  },
+  "checks": [
+    {
+      "key": "home",
+      "pathname": "/index.html",
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "title": "ATELIER — Fall 2026 | The New House Edit",
+      "h1Count": 1,
+      "bodyV14": true,
+      "v14Styles": [
+        "./atelier-v14.css?v=atelier-v14"
+      ],
+      "viewportWidth": 1363,
+      "documentWidth": 1363,
+      "horizontalOverflow": false,
+      "brokenImages": [],
+      "home": {
+        "heroExists": true,
+        "panelExists": true,
+        "panelBackground": "rgba(9, 9, 10, 0.94)",
+        "heroHeight": 870,
+        "imageNatural": [
+          1200,
+          1920
+        ],
+        "imageFit": "cover",
+        "moments": [
+          {
+            "left": 41,
+            "top": 1583,
+            "width": 305,
+            "height": 449
+          },
+          {
+            "left": 366,
+            "top": 1451,
+            "width": 631,
+            "height": 830
+          },
+          {
+            "left": 1017,
+            "top": 1513,
+            "width": 305,
+            "height": 449
+          }
+        ],
+        "currentEditBackground": "rgb(9, 9, 10)"
+      }
+    },
+    {
+      "key": "shop",
+      "pathname": "/shop.html",
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "title": "Shop New In — ATELIER",
+      "h1Count": 1,
+      "bodyV14": true,
+      "v14Styles": [
+        "./atelier-v14.css?v=atelier-v14"
+      ],
+      "viewportWidth": 1363,
+      "documentWidth": 1363,
+      "horizontalOverflow": false,
+      "brokenImages": [],
+      "shop": {
+        "cards": 8,
+        "gridTemplateColumns": "423.656px 423.672px 423.656px",
+        "gridColumnCount": 3,
+        "firstImageNatural": [
+          934,
+          1556
+        ],
+        "firstImageFit": "contain",
+        "firstCardTop": 668,
+        "resultCount": "8 Pieces",
+        "filterButton": true
+      }
+    },
+    {
+      "key": "pdp",
+      "pathname": "/detailproduct.html?id=tailored-wool-blazer",
+      "httpStatus": 200,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "title": "Belted Cropped Jacket — ATELIER",
+      "h1Count": 1,
+      "bodyV14": true,
+      "v14Styles": [
+        "./atelier-v14.css?v=atelier-v14"
+      ],
+      "viewportWidth": 1363,
+      "documentWidth": 1363,
+      "horizontalOverflow": false,
+      "brokenImages": [],
+      "pdpBefore": {
+        "title": "Belted Cropped Jacket",
+        "price": "3.490.000 ₫",
+        "imageSrc": "./assets/products/pinkparks/belted-cropped-jacket.jpg",
+        "imageNatural": [
+          934,
+          1556
+        ],
+        "gridTemplateColumns": "891.516px 423.469px",
+        "addButtonVisible": true
+      },
+      "pdpInteraction": {
+        "selectedSize": "S",
+        "selectedAriaPressed": "true",
+        "bagCount": "1"
+      }
+    }
+  ],
+  "blockers": []
+}
