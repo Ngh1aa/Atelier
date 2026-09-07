@@ -31,6 +31,7 @@ on:
       - 'scripts/pdp-sticky-regression.mjs'
       - 'scripts/mobile-menu-regression.mjs'
       - 'scripts/v14-whole-site-qa.mjs'
+      - 'scripts/v14-visual-sanity-regression.mjs'
       - '.github/workflows/final-visual-qa.yml'
   workflow_dispatch:
 
@@ -77,6 +78,7 @@ jobs:
           if [ -f atelier-v14-site.css ] && [ -f scripts/v14-whole-site-qa.mjs ]; then
             echo "V14 desktop-only contract detected; mobile/tablet regression is N/A_JUSTIFIED."
             QA_OUT_DIR=qa-artifacts/v14-whole-site node scripts/v14-whole-site-qa.mjs
+            QA_OUT_DIR=qa-artifacts/v14-sanity node scripts/v14-visual-sanity-regression.mjs
           else
             node scripts/final-visual-qa.mjs
             node scripts/v11-commerce-layout-regression.mjs
