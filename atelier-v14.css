@@ -407,7 +407,7 @@
 
   .edit-card > div {
     border-color: rgba(245,240,233,.55);
-    padding-top: 13px 0 15px;
+    padding-top: 13px;
   }
 
   .edit-card h3 { color: var(--campaign-text); font-size: 15px; }
