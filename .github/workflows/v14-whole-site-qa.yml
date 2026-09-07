@@ -1,0 +1,79 @@
+name: V14 whole-site rendered QA
+
+on:
+  push:
+    branches:
+      - 'redesign/high-fashion-youth-luxury-v14-phase3'
+    paths:
+      - '*.html'
+      - 'atelier-v14.css'
+      - 'atelier-v14-site.css'
+      - 'main.js'
+      - 'src/**'
+      - 'assets/**'
+      - 'scripts/v14-whole-site-qa.mjs'
+      - 'scripts/v14-contact-sheet.py'
+      - '.github/workflows/v14-whole-site-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: v14-whole-site-qa-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  rendered-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout V14 Phase 3
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Playwright
+        run: |
+          npm install --no-save --no-package-lock playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Install contact-sheet dependency
+        run: python3 -m pip install --quiet pillow
+
+      - name: Syntax gate
+        run: node --check scripts/v14-whole-site-qa.mjs
+
+      - name: Start static server
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/atelier-v14-site.log 2>&1 &
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:4173/index.html >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/atelier-v14-site.log
+          exit 1
+
+      - name: Render and verify whole site
+        run: node scripts/v14-whole-site-qa.mjs
+        env:
+          QA_BASE_URL: http://127.0.0.1:4173
+          QA_OUT_DIR: qa-artifacts/v14-whole-site
+
+      - name: Build cross-page contact sheet
+        if: success()
+        run: python3 scripts/v14-contact-sheet.py
+
+      - name: Upload final rendered evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: atelier-v14-whole-site-qa
+          path: qa-artifacts/v14-whole-site
+          if-no-files-found: error
+          retention-days: 14
