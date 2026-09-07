@@ -32,6 +32,8 @@ on:
       - 'scripts/mobile-menu-regression.mjs'
       - 'scripts/v14-whole-site-qa.mjs'
       - 'scripts/v14-visual-sanity-regression.mjs'
+      - 'scripts/v15-elementary-visual-integrity.mjs'
+      - 'scripts/v15-targeted-evidence.mjs'
       - '.github/workflows/final-visual-qa.yml'
   workflow_dispatch:
 
@@ -55,10 +57,16 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Install Playwright
+      - name: Install dependencies and Playwright
         run: |
           npm install --no-save --no-package-lock playwright@1.55.0
           npx playwright install --with-deps chromium
+
+      - name: Project tests
+        run: npm test
+
+      - name: Production build
+        run: npm run build
 
       - name: Start static server
         run: |
@@ -79,6 +87,8 @@ jobs:
             echo "V14 desktop-only contract detected; mobile/tablet regression is N/A_JUSTIFIED."
             QA_OUT_DIR=qa-artifacts/v14-whole-site node scripts/v14-whole-site-qa.mjs
             QA_OUT_DIR=qa-artifacts/v14-sanity node scripts/v14-visual-sanity-regression.mjs
+            QA_OUT_DIR=qa-artifacts/v15-elementary-integrity node scripts/v15-elementary-visual-integrity.mjs
+            QA_OUT_DIR=qa-artifacts/v15-targeted-evidence node scripts/v15-targeted-evidence.mjs
           else
             node scripts/final-visual-qa.mjs
             node scripts/v11-commerce-layout-regression.mjs

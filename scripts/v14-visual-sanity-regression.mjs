@@ -221,11 +221,15 @@ for (const [key, pathname] of routes) {
         naturalHeight: img.naturalHeight,
         renderedWidth: Math.round(img.getBoundingClientRect().width),
         renderedHeight: Math.round(img.getBoundingClientRect().height),
+        cropVerified: img.dataset.cropVerified === "true" || img.closest("figure")?.dataset.cropVerified === "true",
+        focalSubject: img.dataset.focalSubject || img.closest("figure")?.dataset.focalSubject || "",
       };
     });
-    if (entry.hero.objectFit !== "cover") block(key, `Home campaign media object-fit changed: ${entry.hero.objectFit}`);
-    if (!/(^|\s)0%$|top$/i.test(entry.hero.objectPosition)) {
-      block(key, `Home campaign focal Y is not top-safe: ${entry.hero.objectPosition}`, entry.hero);
+    if (!["contain", "cover"].includes(entry.hero.objectFit)) {
+      block(key, `Home campaign media uses unsupported object-fit: ${entry.hero.objectFit}`, entry.hero);
+    }
+    if (entry.hero.objectFit === "cover" && (!entry.hero.cropVerified || !entry.hero.focalSubject)) {
+      block(key, "Home campaign cover crop lacks verified focal contract", entry.hero);
     }
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.waitForTimeout(30);

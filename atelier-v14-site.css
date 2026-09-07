@@ -215,8 +215,9 @@
   }
 
   .page-house .v12-house-hero-media img {
-    object-fit: cover;
-    object-position: center 20%;
+    object-fit: contain;
+    object-position: center top;
+    background: #d7d0c8;
     filter: saturate(.68) contrast(1.04);
   }
 
@@ -270,9 +271,14 @@
     min-height: 720px;
   }
 
+  .page-house .v12-house-studio-media {
+    background: #e9e2da;
+  }
+
   .page-house .v12-house-studio-media img {
-    object-fit: cover;
-    object-position: center 20%;
+    object-fit: contain;
+    object-position: center top;
+    background: #e9e2da;
     filter: saturate(.75);
   }
 
@@ -319,8 +325,9 @@
   }
 
   .page-service .v12-service-media img {
-    object-fit: cover;
-    object-position: center 18%;
+    object-fit: contain;
+    object-position: center top;
+    background: #e7e0d8;
     filter: saturate(.72) contrast(1.03);
   }
 
@@ -657,7 +664,6 @@
     font-weight: 400;
     line-height: .88;
   }
-
   .page-auth .account-notice-copy {
     align-content: center;
     padding: 70px 0 70px 72px;
@@ -666,6 +672,17 @@
 
   .page-auth .account-notice-copy .btn-outline {
     justify-self: start;
+  }
+
+  .page-auth .auth-footer-page {
+    border-top: 1px solid var(--rule);
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  .page-auth .auth-footer-page .footer-bottom {
+    border-color: var(--rule);
+    color: var(--muted);
   }
 
   /* Shared order/status emphasis */

@@ -162,8 +162,9 @@
   .home-campaign-v14__media img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: center top;
+    object-fit: contain;
+    object-position: left top;
+    background: #ded8d1;
     filter: saturate(.88) contrast(1.02);
   }
 
@@ -185,11 +186,17 @@
     left: 28px;
     display: flex;
     justify-content: space-between;
-    color: rgba(255,255,255,.84);
+    color: #fff;
     font-size: 9px;
     font-weight: 700;
     letter-spacing: .18em;
     text-transform: uppercase;
+  }
+
+  .home-campaign-v14__caption span {
+    background: rgba(9,9,10,.86);
+    color: #fff;
+    padding: 7px 9px;
   }
 
   .home-campaign-v14__panel {
@@ -270,10 +277,12 @@
     z-index: 5;
     top: 50%;
     left: 18px;
-    color: rgba(255,255,255,.76);
+    background: rgba(9,9,10,.86);
+    color: #fff;
     font-size: 9px;
     font-weight: 750;
     letter-spacing: .2em;
+    padding: 7px 9px;
     text-transform: uppercase;
     transform: rotate(-90deg) translateX(-50%);
     transform-origin: left top;
@@ -327,6 +336,9 @@
   .moment-card--wide img {
     width: 100%;
     aspect-ratio: 3 / 4;
+    object-fit: contain;
+    object-position: center top;
+    background: #e7e0d8;
     filter: saturate(.72) contrast(1.02);
   }
 
@@ -382,6 +394,8 @@
 
   .edit-card img {
     aspect-ratio: 3 / 4;
+    object-fit: contain;
+    object-position: center top;
     background: #e7e0d8;
     filter: saturate(.78);
   }
@@ -401,7 +415,12 @@
   }
 
   .house-bridge figure { background: #d8d0c8; }
-  .house-bridge img { filter: saturate(.76) contrast(1.04); }
+  .house-bridge img {
+    object-fit: contain;
+    object-position: center top;
+    background: #d8d0c8;
+    filter: saturate(.76) contrast(1.04);
+  }
 
   .house-bridge__copy {
     border-color: var(--ink);
