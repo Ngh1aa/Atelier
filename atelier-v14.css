@@ -733,6 +733,19 @@
     .page-pdp .product-info-col { padding-left: 26px; }
   }
 
+  /* Wide but shallow desktop needs a denser decision panel; otherwise content-driven
+     height can escape the hero even though the horizontal composition is correct. */
+  @media (min-width: 1600px) and (max-height: 900px) {
+    .home-campaign-v14__panel {
+      top: 24px;
+      min-height: 0;
+      padding-top: 22px;
+      padding-bottom: 24px;
+    }
+
+    .home-campaign-v14__copy { padding: 24px 0 18px; }
+  }
+
   @media (min-width: 1600px) {
     .home-campaign-v14__panel { width: min(40vw, 760px); }
     .page-shop .product-grid-item__image { height: 720px; }
