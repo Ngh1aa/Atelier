@@ -1,43 +1,42 @@
-# Skill Version Lock — ATELIER V14
+# Skill Version Lock — ATELIER V16
 
 ## Active lock
 
 - Repository: `Ngh1aa/skills_UIUX`
-- Library version: **V5.4**
+- Library version: **V5.4 + elementary visual-integrity hardening**
 - Branch resolved: `main`
-- Immutable commit SHA: `b8e0f8a0efccbb468834a10de6dcfa32bf2dfb02`
+- Immutable commit SHA: `aa9c04e48a32cd1b643c6e9e6129be4ba70c38de`
 - Checked: **2026-09-07**
-- Source: GitHub `main` after V5.4 visual-sanity hardening
-- Project baseline at migration: `175f9aa5677f3384a678440a8d2f8e2f0fb812a5`
+- Source: GitHub `main` after reusable visual-integrity runner, overlap/state/crop hardening and regression eval updates
+- Project baseline at migration: `44fa3226df531892e687b85b8f4acfa58772824d`
 
 All subsequent ATELIER phases must use this SHA unless another explicit migration review records conflict, decision and ledger impact.
 
-## Migration review — V5.3 → V5.4
+## Migration review — V5.4 baseline → V5.4 visual-integrity hardening
 
 ### Previous lock
 
-- Version: **V5.3**
-- SHA: `2886d516deb6eb4fb348142f6a65351fc830237c`
-- Used by the completed V14 remediation phase that fixed footer/button contrast and hero crop.
+- Version: **V5.4**
+- SHA: `b8e0f8a0efccbb468834a10de6dcfa32bf2dfb02`
+- Used by the prior V14/V15 remediation work.
 
 ### Trigger
 
-The user requested that the generalizable failure mode discovered in ATELIER be hardened in `skills_UIUX` so future project phases cannot legitimately PASS while skipping the corresponding rendered sanity checks.
+The user supplied rendered Home screenshots after the previous release showing an obvious remaining visual-integrity defect: the right hero caption could sit underneath the noir decision panel, and the full-canvas `contain` strategy preserved the subject but did not define a source-aware media frame. The user had already requested that generalizable CSS/media failures be hardened in `skills_UIUX` so they do not recur.
 
 ### Conflict review
 
-- `FACT`: V5.4 does not replace ATELIER brand/layout/content decisions.
-- `FACT`: V5.4 strengthens verification ownership around surface/foreground pairing, interactive-state visibility, shared-owner route coverage, cascade/specificity and human/focal crop inspection.
-- `FACT`: ATELIER's already-completed V14 remediation evidence remains valid and was produced under the previous immutable V5.3 lock.
-- `EVIDENCE_BACKED_INFERENCE`: adopting V5.4 for future phases is compatible with the current Design Contract because it raises QA/reliability gates without changing the approved visual direction.
-- No known migration conflict requires code rollback or design migration.
+- `FACT`: SHA `aa9c04e48a32cd1b643c6e9e6129be4ba70c38de` preserves the existing V5.4 lifecycle and ATELIER brand/design decisions.
+- `FACT`: it strengthens elementary visual sanity, crop/media verification, shared-owner coverage and adds reusable visual-integrity tooling.
+- `FACT`: ATELIER remains `desktop_only`; tablet/mobile remain `N/A_JUSTIFIED` unless the user expands responsive scope.
+- `EVIDENCE_BACKED_INFERENCE`: adopting the hardening SHA is compatible with the passed V14 Design Contract because it changes verification rigor, not the approved youthful-luxury direction.
+- No known migration conflict requires design rollback, behavior change or architecture migration.
 
 ### Decision
 
-Adopt V5.4 `b8e0f8a0efccbb468834a10de6dcfa32bf2dfb02` for **future ATELIER phases**. Keep historical phase evidence attributed to the SHA actually used at that time; do not rewrite old evidence as if it used V5.4.
+Adopt `aa9c04e48a32cd1b643c6e9e6129be4ba70c38de` for the V16 Home visual-integrity remediation and future phases. Historical evidence remains attributed to the SHA actually used in those phases.
 
 ### Verification
 
-- `skills_UIUX` branch validation succeeded before main update.
-- `skills_UIUX` main validation also succeeded at the new SHA.
-- ATELIER main visual QA had already passed after the project remediation, and GitHub Pages deployment for that main commit succeeded.
+- `skills_UIUX/main` validation passed at `aa9c04e48a32cd1b643c6e9e6129be4ba70c38de`.
+- The new V16 project regression must prove hero caption/panel non-overlap and source-aware portrait media behavior before phase PASS.
