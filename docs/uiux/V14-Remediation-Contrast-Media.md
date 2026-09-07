@@ -22,32 +22,42 @@
 ### V14-R01 — Shared footer contrast regression
 - Label: `FACT`
 - Severity: `P0/P1 visual defect`
-- Evidence: `atelier-v14.css` gives `.v14 .site-footer` a dark background and `campaign-text`; `atelier-v14-site.css` later changes only the footer background to `--paper` and does not reset inherited foreground colors.
-- Result: white / near-white footer text can render on warm porcelain and become effectively invisible until text selection highlights it.
+- Evidence: `atelier-v14.css` gives `.v14 .site-footer` a dark background and `campaign-text`; `atelier-v14-site.css` later changes only the footer background to `--paper` and did not reset inherited foreground colors.
+- Result before remediation: white / near-white footer text rendered on warm porcelain and became effectively invisible until text selection highlighted it.
 - Root owner: shared V14 site layer, not individual HTML pages.
+- Remediation: the V14 site layer now owns the complete light-footer surface/foreground/link/divider/button state contract.
 
-### V14-R02 — Interactive state contrast gap
-- Label: `FACT + EVIDENCE_BACKED_INFERENCE`
+### V14-R02 — Interactive state / specificity contrast gap
+- Label: `FACT`
 - Severity: `P1`
-- Evidence: user-provided rendered state shows outlined black-on-white CTA whose hover label turns white while its surface remains light. Existing QA captures default screenshots but does not inspect hover/focus contrast across shared button variants.
-- Root owner: shared component-state contract + missing state regression.
+- Evidence: rendered states showed outlined/light CTAs whose labels could disappear. Regression also caught `PROCEED TO CHECKOUT` at `1:1` contrast because a more-specific inherited-link color rule overrode the CTA foreground while the CTA surface stayed light.
+- Root owner: shared component-state contract + selector specificity + missing rendered-state regression.
+- Remediation: CTA/button owner selectors now set matched foreground/background pairs, including hover/focus-relevant states; regression audits actual computed rendered contrast.
 
 ### V14-R03 — Home campaign focal crop
 - Label: `FACT`
 - Severity: `P1`
-- Evidence: user-provided Home render visibly clips the model's head. Current owner uses `.home-campaign-v14__media img { object-fit: cover; object-position: center 20%; }` although the Design Contract requires face + primary garment to remain intact at the evidence viewport.
-- Root owner: Home V14 media rule.
+- Evidence: the reported Home render clipped the model's head. The previous owner used `.home-campaign-v14__media img { object-fit: cover; object-position: center 20%; }` without a project-specific focal-point gate.
+- Root owner: Home V14 media rule + missing focal regression.
+- Remediation: focal positioning was moved to a top-safe crop and verified on rendered 1363×936 and 1100×900 evidence.
 
 ## Requirement Coverage
 
 | ID | Requirement | OWNER_PHASE | Status | Verification |
 |---|---|---|---|---|
-| V14-R01 | Footer/common light surfaces keep readable foreground colors on every root route | Remediation | BLOCKED | cross-route rendered + contrast scan |
-| V14-R02 | Shared button variants remain readable in default/hover/focus-visible | Remediation | BLOCKED | computed state contrast + state captures |
-| V14-R03 | Home hero preserves model head/focal point at declared desktop viewports | Remediation | BLOCKED | 1363×936 + 1100×900 rendered inspection |
-| V14-R04 | Regression suite fails if R01–R03 recur | QA | BLOCKED | CI run on remediation branch |
-| V14-R05 | Merge/deploy remediation | Release | N/A_JUSTIFIED | requires explicit release authorization for this remediation |
+| V14-R01 | Footer/common light surfaces keep readable foreground colors on every root route | Remediation | DONE_VERIFIED | V14 visual-sanity rendered/computed contrast scan across 20 routes; inspected footer artifact |
+| V14-R02 | Shared button variants remain readable in default/hover/focus-visible | Remediation | DONE_VERIFIED | computed default/hover/focus contrast regression + inspected secondary/footer/Cart CTA state captures |
+| V14-R03 | Home hero preserves model head/focal point at declared desktop viewports | Remediation | DONE_VERIFIED | inspected 1363×936 + 1100×900 rendered captures |
+| V14-R04 | Regression suite fails if R01–R03 recur | QA | DONE_VERIFIED | GitHub Actions run `34086949527`: whole-site 20 routes + 5 desktop pressure checks, visual-sanity 20 routes, `Blockers: 0` |
+| V14-R05 | Merge remediation to `main` | Release | DONE_VERIFIED | explicitly authorized by user on 2026-09-07; fast-forward merge/update only, no separate deployment claim |
+
+## Verification evidence
+
+- Whole-site QA: 20 routes + 5 desktop pressure checks, blockers `0`.
+- Visual sanity regression: 20 routes, blockers `0`.
+- Rendered artifacts manually inspected after the final code fix: Home hero, 1100px Home pressure state, light footer, secondary CTA default/hover, Cart CTA, House hero and Client Services hero.
+- Build/CI success is not treated as visual proof; inspected rendered artifacts are the visual evidence.
 
 ## Phase result
 
-`BLOCKED` until all due-now remediation requirements above are verified with actual rendered evidence.
+`PASSED` — all remediation requirements due in this phase are `DONE_VERIFIED`. The skill-library hardening requested after this project defect is tracked separately in `Ngh1aa/skills_UIUX` and does not retroactively change the immutable skill SHA used for this remediation phase.
