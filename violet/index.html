@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Violet — premium multi-category marketplace concept." />
+  <title>Violet — Marketplace for everyday discoveries</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body data-page="home">
+  <div class="utility-bar">
+    <div class="shell utility-inner">
+      <div class="utility-links"><a href="#">Kênh người bán</a><a href="#">Trở thành người bán</a><a href="#">Tải ứng dụng</a></div>
+      <div class="utility-links"><a href="#">Hỗ trợ</a><a href="#">Theo dõi đơn</a><button class="language-btn">VI <span>⌄</span></button></div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="shell header-main">
+      <a class="brand" href="./index.html" aria-label="Violet home"><span class="brand-mark">V</span><span>violet</span></a>
+      <form class="search-box" id="searchForm" action="./search.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+        <input id="searchInput" name="q" type="search" autocomplete="off" placeholder="Tìm sản phẩm, thương hiệu và cửa hàng" />
+        <button type="submit">Tìm kiếm</button>
+        <div class="search-suggest" id="searchSuggest"></div>
+      </form>
+      <nav class="header-actions" aria-label="Tài khoản và giỏ hàng">
+        <a href="#" class="icon-action"><span class="icon-circle">♡</span><span>Yêu thích</span></a>
+        <a href="#" class="icon-action"><span class="icon-circle">◌</span><span>Tin nhắn</span></a>
+        <a href="#" class="icon-action"><span class="icon-circle">♙</span><span>Tài khoản</span></a>
+        <a href="./cart.html" class="icon-action cart-link"><span class="icon-circle">▱</span><span>Giỏ hàng</span><b class="cart-count" data-cart-count>0</b></a>
+      </nav>
+    </div>
+    <div class="category-nav-wrap">
+      <div class="shell category-nav">
+        <button class="category-trigger">☰ Danh mục</button>
+        <a href="#flash">Deal hôm nay</a><a href="#mall">Violet Mall</a><a href="#new">Hàng mới</a><a href="#bestseller">Bán chạy</a><a href="#voucher">Voucher</a>
+        <span class="nav-spacer"></span><a class="nav-highlight" href="#">Freeship toàn quốc</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="shell hero-grid">
+      <article class="hero-card hero-main-card">
+        <div class="hero-copy">
+          <p class="eyebrow light">VIOLET DAYS · 09.09</p>
+          <h1>Chọn thứ bạn thích.<br><span>Giá sẽ làm bạn vui.</span></h1>
+          <p class="hero-desc">Deal chọn lọc từ thương hiệu chính hãng, freeship và voucher được tính rõ trước khi thanh toán.</p>
+          <div class="hero-actions"><a class="btn btn-light" href="./search.html?q=deal">Khám phá ưu đãi</a><a class="text-link-light" href="#flash">Xem Flash Deals →</a></div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+          <div class="floating-card fc-a"><span class="mini-label">Audio</span><div class="headphones"><i></i><b></b><em></em></div><strong>Noise Pro X</strong><small>-28%</small></div>
+          <div class="floating-card fc-b"><span class="mini-label">Beauty</span><div class="bottle"></div><strong>Glow Serum</strong><small>Mall</small></div>
+          <div class="floating-card fc-c"><span class="mini-label">Living</span><div class="lamp"><i></i><b></b></div><strong>Halo Lamp</strong><small>New</small></div>
+        </div>
+      </article>
+      <aside class="hero-side">
+        <a class="mini-campaign lavender" href="#mall"><span><small>VIOLET MALL</small><strong>Chính hãng<br>100%</strong><em>Khám phá →</em></span><div class="gem">◆</div></a>
+        <a class="mini-campaign dark" href="#flash"><span><small>FLASH DROP</small><strong>Deal kết thúc<br>lúc nửa đêm</strong><em>Xem ngay →</em></span><div class="clock-dot"></div></a>
+      </aside>
+    </section>
+
+    <section class="shell quick-actions" aria-label="Lối tắt mua sắm">
+      <a href="#voucher"><span>🎟</span><b>Kho voucher</b><small>Lưu đến 300K</small></a>
+      <a href="#"><span>🚚</span><b>Free shipping</b><small>Toàn quốc</small></a>
+      <a href="#mall"><span>◆</span><b>Violet Mall</b><small>Hàng chính hãng</small></a>
+      <a href="#flash"><span>⚡</span><b>Flash Deals</b><small>Deal theo giờ</small></a>
+      <a href="#new"><span>✦</span><b>Hàng mới</b><small>Vừa cập nhật</small></a>
+      <a href="#"><span>♛</span><b>Premium</b><small>Brand tuyển chọn</small></a>
+      <a href="#"><span>🎁</span><b>Violet Rewards</b><small>Tích điểm đổi quà</small></a>
+      <a href="#"><span>▶</span><b>Violet Live</b><small>Shop cùng creator</small></a>
+    </section>
+
+    <section class="shell section-block categories-section">
+      <div class="section-head"><div><p class="eyebrow">Khám phá theo nhu cầu</p><h2>Danh mục nổi bật</h2></div><a href="./search.html">Xem tất cả →</a></div>
+      <div class="category-grid" id="categoryGrid"></div>
+    </section>
+
+    <section class="full-bleed-soft" id="flash">
+      <div class="shell section-block">
+        <div class="section-head flash-head"><div><p class="eyebrow red">Kết thúc trong <span class="countdown" data-countdown>02:14:38</span></p><h2>Flash Deals</h2></div><a href="./search.html?q=flash">Xem tất cả →</a></div>
+        <div class="product-row" id="flashProducts"></div>
+      </div>
+    </section>
+
+    <section class="shell mall-section" id="mall">
+      <div class="mall-copy"><p class="eyebrow light">VIOLET MALL</p><h2>Thương hiệu chuẩn.<br>Trải nghiệm xứng tầm.</h2><p>Chính hãng 100%, đổi trả 15 ngày và hỗ trợ ưu tiên từ các cửa hàng đã xác minh.</p><a class="btn btn-light" href="./search.html?q=mall">Khám phá Violet Mall</a></div>
+      <div class="brand-wall"><div>SONY</div><div>dyson</div><div>NIKE</div><div>LANEIGE</div><div>SAMSUNG</div><div>LEGO</div><div>adidas</div><div>MUJI</div></div>
+    </section>
+
+    <section class="shell section-block" id="bestseller">
+      <div class="section-head"><div><p class="eyebrow">Đang được quan tâm</p><h2>Trending now</h2></div><div class="chip-row"><button class="chip active" data-feed="for-you">Dành cho bạn</button><button class="chip" data-feed="trending">Xu hướng</button><button class="chip" data-feed="new">Hàng mới</button><button class="chip" data-feed="under">Dưới 500K</button></div></div>
+      <div class="product-grid" id="recommendProducts"></div>
+      <div class="center"><a class="btn btn-outline" href="./search.html">Xem thêm sản phẩm</a></div>
+    </section>
+
+    <section class="shell editorial-strip" id="new">
+      <div><p class="eyebrow">SHOP THE STORY</p><h2>Đồ tốt không cần nói quá nhiều.</h2><p>Những lựa chọn đang lên từ công nghệ, làm đẹp và không gian sống — được biên tập thành một câu chuyện dễ mua hơn.</p><a href="./search.html?q=editor-picks" class="text-link">Xem Editor's Picks →</a></div>
+      <div class="story-cards"><article><span>01</span><strong>Quiet tech</strong><small>Thiết bị giúp ngày làm việc nhẹ hơn.</small></article><article><span>02</span><strong>Everyday glow</strong><small>Routine chăm sóc da tối giản.</small></article><article><span>03</span><strong>Soft living</strong><small>Những món nhỏ làm nhà dễ chịu hơn.</small></article></div>
+    </section>
+
+    <section class="trust-strip">
+      <div class="shell trust-grid"><div><b>✓</b><span><strong>Thanh toán an toàn</strong><small>Bảo vệ giao dịch trên mọi đơn hàng</small></span></div><div><b>◆</b><span><strong>Shop đã xác minh</strong><small>Thông tin người bán minh bạch</small></span></div><div><b>↺</b><span><strong>Đổi trả dễ dàng</strong><small>Chính sách hiển thị rõ trước khi mua</small></span></div><div><b>⌁</b><span><strong>Hỗ trợ 24/7</strong><small>Chat với Violet khi bạn cần</small></span></div></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-main">
+      <div class="footer-brand"><a class="brand" href="./index.html"><span class="brand-mark">V</span><span>violet</span></a><p>Marketplace hiện đại cho những lựa chọn đáng tin, ưu đãi dễ hiểu và trải nghiệm mua sắm nhẹ nhàng hơn.</p></div>
+      <div><h4>Mua sắm</h4><a href="./search.html">Danh mục</a><a href="#flash">Flash Deals</a><a href="#mall">Violet Mall</a><a href="#">Voucher</a></div>
+      <div><h4>Hỗ trợ</h4><a href="#">Trung tâm trợ giúp</a><a href="#">Theo dõi đơn</a><a href="#">Đổi trả & hoàn tiền</a><a href="#">Bảo vệ người mua</a></div>
+      <div><h4>Đối tác</h4><a href="#">Bán hàng cùng Violet</a><a href="#">Seller Center</a><a href="#">Creator Program</a><a href="#">Quảng cáo</a></div>
+      <div><h4>Ứng dụng</h4><p>Nhận deal cá nhân hóa và theo dõi đơn ngay trên điện thoại.</p><button class="store-badge">Download app</button></div>
+    </div>
+    <div class="shell footer-bottom"><span>© 2026 Violet Marketplace. Concept prototype.</span><span>Vietnam · Tiếng Việt</span></div>
+  </footer>
+
+  <nav class="mobile-nav" aria-label="Điều hướng mobile"><a class="active" href="./index.html">⌂<span>Home</span></a><a href="./search.html">☰<span>Danh mục</span></a><a href="#">◌<span>Chat</span></a><a href="./cart.html">▱<span>Giỏ</span><b data-cart-count>0</b></a><a href="#">♙<span>Tài khoản</span></a></nav>
+  <div class="toast" id="toast" role="status"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
