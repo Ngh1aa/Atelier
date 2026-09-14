@@ -2,6 +2,7 @@
 import "./src/js/app.js?v=atelier-v15";
 import "./src/main.js?v=atelier-v15";
 import { initCheckoutProgress, initMotionSystem } from "./src/js/motion-system.js?v=atelier-v15";
+import { initPdpV15 } from "./src/js/pdp-v15.js?v=atelier-v15";
 
 document.documentElement.dataset.atelierStyle = "luxury-monochrome";
 document.documentElement.dataset.atelierVersion = "v15";
@@ -57,6 +58,7 @@ function initFlagshipExperience() {
   initBackToTop();
   initMotionSystem();
   initCheckoutProgress();
+  initPdpV15().catch((error) => console.error("ATELIER V15 PDP enhancement failed", error));
 }
 
 if (document.readyState === "loading") {
