@@ -1,0 +1,41 @@
+/* ATELIER V15 — accessibility presentation owner.
+   Surface/foreground, link affordance and portfolio-evidence semantics. */
+
+@layer v15-accessibility {
+  .assistance-text a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: .2em;
+  }
+
+  .assistance-text a:hover,
+  .assistance-text a:focus-visible {
+    text-decoration-thickness: 2px;
+  }
+
+  .system-page .token-card .token-term {
+    display: block;
+    margin: 0 0 var(--space-4);
+    color: var(--muted);
+    font-size: var(--type-micro);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+  }
+
+  .system-page .token-card .token-detail {
+    margin: 0;
+    font-size: var(--type-small);
+    line-height: 1.5;
+  }
+
+  .system-page .token-card.is-inverse-token .token-term,
+  .system-page .token-card.is-inverse-token .token-detail {
+    color: var(--campaign-text);
+  }
+
+  .system-page [data-keyboard-scroll-region="true"]:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 4px;
+  }
+}
