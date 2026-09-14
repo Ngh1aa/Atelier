@@ -1,4 +1,5 @@
 const MOTION_SELECTOR = [
+  ".reveal",
   ".home-campaign-v14__media",
   ".home-campaign-v14__panel",
   ".moment-card",
@@ -15,7 +16,22 @@ function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-function prepareMotionNode(node, observer, reducedMotion) {
+function isCaptureMode() {
+  const query = new URLSearchParams(window.location.search);
+  const userAgent = navigator.userAgent || "";
+  return query.get("figma") === "1"
+    || document.documentElement.dataset.figmaCapture === "true"
+    || navigator.webdriver === true
+    || /HeadlessChrome|Playwright|Puppeteer/i.test(userAgent);
+}
+
+function markVisible(node, immediate = false) {
+  node.classList.add("is-motion-visible");
+  if (node.classList.contains("reveal")) node.classList.add("active");
+  if (immediate) node.style.setProperty("--atelier-motion-delay", "0ms");
+}
+
+function prepareMotionNode(node, observer, { reducedMotion, captureMode }) {
   if (!(node instanceof Element) || node.dataset.atelierMotionReady === "true") return;
   node.dataset.atelierMotionReady = "true";
   node.classList.add("atelier-motion-item");
@@ -30,46 +46,60 @@ function prepareMotionNode(node, observer, reducedMotion) {
   const index = Math.max(0, siblings.indexOf(node));
   node.style.setProperty("--atelier-motion-delay", `${Math.min(index, 4) * 55}ms`);
 
-  if (reducedMotion || !observer || node.matches("main > :first-child, .home-campaign-v14__media, .home-campaign-v14__panel")) {
-    node.classList.add("is-motion-visible");
+  const aboveFold = node.matches(
+    "main > :first-child, .home-campaign-v14__media, .home-campaign-v14__panel"
+  );
+
+  if (captureMode || reducedMotion || !observer || aboveFold) {
+    markVisible(node, captureMode || reducedMotion);
     return;
   }
+
   observer.observe(node);
 }
 
 export function initMotionSystem() {
   const reducedMotion = prefersReducedMotion();
+  const captureMode = isCaptureMode();
   let observer = null;
 
-  if (!reducedMotion && "IntersectionObserver" in window) {
+  document.documentElement.classList.toggle("atelier-motion-ready", !reducedMotion && !captureMode);
+  if (captureMode) document.documentElement.dataset.figmaCapture = "true";
+
+  if (!captureMode && !reducedMotion && "IntersectionObserver" in window) {
     observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-motion-visible");
+        markVisible(entry.target);
         observer.unobserve(entry.target);
       });
-    }, { threshold: 0.08, rootMargin: "0px 0px -6% 0px" });
+    }, { threshold: 0.1, rootMargin: "0px 0px -7% 0px" });
   }
 
+  const state = { reducedMotion, captureMode };
   const prepare = (scope = document) => {
     if (scope instanceof Element && scope.matches(MOTION_SELECTOR)) {
-      prepareMotionNode(scope, observer, reducedMotion);
+      prepareMotionNode(scope, observer, state);
     }
-    scope.querySelectorAll?.(MOTION_SELECTOR).forEach((node) => prepareMotionNode(node, observer, reducedMotion));
+    scope.querySelectorAll?.(MOTION_SELECTOR).forEach((node) => prepareMotionNode(node, observer, state));
   };
 
   prepare();
 
   const mutationObserver = new MutationObserver((mutations) => {
+    const roots = new Set();
     mutations.forEach((mutation) => mutation.addedNodes.forEach((node) => {
-      if (node instanceof Element) prepare(node);
+      if (node instanceof Element) roots.add(node);
     }));
+    if (!roots.size) return;
+    requestAnimationFrame(() => roots.forEach((node) => prepare(node)));
   });
   mutationObserver.observe(document.body, { childList: true, subtree: true });
 
   return () => {
     observer?.disconnect();
     mutationObserver.disconnect();
+    document.documentElement.classList.remove("atelier-motion-ready");
   };
 }
 
