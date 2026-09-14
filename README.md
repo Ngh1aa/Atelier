@@ -1,119 +1,165 @@
-# ATELIER – Website Thương Mại Điện Tử Thời Trang Cao Cấp
+# ATELIER — Editorial Luxury Fashion Commerce
 
-ATELIER là website thương mại điện tử thời trang cao cấp, được xây dựng với phong cách editorial, tối giản và sang trọng. Dự án giải quyết các vấn đề thường gặp trong mua sắm thời trang online: bố cục rối mắt, thiếu câu chuyện thương hiệu, khó duyệt danh mục sản phẩm và thiếu sự tin tưởng khi thanh toán.
+ATELIER is a static fashion-commerce prototype and UI/UX case study exploring a deliberate tension: **editorial expression should create desire, while the interface becomes progressively more explicit about product and transaction decisions as the shopper approaches purchase**.
 
-Website hướng đến việc kết hợp nhận diện thương hiệu, khám phá sản phẩm và tối ưu chuyển đổi trong một trải nghiệm mua sắm liền mạch.
+V15 is designed as a portfolio flagship for art direction, interaction craft, product-detail UX, responsive behavior, accessibility-minded component states and design-to-frontend execution. It does **not** claim participant research, conversion lift or production commerce capabilities that have not been validated.
 
-## Các trang chính
+## V15 experience model
 
-- **Trang chủ** – Kể chuyện thương hiệu, giới thiệu bộ sưu tập nổi bật
-- **Shop** – Filter Size/Category/Color, sort, search và state lưu trên URL
-- **Chi tiết sản phẩm** – Gallery, màu, size theo tồn kho variant, fit, Size Guide và Delivery/Returns
-- **Wishlist** – Guest có thể lưu sản phẩm, sau đó chọn đúng variant trước khi thêm Bag
-- **Giỏ hàng** – Quantity, sửa màu/size, Save for later, promo và tổng tiền VND dùng chung
-- **Thanh toán** – Guest checkout gồm Contact, Address, Delivery, Payment và Review
-- **Đơn hàng** – Xác nhận, tracking, yêu cầu return hoặc exchange size
-- **Tài khoản** – Lịch sử đơn hàng và Saved trên thiết bị hiện tại
-- **Blog** – Chia sẻ nội dung thời trang, xu hướng
-- **About** – Câu chuyện thương hiệu
-
-## Công nghệ sử dụng
-
-| Layer | Công nghệ |
-|---|---|
-| Nền tảng | HTML5, CSS3, JavaScript (ES6+) |
-| Build tool | Vite |
-| Icons | Iconify |
-| Fonts | Playfair Display, Inter |
-| Thiết kế | Figma |
-
-## 🚀 Hướng dẫn cài đặt
-
-### Yêu cầu
-
-- Node.js (bản LTS được khuyên dùng)
-
-### Các bước thực hiện
-
-**1. Clone repository**
-
-```bash
-git clone https://github.com/Ngh1aa/Atelier.git
-cd Atelier
+```text
+Editorial Entry
+→ Collection
+→ Product Discovery
+→ Product Detail
+→ Size / Fit Decision
+→ Variant / Availability
+→ Add to Bag
+→ Bag
+→ Checkout
+→ Confirmation
 ```
 
-**2. Cài đặt dependencies**
+The visual direction is **quiet editorial luxury + strong fashion photography + disciplined transactional surfaces**. Home and Collections carry the strongest editorial expression; PDP, Bag and Checkout deliberately increase information clarity and reduce decorative interruption.
+
+## Core product surfaces
+
+- **Home** — asymmetric editorial entry with direct commerce bridges.
+- **Collections** — shoppable lookbook chapters rather than a disconnected campaign gallery.
+- **Shop** — search, filter, sort, applied filters, URL state, Saved, quick add and no-result recovery.
+- **Product Detail** — product identity, gallery, colour, size, size guide, truthful availability, fit, sourced model note when present, material/care/origin, delivery/returns, Saved and related pieces.
+- **Bag** — variant, quantity, price, edit/remove/save behavior and shared VND totals.
+- **Checkout** — guest contact/address/delivery/payment-choice/review flow with inline validation and an explicit static-prototype reality note.
+- **Confirmation / Order** — browser-local order record and follow-up status surfaces without pretending payment or fulfilment is live.
+- **Client Services** — contact, shipping/returns, size and care guidance.
+
+## Portfolio evidence screens
+
+- [`design-system.html`](./design-system.html) — primitive + semantic tokens, typography, spacing, grid, breakpoints, shape, motion and working commerce component contracts.
+- [`component-states.html`](./component-states.html) — Default, Hover, Focus, Pressed, Selected, Disabled, Loading, Error, Success, Sold out and Saved specimens plus a state-coverage matrix.
+
+## Research and reasoning artifacts
+
+- [`Reference-Benchmark.md`](./Reference-Benchmark.md) — production benchmark of LEMAIRE, Jil Sander, TOTEME, LOEWE, The Row and SSENSE. Reference evidence is not presented as user research.
+- [`docs/uiux/Design-Contract-V15.md`](./docs/uiux/Design-Contract-V15.md) — visual direction, page-role composition, motion, responsive and accessibility contracts plus major decision records.
+- [`docs/uiux/PLANNED-VALIDATION.md`](./docs/uiux/PLANNED-VALIDATION.md) — usability protocol only; no participant findings are fabricated.
+- [`docs/uiux/Experience-System.md`](./docs/uiux/Experience-System.md) — commerce and system-reality model.
+
+## Interaction system
+
+V15 uses a small motion grammar instead of page-specific effects:
+
+- editorial/image reveal → hierarchy;
+- product hover/focus → affordance;
+- variant/size feedback → state confirmation;
+- PDP gallery response → continuity;
+- mini-Bag drawer → action-to-result continuity;
+- checkout progress → orientation.
+
+`prefers-reduced-motion: reduce` removes large transforms/translation and preserves the same content, state and task completion path. No scroll-jacking, cursor replacement, gratuitous parallax or motion-only information is used.
+
+## Responsive contract
+
+The interface is recomposed—not merely shrunk—across:
+
+- **≥1440** — asymmetric editorial canvas, generous media, PDP media + decision rail;
+- **1280** — desktop hierarchy with tighter spacing/type;
+- **768 / tablet** — two-column discovery, stacked editorial roles and single-column PDP decision flow;
+- **390 mobile** — image → identity → price → variant → size → purchase → reassurance;
+- **narrow mobile** — one-column recovery where two-column product metadata no longer fits, with no body-level horizontal overflow.
+
+## Accessibility intent
+
+Target: WCAG 2.2 AA design/implementation intent. The project includes semantic landmarks, native form controls where possible, visible focus, persistent labels, live status/error regions, focus-managed dialogs/drawers, keyboard interactions, non-colour state cues and reduced-motion behavior.
+
+Automated Axe/Lighthouse output is treated as regression evidence—not proof of complete accessibility conformance. Manual/participant validation remains separate.
+
+## Commerce/system reality
+
+`src/js/commerce-store.js` is the source of truth for catalogue, variant, Bag, Saved and browser-local Order state.
+
+- Search/filter/PDP/Bag interactions are real client-side behavior.
+- Bag, Saved and local order records persist in browser storage.
+- Inventory may be `UNKNOWN`; V15 does not turn unknown stock into fake “In stock” or fake scarcity.
+- Cash on delivery and bank transfer are simulated choices in a local prototype.
+- Card payment, server inventory, email, authentication and live fulfilment are **not connected**.
+
+## Technology
+
+| Layer | Technology |
+| --- | --- |
+| Markup | Semantic HTML5 |
+| Visual system | CSS cascade layers + V15 semantic tokens |
+| Interaction | JavaScript ES modules |
+| Build | Vite |
+| State | Browser-local JavaScript / `localStorage` |
+| QA | GitHub Actions, Playwright, Axe, Lighthouse |
+| Design source | Figma + repository design contracts |
+
+## Cloud QA
+
+The V15 branch adds `.github/workflows/atelier-v15-flagship-qa.yml` and keeps the existing whole-site visual regression suite.
+
+The flagship gate checks:
+
+- production build and commerce tests;
+- route resolution and broken images;
+- 1440 / 1280 / 768 / 390 / 320 representative states;
+- body horizontal overflow;
+- console/page/request errors;
+- serious/critical Axe findings;
+- Search, Filter, PDP Add-to-Bag/drawer, Checkout validation and mobile-menu keyboard behavior;
+- reduced-motion behavior;
+- Lighthouse lab evidence;
+- rendered screenshots/artifacts.
+
+## Local development
 
 ```bash
 npm install
-```
-
-**3. Chạy môi trường phát triển**
-
-```bash
 npm run dev
 ```
 
-Mở trình duyệt và truy cập `http://localhost:5173`.
-
-**Kiểm tra trước khi deploy**
+Before proposing a release:
 
 ```bash
 npm test
 npm run build
 ```
 
-**Cách chạy bằng Live Server (VS Code)**
+Cloud/browser QA remains the acceptance evidence for the V15 branch.
 
-1. Cài đặt extension **Live Server** trong VS Code
-2. Nhấp chuột phải vào file `index.html` trong VS Code
-3. Chọn **"Open with Live Server"**
+## Repository map
 
-## Cách sử dụng
-
-- **Khám phá trang chủ**: Tìm hiểu câu chuyện thương hiệu và các bộ sưu tập nổi bật
-- **Duyệt sản phẩm**: Truy cập trang Shop để xem danh mục đầy đủ với bố cục editorial
-- **Chi tiết sản phẩm**: Nhấp vào sản phẩm để xem thông tin, hình ảnh và lựa chọn size/màu
-- **Wishlist & Giỏ hàng**: Thêm sản phẩm yêu thích hoặc đưa vào giỏ hàng để chuẩn bị thanh toán
-- **Thanh toán**: Guest checkout giữ dữ liệu khi quay lại, revalidate tồn kho và ngăn submit lặp
-- **Sau mua**: Xem order ID, delivery estimate, tracking, return hoặc exchange size
-
-## Commerce architecture
-
-- `src/js/commerce-store.js` là source of truth cho catalogue, variant, inventory, Bag, Saved và Order.
-- Bag lưu item theo `productId + variantId + color + size + quantity`, không còn lưu riêng theo product.
-- Dữ liệu guest được lưu trong `localStorage`, có migration cho Bag/Wishlist từ cấu trúc cũ.
-- Toàn site dùng một formatter `VND`; badge Bag lấy tổng quantity thật.
-- Search, filter, PDP, Cart, Checkout và Order đều phát analytics events theo commerce funnel.
-
-> GitHub Pages là front-end tĩnh. Cash on delivery và bank transfer đang mô phỏng đầy đủ UX/order state trên thiết bị; card payment, inventory server-side, email và fulfilment thực tế cần được nối với backend cùng payment provider đã xác minh trước khi vận hành thương mại.
-
-> Dự án phù hợp để sử dụng làm **UI/UX case study** hoặc **project luyện tập front-end**.
-
-## Cấu trúc thư mục
-
-```
+```text
 Atelier/
-├── index.html          # Trang chủ
-├── shop.html           # Danh mục sản phẩm
-├── detailproduct.html  # Chi tiết sản phẩm
-├── favourite.html      # Wishlist
-├── cart.html           # Giỏ hàng
-├── checkout.html       # Thanh toán
-├── order.html          # Tracking, return và exchange
-├── account.html        # Quản lý tài khoản
-├── login.html          # Đăng nhập
-├── forgot-password.html # Quên mật khẩu
-├── blog.html           # Blog
-├── about.html          # Giới thiệu thương hiệu
-├── order-success.html  # Xác nhận đặt hàng
-├── src/js/commerce-store.js # Commerce state dùng chung
-├── src/js/commerce-ui.js    # Drawer, Mini Bag, Size Guide
-├── tests/              # Kiểm thử commerce state
-├── style.css           # Stylesheet chính
-└── main.js             # Logic JavaScript
+├── index.html
+├── collections.html
+├── shop.html
+├── detailproduct.html
+├── favourite.html
+├── cart.html
+├── checkout.html
+├── order-success.html
+├── order.html
+├── account.html
+├── client-services.html
+├── design-system.html
+├── component-states.html
+├── atelier-v15.css
+├── Reference-Benchmark.md
+├── docs/uiux/
+│   ├── Design-Contract-V15.md
+│   └── PLANNED-VALIDATION.md
+├── src/css/tokens.css
+├── src/js/
+│   ├── commerce-store.js
+│   ├── commerce-ui.js
+│   ├── motion-system.js
+│   └── pdp-v15.js
+├── scripts/v15-flagship-interaction-qa.mjs
+└── .github/workflows/atelier-v15-flagship-qa.yml
 ```
 
----
+## Git workflow for V15
 
-*Dự án được phát triển với vai trò **Business Analyst & UI/UX Designer**.*
+V15 work lives on `feat/atelier-portfolio-upgrade`. The intended delivery is a **draft PR only** until appropriate cloud gates pass and visual critique has no blocking issue. This project should not be merged automatically as part of the redesign run.
