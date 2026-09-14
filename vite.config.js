@@ -10,6 +10,13 @@ const pages = Object.fromEntries(
     .map((file) => [file.replace(/\.html$/, ""), resolve(rootDirectory, file)]),
 );
 
+const runtimeStyleFiles = [
+  "atelier-v15.css",
+  "atelier-v15-responsive.css",
+  "atelier-v15-accessibility.css",
+  "src/css/tokens.css",
+];
+
 export default defineConfig({
   base: "./",
   plugins: [{
@@ -25,6 +32,16 @@ export default defineConfig({
       for (const asset of media) {
         const fileName = asset.replace(/^\.\//, "");
         this.emitFile({ type: "asset", fileName, source: readFileSync(resolve(rootDirectory, fileName)) });
+      }
+
+      // V15 styles are loaded by the browser runtime so the same entry works
+      // on source-served GitHub Pages and inside Vite's production build.
+      for (const fileName of runtimeStyleFiles) {
+        this.emitFile({
+          type: "asset",
+          fileName,
+          source: readFileSync(resolve(rootDirectory, fileName)),
+        });
       }
     },
   }],
