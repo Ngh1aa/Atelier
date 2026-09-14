@@ -1,0 +1,108 @@
+name: ATELIER V15 flagship QA
+
+on:
+  push:
+    branches:
+      - 'feat/atelier-portfolio-upgrade'
+    paths:
+      - '*.html'
+      - 'main.js'
+      - 'atelier-v15.css'
+      - 'atelier-v14.css'
+      - 'atelier-v14-site.css'
+      - 'src/**'
+      - 'assets/**'
+      - 'scripts/v15-elementary-visual-integrity.mjs'
+      - 'scripts/v15-targeted-evidence.mjs'
+      - 'scripts/v15-flagship-interaction-qa.mjs'
+      - 'scripts/mobile-menu-regression.mjs'
+      - 'vite.config.js'
+      - 'package.json'
+      - '.github/workflows/atelier-v15-flagship-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: atelier-v15-flagship-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  flagship-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install QA tooling
+        run: |
+          npm install --no-save --no-package-lock playwright@1.55.0 @axe-core/playwright@4.10.2 lighthouse@12.8.2
+          npx playwright install --with-deps chromium
+
+      - name: Unit / commerce tests
+        run: npm test
+
+      - name: Production build
+        run: npm run build
+
+      - name: Start built preview
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 --directory dist > /tmp/atelier-v15-server.log 2>&1 &
+          echo $! > /tmp/atelier-v15-server.pid
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:4173/index.html >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/atelier-v15-server.log
+          exit 1
+
+      - name: Whole-site responsive visual regression
+        run: |
+          mkdir -p qa-artifacts/v15-whole-site
+          node scripts/v15-elementary-visual-integrity.mjs
+          node scripts/mobile-menu-regression.mjs
+        env:
+          QA_BASE_URL: http://127.0.0.1:4173
+          QA_OUT_DIR: qa-artifacts/v15-whole-site
+
+      - name: Flagship viewport, Axe, keyboard and reduced-motion gate
+        run: |
+          mkdir -p qa-artifacts/v15-flagship
+          node scripts/v15-flagship-interaction-qa.mjs
+        env:
+          QA_BASE_URL: http://127.0.0.1:4173
+          QA_OUT_DIR: qa-artifacts/v15-flagship
+
+      - name: Targeted rendered evidence
+        run: |
+          mkdir -p qa-artifacts/v15-targeted
+          node scripts/v15-targeted-evidence.mjs
+        env:
+          QA_BASE_URL: http://127.0.0.1:4173
+          QA_OUT_DIR: qa-artifacts/v15-targeted
+
+      - name: Lighthouse lab evidence
+        run: |
+          mkdir -p qa-artifacts/v15-lighthouse
+          npx lighthouse http://127.0.0.1:4173/index.html --chrome-flags='--headless --no-sandbox' --only-categories=performance,accessibility,best-practices,seo --output=json --output-path=qa-artifacts/v15-lighthouse/home.json --quiet
+          npx lighthouse 'http://127.0.0.1:4173/detailproduct.html?id=tailored-wool-blazer' --chrome-flags='--headless --no-sandbox' --only-categories=performance,accessibility,best-practices --output=json --output-path=qa-artifacts/v15-lighthouse/pdp.json --quiet
+          npx lighthouse http://127.0.0.1:4173/checkout.html --chrome-flags='--headless --no-sandbox' --only-categories=performance,accessibility,best-practices --output=json --output-path=qa-artifacts/v15-lighthouse/checkout.json --quiet
+
+      - name: Upload V15 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: atelier-v15-flagship-qa
+          path: qa-artifacts
+          if-no-files-found: error
+          retention-days: 14
