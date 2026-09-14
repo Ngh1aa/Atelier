@@ -1,6 +1,7 @@
 // ATELIER app entry — commerce behavior remains shared; V15 is an isolated flagship layer.
 import "./atelier-v15.css?v=flagship-20260914";
 import "./atelier-v15-responsive.css?v=flagship-20260914";
+import "./atelier-v15-accessibility.css?v=flagship-20260914";
 import "./src/js/app.js?v=atelier-v15";
 import "./src/main.js?v=atelier-v15";
 import { initCheckoutProgress, initMotionSystem } from "./src/js/motion-system.js?v=atelier-v15";
