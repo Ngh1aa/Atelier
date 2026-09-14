@@ -1,32 +1,41 @@
 // ATELIER app entry — commerce behavior remains shared; V15 is an isolated flagship layer.
-import "./atelier-v15.css?v=flagship-20260914";
-import "./atelier-v15-responsive.css?v=flagship-20260914";
-import "./atelier-v15-accessibility.css?v=flagship-20260914";
 import "./src/js/app.js?v=atelier-v15";
 import "./src/main.js?v=atelier-v15";
-import { initCheckoutProgress, initMotionSystem } from "./src/js/motion-system.js?v=atelier-v15";
+import { initCheckoutProgress, initMotionSystem } from "./src/js/motion-system.js?v=atelier-v15-motion2";
 import { initPdpV15 } from "./src/js/pdp-v15.js?v=atelier-v15";
+
+const FLAGSHIP_STYLESHEETS = [
+  "./atelier-v15.css?v=flagship-20260915-motion2",
+  "./atelier-v15-responsive.css?v=flagship-20260915-motion2",
+  "./atelier-v15-accessibility.css?v=flagship-20260915-motion2",
+];
+
+function ensureStylesheet(href) {
+  const absoluteHref = new URL(href, document.baseURI).href;
+  const existing = [...document.querySelectorAll('link[rel="stylesheet"]')]
+    .find((link) => link.href === absoluteHref || link.href.split("?")[0] === absoluteHref.split("?")[0]);
+  if (existing) return Promise.resolve(existing);
+
+  return new Promise((resolve) => {
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = href;
+    link.dataset.atelierFlagshipStyle = "true";
+    link.addEventListener("load", () => resolve(link), { once: true });
+    link.addEventListener("error", () => {
+      console.warn(`ATELIER stylesheet failed to load: ${href}`);
+      resolve(link);
+    }, { once: true });
+    document.head.appendChild(link);
+  });
+}
+
+async function ensureFlagshipStyles() {
+  await Promise.all(FLAGSHIP_STYLESHEETS.map(ensureStylesheet));
+}
 
 document.documentElement.dataset.atelierStyle = "luxury-monochrome";
 document.documentElement.dataset.atelierVersion = "v15";
-
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const revealObserver = !reducedMotion && "IntersectionObserver" in window
-  ? new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("active");
-        revealObserver.unobserve(entry.target);
-      });
-    }, { threshold: 0.08, rootMargin: "0px 0px -5% 0px" })
-  : null;
-
-function initReveal() {
-  document.querySelectorAll(".reveal").forEach((element) => {
-    if (revealObserver) revealObserver.observe(element);
-    else element.classList.add("active");
-  });
-}
 
 function initScrollState() {
   const nav = document.querySelector("body > nav:not(.checkout-nav)");
@@ -44,17 +53,19 @@ function initBackToTop() {
   window.addEventListener("scroll", sync, { passive: true });
 }
 
-function initFlagshipExperience() {
-  initReveal();
+async function initFlagshipExperience() {
+  await ensureFlagshipStyles();
+  initMotionSystem();
   initScrollState();
   initBackToTop();
-  initMotionSystem();
   initCheckoutProgress();
   initPdpV15().catch((error) => console.error("ATELIER V15 PDP enhancement failed", error));
 }
 
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initFlagshipExperience, { once: true });
+  document.addEventListener("DOMContentLoaded", () => {
+    initFlagshipExperience().catch((error) => console.error("ATELIER V15 initialization failed", error));
+  }, { once: true });
 } else {
-  initFlagshipExperience();
+  initFlagshipExperience().catch((error) => console.error("ATELIER V15 initialization failed", error));
 }
