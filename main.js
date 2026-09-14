@@ -1,4 +1,5 @@
 // ATELIER app entry — commerce behavior remains shared; V15 is an isolated flagship layer.
+import "./atelier-v15.css?v=flagship-20260914";
 import "./src/js/app.js?v=atelier-v15";
 import "./src/main.js?v=atelier-v15";
 import { initCheckoutProgress, initMotionSystem } from "./src/js/motion-system.js?v=atelier-v15";
@@ -6,17 +7,6 @@ import { initPdpV15 } from "./src/js/pdp-v15.js?v=atelier-v15";
 
 document.documentElement.dataset.atelierStyle = "luxury-monochrome";
 document.documentElement.dataset.atelierVersion = "v15";
-
-function ensureFlagshipStyles() {
-  if (document.querySelector('link[data-atelier-v15="true"]')) return;
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = "./atelier-v15.css?v=flagship-20260914";
-  link.dataset.atelierV15 = "true";
-  document.head.appendChild(link);
-}
-
-ensureFlagshipStyles();
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const revealObserver = !reducedMotion && "IntersectionObserver" in window
