@@ -92,7 +92,8 @@ const report = {
     allVisibleTextCatastrophicFloor: 2.6,
     interactiveTextUsesNormalContrastThreshold: true,
     unverifiedPrimaryCoverCropIsBlocker: true,
-    sharedOwnerCoverage: "all routes x desktop, pressure, tablet and mobile",
+    heroContract: "asymmetric side-by-side above 900; stacked without overlap at 900 and below",
+    sharedOwnerCoverage: "20 routes x desktop, pressure, tablet and mobile",
   },
   routes: [],
   blockers: [],
@@ -122,18 +123,13 @@ async function freezeMotion(page) {
   ` });
 }
 
-async function snapshot(locator) {
+async function visualSnapshot(locator) {
   return locator.evaluate((el) => {
     const parse = (value) => {
       const match = String(value).match(/rgba?\(([^)]+)\)/i);
       if (!match) return { r: 0, g: 0, b: 0, a: 0 };
       const parts = match[1].split(/[\s,\/]+/).filter(Boolean).map(Number);
-      return {
-        r: parts[0] || 0,
-        g: parts[1] || 0,
-        b: parts[2] || 0,
-        a: Number.isFinite(parts[3]) ? parts[3] : 1,
-      };
+      return { r: parts[0] || 0, g: parts[1] || 0, b: parts[2] || 0, a: Number.isFinite(parts[3]) ? parts[3] : 1 };
     };
     const over = (top, bottom) => {
       const alpha = top.a + bottom.a * (1 - top.a);
@@ -145,106 +141,72 @@ async function snapshot(locator) {
         a: alpha,
       };
     };
-    const channel = (n) => {
+    const linear = (n) => {
       const c = n / 255;
-      return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+      return c <= .04045 ? c / 12.92 : ((c + .055) / 1.055) ** 2.4;
     };
-    const luminance = ({ r, g, b }) => 0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(b);
-    const contrast = (a, b) => {
-      const l1 = luminance(a);
-      const l2 = luminance(b);
-      return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+    const lum = ({ r, g, b }) => .2126 * linear(r) + .7152 * linear(g) + .0722 * linear(b);
+    const ratio = (a, b) => {
+      const x = lum(a); const y = lum(b);
+      return (Math.max(x, y) + .05) / (Math.min(x, y) + .05);
     };
-    const ownText = [...el.childNodes]
-      .filter((node) => node.nodeType === Node.TEXT_NODE)
-      .map((node) => node.textContent || "")
-      .join(" ")
-      .replace(/\s+/g, " ")
-      .trim();
-    const interactive = el.matches('a[href],button,[role="button"],input[type="button"],input[type="submit"]');
-    const text = (ownText || (interactive ? (el.innerText || el.textContent || "") : ""))
-      .replace(/\s+/g, " ")
-      .trim()
-      .slice(0, 160);
 
     const style = getComputedStyle(el);
     const rect = el.getBoundingClientRect();
-    const visible = rect.width > 0 && rect.height > 0 && style.display !== "none" && style.visibility !== "hidden" && Number.parseFloat(style.opacity || "1") > 0.05;
+    const visible = rect.width > 0 && rect.height > 0 && style.display !== "none" && style.visibility !== "hidden" && Number(style.opacity || 1) > .05;
+    const ownText = [...el.childNodes]
+      .filter((node) => node.nodeType === Node.TEXT_NODE)
+      .map((node) => node.textContent || "").join(" ").replace(/\s+/g, " ").trim();
+    const interactive = el.matches('a[href],button,[role="button"],input[type="button"],input[type="submit"]');
+    const text = (ownText || (interactive ? (el.innerText || el.textContent || "") : "")).replace(/\s+/g, " ").trim().slice(0, 160);
 
-    let cursor = el;
     let bg = { r: 255, g: 255, b: 255, a: 0 };
-    let variableMediaContext = false;
-    let sourceNode = null;
+    let cursor = el;
+    let mediaContext = false;
     while (cursor) {
       const cs = getComputedStyle(cursor);
-      if (cs.backgroundImage && cs.backgroundImage !== "none") variableMediaContext = true;
+      if (cs.backgroundImage && cs.backgroundImage !== "none") mediaContext = true;
       const local = parse(cs.backgroundColor);
-      if (local.a > 0) {
-        bg = over(bg, local);
-        if (!sourceNode) sourceNode = cursor;
-      }
-      if (bg.a >= 0.995) break;
+      if (local.a > 0) bg = over(bg, local);
+      if (bg.a >= .995) break;
       cursor = cursor.parentElement;
     }
-    if (bg.a < 0.995) bg = over(bg, { r: 255, g: 255, b: 255, a: 1 });
-
-    const positionedOverFigure = (() => {
-      if (!['absolute', 'fixed'].includes(style.position)) return false;
-      const figure = el.closest('figure');
-      return !!figure?.querySelector('img,video,picture');
-    })();
-    variableMediaContext = variableMediaContext || positionedOverFigure;
+    if (bg.a < .995) bg = over(bg, { r: 255, g: 255, b: 255, a: 1 });
+    if (["absolute", "fixed"].includes(style.position) && el.closest("figure")?.querySelector("img,video,picture")) mediaContext = true;
 
     const fgRaw = parse(style.color);
-    const fg = fgRaw.a < 0.995 ? over(fgRaw, bg) : fgRaw;
+    const fg = fgRaw.a < .995 ? over(fgRaw, bg) : fgRaw;
     const fontSize = Number.parseFloat(style.fontSize) || 16;
     const weight = Number.parseInt(style.fontWeight, 10) || 400;
     const threshold = fontSize >= 24 || (fontSize >= 18.66 && weight >= 700) ? 3 : 4.5;
 
     return {
-      tag: el.tagName,
-      className: typeof el.className === "string" ? el.className : "",
-      text,
-      interactive,
       visible,
       inViewport: rect.right > 0 && rect.bottom > 0 && rect.left < innerWidth && rect.top < innerHeight,
-      width: Math.round(rect.width),
-      height: Math.round(rect.height),
-      color: style.color,
-      backgroundColor: style.backgroundColor,
-      effectiveBackground: `rgb(${Math.round(bg.r)}, ${Math.round(bg.g)}, ${Math.round(bg.b)})`,
-      backgroundOwner: sourceNode ? `${sourceNode.tagName}.${typeof sourceNode.className === "string" ? sourceNode.className : ""}` : "page",
-      ratio: Number(contrast(fg, bg).toFixed(2)),
+      text,
+      interactive,
+      className: typeof el.className === "string" ? el.className : "",
+      ratio: Number(ratio(fg, bg).toFixed(2)),
       threshold,
-      fontSize,
-      fontWeight: weight,
-      opacity: Number.parseFloat(style.opacity || "1"),
-      variableMediaContext,
+      mediaContext,
       disabled: !!el.disabled || el.getAttribute("aria-disabled") === "true",
+      color: style.color,
+      background: `rgb(${Math.round(bg.r)}, ${Math.round(bg.g)}, ${Math.round(bg.b)})`,
     };
   });
 }
 
 async function auditVisibleText(page, key, entry) {
-  const selectors = [
-    "h1", "h2", "h3", "h4", "h5", "h6", "p", "a[href]", "button", "label", "li", "span",
-    "strong", "small", "summary", "legend", "td", "th", "dt", "dd", "[role=button]",
-  ].join(",");
-  const nodes = page.locator(selectors);
-  const count = await nodes.count();
+  const selector = ["h1","h2","h3","h4","h5","h6","p","a[href]","button","label","li","span","strong","small","summary","legend","td","th","dt","dd","[role=button]"].join(",");
+  const nodes = page.locator(selector);
   entry.textAudit = { checked: 0, mediaContexts: 0, catastrophic: [] };
-
-  for (let i = 0; i < count; i += 1) {
-    const node = nodes.nth(i);
-    const state = await snapshot(node);
+  for (let i = 0; i < await nodes.count(); i += 1) {
+    const state = await visualSnapshot(nodes.nth(i));
     if (!state.visible || !state.text) continue;
     entry.textAudit.checked += 1;
-    if (state.variableMediaContext) {
-      entry.textAudit.mediaContexts += 1;
-      continue;
-    }
+    if (state.mediaContext) { entry.textAudit.mediaContexts += 1; continue; }
     if (state.ratio < report.policy.allVisibleTextCatastrophicFloor) {
-      const detail = { index: i, text: state.text, className: state.className, color: state.color, background: state.effectiveBackground, ratio: state.ratio };
+      const detail = { text: state.text, className: state.className, ratio: state.ratio, color: state.color, background: state.background };
       entry.textAudit.catastrophic.push(detail);
       addBlocker(key, `catastrophic text/surface contrast ${state.ratio}:1`, detail);
     }
@@ -253,140 +215,84 @@ async function auditVisibleText(page, key, entry) {
 
 async function auditInteractiveStates(page, key, entry) {
   const nodes = page.locator('a[href],button,[role="button"],input[type="button"],input[type="submit"]');
-  const count = await nodes.count();
-  entry.interactiveAudit = [];
-
-  for (let i = 0; i < count; i += 1) {
+  entry.interactiveControlsChecked = 0;
+  for (let i = 0; i < await nodes.count(); i += 1) {
     const node = nodes.nth(i);
     let initial;
-    try {
-      initial = await snapshot(node);
-    } catch {
-      continue;
-    }
+    try { initial = await visualSnapshot(node); } catch { continue; }
     if (!initial.visible || !initial.text) continue;
-
-    try {
-      await node.scrollIntoViewIfNeeded();
-      await page.waitForTimeout(12);
-    } catch {
-      continue;
-    }
-
-    initial = await snapshot(node);
+    try { await node.scrollIntoViewIfNeeded(); } catch { continue; }
+    initial = await visualSnapshot(node);
     if (!initial.visible || !initial.inViewport) continue;
-    const item = { index: i, initial };
+    entry.interactiveControlsChecked += 1;
 
-    const check = (name, state) => {
-      if (!state || state.variableMediaContext) return;
-      if (state.ratio < state.threshold) {
-        addBlocker(key, `interactive ${name} contrast ${state.ratio}:1 below ${state.threshold}:1`, {
-          index: i,
-          text: state.text,
-          className: state.className,
-          color: state.color,
-          background: state.effectiveBackground,
-          backgroundOwner: state.backgroundOwner,
-        });
-      }
+    const check = (stateName, state) => {
+      if (!state || state.mediaContext || state.ratio >= state.threshold) return;
+      addBlocker(key, `interactive ${stateName} contrast ${state.ratio}:1 below ${state.threshold}:1`, {
+        text: state.text, className: state.className, color: state.color, background: state.background,
+      });
     };
-
     check("default", initial);
-    if (!initial.disabled) {
-      try {
-        await node.hover({ force: true });
-        await page.waitForTimeout(18);
-        item.hover = await snapshot(node);
-        check("hover", item.hover);
-
-        await node.focus();
-        await page.waitForTimeout(18);
-        item.focus = await snapshot(node);
-        check("focus", item.focus);
-      } catch (error) {
-        addBlocker(key, `interactive state audit failed for ${initial.text}`, String(error));
-      }
+    if (initial.disabled) continue;
+    try {
+      await node.hover({ force: true });
+      await page.waitForTimeout(10);
+      check("hover", await visualSnapshot(node));
+      await node.focus();
+      await page.waitForTimeout(10);
+      check("focus", await visualSnapshot(node));
+    } catch (error) {
+      addBlocker(key, `interactive state audit failed for ${initial.text}`, String(error));
     }
-    entry.interactiveAudit.push(item);
   }
 }
 
 async function auditPrimaryMedia(page, key, entry) {
-  entry.mediaAudit = [];
+  entry.mediaChecked = 0;
   const nodes = page.locator("main img");
-  const count = await nodes.count();
-  for (let i = 0; i < count; i += 1) {
+  for (let i = 0; i < await nodes.count(); i += 1) {
     const media = await nodes.nth(i).evaluate((img) => {
       const style = getComputedStyle(img);
       const rect = img.getBoundingClientRect();
       const owner = img.closest("figure,section,article,div");
-      const verified = img.dataset.cropVerified === "true" || owner?.dataset?.cropVerified === "true";
-      const focalSubject = img.dataset.focalSubject || owner?.dataset?.focalSubject || "";
       return {
         src: img.getAttribute("src") || "",
         alt: img.getAttribute("alt") || "",
-        className: img.className || "",
         objectFit: style.objectFit,
-        objectPosition: style.objectPosition,
         width: Math.round(rect.width),
         height: Math.round(rect.height),
-        naturalWidth: img.naturalWidth,
-        naturalHeight: img.naturalHeight,
         visible: rect.width >= 240 && rect.height >= 220 && style.display !== "none" && style.visibility !== "hidden",
-        verified,
-        focalSubject,
+        cropVerified: img.dataset.cropVerified === "true" || owner?.dataset?.cropVerified === "true",
+        focalSubject: img.dataset.focalSubject || owner?.dataset?.focalSubject || "",
       };
     });
     if (!media.visible) continue;
-    entry.mediaAudit.push(media);
-
-    if (media.objectFit === "cover") {
-      if (!media.verified || !media.focalSubject) {
-        addBlocker(key, "primary/feature media uses unverified object-fit: cover", media);
-      }
+    entry.mediaChecked += 1;
+    if (media.objectFit === "cover" && (!media.cropVerified || !media.focalSubject)) {
+      addBlocker(key, "primary/feature media uses unverified object-fit: cover", media);
     }
   }
 }
 
-async function captureKnownRiskStates(page, routeKey, viewportName) {
+async function captureEvidence(page, routeKey, viewportName) {
   const safe = `${routeKey}-${viewportName}`;
   await page.evaluate(() => window.scrollTo(0, 0));
-  await page.waitForTimeout(20);
+  await page.waitForTimeout(15);
   await page.screenshot({ path: path.join(outputDir, `${safe}-top.png`), fullPage: false });
-
   const targets = [];
   if (routeKey === "home") targets.push(["home-hero", ".home-campaign-v14"]);
   if (routeKey === "house") targets.push(["house-hero", ".v12-house-hero"]);
   if (routeKey === "services") targets.push(["services-hero", ".v12-service-hero"]);
   if (routeKey === "cart") targets.push(["cart-summary", ".order-summary-card"]);
   if (routeKey === "checkout") targets.push(["checkout-summary", ".summary-card"]);
-  if (routeKey === "home") targets.push(["footer", ".site-footer"]);
-
   for (const [label, selector] of targets) {
     const target = page.locator(selector).first();
-    if (await target.count()) {
-      try {
-        await target.screenshot({ path: path.join(outputDir, `${safe}-${label}.png`) });
-      } catch {
-        // Non-fatal evidence capture; audit blockers are reported separately.
-      }
-    }
-  }
-
-  const hoverTarget = page.locator('.btn-checkout,.btn-place-order,.btn-primary,.btn-secondary,.btn-outline').filter({ visible: true }).first();
-  if (await hoverTarget.count()) {
-    try {
-      await hoverTarget.scrollIntoViewIfNeeded();
-      await hoverTarget.hover({ force: true });
-      await page.waitForTimeout(20);
-      await page.screenshot({ path: path.join(outputDir, `${safe}-hover-state.png`), fullPage: false });
-    } catch {
-      // Audit already records state failures.
-    }
+    if (!await target.count()) continue;
+    try { await target.screenshot({ path: path.join(outputDir, `${safe}-${label}.png`) }); } catch { /* report owns blockers */ }
   }
 }
 
-await Promise.all(viewports.map(async (viewport) => {
+for (const viewport of viewports) {
   for (const [routeKey, pathname] of routes) {
     const key = `${routeKey}@${viewport.name}`;
     const context = await browser.newContext({
@@ -405,77 +311,73 @@ await Promise.all(viewports.map(async (viewport) => {
     const response = await page.goto(new URL(pathname, baseURL).toString(), { waitUntil: "networkidle", timeout: 30_000 });
     await page.evaluate(async () => { if (document.fonts?.ready) await document.fonts.ready; });
     await freezeMotion(page);
-    await page.waitForTimeout(80);
-
-    // Load lazy media before inspecting layout or capturing a full section.
+    await page.waitForTimeout(60);
     await page.evaluate(async () => {
       await Promise.all([...document.images].map(async (img) => {
         img.loading = "eager";
-        try { await img.decode(); } catch { /* Report broken sources below. */ }
+        try { await img.decode(); } catch { /* broken source reported below */ }
       }));
     });
 
-    const entry = {
-      key,
-      routeKey,
-      pathname,
-      viewport,
-      httpStatus: response?.status() || null,
-      consoleErrors,
-      pageErrors,
-    };
-
+    const entry = { key, routeKey, pathname, viewport, httpStatus: response?.status() || null, consoleErrors, pageErrors };
     if (!response?.ok()) addBlocker(key, `HTTP ${response?.status() ?? "no response"}`);
     if (consoleErrors.length) addBlocker(key, `console errors: ${consoleErrors.join(" | ")}`);
     if (pageErrors.length) addBlocker(key, `page errors: ${pageErrors.join(" | ")}`);
 
     entry.layout = await page.evaluate(() => {
       const width = document.documentElement.clientWidth;
-      const overflow = [...document.querySelectorAll('main *, footer *')].filter((el) => {
+      const overflow = [...document.querySelectorAll("main *, footer *")].filter((el) => {
         const box = el.getBoundingClientRect();
-        if (!box.width || !box.height || getComputedStyle(el).visibility === 'hidden') return false;
-        // Tables and rails may scroll locally without widening the page.
-        if (el.closest('.size-table-wrap,.thumbnail-gallery')) return false;
+        const style = getComputedStyle(el);
+        if (!box.width || !box.height || style.visibility === "hidden" || style.display === "none") return false;
+        if (el.closest(".size-table-wrap,.thumbnail-gallery")) return false;
         return box.right > width + 2 || box.left < -2;
-      }).map((el) => `${el.tagName}.${el.className}`).slice(0, 12);
-      const brokenImages = [...document.images].filter((img) => !img.naturalWidth).map((img) => img.getAttribute('src'));
-      const hero = document.querySelector('.home-campaign-v14');
+      }).map((el) => `${el.tagName}.${typeof el.className === "string" ? el.className : ""}`).slice(0, 12);
+      const brokenImages = [...document.images].filter((img) => img.complete && !img.naturalWidth).map((img) => img.getAttribute("src"));
+
+      const hero = document.querySelector(".home-campaign-v14");
       let heroIntegrity = true;
+      let heroDetail = null;
       if (hero) {
         const outer = hero.getBoundingClientRect();
-        const media = hero.querySelector('figure').getBoundingClientRect();
-        const panel = hero.querySelector('.home-campaign-v14__panel').getBoundingClientRect();
-        const actions = hero.querySelector('.home-campaign-v14__actions').getBoundingClientRect();
-        heroIntegrity = actions.bottom <= outer.bottom + 1 && actions.right <= outer.right + 1;
-        if (innerWidth > 600) heroIntegrity &&= Math.abs(media.width - panel.width) < 2 && Math.abs(media.bottom - panel.bottom) < 2;
+        const media = hero.querySelector("figure")?.getBoundingClientRect();
+        const panel = hero.querySelector(".home-campaign-v14__panel")?.getBoundingClientRect();
+        const actions = hero.querySelector(".home-campaign-v14__actions")?.getBoundingClientRect();
+        const inside = (box) => box && box.left >= outer.left - 2 && box.right <= outer.right + 2 && box.top >= outer.top - 2 && box.bottom <= outer.bottom + 2;
+        heroIntegrity = inside(media) && inside(panel) && inside(actions);
+        if (heroIntegrity && innerWidth > 900) {
+          heroIntegrity = Math.abs(media.bottom - panel.bottom) < 2 && Math.abs(media.top - panel.top) < 2;
+        } else if (heroIntegrity && innerWidth <= 900) {
+          heroIntegrity = Math.abs(media.left - panel.left) < 2 && Math.abs(media.right - panel.right) < 2 && panel.top >= media.bottom - 2;
+        }
+        heroDetail = {
+          mode: innerWidth > 900 ? "asymmetric-side-by-side" : "stacked",
+          outer: { left: outer.left, right: outer.right, top: outer.top, bottom: outer.bottom },
+          media: media && { left: media.left, right: media.right, top: media.top, bottom: media.bottom },
+          panel: panel && { left: panel.left, right: panel.right, top: panel.top, bottom: panel.bottom },
+          actions: actions && { left: actions.left, right: actions.right, top: actions.top, bottom: actions.bottom },
+        };
       }
-      return { width, scrollWidth: document.documentElement.scrollWidth, overflow, brokenImages, heroIntegrity };
+      return { width, scrollWidth: document.documentElement.scrollWidth, overflow, brokenImages, heroIntegrity, heroDetail };
     });
-    if (entry.layout.scrollWidth > entry.layout.width + 2 || entry.layout.overflow.length) addBlocker(key, 'horizontal layout overflow', entry.layout);
-    if (entry.layout.brokenImages.length) addBlocker(key, 'broken images', entry.layout.brokenImages);
-    if (!entry.layout.heroIntegrity) addBlocker(key, 'unequal hero columns or clipped actions', entry.layout);
+
+    if (entry.layout.scrollWidth > entry.layout.width + 2 || entry.layout.overflow.length) addBlocker(key, "horizontal layout overflow", entry.layout);
+    if (entry.layout.brokenImages.length) addBlocker(key, "broken images", entry.layout.brokenImages);
+    if (!entry.layout.heroIntegrity) addBlocker(key, "hero violates V15 responsive composition contract", entry.layout.heroDetail);
 
     await auditVisibleText(page, key, entry);
     await auditInteractiveStates(page, key, entry);
     await auditPrimaryMedia(page, key, entry);
-    await captureKnownRiskStates(page, routeKey, viewport.name);
+    await captureEvidence(page, routeKey, viewport.name);
 
     report.routes.push(entry);
     console.log(`${key}: ${report.blockers.filter((item) => item.key === key).length} blockers`);
     await context.close();
   }
-}));
+}
 
 await browser.close();
-await writeFile(path.join(outputDir, "detailed-report.local.json"), JSON.stringify(report, null, 2));
-await writeFile(path.join(outputDir, "report.json"), JSON.stringify({
-  ...report,
-  routes: report.routes.map(({ interactiveAudit, ...entry }) => ({
-    ...entry,
-    interactiveControlsChecked: interactiveAudit.length,
-  })),
-}, null, 2));
-
+await writeFile(path.join(outputDir, "report.json"), JSON.stringify(report, null, 2));
 console.log(`V15 elementary visual integrity: ${report.routes.length} route/viewport states.`);
 console.log(`Blockers: ${report.blockers.length}`);
 for (const blocker of report.blockers) console.log(JSON.stringify(blocker));

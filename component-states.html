@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, follow">
+  <title>Component States — ATELIER V15</title>
+  <meta name="description" content="ATELIER V15 component-state inventory for commerce, forms and feedback.">
+  <link rel="stylesheet" href="./atelier-v14-site.css?v=monochrome-20260907">
+  <link rel="stylesheet" href="./atelier-v15.css?v=flagship-20260914" data-atelier-v15="true">
+</head>
+<body class="system-page">
+  <header class="system-shell">
+    <div class="system-hero">
+      <div><p class="eyebrow">ATELIER / STATE LAB</p><h1>State is part of the component contract.</h1></div>
+      <div><p>Default, hover, focus, pressed, selected, disabled, loading, error, success, sold out and saved are shown as explicit specimens. A state is marked N/A where it has no semantic job instead of fabricating behavior.</p><p class="demo-row"><a class="btn-outline" href="design-system.html">Design system</a><a class="text-link" href="index.html">Storefront →</a></p></div>
+    </div>
+  </header>
+
+  <main class="system-shell">
+    <section class="system-section" aria-labelledby="buttons-title">
+      <div class="system-section__head"><p class="eyebrow">01 / BUTTON</p><div><h2 id="buttons-title">Primary action states</h2><p>Press response is immediate; focus is visible independently of hover. Loading keeps the control footprint stable. Success/error are confirmation states, not permanent visual variants.</p></div></div>
+      <div class="state-grid">
+        <article class="state-card"><small>Default</small><button class="state-button" type="button">Add to Bag</button></article>
+        <article class="state-card"><small>Hover</small><button class="state-button is-hover" type="button">Add to Bag</button></article>
+        <article class="state-card"><small>Focus</small><button class="state-button is-focus" type="button">Add to Bag</button></article>
+        <article class="state-card"><small>Pressed</small><button class="state-button is-pressed" type="button">Add to Bag</button></article>
+        <article class="state-card"><small>Disabled</small><button class="state-button" type="button" disabled>Add to Bag</button></article>
+        <article class="state-card"><small>Loading</small><button class="state-button is-loading" type="button" aria-busy="true">Add to Bag</button></article>
+        <article class="state-card"><small>Success</small><button class="state-button is-success" type="button">Added to Bag</button></article>
+        <article class="state-card"><small>Error</small><button class="state-button is-error" type="button">Try again</button></article>
+      </div>
+    </section>
+
+    <section class="system-section" aria-labelledby="sizes-title">
+      <div class="system-section__head"><p class="eyebrow">02 / SIZE</p><div><h2 id="sizes-title">Size selector states</h2><p>Unavailable sizes stay visible, disabled and crossed through. “Low availability” is valid only when actual variant inventory is known; unknown stock is stated as unknown.</p></div></div>
+      <div class="state-grid">
+        <article class="state-card"><small>Default</small><button class="demo-size" type="button" aria-pressed="false">S</button></article>
+        <article class="state-card"><small>Hover</small><button class="demo-size" type="button" style="border-color:var(--ink)">S</button></article>
+        <article class="state-card"><small>Focus</small><button class="demo-size" type="button" style="outline:2px solid var(--ink);outline-offset:4px">S</button></article>
+        <article class="state-card"><small>Selected</small><button class="demo-size" type="button" aria-pressed="true">S</button></article>
+        <article class="state-card"><small>Sold out</small><button class="demo-size" type="button" disabled aria-label="Size S, sold out">S</button><p class="pdp-availability" data-state="sold-out">Size S is sold out.</p></article>
+        <article class="state-card"><small>Low stock / known</small><button class="demo-size" type="button" aria-pressed="true">S</button><p class="pdp-availability" data-state="low">Low availability in size S.</p></article>
+        <article class="state-card"><small>Unknown stock</small><button class="demo-size" type="button" aria-pressed="true">S</button><p class="pdp-availability" data-state="unknown">Live stock status is not connected in this prototype.</p></article>
+        <article class="state-card"><small>Loading</small><button class="demo-size" type="button" disabled aria-busy="true">—</button></article>
+      </div>
+    </section>
+
+    <section class="system-section" aria-labelledby="swatch-title">
+      <div class="system-section__head"><p class="eyebrow">03 / SWATCH</p><div><h2 id="swatch-title">Colour selection</h2><p>Outline and pressed state carry selection; hue is not the sole signal.</p></div></div>
+      <div class="state-grid">
+        <article class="state-card"><small>Default</small><button class="demo-swatch" style="--demo-color:#151515" type="button" aria-label="Black" aria-pressed="false"></button></article>
+        <article class="state-card"><small>Selected</small><button class="demo-swatch" style="--demo-color:#151515" type="button" aria-label="Black selected" aria-pressed="true"></button></article>
+        <article class="state-card"><small>Focus</small><button class="demo-swatch" style="--demo-color:#dedbd2;outline:2px solid var(--ink);outline-offset:4px" type="button" aria-label="Ivory"></button></article>
+        <article class="state-card"><small>Disabled</small><button class="demo-swatch" style="--demo-color:#aaa;opacity:.45" type="button" aria-label="Grey unavailable" disabled></button></article>
+      </div>
+    </section>
+
+    <section class="system-section" aria-labelledby="input-title">
+      <div class="system-section__head"><p class="eyebrow">04 / INPUT</p><div><h2 id="input-title">Field states</h2><p>Labels persist across all states. Error text names the problem and remains programmatically associated with the field.</p></div></div>
+      <div class="state-grid">
+        <article class="state-card"><small>Default</small><label class="demo-input"><span>Email*</span><input type="email" placeholder="name@example.com"></label></article>
+        <article class="state-card"><small>Focus</small><label class="demo-input"><span>Email*</span><input type="email" value="client@example.com" style="outline:2px solid var(--ink);outline-offset:4px"></label></article>
+        <article class="state-card"><small>Error</small><label class="demo-input"><span>Email*</span><input type="email" value="client@" aria-invalid="true" aria-describedby="state-email-error"><small id="state-email-error" style="color:var(--state-error)">Enter a valid email address.</small></label></article>
+        <article class="state-card"><small>Success</small><label class="demo-input"><span>Email*</span><input type="email" value="client@example.com" style="border-color:var(--state-success)"><small style="color:var(--state-success)">Ready to continue.</small></label></article>
+        <article class="state-card"><small>Disabled</small><label class="demo-input"><span>Email</span><input type="email" value="client@example.com" disabled></label></article>
+        <article class="state-card"><small>Loading / N/A</small><p>Text fields do not invent a loading visual. The owning form/action exposes busy state.</p></article>
+      </div>
+    </section>
+
+    <section class="system-section" aria-labelledby="card-title">
+      <div class="system-section__head"><p class="eyebrow">05 / PRODUCT CARD</p><div><h2 id="card-title">Discovery card states</h2><p>Hover/focus can reveal quick add, but core product identity is always present. Saved has pressed state plus a visible icon treatment.</p></div></div>
+      <div class="state-grid">
+        <article class="state-card"><small>Default</small><div class="system-product-card"><figure><img src="./assets/products/pinkparks/belted-cropped-jacket.jpg" alt="Belted Cropped Jacket"></figure><div class="system-product-card__meta"><span>Belted Cropped Jacket<br><small>3.490.000 ₫</small></span><button type="button" aria-label="Save Belted Cropped Jacket">♡</button></div></div></article>
+        <article class="state-card"><small>Hover / quick action</small><div class="system-product-card"><figure style="outline:1px solid var(--rule-dark)"><img src="./assets/products/pinkparks/belted-cropped-jacket.jpg" alt="Belted Cropped Jacket"></figure><div class="demo-stack"><div class="system-product-card__meta"><span>Belted Cropped Jacket<br><small>3.490.000 ₫</small></span><button type="button">♡</button></div><button class="btn-outline" type="button">Select size +</button></div></div></article>
+        <article class="state-card"><small>Focus</small><div class="system-product-card" style="outline:2px solid var(--ink);outline-offset:5px"><figure><img src="./assets/products/pinkparks/belted-cropped-jacket.jpg" alt="Belted Cropped Jacket"></figure><div class="system-product-card__meta"><span>Belted Cropped Jacket<br><small>3.490.000 ₫</small></span><button type="button">♡</button></div></div></article>
+        <article class="state-card"><small>Saved</small><div class="system-product-card is-saved"><figure><img src="./assets/products/pinkparks/belted-cropped-jacket.jpg" alt="Belted Cropped Jacket"></figure><div class="system-product-card__meta"><span>Belted Cropped Jacket<br><small>3.490.000 ₫</small></span><button type="button" aria-label="Remove from Saved" aria-pressed="true">♥ Saved</button></div></div></article>
+        <article class="state-card"><small>Loading</small><div style="aspect-ratio:3/4;background:linear-gradient(90deg,var(--surface),var(--neutral-100),var(--surface));display:grid;place-items:center"><span>Loading piece…</span></div></article>
+        <article class="state-card"><small>Error</small><div style="min-height:240px;border:1px solid var(--state-error);padding:20px;display:grid;align-content:center;gap:12px"><strong>Product could not load.</strong><button class="btn-outline" type="button">Retry</button></div></article>
+      </div>
+    </section>
+
+    <section class="system-section" aria-labelledby="filter-title">
+      <div class="system-section__head"><p class="eyebrow">06 / FILTER + SEARCH</p><div><h2 id="filter-title">Discovery states</h2><p>Applied filters are visible and reversible. Empty results preserve a clear recovery path.</p></div></div>
+      <div class="state-grid">
+        <article class="state-card"><small>Default</small><button class="shop-tool-button" type="button">Filter</button></article>
+        <article class="state-card"><small>Selected / applied</small><div class="demo-row"><button class="shop-tool-button" type="button">Filter (2)</button><span class="demo-chip">Outerwear ×</span><span class="demo-chip">S ×</span></div></article>
+        <article class="state-card"><small>No result</small><div class="demo-stack"><strong>No pieces found.</strong><p>Adjust your selection or explore the complete collection.</p><button class="btn-outline" type="button">Clear filters</button></div></article>
+        <article class="state-card"><small>Loading</small><p role="status">Loading pieces…</p></article>
+      </div>
+    </section>
+
+    <section class="system-section" aria-labelledby="drawer-title">
+      <div class="system-section__head"><p class="eyebrow">07 / DRAWER</p><div><h2 id="drawer-title">Bag / modal states</h2><p>Open/close motion communicates direction. Accessible name, focus entry, Escape and focus return remain mandatory even when reduced motion makes the transition instant.</p></div></div>
+      <div class="state-grid">
+        <article class="state-card"><small>Closed</small><p>Drawer is not in the focus path.</p></article>
+        <article class="state-card"><small>Open</small><div style="border-left:1px solid var(--ink);padding:20px;background:var(--paper)"><p class="eyebrow">ADDED TO BAG</p><strong>Added to your Bag.</strong></div></article>
+        <article class="state-card"><small>Focus</small><button class="btn-outline" type="button" style="outline:2px solid var(--ink);outline-offset:4px">Continue shopping</button></article>
+        <article class="state-card"><small>Error</small><p style="color:var(--state-error)">This browser could not save the change. Try again.</p></article>
+      </div>
+    </section>
+
+    <section class="system-section" aria-labelledby="feedback-title">
+      <div class="system-section__head"><p class="eyebrow">08 / FEEDBACK</p><div><h2 id="feedback-title">Toast &amp; status states</h2><p>Success is emitted only after the actual browser-local write succeeds. Simulated payment and fulfilment never borrow a “completed” visual state.</p></div></div>
+      <div class="state-grid">
+        <article class="state-card"><small>Neutral</small><div role="status" style="border:1px solid var(--rule-dark);padding:16px">Choose a size to review availability.</div></article>
+        <article class="state-card"><small>Success</small><div role="status" style="border:1px solid var(--state-success);color:var(--state-success);padding:16px">Saved to this browser.</div></article>
+        <article class="state-card"><small>Error</small><div role="alert" style="border:1px solid var(--state-error);color:var(--state-error);padding:16px">The change could not be saved.</div></article>
+        <article class="state-card"><small>Loading</small><div role="status" aria-busy="true" style="border:1px solid var(--rule);padding:16px">Loading order details…</div></article>
+      </div>
+    </section>
+
+    <section class="system-section" aria-labelledby="cart-title">
+      <div class="system-section__head"><p class="eyebrow">09 / CART ITEM</p><div><h2 id="cart-title">Bag line states</h2><p>Variant, quantity, price and action remain visibly owned by the same line item.</p></div></div>
+      <div class="state-grid">
+        <article class="state-card"><small>Default</small><div style="display:grid;grid-template-columns:72px 1fr;gap:14px"><img src="./assets/products/pinkparks/belted-cropped-jacket.jpg" alt="" style="width:72px;height:96px;object-fit:contain;background:var(--surface)"><p><strong>Belted Cropped Jacket</strong><br><small>Black · S · Qty 1</small><br>3.490.000 ₫</p></div></article>
+        <article class="state-card"><small>Selected variant</small><p><strong>Black · Size S</strong></p><button class="btn-outline" type="button">Change size</button></article>
+        <article class="state-card"><small>Error</small><p style="color:var(--state-error)">This size cannot fulfil the combined quantity.</p></article>
+        <article class="state-card"><small>Saved</small><p>Move to Saved is confirmed only after browser storage succeeds.</p></article>
+      </div>
+    </section>
+
+    <section class="system-section" aria-labelledby="checkout-title">
+      <div class="system-section__head"><p class="eyebrow">10 / CHECKOUT</p><div><h2 id="checkout-title">Checkout field + progress states</h2><p>Progress signals where the shopper is without hiding the full form or delaying access to later sections.</p></div></div>
+      <div class="state-grid">
+        <article class="state-card"><small>Current step</small><div class="checkout-progress" style="grid-template-columns:repeat(3,1fr);margin:20px 0"><span class="is-complete">01 CONTACT</span><span class="is-current" aria-current="step">02 ADDRESS</span><span>03 DELIVERY</span></div></article>
+        <article class="state-card"><small>Error</small><label class="demo-input"><span>Address*</span><input aria-invalid="true" aria-describedby="address-error"><small id="address-error" style="color:var(--state-error)">Complete this field.</small></label></article>
+        <article class="state-card"><small>Success</small><p style="color:var(--state-success)">Local order record created on this device.</p></article>
+        <article class="state-card"><small>Disabled / N/A</small><p>The checkout does not disable future sections to simulate a wizard; all fields remain reachable.</p></article>
+      </div>
+    </section>
+
+    <section class="system-section" aria-labelledby="matrix-title">
+      <div class="system-section__head"><p class="eyebrow">11 / COVERAGE</p><div><h2 id="matrix-title">State coverage matrix</h2><p>N/A means the state has no meaningful semantic role for that component; it is not silently omitted.</p></div></div>
+      <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;min-width:980px">
+          <thead><tr><th style="text-align:left;padding:12px;border-bottom:1px solid var(--ink)">Component</th><th>Default</th><th>Hover</th><th>Focus</th><th>Pressed</th><th>Selected</th><th>Disabled</th><th>Loading</th><th>Error</th><th>Success</th><th>Sold out</th><th>Saved</th></tr></thead>
+          <tbody>
+            <tr><th style="text-align:left;padding:12px;border-bottom:1px solid var(--rule)">Primary button</th><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>N/A</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>N/A</td><td>N/A</td></tr>
+            <tr><th style="text-align:left;padding:12px;border-bottom:1px solid var(--rule)">Size selector</th><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>N/A</td></tr>
+            <tr><th style="text-align:left;padding:12px;border-bottom:1px solid var(--rule)">Product card</th><td>✓</td><td>✓</td><td>✓</td><td>N/A</td><td>N/A</td><td>N/A</td><td>✓</td><td>✓</td><td>N/A</td><td>N/A</td><td>✓</td></tr>
+            <tr><th style="text-align:left;padding:12px;border-bottom:1px solid var(--rule)">Input</th><td>✓</td><td>N/A</td><td>✓</td><td>N/A</td><td>N/A</td><td>✓</td><td>Owner</td><td>✓</td><td>✓</td><td>N/A</td><td>N/A</td></tr>
+            <tr><th style="text-align:left;padding:12px;border-bottom:1px solid var(--rule)">Drawer</th><td>Closed</td><td>N/A</td><td>✓</td><td>N/A</td><td>Open</td><td>N/A</td><td>✓</td><td>✓</td><td>✓</td><td>N/A</td><td>N/A</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="system-shell" style="padding:48px 0 72px;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap"><p class="eyebrow">ATELIER / STATE LAB</p><p><a href="design-system.html">Back to design system →</a></p></footer>
+  <script type="module" src="./main.js?v=atelier-v15-states"></script>
+</body>
+</html>

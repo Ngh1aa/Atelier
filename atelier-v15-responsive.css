@@ -1,0 +1,54 @@
+/* ATELIER V15 — responsive composition owner.
+   Keeps V15 art direction while repairing pressure/tablet/mobile edge cases. */
+
+@layer v15-responsive {
+  @media (max-width: 900px) {
+    /* Stacked collection chapters must release desktop grid placement. */
+    .page-collections .lookbook-chapter--reverse .lookbook-chapter__media,
+    .page-collections .lookbook-chapter--reverse .lookbook-chapter__copy {
+      grid-column: auto;
+      grid-row: auto;
+    }
+
+    .page-collections .lookbook-chapter--reverse .lookbook-chapter__copy {
+      border-right: 0;
+      border-left: 0;
+    }
+
+    .page-collections .look-number {
+      top: 16px;
+      right: auto;
+      bottom: auto;
+      left: 16px;
+      transform: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    /* Five checkout milestones stay visible at once; no hidden horizontal task step. */
+    .checkout-progress {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 6px;
+      overflow: visible;
+    }
+
+    .checkout-progress span {
+      min-width: 0;
+      font-size: 8px;
+      letter-spacing: .07em;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .checkout-progress {
+      gap: 4px;
+    }
+
+    .checkout-progress span {
+      font-size: 7px;
+      letter-spacing: .04em;
+    }
+  }
+}
