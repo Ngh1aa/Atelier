@@ -1,0 +1,233 @@
+/* ATELIER — Editorial Motion Layer
+   Direction: cinematic / editorial / restrained
+   Signature: fashion crop reveal + typographic glide
+   Augments the existing V15 motion runtime without adding another observer. */
+
+:root {
+  --atelier-motion-fast: 180ms;
+  --atelier-motion-base: 320ms;
+  --atelier-motion-slow: 520ms;
+  --atelier-motion-cinematic: 720ms;
+  --atelier-ease-editorial: cubic-bezier(.22, 1, .36, 1);
+  --atelier-ease-tactile: cubic-bezier(.2, .7, .25, 1);
+}
+
+/* Page entrance: editorial, not theatrical. */
+@media (prefers-reduced-motion: no-preference) {
+  .page-home .home-campaign-v14__media {
+    animation: atelier-editorial-media-in var(--atelier-motion-cinematic) var(--atelier-ease-editorial) both;
+  }
+
+  .page-home .home-campaign-v14__panel {
+    animation: atelier-editorial-copy-in var(--atelier-motion-slow) var(--atelier-ease-editorial) 90ms both;
+  }
+
+  .page-home .home-campaign-v14__copy > * {
+    animation: atelier-editorial-line-in var(--atelier-motion-slow) var(--atelier-ease-editorial) both;
+  }
+
+  .page-home .home-campaign-v14__copy > :nth-child(1) { animation-delay: 150ms; }
+  .page-home .home-campaign-v14__copy > :nth-child(2) { animation-delay: 205ms; }
+  .page-home .home-campaign-v14__copy > :nth-child(3) { animation-delay: 260ms; }
+  .page-home .home-campaign-v14__actions { animation: atelier-editorial-line-in var(--atelier-motion-slow) var(--atelier-ease-editorial) 315ms both; }
+}
+
+@keyframes atelier-editorial-media-in {
+  from { opacity: 0; clip-path: inset(0 0 9% 0); transform: scale(1.018); }
+  to { opacity: 1; clip-path: inset(0 0 0 0); transform: scale(1); }
+}
+
+@keyframes atelier-editorial-copy-in {
+  from { opacity: 0; transform: translate3d(0, 14px, 0); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes atelier-editorial-line-in {
+  from { opacity: 0; transform: translate3d(0, 11px, 0); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Reuse the canonical reveal state from src/js/motion-system.js. */
+.atelier-motion-ready .atelier-motion-item {
+  transition-property: opacity, transform, clip-path;
+  transition-duration: var(--atelier-motion-slow);
+  transition-timing-function: var(--atelier-ease-editorial);
+  transition-delay: var(--atelier-motion-delay, 0ms);
+}
+
+.atelier-motion-ready .atelier-motion-item:not(.is-motion-visible) {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+}
+
+.atelier-motion-ready .atelier-motion-item[data-motion="image-reveal"] {
+  overflow: hidden;
+  clip-path: inset(0 0 0 0);
+}
+
+.atelier-motion-ready .atelier-motion-item[data-motion="image-reveal"]:not(.is-motion-visible) {
+  clip-path: inset(0 0 8% 0);
+  transform: translate3d(0, 10px, 0) scale(.995);
+}
+
+/* Editorial image behavior. */
+.moment-card,
+.edit-card,
+.product-grid-item,
+.related-item,
+.lookbook-chapter__media,
+.house-bridge figure {
+  overflow: hidden;
+}
+
+.moment-card img,
+.edit-card img,
+.product-grid-item img,
+.related-item img,
+.lookbook-chapter__media img,
+.house-bridge figure img,
+.product-main-image img {
+  transform-origin: center center;
+  transition: transform var(--atelier-motion-cinematic) var(--atelier-ease-editorial), filter var(--atelier-motion-base) var(--atelier-ease-tactile);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .moment-card:hover img,
+  .edit-card:hover img,
+  .product-grid-item:hover img,
+  .related-item:hover img,
+  .lookbook-chapter__media:hover img,
+  .house-bridge figure:hover img {
+    transform: scale(1.025);
+  }
+
+  .moment-card,
+  .edit-card,
+  .product-grid-item,
+  .related-item {
+    transition: transform var(--atelier-motion-base) var(--atelier-ease-editorial), box-shadow var(--atelier-motion-base) var(--atelier-ease-tactile);
+  }
+
+  .moment-card:hover,
+  .edit-card:hover,
+  .product-grid-item:hover,
+  .related-item:hover {
+    transform: translate3d(0, -3px, 0);
+  }
+}
+
+/* CTA / navigation micro-motion. */
+.btn-primary,
+.btn-secondary,
+.btn-outline,
+.text-link,
+.nav-links a,
+.nav-text,
+.nav-search-btn {
+  transition: color var(--atelier-motion-fast) ease, background-color var(--atelier-motion-fast) ease, border-color var(--atelier-motion-fast) ease, transform var(--atelier-motion-fast) var(--atelier-ease-tactile), opacity var(--atelier-motion-fast) ease;
+}
+
+.text-link span[aria-hidden="true"],
+.btn-outline span[aria-hidden="true"] {
+  display: inline-block;
+  transition: transform var(--atelier-motion-fast) var(--atelier-ease-editorial);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover,
+  .btn-secondary:hover,
+  .btn-outline:hover { transform: translate3d(0, -2px, 0); }
+
+  .btn-primary:active,
+  .btn-secondary:active,
+  .btn-outline:active { transform: translate3d(0, 1px, 0); }
+
+  .text-link:hover span[aria-hidden="true"],
+  .btn-outline:hover span[aria-hidden="true"] { transform: translate3d(3px, -1px, 0); }
+
+  .nav-search-btn:hover { transform: rotate(-5deg); }
+}
+
+.nav-links a {
+  position: relative;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -5px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform var(--atelier-motion-base) var(--atelier-ease-editorial);
+}
+
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after,
+.nav-links a.active::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+/* Search feels like an editorial sheet entering the viewport. */
+.nav-search-overlay {
+  transition: opacity var(--atelier-motion-base) var(--atelier-ease-editorial), visibility var(--atelier-motion-base) ease;
+}
+
+.nav-search-form {
+  transition: opacity var(--atelier-motion-base) var(--atelier-ease-editorial), transform var(--atelier-motion-base) var(--atelier-ease-editorial);
+}
+
+.nav-search-overlay:not(.active):not(.open) .nav-search-form {
+  opacity: 0;
+  transform: translate3d(0, -10px, 0);
+}
+
+/* Mobile: reduce displacement and remove hover assumptions. */
+@media (max-width: 768px) {
+  .atelier-motion-ready .atelier-motion-item:not(.is-motion-visible) {
+    transform: translate3d(0, 12px, 0);
+  }
+
+  .moment-card,
+  .edit-card,
+  .product-grid-item,
+  .related-item {
+    transform: none !important;
+  }
+}
+
+/* Accessibility: motion is never required to understand the UI. */
+@media (prefers-reduced-motion: reduce) {
+  .page-home .home-campaign-v14__media,
+  .page-home .home-campaign-v14__panel,
+  .page-home .home-campaign-v14__copy > *,
+  .page-home .home-campaign-v14__actions,
+  .atelier-motion-item,
+  .atelier-motion-item *,
+  .moment-card,
+  .edit-card,
+  .product-grid-item,
+  .related-item,
+  .nav-search-overlay,
+  .nav-search-form,
+  .btn-primary,
+  .btn-secondary,
+  .btn-outline,
+  .text-link,
+  .nav-links a,
+  .nav-search-btn {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .atelier-motion-item,
+  .atelier-motion-item:not(.is-motion-visible) {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+}
