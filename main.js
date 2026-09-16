@@ -8,7 +8,7 @@ const FLAGSHIP_STYLESHEETS = [
   "./atelier-v15.css?v=flagship-20260915-motion2",
   "./atelier-v15-responsive.css?v=flagship-20260915-motion2",
   "./atelier-v15-accessibility.css?v=flagship-20260915-motion2",
-  "./atelier-motion-editorial.css?v=motion-20260917-1",
+  "./atelier-motion-editorial.css?v=visible-motion-20260917-2",
 ];
 
 function ensureStylesheet(href) {
