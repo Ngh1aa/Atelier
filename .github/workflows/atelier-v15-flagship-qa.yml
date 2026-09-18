@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'feat/atelier-portfolio-upgrade'
+      - 'feat/atelier-decision-evidence-v2'
     paths:
       - '*.html'
       - 'main.js'
