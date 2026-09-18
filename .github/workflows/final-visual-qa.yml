@@ -9,6 +9,8 @@ on:
       - 'fix/**'
     paths:
       - '*.html'
+      - 'figma-12.css'
+      - 'tests/figma-12.test.mjs'
       - 'style.css'
       - 'campaign-v7.css'
       - 'atelier-v11.css'
