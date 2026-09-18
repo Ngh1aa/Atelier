@@ -195,6 +195,14 @@
     background: var(--surface-subtle);
   }
 
+  /* Hero caption must remain legible over variable photography at every crop. */
+  .home-campaign-v14__caption span:first-child {
+    display: inline-block;
+    padding: 4px 7px;
+    background: rgba(0, 0, 0, .78);
+    color: var(--white);
+  }
+
   /* ---------- Product discovery ---------- */
   .page-shop .catalogue-header {
     border-top: 1px solid var(--ink);
