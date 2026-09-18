@@ -14,6 +14,7 @@ const runtimeStyleFiles = [
   "atelier-v15.css",
   "atelier-v15-responsive.css",
   "atelier-v15-accessibility.css",
+  "atelier-motion-editorial.css",
   "src/css/tokens.css",
 ];
 
