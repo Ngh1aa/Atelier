@@ -42,6 +42,7 @@ The visual direction is **quiet editorial luxury + strong fashion photography + 
 - [`Reference-Benchmark.md`](./Reference-Benchmark.md) — production benchmark of LEMAIRE, Jil Sander, TOTEME, LOEWE, The Row and SSENSE. Reference evidence is not presented as user research.
 - [`docs/uiux/Design-Contract-V15.md`](./docs/uiux/Design-Contract-V15.md) — visual direction, page-role composition, motion, responsive and accessibility contracts plus major decision records.
 - [`docs/uiux/PLANNED-VALIDATION.md`](./docs/uiux/PLANNED-VALIDATION.md) — usability protocol only; no participant findings are fabricated.
+- [`docs/uiux/INTERACTION-COMMERCE-RATIONALE-V16.md`](./docs/uiux/INTERACTION-COMMERCE-RATIONALE-V16.md) — explains the editorial-to-commerce density gradient, motion jobs, PDP decision contract and evidence boundary.
 - [`docs/uiux/Experience-System.md`](./docs/uiux/Experience-System.md) — commerce and system-reality model.
 
 ## Interaction system
