@@ -38,11 +38,16 @@ export async function initPdpV15() {
     sizeOptions.insertAdjacentElement("afterend", availability);
   }
 
-  if (!document.querySelector(".pdp-decision-note")) {
-    const note = document.createElement("div");
-    note.className = "pdp-decision-note";
-    note.innerHTML = "<strong>Decision support</strong><span>Fit, delivery and returns stay in this purchase context so you can compare the piece before adding it to your Bag.</span>";
-    document.querySelector(".pdp-fit-summary")?.insertAdjacentElement("beforebegin", note);
+  let confidenceStrip = document.querySelector(".pdp-confidence-strip");
+  if (!confidenceStrip) {
+    confidenceStrip = document.createElement("section");
+    confidenceStrip.className = "pdp-confidence-strip";
+    confidenceStrip.setAttribute("aria-label", "Purchase decision summary");
+    confidenceStrip.innerHTML = `
+      <article><span>Size & fit</span><strong class="js-confidence-fit">Choose a size</strong><small class="js-confidence-fit-note"></small></article>
+      <article><span>Availability</span><strong class="js-confidence-stock">Choose a size</strong><small>Only known local variant data is described as stock.</small></article>
+      <article><span>Delivery & returns</span><strong class="js-confidence-service"></strong><small>Review the service detail before adding to Bag.</small></article>`;
+    document.querySelector(".product-actions")?.insertAdjacentElement("beforebegin", confidenceStrip);
   }
 
   const currentSelection = () => {
@@ -116,9 +121,27 @@ export async function initPdpV15() {
     dock.querySelector(".js-mobile-add").textContent = size ? "Add to Bag" : "Choose size";
   };
 
+  const syncConfidenceStrip = () => {
+    if (!confidenceStrip) return;
+    const { size } = currentSelection();
+    const fitNode = confidenceStrip.querySelector(".js-confidence-fit");
+    const fitNote = confidenceStrip.querySelector(".js-confidence-fit-note");
+    const stockNode = confidenceStrip.querySelector(".js-confidence-stock");
+    const serviceNode = confidenceStrip.querySelector(".js-confidence-service");
+    const fitCopy = product.fit || document.querySelector(".js-product-fit")?.textContent || "Fit guidance available below.";
+    const deliveryCopy = document.querySelector(".js-delivery-window")?.textContent?.trim() || "Delivery timing shown below";
+    const returnCopy = document.querySelector(".js-return-summary")?.textContent?.trim() || "Return terms shown below";
+
+    if (fitNode) fitNode.textContent = size ? `Size ${size} selected` : "Choose a size";
+    if (fitNote) fitNote.textContent = fitCopy;
+    if (stockNode) stockNode.textContent = availability.textContent || "Choose a size to review availability.";
+    if (serviceNode) serviceNode.textContent = `${deliveryCopy} · ${returnCopy}`;
+  };
+
   const syncDecisionState = () => {
     syncAvailability();
     syncDock();
+    syncConfidenceStrip();
   };
 
   sizeOptions.addEventListener("click", () => setTimeout(syncDecisionState, 0));
