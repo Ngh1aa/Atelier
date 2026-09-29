@@ -44,6 +44,12 @@
 
   function emptyState(doc){
     addStyle(doc, `.cart-empty-state{min-height:360px;display:grid;align-content:center;justify-items:start;padding:54px 0;border-top:1px solid #111;border-bottom:1px solid #d7d7d7}.cart-empty-state:before{content:"BAG / 00";font-size:10px;letter-spacing:.15em;margin-bottom:48px}.cart-empty-state h2{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:clamp(34px,5vw,64px);letter-spacing:-.035em;margin:0 0 12px}.cart-empty-state p{max-width:460px;line-height:1.55}.order-summary-card{opacity:.62}.btn-checkout{pointer-events:none;opacity:.35}`);
+    const list=doc.querySelector('.js-cart-items-list');
+    if(list) list.innerHTML='<div class="cart-empty-state"><h2>Your Bag is empty.</h2><p>Discover considered pieces for the season ahead.</p><a href="shop.html" class="btn-outline">Discover the collection <span aria-hidden="true">→</span></a></div>';
+    doc.querySelectorAll('.js-nav-bag-count').forEach(node=>node.textContent='0');
+    doc.querySelectorAll('.js-summary-subtotal,.js-summary-total').forEach(node=>node.textContent='0 ₫');
+    const delivery=doc.querySelector('.js-cart-delivery'); if(delivery) delivery.textContent='Add a piece to estimate delivery';
+    const checkout=doc.querySelector('.btn-checkout'); if(checkout){checkout.setAttribute('aria-disabled','true');checkout.tabIndex=-1}
   }
 
   function loadingState(doc){
@@ -56,8 +62,12 @@
 
   function errorState(doc){
     addStyle(doc, `
-      .atelier-payment-error{border-top:1px solid #111;border-bottom:1px solid #111;padding:24px 0;margin:0 0 30px}.atelier-payment-error .kicker{font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}.atelier-payment-error h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(28px,4vw,46px);font-weight:400;letter-spacing:-.025em;margin:0 0 12px}.atelier-payment-error p{max-width:690px;line-height:1.55;margin:0 0 18px}.atelier-payment-error .actions{display:flex;gap:8px;flex-wrap:wrap}.atelier-payment-error button,.atelier-payment-error a{border:1px solid #111;background:#fff;color:#111;padding:11px 13px;text-decoration:none;text-transform:uppercase;font-size:10px;letter-spacing:.09em;cursor:pointer}.atelier-payment-error button:first-child{background:#111;color:#fff}.payment-methods{outline:1px solid #bbb;outline-offset:12px}
+      .atelier-payment-error{border-top:1px solid #111;border-bottom:1px solid #111;padding:24px 0;margin:0 0 30px}.atelier-payment-error .kicker{font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}.atelier-payment-error h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(28px,4vw,46px);font-weight:400;letter-spacing:-.025em;margin:0 0 12px}.atelier-payment-error p{max-width:690px;line-height:1.55;margin:0 0 18px}.atelier-payment-error .actions{display:flex;gap:8px;flex-wrap:wrap}.atelier-payment-error button,.atelier-payment-error a{border:1px solid #111;background:#fff;color:#111;padding:11px 13px;text-decoration:none;text-transform:uppercase;font-size:10px;letter-spacing:.09em;cursor:pointer}.atelier-payment-error button:first-child{background:#111;color:#fff}.payment-methods{outline:1px solid #bbb;outline-offset:12px}.atelier-lab-order{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid #d7d7d7}.atelier-lab-order img{width:52px;height:70px;object-fit:cover}.atelier-lab-order strong{display:block;font-family:Georgia,"Times New Roman",serif;font-weight:400}.atelier-lab-order small{display:block;color:#666;margin-top:5px}.atelier-lab-order b{font-size:11px;white-space:nowrap}
     `);
+    const items=doc.querySelector('.js-checkout-items');
+    if(items && !items.textContent.trim()) items.innerHTML='<div class="atelier-lab-order"><img src="./assets/products/pinkparks/belted-cropped-jacket.jpg" alt="Belted Cropped Jacket"><span><strong>Belted Cropped Jacket</strong><small>Black · Size S · Qty 1</small></span><b>3.490.000 ₫</b></div>';
+    const subtotal=doc.querySelector('.js-checkout-subtotal'); if(subtotal) subtotal.textContent='3.490.000 ₫';
+    const total=doc.querySelector('.js-checkout-total'); if(total) total.textContent='3.490.000 ₫';
     const payment=doc.querySelector('[aria-labelledby="checkout-payment"]');
     if(payment) payment.insertAdjacentHTML('beforebegin','<section class="atelier-payment-error" role="alert"><div class="kicker">Payment / Recovery state</div><h2>Authorization declined.</h2><p>Your bag and checkout details are preserved. No charge was created. Choose another prototype payment method or return to your bag. This state demonstrates recovery only — ATELIER does not request or store real card details.</p><div class="actions"><button id="atelierRetry" type="button">Try another method</button><a href="cart.html">Return to Bag</a></div></section>');
     doc.getElementById('atelierRetry')?.addEventListener('click',()=>setState('normal'));
