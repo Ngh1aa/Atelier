@@ -3,6 +3,7 @@ import "./src/js/app.js?v=atelier-v15";
 import "./src/main.js?v=atelier-v15";
 import { initCheckoutProgress, initMotionSystem } from "./src/js/motion-system.js?v=atelier-v15-motion2";
 import { initPdpV15 } from "./src/js/pdp-v15.js?v=atelier-v15";
+import { initSeniorCommerceDepth } from "./src/js/senior-commerce-depth.js?v=20260929-1";
 
 const FLAGSHIP_STYLESHEETS = [
   "./atelier-v15.css?v=flagship-20260915-motion2",
@@ -82,6 +83,7 @@ async function initFlagshipExperience() {
   initCheckoutProgress();
   initStateLabLauncher();
   initPdpV15().catch((error) => console.error("ATELIER V15 PDP enhancement failed", error));
+  initSeniorCommerceDepth();
 }
 
 if (document.readyState === "loading") {
