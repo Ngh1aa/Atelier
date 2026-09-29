@@ -1,104 +1,30 @@
-name: State Lab Render QA
+name: Senior Commerce State Coverage
 
 on:
-  push:
-    branches:
-      - feat/recruiter-state-lab
+  pull_request:
+    paths:
+      - "detailproduct.html"
+      - "cart.html"
+      - "checkout.html"
+      - "recruiter-state-lab.html"
+      - "uiux-state-coverage.json"
+      - "main.js"
+      - "src/js/**"
+      - "atelier-v16-senior-commerce.css"
+      - ".github/workflows/state-lab-render-qa.yml"
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  rendered-qa:
-    if: ${{ github.event_name == 'workflow_dispatch' || !contains(github.event.head_commit.message, '[rendered-asset]') }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install Playwright
-        run: |
-          npm install --no-save playwright@1.55.0
-          npx playwright install --with-deps chromium
-
-      - name: Start static server
-        run: |
-          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/state-lab-server.log 2>&1 &
-          for i in {1..20}; do
-            if curl -fsS http://127.0.0.1:4173/recruiter-state-lab.html >/dev/null; then exit 0; fi
-            sleep 0.5
-          done
-          cat /tmp/state-lab-server.log
-          exit 1
-
-      - name: Render states and inspect
-        run: |
-          mkdir -p qa-artifacts
-          cat > /tmp/state-lab-qa.cjs <<'NODE'
-          const { chromium } = require('playwright');
-          const fs = require('fs');
-          const base = 'http://127.0.0.1:4173';
-          const viewports = [
-            { name: 'desktop-1440', width: 1440, height: 1000 },
-            { name: 'tablet-768', width: 768, height: 1024 },
-            { name: 'mobile-390', width: 390, height: 844 },
-          ];
-          const states = ['normal', 'empty', 'loading', 'error', 'edge'];
-          const report = { generatedAt:new Date().toISOString(), checks:[], failures:[] };
-          (async()=>{
-            const browser=await chromium.launch({headless:true});
-            for(const vp of viewports){
-              const context=await browser.newContext({viewport:{width:vp.width,height:vp.height},reducedMotion:'reduce'});
-              const page=await context.newPage(); const consoleErrors=[]; const pageErrors=[];
-              page.on('console',m=>{if(m.type()==='error')consoleErrors.push(m.text())}); page.on('pageerror',e=>pageErrors.push(String(e)));
-              for(const state of states){
-                consoleErrors.length=0; pageErrors.length=0;
-                const pin=state==='loading'?'&pin=1':'';
-                const response=await page.goto(`${base}/recruiter-state-lab.html?state=${state}${pin}`,{waitUntil:'networkidle'}); await page.waitForTimeout(950);
-                const outer=await page.evaluate(()=>({width:innerWidth,scrollWidth:document.documentElement.scrollWidth,scrollHeight:document.documentElement.scrollHeight,title:document.title}));
-                const frame=page.frames().find(f=>f!==page.mainFrame()); let inner=null; let stateEvidence=state==='normal';
-                if(frame){inner=await frame.evaluate(()=>({width:innerWidth,scrollWidth:document.documentElement.scrollWidth,scrollHeight:document.documentElement.scrollHeight}));if(state!=='normal')stateEvidence=await frame.evaluate(s=>Boolean(document.querySelector(`[data-state-lab-marker="${s}"]`)),state);}
-                const outerOverflow=outer.scrollWidth>outer.width+2; const innerOverflow=inner?inner.scrollWidth>inner.width+2:false; const status=response?response.status():0;
-                const check={viewport:vp.name,state,status,stateEvidence,outer,inner,outerOverflow,innerOverflow,consoleErrors:[...consoleErrors],pageErrors:[...pageErrors]};report.checks.push(check);
-                if(status>=400||!stateEvidence||outerOverflow||innerOverflow||consoleErrors.length||pageErrors.length)report.failures.push(check);
-                const dir=`qa-artifacts/${vp.name}`;fs.mkdirSync(dir,{recursive:true});await page.screenshot({path:`${dir}/${state}.png`,fullPage:true});
-              }
-              await context.close();
-            }
-            const matrixContext=await browser.newContext({viewport:{width:1600,height:1200},reducedMotion:'reduce'});const matrixPage=await matrixContext.newPage();const matrixConsole=[];const matrixErrors=[];
-            matrixPage.on('console',m=>{if(m.type()==='error')matrixConsole.push(m.text())});matrixPage.on('pageerror',e=>matrixErrors.push(String(e)));
-            const matrixResponse=await matrixPage.goto(`${base}/state-matrix.html`,{waitUntil:'networkidle'});await matrixPage.waitForTimeout(1800);
-            const matrixMetrics=await matrixPage.evaluate(()=>({width:innerWidth,scrollWidth:document.documentElement.scrollWidth}));await matrixPage.screenshot({path:'qa-artifacts/state-matrix-2x2.png',fullPage:true});
-            report.matrix={status:matrixResponse?matrixResponse.status():0,...matrixMetrics,consoleErrors:matrixConsole,pageErrors:matrixErrors};if(report.matrix.status>=400||report.matrix.scrollWidth>report.matrix.width+2||matrixConsole.length||matrixErrors.length)report.failures.push({viewport:'matrix',state:'2x2',...report.matrix});
-            await matrixContext.close();await browser.close();fs.writeFileSync('qa-artifacts/qa-report.json',JSON.stringify(report,null,2));console.log(JSON.stringify({checks:report.checks.length,failures:report.failures.length,matrix:report.matrix},null,2));if(report.failures.length)process.exit(1);
-          })().catch(err=>{console.error(err);process.exit(1)});
-          NODE
-          NODE_PATH="$GITHUB_WORKSPACE/node_modules" node /tmp/state-lab-qa.cjs
-
-      - name: Upload rendered evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: state-lab-rendered-evidence
-          path: qa-artifacts
-          if-no-files-found: error
-          retention-days: 14
-
-      - name: Publish case-study matrix asset
-        if: success()
-        run: |
-          mkdir -p assets/case-study
-          cp qa-artifacts/state-matrix-2x2.png assets/case-study/state-matrix-2x2.png
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/case-study/state-matrix-2x2.png
-          if git diff --cached --quiet; then exit 0; fi
-          git commit -m "docs: update rendered state matrix [rendered-asset]"
-          git push origin HEAD:feat/recruiter-state-lab
+  factory-evidence:
+    uses: Ngh1aa/uiux-ai-workspace/.github/workflows/external-agent-runner.yml@main
+    with:
+      target_repository: Ngh1aa/Atelier
+      target_ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      task: "Verify ATELIER V16 senior-commerce decision quality, recoverable Bag actions, truthful inventory and payment boundaries, delivery-date clarity, lifecycle states and responsive semantic evidence."
+      authority: read_only
+      qa_routes: "/detailproduct.html,/cart.html,/checkout.html,/recruiter-state-lab.html"
+      acceptance: "Known inventory remains enforced and unknown stock remains unknown;destructive Bag removal is recoverable;delivery choices communicate arrival dates;checkout never claims live payment or fulfilment;Empty/Loading/Error/Sold-out lifecycle states pass desktop/tablet/mobile"
+      state_contract: "uiux-state-coverage.json"

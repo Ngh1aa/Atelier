@@ -1,14 +1,16 @@
-// ATELIER app entry — commerce behavior remains shared; V15 is an isolated flagship layer.
-import "./src/js/app.js?v=atelier-v15";
-import "./src/main.js?v=atelier-v15";
+// ATELIER app entry — V16 keeps the V15 visual system and adds senior-commerce decision/recovery semantics.
+import "./src/js/app.js?v=atelier-v16";
+import "./src/main.js?v=atelier-v16";
 import { initCheckoutProgress, initMotionSystem } from "./src/js/motion-system.js?v=atelier-v15-motion2";
 import { initPdpV15 } from "./src/js/pdp-v15.js?v=atelier-v15";
+import { initSeniorCommerceV16 } from "./src/js/senior-commerce-v16.js?v=atelier-v16";
 
 const FLAGSHIP_STYLESHEETS = [
   "./atelier-v15.css?v=flagship-20260915-motion2",
   "./atelier-v15-responsive.css?v=flagship-20260915-motion2",
   "./atelier-v15-accessibility.css?v=flagship-20260915-motion2",
   "./atelier-motion-editorial.css?v=visible-motion-20260917-2",
+  "./atelier-v16-senior-commerce.css?v=senior-commerce-20260929",
 ];
 
 function ensureStylesheet(href) {
@@ -36,7 +38,7 @@ async function ensureFlagshipStyles() {
 }
 
 document.documentElement.dataset.atelierStyle = "luxury-monochrome";
-document.documentElement.dataset.atelierVersion = "v15";
+document.documentElement.dataset.atelierVersion = "v16";
 
 function initScrollState() {
   const nav = document.querySelector("body > nav:not(.checkout-nav)");
@@ -81,13 +83,14 @@ async function initFlagshipExperience() {
   initBackToTop();
   initCheckoutProgress();
   initStateLabLauncher();
-  initPdpV15().catch((error) => console.error("ATELIER V15 PDP enhancement failed", error));
+  await initPdpV15().catch((error) => console.error("ATELIER V15 PDP enhancement failed", error));
+  initSeniorCommerceV16();
 }
 
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", () => {
-    initFlagshipExperience().catch((error) => console.error("ATELIER V15 initialization failed", error));
+    initFlagshipExperience().catch((error) => console.error("ATELIER V16 initialization failed", error));
   }, { once: true });
 } else {
-  initFlagshipExperience().catch((error) => console.error("ATELIER V15 initialization failed", error));
+  initFlagshipExperience().catch((error) => console.error("ATELIER V16 initialization failed", error));
 }

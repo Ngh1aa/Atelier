@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0",
+  "name": "ATELIER senior commerce lifecycle",
+  "entry_route": "/recruiter-state-lab.html",
+  "frame_selector": "#frame",
+  "states": [
+    {
+      "id": "normal",
+      "label": "Normal",
+      "scope": "iframe",
+      "query": { "state": "normal" },
+      "assertions": []
+    },
+    {
+      "id": "empty",
+      "label": "Empty Bag",
+      "scope": "iframe",
+      "query": { "state": "empty" },
+      "assertions": [
+        { "type": "selector", "selector": "[data-state-lab-marker=\"empty\"]" },
+        { "type": "text", "text": "Your Bag is empty." }
+      ],
+      "focus": "[data-state-lab-marker=\"empty\"]"
+    },
+    {
+      "id": "loading",
+      "label": "Image Loading",
+      "scope": "iframe",
+      "query": { "state": "loading", "pin": 1 },
+      "assertions": [
+        { "type": "selector", "selector": "[data-state-lab-marker=\"loading\"]" },
+        { "type": "text", "text": "Loading high-resolution garment image" }
+      ],
+      "focus": "[data-state-lab-marker=\"loading\"]"
+    },
+    {
+      "id": "error",
+      "label": "Payment Error",
+      "scope": "iframe",
+      "query": { "state": "error" },
+      "assertions": [
+        { "type": "selector", "selector": "[data-state-lab-marker=\"error\"]" },
+        { "type": "text", "text": "Authorization declined." }
+      ],
+      "focus": "[data-state-lab-marker=\"error\"]"
+    },
+    {
+      "id": "edge",
+      "label": "Sold-out Variants",
+      "scope": "iframe",
+      "query": { "state": "edge" },
+      "assertions": [
+        { "type": "selector", "selector": "[data-state-lab-marker=\"edge\"]" },
+        { "type": "text", "text": "Limited availability" }
+      ],
+      "focus": "[data-state-lab-marker=\"edge\"]"
+    }
+  ],
+  "matrix": {
+    "states": ["empty", "loading", "error", "edge"],
+    "columns": 2,
+    "viewport": "desktop-1440",
+    "output": "state-coverage/atelier-v16-senior-commerce-matrix.png"
+  }
+}
