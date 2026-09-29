@@ -50,9 +50,12 @@
   from{opacity:0;transform:translate3d(0,24px,0)}
   to{opacity:1;transform:none}
 }
+/* Keep caption text fully opaque through the entrance. Opacity animation on
+   readable text temporarily blends #111/#fff with the hero image and causes
+   a genuine WCAG contrast failure while Axe/user input can already reach it. */
 @keyframes atelier-caption-in{
-  from{opacity:0;transform:translate3d(0,10px,0)}
-  to{opacity:1;transform:none}
+  from{transform:translate3d(0,10px,0)}
+  to{transform:none}
 }
 
 .atelier-motion-ready .atelier-motion-item{
