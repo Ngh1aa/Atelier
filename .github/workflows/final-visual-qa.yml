@@ -38,6 +38,7 @@ on:
       - 'scripts/v14-visual-sanity-regression.mjs'
       - 'scripts/v15-elementary-visual-integrity.mjs'
       - 'scripts/v15-targeted-evidence.mjs'
+      - 'scripts/state-lab-launcher-regression.mjs'
       - '.github/workflows/final-visual-qa.yml'
   workflow_dispatch:
 
@@ -89,6 +90,7 @@ jobs:
         run: |
           node scripts/v15-elementary-visual-integrity.mjs
           node scripts/mobile-menu-regression.mjs
+          node scripts/state-lab-launcher-regression.mjs
         env:
           QA_BASE_URL: http://127.0.0.1:4173
           QA_OUT_DIR: qa-artifacts

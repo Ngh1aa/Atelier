@@ -55,7 +55,9 @@ function initBackToTop() {
 }
 
 function initStateLabLauncher() {
-  if (new URLSearchParams(window.location.search).get("lab") === "1") return;
+  /* Recruiter/debug tooling is explicit. Customer-facing commerce routes stay
+     clean by default; append ?lab=1 when a reviewer wants the State Lab entry. */
+  if (new URLSearchParams(window.location.search).get("lab") !== "1") return;
   if (document.querySelector("[data-atelier-state-lab-launcher]")) return;
 
   const style = document.createElement("style");
