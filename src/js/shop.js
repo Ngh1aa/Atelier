@@ -148,9 +148,10 @@ export async function renderShop() {
     panel.classList.remove("is-open");
     panel.setAttribute("aria-hidden", "true");
     document.body.classList.remove("shop-filters-open");
-    // Restore focus after the activating key/click sequence completes so
-    // Enter on the close control cannot immediately re-activate the opener.
-    requestAnimationFrame(() => filterTrigger?.focus?.());
+    // Returning focus during the same Enter activation can move the key-up
+    // phase onto the opener and immediately re-open the dialog. Defer focus
+    // until that native activation sequence has fully completed.
+    window.setTimeout(() => filterTrigger?.focus?.(), 0);
   };
   const openFilters = () => {
     filterTrigger = document.activeElement;
