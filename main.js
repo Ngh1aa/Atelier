@@ -54,12 +54,33 @@ function initBackToTop() {
   window.addEventListener("scroll", sync, { passive: true });
 }
 
+function initStateLabLauncher() {
+  if (new URLSearchParams(window.location.search).get("lab") === "1") return;
+  if (document.querySelector("[data-atelier-state-lab-launcher]")) return;
+
+  const style = document.createElement("style");
+  style.textContent = `
+    .atelier-state-lab-launcher{position:fixed;right:18px;bottom:18px;z-index:9999;display:flex;align-items:center;gap:9px;border:1px solid #111;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);padding:10px 12px;color:#111;text-decoration:none;text-transform:uppercase;letter-spacing:.08em;font:600 9px/1 Arial,sans-serif;box-shadow:0 10px 24px rgba(0,0,0,.08)}
+    .atelier-state-lab-launcher:before{content:"LAB";display:grid;place-items:center;min-width:30px;height:20px;background:#111;color:#fff;font-size:8px;letter-spacing:.12em}.atelier-state-lab-launcher:hover{background:#111;color:#fff}.atelier-state-lab-launcher:hover:before{background:#fff;color:#111}.atelier-state-lab-launcher:focus-visible{outline:2px solid #111;outline-offset:3px}.atelier-state-lab-launcher small{color:#707070;font:500 8px/1 Arial,sans-serif;letter-spacing:.05em}.atelier-state-lab-launcher:hover small{color:#d8d8d8}@media(max-width:720px){.atelier-state-lab-launcher{right:10px;bottom:12px;padding:8px 9px}.atelier-state-lab-launcher small{display:none}}
+  `;
+  document.head.appendChild(style);
+
+  const link = document.createElement("a");
+  link.href = "recruiter-state-lab.html?state=normal";
+  link.className = "atelier-state-lab-launcher";
+  link.dataset.atelierStateLabLauncher = "true";
+  link.setAttribute("aria-label", "Open Recruiter State Lab for empty, loading, payment error and sold-out variant states");
+  link.innerHTML = '<span>State Lab</span><small>Empty · Loading · Error · Edge</small>';
+  document.body.appendChild(link);
+}
+
 async function initFlagshipExperience() {
   await ensureFlagshipStyles();
   initMotionSystem();
   initScrollState();
   initBackToTop();
   initCheckoutProgress();
+  initStateLabLauncher();
   initPdpV15().catch((error) => console.error("ATELIER V15 PDP enhancement failed", error));
 }
 

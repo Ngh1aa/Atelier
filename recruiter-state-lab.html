@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,follow">
+  <title>ATELIER — Recruiter State Lab</title>
+  <style>
+    :root{color-scheme:light;--ink:#0c0c0c;--muted:#6a6a6a;--line:#d7d7d7;--paper:#f6f6f3}
+    *{box-sizing:border-box}html,body{height:100%;margin:0}body{font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:var(--paper);overflow:hidden}.bar{min-height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:18px;padding:10px 20px;position:relative;z-index:20}.wordmark{min-width:210px}.wordmark strong{display:block;font-family:Georgia,"Times New Roman",serif;font-size:15px;letter-spacing:.14em}.wordmark span{display:block;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-top:4px}.states{display:flex;gap:5px;flex:1;overflow-x:auto}.state,.utility{appearance:none;border:1px solid #bdbdbd;background:#fff;color:#111;padding:9px 12px;font:600 10px/1 Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;white-space:nowrap}.state[aria-pressed="true"]{background:#111;color:#fff;border-color:#111}.utility{text-decoration:none}.status{min-width:215px;text-align:right;font-size:10px;line-height:1.35;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}.wrap{height:calc(100% - 72px);position:relative}.frame{width:100%;height:100%;border:0;display:block;background:#fff}.note{position:absolute;right:16px;bottom:16px;background:rgba(15,15,15,.94);color:#fff;padding:8px 10px;font-size:9px;letter-spacing:.09em;text-transform:uppercase;z-index:10;pointer-events:none}
+    @media(max-width:900px){.bar{flex-wrap:wrap;padding:9px 10px}.wordmark{min-width:155px}.status{display:none}.states{order:3;flex-basis:100%}.wrap{height:calc(100% - 112px)}}
+  </style>
+</head>
+<body>
+<header class="bar">
+  <div class="wordmark"><strong>ATELIER</strong><span>Recruiter state lab · commerce lifecycle</span></div>
+  <div class="states" role="group" aria-label="Choose prototype state">
+    <button class="state" data-state="normal" aria-pressed="false">Normal</button>
+    <button class="state" data-state="empty" aria-pressed="false">Empty Bag</button>
+    <button class="state" data-state="loading" aria-pressed="false">Image Loading</button>
+    <button class="state" data-state="error" aria-pressed="false">Payment Error</button>
+    <button class="state" data-state="edge" aria-pressed="false">Sold-out Variants</button>
+  </div>
+  <div class="status" id="status">Ready</div>
+  <a class="utility" href="figma-11-prototype.html">Prototype guide</a>
+  <button class="utility" id="copy" type="button">Copy state link</button>
+</header>
+<div class="wrap">
+  <iframe id="frame" class="frame" title="ATELIER commerce prototype"></iframe>
+  <div class="note">State forced for review · no live payment is processed</div>
+</div>
+<script>
+(() => {
+  'use strict';
+  const frame=document.getElementById('frame');
+  const status=document.getElementById('status');
+  const buttons=[...document.querySelectorAll('[data-state]')];
+  const routes={normal:'detailproduct.html?id=tailored-wool-blazer',empty:'cart.html',loading:'detailproduct.html?id=tailored-wool-blazer',error:'checkout.html',edge:'detailproduct.html?id=tailored-wool-blazer'};
+  const labels={normal:'Product evaluation · available',empty:'First-use commerce · bag empty',loading:'High-resolution image · 1.2s simulated load',error:'Authorization declined · recovery preserved',edge:'Availability edge · size / colour disabled'};
+  let active='normal'; let timer=null;
+
+  function addStyle(doc,key,css){if(doc.querySelector(`style[data-state-lab-style="${key}"]`))return;const s=doc.createElement('style');s.dataset.stateLabStyle=key;s.textContent=css;doc.head.appendChild(s)}
+  function setState(next,updateUrl=true){if(!routes[next])next='normal';active=next;clearTimeout(timer);timer=null;buttons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.state===next)));status.textContent=labels[next];if(updateUrl){const u=new URL(location.href);u.searchParams.set('state',next);history.replaceState({},'',u)}frame.src=routes[next]+(routes[next].includes('?')?'&':'?')+'lab=1'}
+
+  function emptyState(doc){
+    addStyle(doc,'empty',`.cart-empty-state{min-height:360px;display:grid;align-content:center;justify-items:start;padding:54px 0;border-top:1px solid #111;border-bottom:1px solid #d7d7d7}.cart-empty-state:before{content:"BAG / 00";font-size:10px;letter-spacing:.15em;margin-bottom:48px}.cart-empty-state h2{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:clamp(34px,5vw,64px);letter-spacing:-.035em;margin:0 0 12px}.cart-empty-state p{max-width:460px;line-height:1.55}.order-summary-card{opacity:.62}.btn-checkout{pointer-events:none;opacity:.35}`);
+    const list=doc.querySelector('.js-cart-items-list');
+    if(list){list.innerHTML='<div class="cart-empty-state" data-state-lab-marker="empty"><h2>Your Bag is empty.</h2><p>Discover considered pieces for the season ahead.</p><a href="shop.html" class="btn-outline">Discover the collection <span aria-hidden="true">→</span></a></div>'}
+    doc.querySelectorAll('.js-nav-bag-count').forEach(node=>node.textContent='0');
+    doc.querySelectorAll('.js-summary-subtotal,.js-summary-total').forEach(node=>node.textContent='0 ₫');
+    const delivery=doc.querySelector('.js-cart-delivery'); if(delivery) delivery.textContent='Add a piece to estimate delivery';
+    const checkout=doc.querySelector('.btn-checkout'); if(checkout){checkout.setAttribute('aria-disabled','true');checkout.tabIndex=-1}
+  }
+
+  function loadingState(doc){
+    addStyle(doc,'loading',`
+      @keyframes atelierLoad{0%{transform:translateX(-110%)}100%{transform:translateX(210%)}}.main-img-wrap{position:relative;overflow:hidden;background:#ededeb}.main-img-wrap img{filter:blur(18px) grayscale(.15);transform:scale(1.035);opacity:.42}.main-img-wrap:after{content:"";position:absolute;inset:0 auto 0 0;width:42%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent);animation:atelierLoad 1.05s ease-in-out infinite}.atelier-loading-caption{position:absolute;left:18px;bottom:18px;z-index:3;background:rgba(255,255,255,.9);border:1px solid #cfcfcf;padding:9px 11px;font-size:9px;letter-spacing:.12em;text-transform:uppercase}.thumbnail-gallery{opacity:.35;pointer-events:none}@media(prefers-reduced-motion:reduce){.main-img-wrap:after{animation:none}}
+    `);
+    const wrap=doc.querySelector('.main-img-wrap');
+    if(wrap){wrap.setAttribute('data-state-lab-marker','loading');if(!wrap.querySelector('.atelier-loading-caption'))wrap.insertAdjacentHTML('beforeend','<div class="atelier-loading-caption" role="status">Loading high-resolution garment image · simulated 1.2s</div>')}
+    const u=new URL(location.href); if(!u.searchParams.has('pin')&&!timer) timer=setTimeout(()=>{if(active==='loading')setState('normal')},1200);
+  }
+
+  function forceOrderSnapshot(doc){
+    const items=doc.querySelector('.js-checkout-items');
+    if(items) items.innerHTML='<div class="atelier-lab-order"><img src="./assets/products/pinkparks/belted-cropped-jacket.jpg" alt="Belted Cropped Jacket"><span><strong>Belted Cropped Jacket</strong><small>Black · Size S · Qty 1</small></span><b>3.490.000 ₫</b></div>';
+    const subtotal=doc.querySelector('.js-checkout-subtotal'); if(subtotal) subtotal.textContent='3.490.000 ₫';
+    const total=doc.querySelector('.js-checkout-total'); if(total) total.textContent='3.490.000 ₫';
+  }
+
+  function errorState(doc){
+    addStyle(doc,'error',`
+      .atelier-payment-error{border-top:1px solid #111;border-bottom:1px solid #111;padding:22px 0;margin:0 0 30px}.atelier-payment-error .kicker{font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}.atelier-payment-error h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(28px,4vw,46px);font-weight:400;letter-spacing:-.025em;margin:0 0 12px}.atelier-payment-error p{max-width:760px;line-height:1.55;margin:0 0 18px}.atelier-payment-error .actions{display:flex;gap:8px;flex-wrap:wrap}.atelier-payment-error button,.atelier-payment-error a{border:1px solid #111;background:#fff;color:#111;padding:11px 13px;text-decoration:none;text-transform:uppercase;font-size:10px;letter-spacing:.09em;cursor:pointer}.atelier-payment-error button:first-child{background:#111;color:#fff}.payment-methods{outline:1px solid #bbb;outline-offset:12px}.atelier-lab-order{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid #d7d7d7}.atelier-lab-order img{width:52px;height:70px;object-fit:cover}.atelier-lab-order strong{display:block;font-family:Georgia,"Times New Roman",serif;font-weight:400}.atelier-lab-order small{display:block;color:#666;margin-top:5px}.atelier-lab-order b{font-size:11px;white-space:nowrap}
+    `);
+    forceOrderSnapshot(doc);
+    if(!doc.querySelector('.atelier-payment-error')){
+      const header=doc.querySelector('.checkout-header');
+      const form=doc.querySelector('.checkout-grid');
+      const html='<section class="atelier-payment-error" data-state-lab-marker="error" role="alert"><div class="kicker">Payment / Recovery state</div><h2>Authorization declined.</h2><p>Your bag and checkout details are preserved. No charge was created. Choose another prototype payment method or return to your bag. This state demonstrates recovery only — ATELIER does not request or store real card details.</p><div class="actions"><button id="atelierRetry" type="button">Try another method</button><a href="cart.html">Return to Bag</a></div></section>';
+      if(header) header.insertAdjacentHTML('afterend',html); else if(form) form.insertAdjacentHTML('beforebegin',html);
+    }
+    doc.getElementById('atelierRetry')?.addEventListener('click',()=>setState('normal'),{once:true});
+    const err=doc.querySelector('.js-checkout-error'); if(err) err.textContent='Payment authorization could not be completed. Your order has not been recorded.';
+  }
+
+  function edgeState(doc){
+    addStyle(doc,'edge',`
+      .size-options button[disabled],.pdp-color-option[disabled]{opacity:.34;cursor:not-allowed;text-decoration:line-through;position:relative}.size-options button[disabled]:after{content:"";position:absolute;left:12%;right:12%;top:50%;height:1px;background:currentColor;transform:rotate(-18deg)}.atelier-stock-note{margin-top:12px;border-top:1px solid #bdbdbd;padding-top:12px;font-size:11px;line-height:1.45}.atelier-stock-note strong{display:block;text-transform:uppercase;letter-spacing:.1em;font-size:9px;margin-bottom:6px}.product-title{overflow-wrap:anywhere}.pdp-color-option[disabled]{filter:grayscale(1)}
+    `);
+    const sizes=[...doc.querySelectorAll('.size-options button')];
+    sizes.forEach(btn=>{if(['XS','M','XL'].includes(btn.dataset.size)){btn.disabled=true;btn.setAttribute('aria-disabled','true');btn.title='Unavailable in this colour'}});
+    const colours=[...doc.querySelectorAll('.pdp-color-option')];
+    const ivory=colours.find(btn=>btn.dataset.color==='ivory'); if(ivory){ivory.disabled=true;ivory.setAttribute('aria-disabled','true');ivory.title='Ivory is sold out'}
+    const selection=doc.querySelector('.size-selection');
+    if(selection&&!selection.querySelector('.atelier-stock-note')) selection.insertAdjacentHTML('beforeend','<div class="atelier-stock-note" data-state-lab-marker="edge" role="status"><strong>Limited availability</strong>Black is currently available in S and L only. Ivory is sold out. Unavailable options remain visible and disabled so the assortment is understandable without creating dead-end clicks.</div>');
+  }
+
+  function apply(){const doc=frame.contentDocument;if(!doc)return;if(active==='empty')emptyState(doc);if(active==='loading')loadingState(doc);if(active==='error')errorState(doc);if(active==='edge')edgeState(doc)}
+  function scheduleApply(){[0,180,650].forEach(delay=>setTimeout(()=>{if(frame.contentDocument)apply()},delay))}
+  frame.addEventListener('load',scheduleApply);
+  buttons.forEach(b=>b.addEventListener('click',()=>setState(b.dataset.state)));
+  document.getElementById('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(location.href);status.textContent='State link copied'}catch{status.textContent='Copy unavailable · use address bar'}});
+  setState(new URL(location.href).searchParams.get('state')||'normal',false);
+})();
+</script>
+</body>
+</html>
