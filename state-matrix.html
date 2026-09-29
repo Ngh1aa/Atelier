@@ -12,20 +12,26 @@
 <body>
 <header class="head"><div><p>Recruiter evidence / commerce lifecycle</p><h1>ATELIER state matrix</h1></div><a href="recruiter-state-lab.html?state=normal">Open interactive State Lab →</a></header>
 <main class="grid">
-  <section class="tile"><div class="tile-head"><strong>01 · Empty</strong><span>Bag / first-use</span></div><div class="viewport"><iframe title="Atelier empty bag state" src="recruiter-state-lab.html?state=empty&pin=1&matrix=1"></iframe></div></section>
-  <section class="tile"><div class="tile-head"><strong>02 · Loading</strong><span>High-resolution image</span></div><div class="viewport"><iframe title="Atelier image loading state" src="recruiter-state-lab.html?state=loading&pin=1&matrix=1"></iframe></div></section>
-  <section class="tile"><div class="tile-head"><strong>03 · Error</strong><span>Authorization declined</span></div><div class="viewport"><iframe title="Atelier payment error state" src="recruiter-state-lab.html?state=error&pin=1&matrix=1"></iframe></div></section>
-  <section class="tile"><div class="tile-head"><strong>04 · Edge case</strong><span>Sold-out variants</span></div><div class="viewport"><iframe title="Atelier sold-out variant state" src="recruiter-state-lab.html?state=edge&pin=1&matrix=1"></iframe></div></section>
+  <section class="tile"><div class="tile-head"><strong>01 · Empty</strong><span>Bag / first-use</span></div><div class="viewport"><iframe data-state="empty" title="Atelier empty bag state" src="recruiter-state-lab.html?state=empty&pin=1&matrix=1"></iframe></div></section>
+  <section class="tile"><div class="tile-head"><strong>02 · Loading</strong><span>High-resolution image</span></div><div class="viewport"><iframe data-state="loading" title="Atelier image loading state" src="recruiter-state-lab.html?state=loading&pin=1&matrix=1"></iframe></div></section>
+  <section class="tile"><div class="tile-head"><strong>03 · Error</strong><span>Authorization declined</span></div><div class="viewport"><iframe data-state="error" title="Atelier payment error state" src="recruiter-state-lab.html?state=error&pin=1&matrix=1"></iframe></div></section>
+  <section class="tile"><div class="tile-head"><strong>04 · Edge case</strong><span>Sold-out variants</span></div><div class="viewport"><iframe data-state="edge" title="Atelier sold-out variant state" src="recruiter-state-lab.html?state=edge&pin=1&matrix=1"></iframe></div></section>
 </main>
 <script>
-  document.querySelectorAll('iframe').forEach(frame => frame.addEventListener('load', () => {
-    try {
-      const doc=frame.contentDocument;
-      const bar=doc.querySelector('.bar'); if(bar) bar.style.display='none';
-      const note=doc.querySelector('.note'); if(note) note.style.display='none';
-      const wrap=doc.querySelector('.wrap'); if(wrap) wrap.style.height='100%';
-    } catch {}
-  }));
+  const focusState=(outer)=>{
+    try{
+      const lab=outer.contentDocument;
+      const bar=lab.querySelector('.bar'); if(bar) bar.style.display='none';
+      const note=lab.querySelector('.note'); if(note) note.style.display='none';
+      const wrap=lab.querySelector('.wrap'); if(wrap) wrap.style.height='100%';
+      const product=lab.querySelector('#frame');
+      const state=outer.dataset.state;
+      const focus=()=>{try{const target=product?.contentDocument?.querySelector(`[data-state-lab-marker="${state}"]`);if(target){target.scrollIntoView({block:'center'});product.contentWindow.scrollBy(0,-16)}}catch{}};
+      product?.addEventListener('load',()=>setTimeout(focus,760),{once:true});
+      setTimeout(focus,980);
+    }catch{}
+  };
+  document.querySelectorAll('iframe[data-state]').forEach(frame=>frame.addEventListener('load',()=>focusState(frame)));
 </script>
 </body>
 </html>
