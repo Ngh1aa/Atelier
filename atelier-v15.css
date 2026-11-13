@@ -958,7 +958,7 @@
     .pdp-mobile-dock__meta small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .pdp-mobile-dock__meta strong { font-size: 12px; }
     .pdp-mobile-dock__meta span,
-    .pdp-mobile-dock__meta small { color: var(--muted); font-size: 10px; }
+    .pdp-mobile-dock__meta small { color: var(--muted); font-size: 12px; }
     .pdp-mobile-dock button { min-height: 48px; border: 1px solid var(--ink); background: var(--ink); color: var(--white); padding-inline: 16px; }
     .page-pdp.has-mobile-purchase-dock { padding-bottom: 88px; }
 
@@ -981,10 +981,11 @@
   }
 }
 
-/* Native cross-document view transitions are progressive enhancement only. */
-@view-transition {
-  navigation: auto;
-}
+/* Native cross-document view transitions are progressive enhancement only.
+   The page opt-in (`@view-transition { navigation: auto; }`) is disabled: on these
+   pages Chromium skipped every transition and reported "Transition was aborted …
+   opt-in disabled" as an uncaught error on each navigation, so no visible motion
+   was lost. The pseudo-element styles below stay ready if the opt-in returns. */
 
 ::view-transition-old(root) {
   animation: atelier-page-out var(--motion-state, 180ms) ease both;

@@ -74,15 +74,22 @@ Target: WCAG 2.2 AA design/implementation intent. The project includes semantic 
 
 Automated Axe/Lighthouse output is treated as regression evidence—not proof of complete accessibility conformance. Manual/participant validation remains separate.
 
-## Commerce/system reality
+## Commerce/system reality — a complete demo store without a backend
 
-`src/js/commerce-store.js` is the source of truth for catalogue, variant, Bag, Saved and browser-local Order state.
+`src/js/commerce-store.js` is the source of truth for catalogue, variant, Bag, Saved, order, account, address, alert and appointment state. All user data lives in **sessionStorage**: it survives navigation and reload inside one browser tab and disappears with the tab. The first read in a tab seeds it from one file, [`src/data/demo-seed.js`](./src/data/demo-seed.js) (stock per variant, promo codes, a demo client, two addresses, two orders, appointment hours).
 
-- Search/filter/PDP/Bag interactions are real client-side behavior.
-- Bag, Saved and local order records persist in browser storage.
-- Inventory may be `UNKNOWN`; V15 does not turn unknown stock into fake “In stock” or fake scarcity.
-- Cash on delivery and bank transfer are simulated choices in a local prototype.
-- Card payment, server inventory, email, authentication and live fulfilment are **not connected**.
+Working flows: shop search/filter/sort with URL state · PDP colour, size, size guide, stock, sold-out “Notify me” and not-found · Saved (add, remove, move to Bag) · Bag quantity, remove, promo codes (`ATELIER10` valid; `WELCOME200` minimum spend; `FALL2025` expired) and gift note · checkout with saved addresses, delivery method, simulated payment (cash, transfer or a card **without any card fields** that approves or declines), review and an order number · order history and detail with cancel (processing) or return/exchange (delivered) · simulated sign up, sign in, sign out and password reset (the code is shown on screen) · profile edit and address book CRUD · contact enquiry and Client Services appointment booking.
+
+Demo client: `client@atelier.demo` / `atelier-demo`.
+
+Every “server” action goes through `simulateRequest()` (latency, loading state, recoverable error with **Try again**). The **Demo store** block at the top of every footer can make the next request — or every request, including the catalogue — fail, and **Reset demo data** restores the seed. Nothing is charged, shipped or emailed, and every confirmation says so.
+
+QA for this layer (serve the build on port 8924 with `npx vite preview --port 8924`, Playwright via `NODE_PATH`):
+
+```bash
+QA_BASE_URL=http://127.0.0.1:8924 node scripts/full-prototype-e2e.mjs   # every flow + reset + console/href checks
+QA_BASE_URL=http://127.0.0.1:8924 node scripts/control-inventory.mjs    # clicks every control on the 20 site pages
+```
 
 ## Technology
 
@@ -92,7 +99,7 @@ Automated Axe/Lighthouse output is treated as regression evidence—not proof of
 | Visual system | CSS cascade layers + V15 semantic tokens |
 | Interaction | JavaScript ES modules |
 | Build | Vite |
-| State | Browser-local JavaScript / `localStorage` |
+| State | Tab-local `sessionStorage`, seeded from `src/data/demo-seed.js` |
 | QA | GitHub Actions, Playwright, Axe, Lighthouse |
 | Design source | Figma + repository design contracts |
 
@@ -155,9 +162,11 @@ Atelier/
 ├── src/js/
 │   ├── commerce-store.js
 │   ├── commerce-ui.js
+│   ├── demo-controls.js · auth.js · account.js · services.js
 │   ├── motion-system.js
 │   └── pdp-v15.js
-├── scripts/v15-flagship-interaction-qa.mjs
+├── src/data/demo-seed.js
+├── scripts/v15-flagship-interaction-qa.mjs · full-prototype-e2e.mjs · control-inventory.mjs
 └── .github/workflows/atelier-v15-flagship-qa.yml
 ```
 

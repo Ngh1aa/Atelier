@@ -6,8 +6,8 @@ import {
   matchesProductSearch,
   toggleWishlist,
   track,
-} from "./commerce-store.js?v=atelier-v13";
-import { escapeHtml, openVariantPicker, showMessage } from "./commerce-ui.js?v=atelier-v13";
+} from "./commerce-store.js?v=full-prototype";
+import { escapeHtml, openVariantPicker, renderLoadError, showMessage } from "./commerce-ui.js?v=full-prototype";
 
 const SHOP_IDS = [
   "tailored-wool-blazer",
@@ -97,7 +97,7 @@ function appliedFilterMarkup(state) {
   if (state.search) filters.unshift({ type: "search", value: state.search, label: `“${state.search}”` });
   if (state.collection) filters.unshift({ type: "collection", value: state.collection, label: state.collection });
   if (!filters.length) return "";
-  return `<div class="applied-filters" aria-label="Applied filters">${filters.map((filter) => `<button type="button" data-filter-type="${filter.type}" data-filter-value="${escapeHtml(filter.value)}">${escapeHtml(filter.label)} <span aria-hidden="true">×</span></button>`).join("")}<button type="button" class="js-clear-filters">Clear all</button></div>`;
+  return `<div class="applied-filters" role="group" aria-label="Applied filters">${filters.map((filter) => `<button type="button" data-filter-type="${filter.type}" data-filter-value="${escapeHtml(filter.value)}">${escapeHtml(filter.label)} <span aria-hidden="true">×</span></button>`).join("")}<button type="button" class="js-clear-filters">Clear all</button></div>`;
 }
 
 function productCard(product) {
@@ -125,7 +125,26 @@ export async function renderShop() {
   const filterBar = document.querySelector(".filter-bar");
   if (!grid || !filterBar) return;
 
-  const allProducts = await loadProducts();
+  grid.setAttribute("aria-busy", "true");
+  let allProducts;
+  try {
+    allProducts = await loadProducts();
+  } catch {
+    grid.removeAttribute("aria-busy");
+    filterBar.innerHTML = '<span id="result-count" class="result-count" aria-live="polite">Pieces unavailable</span>';
+    renderLoadError(grid, {
+      title: "The collection could not load.",
+      message: "The catalogue request failed. Your Bag and Saved pieces are unchanged.",
+      onRetry: () => {
+        grid.innerHTML = '<p class="shop-loading-state" role="status">Loading pieces…</p>';
+        filterBar.innerHTML = '<span id="result-count" class="result-count" aria-live="polite">Loading pieces…</span>';
+        renderShop();
+      },
+    });
+    return;
+  }
+  grid.removeAttribute("aria-busy");
+  grid.querySelector(".shop-loading-state")?.remove();
   const products = SHOP_IDS.map((id) => allProducts.find((product) => product.id === id)).filter(Boolean);
   const state = createState();
   let filterTrigger = null;
@@ -134,10 +153,29 @@ export async function renderShop() {
   filterBar.innerHTML = `
     <span id="result-count" class="result-count" aria-live="polite"></span>
     <div class="shop-toolbar">
+      <label class="shop-search"><span class="sr-only">Search pieces</span><input type="search" class="js-shop-search" placeholder="Search pieces" autocomplete="off" maxlength="60"></label>
       <button type="button" class="shop-tool-button js-filter-open">Filter <span class="js-filter-total"></span></button>
       <label class="shop-sort"><span>Sort By</span><select aria-label="Sort products"><option value="newest">Newest</option><option value="price-asc">Price: Low to High</option><option value="price-desc">Price: High to Low</option><option value="name">Name</option></select></label>
     </div>`;
+  document.querySelectorAll(".js-applied-filters, .js-shop-filter-panel").forEach((element) => element.remove());
   filterBar.insertAdjacentHTML("afterend", `<div class="js-applied-filters"></div>${renderFilterPanel(products, state)}`);
+  const searchInput = filterBar.querySelector(".js-shop-search");
+  searchInput.value = state.search;
+  let searchTimer;
+  searchInput.addEventListener("input", () => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      state.search = searchInput.value.trim().toLowerCase();
+      repaint();
+    }, 220);
+  });
+  searchInput.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter") return;
+    event.preventDefault();
+    clearTimeout(searchTimer);
+    state.search = searchInput.value.trim().toLowerCase();
+    repaint();
+  });
 
   const panel = document.querySelector(".js-shop-filter-panel");
   const applied = document.querySelector(".js-applied-filters");
@@ -195,6 +233,7 @@ export async function renderShop() {
     state.colors.clear();
     state.search = "";
     state.collection = "";
+    searchInput.value = "";
     panel.querySelectorAll('input[type="checkbox"]').forEach((input) => { input.checked = false; });
     repaint();
   };
@@ -232,6 +271,7 @@ export async function renderShop() {
     applied.querySelectorAll("[data-filter-type]").forEach((button) => button.addEventListener("click", () => {
       const { filterType, filterValue } = button.dataset;
       if (filterType === "search" || filterType === "collection") state[filterType] = "";
+      if (filterType === "search") searchInput.value = "";
       else state[`${filterType === "category" ? "categories" : `${filterType}s`}`]?.delete(filterValue);
       const checkbox = panel.querySelector(`input[name="${filterType}"][value="${CSS.escape(filterValue)}"]`);
       if (checkbox) checkbox.checked = false;

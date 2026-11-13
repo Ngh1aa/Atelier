@@ -1,4 +1,4 @@
-import { findVariant, getAvailableSizes, loadProducts } from "./commerce-store.js?v=atelier-v15";
+import { findVariant, getAvailableSizes, loadProducts } from "./commerce-store.js?v=full-prototype";
 
 const LOW_STOCK_THRESHOLD = 3;
 const LEGACY_MODEL_FALLBACK = "Model is 178 cm and wears size S.";
@@ -11,9 +11,10 @@ export async function initPdpV15() {
   if (!document.body.classList.contains("page-pdp") || document.body.dataset.pdpV15Ready === "true") return;
   document.body.dataset.pdpV15Ready = "true";
 
-  const products = await loadProducts();
+  let products;
+  try { products = await loadProducts(); } catch { return; }
   const requestedId = new URLSearchParams(location.search).get("id");
-  const product = products.find((item) => item.id === requestedId) || products[0];
+  const product = requestedId ? products.find((item) => item.id === requestedId) : products[0];
   if (!product) return;
 
   const sizeOptions = document.querySelector(".js-size-options");
@@ -21,7 +22,7 @@ export async function initPdpV15() {
   const addButton = document.querySelector(".js-btn-add-cart");
   const mainImage = document.querySelector("#main-product-img");
   const thumbnails = document.querySelector(".js-thumbnail-gallery");
-  if (!sizeOptions || !colorOptions || !addButton || !mainImage || !thumbnails) return;
+  if (!sizeOptions || !colorOptions || !addButton || !mainImage || !thumbnails || !document.querySelector(".js-product-title")) return;
 
   const modelNote = document.querySelector(".js-product-model");
   if (modelNote && (!product.model || product.model === LEGACY_MODEL_FALLBACK)) {
@@ -117,7 +118,7 @@ export async function initPdpV15() {
   const syncDock = () => {
     const { color, size } = currentSelection();
     const colorName = product.colors.find((item) => item.value === color)?.name || "";
-    dock.querySelector(".js-mobile-selection").textContent = size ? `${colorName} · Size ${size}` : `${colorName} · Choose a size`;
+    dock.querySelector(".js-mobile-selection").textContent = size ? `${colorName}, size ${size}` : `${colorName}, choose a size`;
     dock.querySelector(".js-mobile-add").textContent = size ? "Add to Bag" : "Choose size";
   };
 
@@ -135,7 +136,7 @@ export async function initPdpV15() {
     if (fitNode) fitNode.textContent = size ? `Size ${size} selected` : "Choose a size";
     if (fitNote) fitNote.textContent = fitCopy;
     if (stockNode) stockNode.textContent = availability.textContent || "Choose a size to review availability.";
-    if (serviceNode) serviceNode.textContent = `${deliveryCopy} · ${returnCopy}`;
+    if (serviceNode) serviceNode.textContent = `${deliveryCopy}, ${returnCopy}`;
   };
 
   const syncDecisionState = () => {

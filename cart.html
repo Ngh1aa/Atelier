@@ -18,7 +18,7 @@
   <meta name="twitter:image" content="https://ngh1aa.github.io/Atelier/assets/product-hero.webp">
   <link rel="stylesheet" href="./atelier-v14-site.css?v=monochrome-20260907">
   <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
-  <script>document.documentElement.classList.add("js-enabled")</script>
+  <script>document.documentElement.classList.add("js-enabled");</script>
 </head>
 <body class="js-enabled page-ledger v14">
   <nav aria-label="Primary navigation">
@@ -34,7 +34,7 @@
       <div class="nav-icons right">
         <button type="button" class="nav-search-btn" aria-label="Search" id="navSearchBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 6 6"/></svg></button>
         <a href="cart.html" class="nav-text nav-cart active" aria-current="page">Bag (<span class="js-nav-bag-count">0</span>)</a>
-        <a href="favourite.html" class="nav-text">Saved</a>
+        <a href="favourite.html" class="nav-text">Saved</a><a href="account.html" class="nav-text nav-account">Account</a>
       </div>
     </div>
   </nav>
@@ -43,7 +43,7 @@
     <div class="nav-search-form">
       <label for="navSearchInput" class="eyebrow">Search the collection</label>
       <input id="navSearchInput" type="search" placeholder="Product, material or colour" autocomplete="off">
-      <button type="button" class="nav-search-close" id="navSearchClose" aria-label="Close search">&times;</button>
+      <button type="button" class="nav-search-close" id="navSearchClose" aria-label="Close search"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
       <div class="nav-search-results" id="navSearchResults"></div>
     </div>
   </div>
@@ -68,12 +68,23 @@
             <div class="order-summary-card">
               <h2>ORDER SUMMARY</h2>
               <div class="summary-row"><span>SUBTOTAL</span><span class="js-summary-subtotal">0 ₫</span></div>
+              <div class="summary-row summary-discount-row js-summary-discount-row" hidden><span>PROMO <span class="js-summary-promo-code"></span></span><span class="js-summary-discount">0 ₫</span></div>
               <div class="summary-row"><span>DELIVERY</span><span>COMPLIMENTARY</span></div>
               <div class="summary-row summary-delivery-row"><span>ESTIMATED</span><span class="js-cart-delivery">Estimated delivery</span></div>
               <div class="summary-row total"><span>TOTAL</span><span class="js-summary-total">0 ₫</span></div>
               <a href="checkout.html" class="btn-checkout">PROCEED TO CHECKOUT</a>
               <small class="tax-note">TAXES AND DUTIES INCLUDED</small>
-              <div class="promo-code-wrap"><p class="tax-note">Promo codes are not enabled in this static prototype.</p></div>
+              <form class="promo-code-wrap js-promo-form" novalidate>
+                <label for="promoCode">Promo code</label>
+                <div class="promo-code-row"><input id="promoCode" name="promo" autocomplete="off" maxlength="24" aria-describedby="promoStatus"><button type="submit" class="btn-outline js-promo-apply">Apply</button></div>
+                <p id="promoStatus" class="form-status js-promo-status" role="status"></p>
+                <button type="button" class="text-action js-promo-remove" hidden>Remove code</button>
+              </form>
+              <form class="gift-note-wrap js-gift-form" novalidate>
+                <label class="gift-note-toggle"><input type="checkbox" name="giftEnabled" class="js-gift-toggle"><span>Add a gift note</span></label>
+                <div class="form-group js-gift-fields" hidden><label for="giftMessage">Your note <span>(printed on a card, no prices shown)</span></label><textarea id="giftMessage" name="giftMessage" rows="3" maxlength="200" aria-describedby="giftCount"></textarea><small id="giftCount" class="js-gift-count">0 / 200</small></div>
+                <p class="form-status js-gift-status" role="status"></p>
+              </form>
               <div class="need-assistance">
                 <h4>NEED ASSISTANCE?</h4>
                 <p class="assistance-text">For sizing, care or delivery guidance, visit <a href="client-services.html">Client Services</a>.</p>
@@ -103,7 +114,7 @@
         <div class="footer-col"><h4>The House</h4><ul class="footer-links"><li><a href="about.html">Our Story</a></li><li><a href="collections.html">Collections</a></li></ul></div>
         <div class="footer-col"><h4>Legal</h4><ul class="footer-links"><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms of Use</a></li><li><a href="client-services.html#accessibility">Accessibility</a></li></ul></div>
       </div>
-      <div class="footer-bottom"><p>© 2026 ATELIER. All rights reserved.</p><p>Vietnam · English edition</p></div>
+      <div class="footer-bottom"><p>© 2026 ATELIER. All rights reserved.</p><p>Vietnam, English edition</p></div>
     </div>
   </footer>
   <script type="module" src="./main.js?v=monochrome-20260907"></script>

@@ -22,7 +22,7 @@
   <style>.reveal{opacity:1 !important;transform:none !important;}</style>
 </noscript>
 
-  <script>document.documentElement.classList.add("js-enabled")</script>
+  <script>document.documentElement.classList.add("js-enabled");</script>
 </head>
 <body class="js-enabled page-auth v14">
     <nav>
@@ -38,7 +38,7 @@
       <div class="nav-icons right">
         <button type="button" class="nav-search-btn" aria-label="Search" id="navSearchBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 6 6"/></svg></button>
         <a href="cart.html" class="nav-text nav-cart">Bag (<span class="js-nav-bag-count">0</span>)</a>
-        <a href="favourite.html" class="nav-text">Saved</a>
+        <a href="favourite.html" class="nav-text">Saved</a><a href="account.html" class="nav-text nav-account">Account</a>
       </div>
     </div>
   </nav>
@@ -46,7 +46,7 @@
     <div class="nav-search-form">
       <label for="navSearchInput">Search</label>
       <input id="navSearchInput" type="search" placeholder="What are you looking for?" autocomplete="off">
-      <button type="button" class="nav-search-close" id="navSearchClose" aria-label="Close search">&times;</button>
+      <button type="button" class="nav-search-close" id="navSearchClose" aria-label="Close search"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
       <div class="nav-search-results" id="navSearchResults"></div>
     </div>
   </div>
@@ -55,14 +55,33 @@
   <main>
     <section class="account-notice-page">
       <div class="container account-notice-grid reveal">
-        <div><p class="eyebrow">YOUR ATELIER</p><h1>A space for<br>your edit.</h1><p class="client-section-intro">Return to saved pieces, keep your details close and revisit your orders.</p><a class="text-link" href="account.html">Continue without adding details →</a></div>
-        <div class="account-notice-copy client-entry-panel"><p class="eyebrow">START ON THIS DEVICE</p><h2>Make it yours.</h2><p>Add your name and email if you would like to reuse them at checkout. Both are optional and stay in this browser.</p>
-          <form class="js-client-profile" data-entry="true" novalidate>
-            <div class="form-group"><label for="entryName">Full name <span>(optional)</span></label><input id="entryName" name="fullName" autocomplete="name" maxlength="100"></div>
-            <div class="form-group"><label for="entryEmail">Email <span>(optional)</span></label><input id="entryEmail" name="email" type="email" autocomplete="email" maxlength="254"></div>
-            <button class="commerce-primary-action" type="submit">Save &amp; open my Atelier</button><p class="form-status js-profile-status" role="status"></p>
-          </form>
-          <p class="client-storage-note">Online sign-in and cross-device sync are not connected in this edition. No password is requested. <a href="forgot-password.html">Find an order on this device →</a></p>
+        <div><p class="eyebrow">YOUR ATELIER</p><h1>A space for<br>your edit.</h1><p class="client-section-intro">Sign in to follow orders, reuse saved addresses and keep alerts for sold-out sizes.</p><p class="client-storage-note auth-demo-note">Demo client: <strong>client@atelier.demo</strong> / <strong>atelier-demo</strong>. Accounts are simulated and live in this browser tab only; nothing is sent anywhere.</p><a class="text-link" href="shop.html">Continue as a guest →</a></div>
+        <div class="account-notice-copy client-entry-panel">
+          <div class="js-auth-signed-in" hidden>
+            <p class="eyebrow">SIGNED IN</p><h2 class="js-auth-signed-in-title">You’re signed in.</h2>
+            <div class="form-actions"><a class="commerce-primary-action" href="account.html">Open my account</a><button type="button" class="text-action js-auth-sign-out">Sign out</button></div>
+          </div>
+          <div class="js-auth-forms">
+            <div class="auth-tabs" role="tablist" aria-label="Sign in or create an account">
+              <button type="button" role="tab" id="tab-signin" class="auth-tab js-auth-tab" aria-selected="true" aria-controls="panel-signin" data-mode="signin">Sign in</button>
+              <button type="button" role="tab" id="tab-create" class="auth-tab js-auth-tab" aria-selected="false" aria-controls="panel-create" data-mode="create" tabindex="-1">Create account</button>
+            </div>
+            <p class="form-status js-auth-flash" role="status"></p>
+            <form id="panel-signin" class="auth-panel js-signin-form" role="tabpanel" aria-labelledby="tab-signin" novalidate>
+              <div class="form-group"><label for="signinEmail">Email*</label><input id="signinEmail" name="email" type="email" autocomplete="email" required maxlength="254"></div>
+              <div class="form-group"><label for="signinPassword">Password*</label><input id="signinPassword" name="password" type="password" autocomplete="current-password" required maxlength="128"></div>
+              <p class="commerce-inline-error js-signin-error" role="alert"></p>
+              <button class="commerce-primary-action js-signin-submit" type="submit">Sign in</button>
+              <a class="text-link auth-forgot" href="forgot-password.html">Forgot your password?</a>
+            </form>
+            <form id="panel-create" class="auth-panel js-signup-form" role="tabpanel" aria-labelledby="tab-create" hidden novalidate>
+              <div class="form-group"><label for="signupName">Full name*</label><input id="signupName" name="fullName" autocomplete="name" required maxlength="100"></div>
+              <div class="form-group"><label for="signupEmail">Email*</label><input id="signupEmail" name="email" type="email" autocomplete="email" required maxlength="254"></div>
+              <div class="form-group"><label for="signupPassword">Password*</label><input id="signupPassword" name="password" type="password" autocomplete="new-password" required maxlength="128" aria-describedby="signupPasswordHelp"><small id="signupPasswordHelp">At least 8 characters. Demo only: do not reuse a real password.</small></div>
+              <p class="commerce-inline-error js-signup-error" role="alert"></p>
+              <button class="commerce-primary-action js-signup-submit" type="submit">Create account</button>
+            </form>
+          </div>
         </div>
       </div>
     </section>
@@ -77,35 +96,5 @@
   </footer>
 
   <script type="module" src="./main.js?v=monochrome-20260907"></script>
-  <script>
-    // Tab switching
-    const tabs = document.querySelectorAll('.auth-tab');
-    const forms = document.querySelectorAll('.auth-form');
-
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const targetTab = tab.dataset.tab;
-
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-
-        forms.forEach(form => {
-          form.classList.remove('active');
-          if (form.id === `${targetTab}-form`) {
-            form.classList.add('active');
-          }
-        });
-      });
-    });
-
-    // Form submission (demo)
-    document.querySelectorAll('.auth-form').forEach(form => {
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const formType = form.id.includes('login') ? 'Login' : 'Registration';
-        alert(`${formType} functionality would be implemented here`);
-      });
-    });
-  </script>
 </body>
 </html>

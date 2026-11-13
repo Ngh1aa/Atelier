@@ -17,6 +17,10 @@ function initNav() {
   if (!navContainer || !navLinks) return;
 
   navLinks.id = "atelier-mobile-menu";
+  // The header "Account" link is hidden on narrow screens; the menu carries it there.
+  if (!navLinks.querySelector('a[href="account.html"]')) {
+    navLinks.insertAdjacentHTML("beforeend", '<li class="nav-account-mobile"><a href="account.html">Account</a></li>');
+  }
   const hamburger = document.createElement("button");
   hamburger.className = "hamburger-btn";
   hamburger.type = "button";

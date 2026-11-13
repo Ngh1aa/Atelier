@@ -9,14 +9,14 @@
   <meta name="robots" content="noindex, follow">
   <link rel="stylesheet" href="./atelier-v14-site.css?v=monochrome-20260907">
   <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
-  <script>document.documentElement.classList.add("js-enabled")</script>
+  <script>document.documentElement.classList.add("js-enabled");</script>
 </head>
 <body class="js-enabled checkout-body page-checkout v14">
   <nav class="checkout-nav" aria-label="Checkout navigation">
     <div class="container checkout-nav-inner">
       <a href="cart.html">← Back to Bag</a>
       <div class="logo"><a href="index.html" aria-label="Atelier home"><span>ATELIER</span></a></div>
-      <span>Guest checkout · local prototype</span>
+      <span>Guest checkout, demo store</span>
     </div>
   </nav>
 
@@ -36,6 +36,7 @@
               <div class="checkout-summary-head"><h3>YOUR ORDER</h3><a href="cart.html">Edit Bag</a></div>
               <div class="summary-items js-checkout-items"></div>
               <div class="summary-row"><span>Subtotal</span><span class="js-checkout-subtotal">0 ₫</span></div>
+              <div class="summary-row js-checkout-discount-row" hidden><span>Promo <span class="js-checkout-promo-code"></span></span><span class="js-checkout-discount">0 ₫</span></div>
               <div class="summary-row"><span>Delivery</span><span class="js-checkout-delivery-fee">Complimentary</span></div>
               <div class="summary-row total"><span>Total</span><span class="js-checkout-total">0 ₫</span></div>
               <small>Taxes and duties included in the displayed prototype total.</small>
@@ -45,7 +46,7 @@
           <div class="checkout-form-section reveal">
             <section class="checkout-section" aria-labelledby="checkout-contact">
               <div class="checkout-step-heading"><span>01</span><h2 id="checkout-contact">CONTACT</h2></div>
-              <button type="button" class="text-action js-use-client-details" hidden>Use my saved details</button>
+              
               <p class="form-status js-draft-status" role="status">Your progress is saved in this browser. Required fields are marked *.</p>
               <div class="form-row">
                 <div class="form-group"><label for="checkoutEmail">Email*</label><input id="checkoutEmail" name="email" type="email" autocomplete="email" required></div>
@@ -55,7 +56,8 @@
 
             <section class="checkout-section" aria-labelledby="checkout-delivery-address">
               <div class="checkout-step-heading"><span>02</span><h2 id="checkout-delivery-address">DELIVERY ADDRESS</h2></div>
-              <div class="form-group"><label for="checkoutCountry">Country / Region*</label><select id="checkoutCountry" name="country" required><option value="Vietnam">Vietnam</option></select></div>
+              <div class="js-saved-address-slot"></div>
+              <div class="form-group"><label for="checkoutCountry">Country / Region</label><input id="checkoutCountry" name="country" value="Vietnam" readonly aria-describedby="checkoutCountryHelp"><small id="checkoutCountryHelp">ATELIER delivers within Vietnam only.</small></div>
               <div class="form-group"><label for="checkoutName">Full name*</label><input id="checkoutName" name="fullName" autocomplete="name" required></div>
               <div class="form-group"><label for="checkoutAddress">Address*</label><input id="checkoutAddress" name="address" autocomplete="street-address" required></div>
               <div class="form-group"><label for="checkoutApartment">Apartment / Suite <span>(optional)</span></label><input id="checkoutApartment" name="apartment" autocomplete="address-line2"></div>
@@ -79,6 +81,11 @@
               <div class="payment-methods">
                 <label class="payment-option selected"><input type="radio" name="paymentMethod" value="cod" checked><span class="payment-label"><strong>Cash on delivery</strong><small>Recorded as pending in this prototype.</small></span></label>
                 <label class="payment-option"><input type="radio" name="paymentMethod" value="bank-transfer"><span class="payment-label"><strong>Bank transfer</strong><small>Recorded as awaiting transfer; no transfer is processed here.</small></span></label>
+                <label class="payment-option"><input type="radio" name="paymentMethod" value="card-simulated"><span class="payment-label"><strong>Card (simulated)</strong><small>No card number is requested. Choose the outcome the demo should return.</small></span></label>
+                <fieldset class="payment-simulation js-card-simulation" hidden><legend>Simulated card result</legend>
+                  <label><input type="radio" name="cardOutcome" value="approve" checked><span>Approved</span></label>
+                  <label><input type="radio" name="cardOutcome" value="decline"><span>Declined by the bank</span></label>
+                </fieldset>
               </div>
               <p class="checkout-security-note">Card details are never requested or stored by this static site.</p>
             </section>
@@ -90,10 +97,13 @@
                 <div><dt>Delivery</dt><dd class="js-review-address">Add a delivery address</dd></div>
                 <div><dt>Method</dt><dd class="js-review-delivery">STANDARD</dd></div>
                 <div><dt>Payment</dt><dd class="js-review-payment">Cash on delivery</dd></div>
+                <div class="js-review-gift-row" hidden><dt>Gift note</dt><dd class="js-review-gift"></dd></div>
+                <div><dt>Total</dt><dd class="js-review-total">0 ₫</dd></div>
               </dl>
               <label class="checkout-consent"><input id="checkoutTerms" type="checkbox" name="terms" value="accepted" required><span>I agree to the <a href="terms.html" target="_blank" rel="noopener">Terms of Use (new tab)</a> and acknowledge the <a href="shipping&amp;returns.html" target="_blank" rel="noopener">Returns policy (new tab)</a>.</span></label>
               <p class="checkout-error js-checkout-error" role="alert" tabindex="-1"></p>
-              <button type="submit" class="btn-place-order js-place-order">Record Order on This Device</button>
+              <button type="submit" class="btn-place-order js-place-order">Place demo order</button>
+              <p class="checkout-security-note">Demo store: no payment is taken and nothing will be shipped.</p>
             </section>
           </div>
 

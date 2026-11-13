@@ -22,7 +22,7 @@
   <style>.reveal{opacity:1 !important;transform:none !important;}</style>
 </noscript>
 
-  <script>document.documentElement.classList.add("js-enabled")</script>
+  <script>document.documentElement.classList.add("js-enabled");</script>
 </head>
 <body class="js-enabled page-account v14">
   <nav>
@@ -37,39 +37,61 @@
       <div class="logo"><a href="index.html" aria-label="Atelier home"><span>ATELIER</span></a></div>
       <div class="nav-icons right">
         <a href="cart.html" class="nav-text nav-cart">Bag (<span class="js-nav-bag-count">0</span>)</a>
-        <a href="favourite.html" class="nav-text">Saved</a>
+        <a href="favourite.html" class="nav-text">Saved</a><a href="account.html" class="nav-text nav-account">Account</a>
       </div>
     </div>
   </nav>
 
   <main>
     <section class="account-page"><div class="container">
-      <header class="account-page-header reveal"><p class="eyebrow">YOUR ATELIER / ON THIS DEVICE</p><h1 class="js-client-greeting">Your private edit.</h1><p>Your pieces, details and order notes, in one place. Stored in this browser; no sign-in is needed.</p></header>
-      <nav class="account-shortcuts" aria-label="Your Atelier"><a href="#orders">Orders <span class="js-orders-count">0</span></a><a href="favourite.html">Saved pieces <span class="js-saved-count">0</span> →</a><a href="#details">My details</a><a href="contact.html">Enquiry draft →</a></nav>
-      <div class="client-workspace">
-        <section id="orders" class="client-section" aria-labelledby="client-orders-title">
-          <div class="client-section-head"><div><p class="eyebrow">01 / ORDER LEDGER</p><h2 id="client-orders-title">Orders on this device.</h2></div><a class="text-link" href="forgot-password.html">Find an order →</a></div>
-          <div class="account-orders js-account-orders" aria-live="polite"></div>
-        </section>
-        <section id="details" class="client-section" aria-labelledby="client-details-title">
-          <div class="client-section-head"><div><p class="eyebrow">02 / PERSONAL DETAILS</p><h2 id="client-details-title">Ready for next time.</h2></div></div>
-          <p class="client-section-intro">All fields are optional. Save details on a private device to reuse at checkout. This does not create an online account.</p>
-          <form class="js-client-profile" novalidate>
-            <div class="form-row"><div class="form-group"><label for="clientName">Full name</label><input id="clientName" name="fullName" autocomplete="name" maxlength="100"></div><div class="form-group"><label for="clientEmail">Email</label><input id="clientEmail" name="email" type="email" autocomplete="email" maxlength="254"></div></div>
-            <div class="form-group"><label for="clientPhone">Phone</label><input id="clientPhone" name="phone" type="tel" autocomplete="tel"></div>
-            <details class="client-address"><summary>Delivery address <span>(optional)</span></summary>
-              <div class="form-group"><label for="clientAddress">Street address</label><input id="clientAddress" name="address" autocomplete="street-address" maxlength="250"></div>
-              <div class="form-group"><label for="clientApartment">Apartment / Suite</label><input id="clientApartment" name="apartment" autocomplete="address-line2" maxlength="100"></div>
-              <div class="form-row"><div class="form-group"><label for="clientDistrict">City / District</label><input id="clientDistrict" name="district" autocomplete="address-level2" maxlength="100"></div><div class="form-group"><label for="clientProvince">Province</label><input id="clientProvince" name="province" autocomplete="address-level1" maxlength="100"></div></div>
-              <div class="form-group"><label for="clientPostal">Postal code</label><input id="clientPostal" name="postalCode" autocomplete="postal-code" maxlength="12"></div>
-            </details>
-            <div class="form-actions"><button class="commerce-primary-action" type="submit">Save details on this device</button><button class="text-action js-clear-client" type="button">Clear saved details</button></div>
-            <p class="form-status js-profile-status" role="status"></p>
+      <header class="account-page-header reveal"><p class="eyebrow">YOUR ATELIER / DEMO ACCOUNT</p><h1 class="js-client-greeting">Your private edit.</h1><p class="js-account-intro">Orders, addresses and alerts in one place. Demo accounts live in this browser tab only.</p></header>
+
+      <section class="client-section account-signed-out js-account-signed-out" aria-labelledby="account-signin-title" hidden>
+        <div class="client-section-head"><div><p class="eyebrow">SIGN IN</p><h2 id="account-signin-title">Sign in to see your orders.</h2></div></div>
+        <p class="client-section-intro">Use the demo client <strong>client@atelier.demo</strong> with password <strong>atelier-demo</strong>, or create a new demo account. Nothing leaves this tab.</p>
+        <div class="form-actions"><a class="commerce-primary-action" href="login.html?next=account.html">Sign in</a><a class="commerce-secondary-action" href="login.html?mode=create&amp;next=account.html">Create an account</a></div>
+        <p class="client-storage-note">Ordered as a guest? <a href="forgot-password.html#order-lookup">Find an order with its number and email →</a></p>
+      </section>
+
+      <div class="js-account-signed-in" hidden>
+        <nav class="account-shortcuts" aria-label="Your Atelier"><a href="#orders">Orders <span class="js-orders-count">0</span></a><a href="favourite.html">Saved pieces <span class="js-saved-count">0</span> →</a><a href="#addresses">Addresses <span class="js-address-count">0</span></a><a href="#details">Profile</a><a href="#alerts">Alerts &amp; appointments</a><button type="button" class="text-action js-sign-out">Sign out</button></nav>
+        <div class="client-workspace">
+          <section id="orders" class="client-section" aria-labelledby="client-orders-title">
+            <div class="client-section-head"><div><p class="eyebrow">01 / ORDER HISTORY</p><h2 id="client-orders-title">Your orders.</h2></div><a class="text-link" href="forgot-password.html#order-lookup">Find a guest order →</a></div>
+            <div class="account-orders js-account-orders" aria-live="polite"></div>
+          </section>
+          <section id="details" class="client-section" aria-labelledby="client-details-title">
+            <div class="client-section-head"><div><p class="eyebrow">02 / PROFILE</p><h2 id="client-details-title">Your details.</h2></div></div>
+            <form class="js-account-profile" novalidate>
+              <div class="form-row"><div class="form-group"><label for="profileName">Full name*</label><input id="profileName" name="fullName" autocomplete="name" maxlength="100" required></div><div class="form-group"><label for="profileEmail">Email*</label><input id="profileEmail" name="email" type="email" autocomplete="email" maxlength="254" required></div></div>
+              <div class="form-group"><label for="profilePhone">Phone <span>(optional)</span></label><input id="profilePhone" name="phone" type="tel" autocomplete="tel"></div>
+              <div class="form-actions"><button class="commerce-primary-action js-profile-save" type="submit">Save profile</button></div>
+              <p class="form-status js-profile-status" role="status"></p>
+            </form>
+          </section>
+        </div>
+        <section id="addresses" class="client-section" aria-labelledby="client-addresses-title">
+          <div class="client-section-head"><div><p class="eyebrow">03 / ADDRESS BOOK</p><h2 id="client-addresses-title">Delivery addresses.</h2></div><button type="button" class="text-action js-address-add">Add an address +</button></div>
+          <div class="address-list js-address-list" aria-live="polite"></div>
+          <form class="address-form js-address-form" hidden novalidate aria-labelledby="address-form-title">
+            <h3 id="address-form-title" class="js-address-form-title">New address</h3>
+            <input type="hidden" name="id">
+            <div class="form-row"><div class="form-group"><label for="addrLabel">Label <span>(e.g. Home)</span></label><input id="addrLabel" name="label" maxlength="30"></div><div class="form-group"><label for="addrName">Full name*</label><input id="addrName" name="fullName" autocomplete="name" required maxlength="100"></div></div>
+            <div class="form-row"><div class="form-group"><label for="addrPhone">Phone*</label><input id="addrPhone" name="phone" type="tel" autocomplete="tel" required></div><div class="form-group"><label for="addrStreet">Street address*</label><input id="addrStreet" name="address" autocomplete="street-address" required maxlength="250"></div></div>
+            <div class="form-group"><label for="addrApartment">Apartment / Suite <span>(optional)</span></label><input id="addrApartment" name="apartment" autocomplete="address-line2" maxlength="100"></div>
+            <div class="form-row"><div class="form-group"><label for="addrDistrict">City / District*</label><input id="addrDistrict" name="district" autocomplete="address-level2" required maxlength="100"></div><div class="form-group"><label for="addrProvince">Province*</label><input id="addrProvince" name="province" autocomplete="address-level1" required maxlength="100"></div></div>
+            <div class="form-row"><div class="form-group"><label for="addrPostal">Postal code <span>(optional)</span></label><input id="addrPostal" name="postalCode" autocomplete="postal-code" maxlength="12"></div><label class="checkout-consent address-default"><input type="checkbox" name="isDefault" value="true"><span>Use as default address</span></label></div>
+            <p class="commerce-inline-error js-address-error" role="alert"></p>
+            <div class="form-actions"><button type="submit" class="commerce-primary-action js-address-save">Save address</button><button type="button" class="text-action js-address-cancel">Cancel</button></div>
           </form>
+        </section>
+        <section id="alerts" class="client-section" aria-labelledby="client-alerts-title">
+          <div class="client-section-head"><div><p class="eyebrow">04 / ALERTS &amp; APPOINTMENTS</p><h2 id="client-alerts-title">Waiting for you.</h2></div><a class="text-link" href="client-services.html#appointment">Book an appointment →</a></div>
+          <div class="account-alerts js-account-alerts" aria-live="polite"></div>
         </section>
       </div>
       <section class="client-section js-client-recent-section" hidden aria-labelledby="client-recent-title"><div class="client-section-head"><div><p class="eyebrow">CONTINUE EXPLORING</p><h2 id="client-recent-title">Recently considered.</h2></div><a class="text-link" href="shop.html">View all pieces →</a></div><div class="client-piece-grid js-client-recent"></div></section>
-      <p class="client-storage-note">Saved pieces and orders stay in this browser. Clearing site data removes them. <a href="privacy.html">Privacy &amp; storage →</a></p>
+      <p class="client-storage-note">Demo store: accounts, orders and Saved pieces stay in this browser tab and disappear when it closes. <a href="privacy.html">Privacy &amp; storage →</a></p>
     </div></section>
   </main>
 
@@ -118,7 +140,7 @@
       </div>
       <div class="footer-bottom">
         <p>© 2026 ATELIER. All rights reserved.</p>
-        <p>Desktop edition · Vietnam</p>
+        <p>Vietnam, English edition</p>
       </div>
     </div>
   </footer>

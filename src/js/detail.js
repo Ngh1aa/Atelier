@@ -1,5 +1,7 @@
 import {
   addCartItem,
+  getCurrentAccount,
+  requestStockAlert,
   addRecentlyViewed,
   findVariant,
   formatVND,
@@ -9,14 +11,30 @@ import {
   loadProducts,
   toggleWishlist,
   track,
-} from "./commerce-store.js?v=atelier-v13";
-import { escapeHtml, openMiniBag, openSizeGuide, showMessage } from "./commerce-ui.js?v=atelier-v13";
+} from "./commerce-store.js?v=full-prototype";
+import { bindFormValidation, closeDrawer, escapeHtml, openMiniBag, openPanel, openSizeGuide, renderLoadError, runRequest, showMessage } from "./commerce-ui.js?v=full-prototype";
+
+function renderUnavailable(kind) {
+  const grid = document.querySelector(".product-detail-grid");
+  document.querySelector(".complete-look")?.setAttribute("hidden", "");
+  const breadcrumb = document.querySelector(".js-breadcrumb");
+  if (breadcrumb) breadcrumb.innerHTML = '<a href="shop.html">Shop</a><span aria-hidden="true">/</span><span>Unavailable</span>';
+  if (kind === "error") {
+    document.title = "Piece unavailable — ATELIER";
+    renderLoadError(grid, { title: "This piece could not load.", message: "The catalogue request failed. Your Bag and Saved pieces are unchanged.", onRetry: () => location.reload() });
+    return;
+  }
+  document.title = "Piece not found — ATELIER";
+  grid.innerHTML = '<div class="request-error-state pdp-not-found" role="status"><p class="eyebrow">NOT FOUND</p><h1>This piece is not in the current edit.</h1><p>The link may be out of date, or the piece has left the collection.</p><a class="btn-outline" href="shop.html">Explore the current edit <span aria-hidden="true">→</span></a></div>';
+}
 
 export async function renderDetail() {
-  const products = await loadProducts();
+  let products;
+  try { products = await loadProducts(); }
+  catch { renderUnavailable("error"); return; }
   const requestedId = new URLSearchParams(window.location.search).get("id");
-  const product = products.find((item) => item.id === requestedId) || products[0];
-  if (!product) return;
+  const product = requestedId ? products.find((item) => item.id === requestedId) : products[0];
+  if (!product) { renderUnavailable("not-found"); return; }
 
   addRecentlyViewed(product.id);
   track("view_item", { product_id: product.id, value: product.price, currency: "VND" });
@@ -107,6 +125,59 @@ export async function renderDetail() {
       };
     });
     syncSticky();
+    syncSoldOut();
+  };
+
+  // Sold-out sizes stay visible (disabled) and offer "Notify me"; a fully sold-out
+  // colour turns Add to Bag into a sold-out state with the same alert route.
+  const notifyRow = document.createElement("div");
+  notifyRow.className = "pdp-notify js-pdp-notify";
+  selectionError.insertAdjacentElement("afterend", notifyRow);
+  const syncSoldOut = () => {
+    const sizes = getAvailableSizes(product, selectedColor);
+    const soldOut = sizes.filter((item) => item.inventoryKnown && item.stock < 1);
+    const allSoldOut = soldOut.length === sizes.length;
+    const colorName = product.colors.find((color) => color.value === selectedColor)?.name || "";
+    addButton.disabled = allSoldOut;
+    addButton.textContent = allSoldOut ? `Sold out in ${colorName}` : "Add to Bag";
+    if (!soldOut.length) {
+      notifyRow.hidden = true;
+      notifyRow.innerHTML = "";
+      return;
+    }
+    notifyRow.hidden = false;
+    notifyRow.innerHTML = `<span>${allSoldOut ? `${escapeHtml(colorName)} is sold out in every size.` : `Sold out in ${soldOut.map((item) => escapeHtml(item.size)).join(", ")}.`}</span><button type="button" class="text-action js-notify-open">Notify me when it returns</button>`;
+    notifyRow.querySelector(".js-notify-open").addEventListener("click", () => openNotify(soldOut.map((item) => item.size), colorName));
+  };
+
+  const openNotify = (sizes, colorName) => {
+    const account = getCurrentAccount();
+    const overlay = openPanel(`
+      <p class="eyebrow">NOTIFY ME</p>
+      <h2 id="commerce-drawer-title">Hear when it returns.</h2>
+      <p class="commerce-drawer-intro">${escapeHtml(product.name)}, ${escapeHtml(colorName)}</p>
+      <form class="js-notify-form notify-form" novalidate>
+        <div class="form-group"><label for="notifySize">Size*</label><select id="notifySize" name="size" required>${sizes.map((size) => `<option value="${escapeHtml(size)}">${escapeHtml(size)}</option>`).join("")}</select></div>
+        <div class="form-group"><label for="notifyEmail">Email*</label><input id="notifyEmail" name="email" type="email" autocomplete="email" required maxlength="254" value="${escapeHtml(account?.email || "")}"></div>
+        <p class="commerce-inline-error js-notify-error" role="alert"></p>
+        <button type="submit" class="commerce-primary-action js-notify-submit">Notify me</button>
+        <p class="commerce-drawer-intro">Demo store: the alert is saved in this tab only. No email will be sent.</p>
+      </form>`);
+    const form = overlay.querySelector(".js-notify-form");
+    const validate = bindFormValidation(form);
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!validate()) return;
+      const data = new FormData(form);
+      const result = await runRequest(form.querySelector(".js-notify-submit"), "Saving…", () => requestStockAlert({
+        productId: product.id, productName: product.name, color: selectedColor, colorName, size: data.get("size"), email: data.get("email"),
+      }), { errorElement: form.querySelector(".js-notify-error") });
+      if (!result?.ok) return;
+      const content = overlay.querySelector(".js-commerce-drawer-content");
+      content.innerHTML = `<p class="eyebrow">NOTIFY ME</p><h2 id="commerce-drawer-title">${result.duplicate ? "You’re already on the list." : "You’re on the list."}</h2><p class="commerce-drawer-intro js-notify-confirmation">${escapeHtml(product.name)}, ${escapeHtml(colorName)}, size ${escapeHtml(data.get("size"))}. In this demo the alert is kept in this tab; no email is sent.</p><button type="button" class="commerce-primary-action js-notify-done">Continue browsing</button><a class="commerce-secondary-action" href="account.html#alerts">View alerts in your account</a>`;
+      content.querySelector(".js-notify-done").addEventListener("click", closeDrawer);
+      content.querySelector(".js-notify-done").focus();
+    });
   };
 
   const renderColors = () => {
@@ -184,6 +255,8 @@ export async function renderDetail() {
     track("open_size_guide", { product_id: product.id });
     openSizeGuide();
   });
+  // Purchase controls are live from here (used by QA scripts to avoid pre-hydration clicks).
+  document.body.dataset.pdpReady = "true";
 
   const relatedWrap = document.querySelector(".js-related-grid");
   if (relatedWrap) {

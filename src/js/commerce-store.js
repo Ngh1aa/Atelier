@@ -1,3 +1,5 @@
+import { createDemoSeed, DEMO_SEED_VERSION } from "../data/demo-seed.js";
+
 const CART_KEY = "atelier.cart.v2";
 const LEGACY_CART_KEY = "atelier.cart";
 const WISHLIST_KEY = "atelier.wishlist.v2";
@@ -71,9 +73,120 @@ const COLOR_PRESETS = {
 
 let cataloguePromise;
 
-function safeRead(key, fallback) {
+// ---------------------------------------------------------------------------
+// Tab-local demo data. sessionStorage keeps every piece of user data inside this
+// browser tab: it survives navigation and reload, and disappears with the tab.
+// The first read in a tab seeds it from src/data/demo-seed.js.
+// ---------------------------------------------------------------------------
+const SEED_MARKER_KEY = "atelier.demo.seeded";
+const INVENTORY_KEY = "atelier.inventory.v1";
+const PROMO_CODES_KEY = "atelier.promo-codes.v1";
+const APPLIED_PROMO_KEY = "atelier.promo.v1";
+const GIFT_KEY = "atelier.gift-note.v1";
+const ACCOUNTS_KEY = "atelier.accounts.v1";
+const SESSION_KEY = "atelier.session.v1";
+const ADDRESS_KEY = "atelier.addresses.v1";
+const NOTIFY_KEY = "atelier.stock-alerts.v1";
+const APPOINTMENT_CONFIG_KEY = "atelier.appointment-config.v1";
+const APPOINTMENT_KEY = "atelier.appointments.v1";
+const MESSAGE_KEY = "atelier.enquiries.v1";
+const RESET_KEY = "atelier.password-resets.v1";
+const FAILURE_KEY = "atelier.demo.failure";
+let seeding = false;
+
+function storageArea() {
   try {
-    const value = JSON.parse(localStorage.getItem(key));
+    if (globalThis.sessionStorage) return globalThis.sessionStorage;
+  } catch { /* storage blocked: fall through */ }
+  return globalThis.localStorage;
+}
+
+function writeRaw(key, value) {
+  storageArea().setItem(key, JSON.stringify(value));
+}
+
+export function ensureSeeded() {
+  if (seeding) return;
+  const area = storageArea();
+  try {
+    if (area.getItem(SEED_MARKER_KEY) === String(DEMO_SEED_VERSION)) return;
+  } catch { return; }
+  seeding = true;
+  try {
+    const seed = createDemoSeed();
+    writeRaw(INVENTORY_KEY, seed.inventory);
+    writeRaw(PROMO_CODES_KEY, seed.promoCodes);
+    writeRaw(ACCOUNTS_KEY, seed.accounts);
+    writeRaw(ADDRESS_KEY, seed.addresses);
+    writeRaw(ORDER_KEY, seed.orders);
+    writeRaw(CART_KEY, seed.cart);
+    writeRaw(WISHLIST_KEY, seed.wishlist);
+    writeRaw(APPOINTMENT_CONFIG_KEY, seed.appointments);
+    writeRaw(APPOINTMENT_KEY, seed.appointments.booked);
+    area.setItem(SEED_MARKER_KEY, String(DEMO_SEED_VERSION));
+  } catch { /* storage full or blocked: callers fall back to defaults */ }
+  finally { seeding = false; }
+}
+
+// Clears every ATELIER key in this tab (and legacy localStorage records), then seeds again.
+export function resetDemoData() {
+  const area = storageArea();
+  const keys = [];
+  for (let index = 0; index < area.length; index += 1) keys.push(area.key(index));
+  keys.filter((key) => key?.startsWith("atelier.")).forEach((key) => area.removeItem(key));
+  try {
+    const legacy = globalThis.localStorage;
+    if (legacy && legacy !== area) {
+      const legacyKeys = [];
+      for (let index = 0; index < legacy.length; index += 1) legacyKeys.push(legacy.key(index));
+      legacyKeys.filter((key) => key?.startsWith("atelier.")).forEach((key) => legacy.removeItem(key));
+    }
+  } catch { /* ignore */ }
+  cataloguePromise = undefined;
+  ensureSeeded();
+  emit("atelier:cart-updated", { cart: [] });
+  emit("atelier:wishlist-updated", { wishlist: [] });
+}
+
+// Simulated network: every "server" action goes through here so latency, loading
+// states and recoverable failures can be demonstrated without a backend.
+export class DemoRequestError extends Error {
+  constructor(message = "The request could not be completed. Nothing was saved — please try again.") {
+    super(message);
+    this.name = "DemoRequestError";
+    this.recoverable = true;
+  }
+}
+
+export function getFailureMode() {
+  try { return storageArea().getItem(FAILURE_KEY) || "off"; } catch { return "off"; }
+}
+
+export function setFailureMode(mode) {
+  const value = ["off", "next", "always"].includes(mode) ? mode : "off";
+  storageArea().setItem(FAILURE_KEY, value);
+  emit("atelier:demo-failure-updated", { mode: value });
+  return value;
+}
+
+function consumeFailure() {
+  const mode = getFailureMode();
+  if (mode === "next") setFailureMode("off");
+  return mode === "next" || mode === "always";
+}
+
+export const DEMO_LATENCY = 420;
+
+export async function simulateRequest(work, { latency = DEMO_LATENCY } = {}) {
+  await new Promise((resolve) => setTimeout(resolve, latency));
+  if (consumeFailure()) throw new DemoRequestError();
+  return work();
+}
+
+function safeRead(key, fallback) {
+  ensureSeeded();
+  try {
+    const value = JSON.parse(storageArea().getItem(key));
     return value ?? fallback;
   } catch {
     return fallback;
@@ -81,7 +194,12 @@ function safeRead(key, fallback) {
 }
 
 function safeWrite(key, value) {
-  localStorage.setItem(key, JSON.stringify(value));
+  ensureSeeded();
+  storageArea().setItem(key, JSON.stringify(value));
+}
+
+function removeKey(key) {
+  storageArea().removeItem(key);
 }
 
 function slug(value) {
@@ -93,14 +211,14 @@ function slug(value) {
     .replace(/^-|-$/g, "");
 }
 
-function normaliseProduct(product) {
+function normaliseProduct(product, inventoryMap = {}) {
   const colors = product.colors?.length ? product.colors : (COLOR_PRESETS[product.id] || [
     { name: "Black", value: "black", hex: "#151515" },
   ]);
   const images = [...new Set((product.images || []).filter(Boolean))];
 
   const variants = colors.flatMap((color) => product.sizes.map((size) => {
-    const explicitStock = product.inventory?.[color.value]?.[size];
+    const explicitStock = (inventoryMap[product.id] || product.inventory)?.[color.value]?.[size];
     const inventoryKnown = Number.isFinite(Number(explicitStock));
     return {
       id: `${product.id}-${color.value}-${slug(size)}`,
@@ -138,7 +256,12 @@ export async function loadProducts() {
         if (!response.ok) throw new Error("The catalogue could not be loaded.");
         return response.json();
       })
-      .then((products) => products.map(normaliseProduct))
+      .then((products) => {
+        // "Fail every request" also takes the catalogue down, so error states can be reviewed.
+        if (getFailureMode() === "always") throw new DemoRequestError("The catalogue could not be loaded.");
+        const inventoryMap = getInventory();
+        return products.map((product) => normaliseProduct(product, inventoryMap));
+      })
       .catch((error) => { cataloguePromise = undefined; throw error; });
   }
   return cataloguePromise;
@@ -204,7 +327,7 @@ function emit(name, detail) {
 
 export function saveCart(cart) {
   safeWrite(CART_KEY, cart);
-  localStorage.removeItem(LEGACY_CART_KEY);
+  removeKey(LEGACY_CART_KEY);
   emit("atelier:cart-updated", { cart });
 }
 
@@ -351,7 +474,7 @@ export function toggleWishlist(productId, preferredVariantId = null) {
     track("add_to_wishlist", { product_id: productId, variant_id: preferredVariantId });
   }
   safeWrite(WISHLIST_KEY, wishlist);
-  localStorage.removeItem(LEGACY_WISHLIST_KEY);
+  removeKey(LEGACY_WISHLIST_KEY);
   emit("atelier:wishlist-updated", { wishlist });
   return saved;
 }
@@ -372,7 +495,7 @@ export function validateInventory(lines) {
     ok: unavailable.length === 0,
     unavailable,
     message: unavailable.length
-      ? `${unavailable[0].product.name} · size ${unavailable[0].size} is unavailable in the requested quantity.`
+      ? `${unavailable[0].product.name}, size ${unavailable[0].size} is unavailable in the requested quantity.`
       : "",
   };
 }
@@ -386,19 +509,25 @@ function makeOrderId() {
 
 export function createOrder(orderInput) {
   const orders = safeRead(ORDER_KEY, []);
+  const createdAt = new Date().toISOString();
   const order = {
     id: makeOrderId(),
     currency: "VND",
     reality: "SIMULATED_LOCAL",
-    paymentStatus: orderInput.paymentMethod === "cod" ? "pending-local" : "awaiting-transfer-local",
+    status: "processing",
+    accountEmail: getSession()?.email || null,
+    paymentStatus: orderInput.paymentMethod === "cod" ? "pending-local"
+      : orderInput.paymentMethod === "card-simulated" ? "authorised-simulated" : "awaiting-transfer-local",
     fulfillmentStatus: "recorded-local",
     tracking: null,
     serviceRequests: [],
-    createdAt: new Date().toISOString(),
+    timeline: [{ status: "processing", at: createdAt }],
+    createdAt,
     ...orderInput,
   };
   orders.unshift(order);
   safeWrite(ORDER_KEY, orders);
+  adjustInventory(order.items || [], -1);
   track("purchase", { order_id: order.id, value: order.total, currency: "VND", reality: "local_prototype" });
   return order;
 }
@@ -423,9 +552,9 @@ export function updateOrder(orderId, update) {
 
 export function saveOrderServiceRequest(orderId, request) {
   const order = getOrder(orderId);
-  if (!order) return { ok: false, message: "This order is no longer on this device." };
+  if (!order) return { ok: false, message: "This order could not be found in this tab." };
   if (order.serviceRequests?.some((item) => item.itemIndex === request.itemIndex)) {
-    return { ok: false, message: "This piece already has a service note. Remove that note before choosing a different request." };
+    return { ok: false, message: "This piece already has a request. Withdraw it before choosing a different one." };
   }
   return { ok: true, order: updateOrder(orderId, { serviceRequests: [...(order.serviceRequests || []), request] }) };
 }
@@ -441,6 +570,13 @@ export function getRecentlyViewed() {
 }
 
 export function getClientProfile() {
+  const account = getCurrentAccount();
+  if (account) {
+    const address = getAddresses().find((item) => item.isDefault) || getAddresses()[0] || {};
+    return { fullName: address.fullName || account.fullName, email: account.email, phone: address.phone || account.phone,
+      address: address.address || "", apartment: address.apartment || "", district: address.district || "",
+      province: address.province || "", postalCode: address.postalCode || "" };
+  }
   const profile = safeRead(PROFILE_KEY, {});
   return profile && typeof profile === "object" && !Array.isArray(profile) ? profile : {};
 }
@@ -452,7 +588,7 @@ export function saveClientProfile(values) {
   return profile;
 }
 
-export function clearClientProfile() { localStorage.removeItem(PROFILE_KEY); }
+export function clearClientProfile() { removeKey(PROFILE_KEY); }
 export function getEnquiryDraft() { return safeRead(ENQUIRY_KEY, null); }
 export function saveEnquiryDraft(values) {
   const draft = { topic: String(values.topic || "product"), orderId: String(values.orderId || ""),
@@ -460,7 +596,7 @@ export function saveEnquiryDraft(values) {
   safeWrite(ENQUIRY_KEY, draft);
   return draft;
 }
-export function clearEnquiryDraft() { localStorage.removeItem(ENQUIRY_KEY); }
+export function clearEnquiryDraft() { removeKey(ENQUIRY_KEY); }
 
 export function getDeliveryWindow(express = false) {
   const start = new Date();
@@ -476,4 +612,381 @@ export function getDeliveryWindow(express = false) {
 export function track(eventName, payload = {}) {
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({ event: eventName, ...payload });
+}
+
+// ---------------------------------------------------------------------------
+// Inventory (tab-local, seeded). Demo orders decrement stock; cancellations restore it.
+// ---------------------------------------------------------------------------
+export function getInventory() {
+  const inventory = safeRead(INVENTORY_KEY, {});
+  return inventory && typeof inventory === "object" ? inventory : {};
+}
+
+function adjustInventory(items, direction) {
+  const inventory = getInventory();
+  let changed = false;
+  items.forEach((item) => {
+    const byColor = inventory[item.productId];
+    if (!byColor) return;
+    const colorKey = Object.keys(byColor).find((key) => key === item.colorValue || key === String(item.color || "").toLowerCase());
+    if (!colorKey || !Number.isFinite(Number(byColor[colorKey][item.size]))) return;
+    byColor[colorKey][item.size] = Math.max(0, Number(byColor[colorKey][item.size]) + direction * Number(item.quantity || 0));
+    changed = true;
+  });
+  if (changed) {
+    safeWrite(INVENTORY_KEY, inventory);
+    cataloguePromise = undefined;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Promo codes and gift note (Bag -> Checkout -> Order).
+// ---------------------------------------------------------------------------
+export function getPromoCodes() {
+  return safeRead(PROMO_CODES_KEY, []);
+}
+
+export function evaluatePromo(code, subtotal) {
+  const value = String(code || "").trim().toUpperCase();
+  if (!value) return { ok: false, message: "Enter a promo code." };
+  const promo = getPromoCodes().find((item) => item.code === value);
+  if (!promo) return { ok: false, message: `“${value}” isn’t a recognised code. Check the spelling and try again.` };
+  if (promo.expired) return { ok: false, message: `“${value}” has expired.` };
+  if (promo.minSubtotal && subtotal < promo.minSubtotal) return { ok: false, message: `“${value}” applies to orders from ${formatVND(promo.minSubtotal)}. Your Bag is ${formatVND(subtotal)}.` };
+  const discount = promo.type === "percent" ? Math.round(subtotal * promo.value / 100) : Math.min(subtotal, promo.value);
+  return { ok: true, promo, discount, message: `${promo.code} applied: ${promo.label}.` };
+}
+
+export function getAppliedPromo() {
+  return safeRead(APPLIED_PROMO_KEY, null);
+}
+
+export async function applyPromo(code, subtotal) {
+  return simulateRequest(() => {
+    const result = evaluatePromo(code, subtotal);
+    if (result.ok) safeWrite(APPLIED_PROMO_KEY, result.promo.code);
+    return result;
+  });
+}
+
+export function removePromo() { removeKey(APPLIED_PROMO_KEY); }
+
+// Discount for the current Bag; a code that no longer qualifies stays saved but gives 0.
+export function promoDiscount(subtotal) {
+  const code = getAppliedPromo();
+  if (!code) return { code: null, discount: 0, ok: false, message: "" };
+  const result = evaluatePromo(code, subtotal);
+  return { code, discount: result.ok ? result.discount : 0, ok: result.ok, message: result.message };
+}
+
+export function getGiftNote() {
+  const note = safeRead(GIFT_KEY, null);
+  return note && typeof note === "object" ? note : { enabled: false, message: "" };
+}
+
+export function saveGiftNote({ enabled, message }) {
+  const note = { enabled: Boolean(enabled), message: String(message || "").slice(0, 200) };
+  safeWrite(GIFT_KEY, note);
+  return note;
+}
+
+export function clearCheckoutExtras() {
+  removeKey(APPLIED_PROMO_KEY);
+  removeKey(GIFT_KEY);
+}
+
+// ---------------------------------------------------------------------------
+// Orders: cancellation (while processing), returns and history per account.
+// ---------------------------------------------------------------------------
+export const ORDER_STATUS_LABELS = {
+  processing: "Processing",
+  shipped: "Shipped",
+  delivered: "Delivered",
+  cancelled: "Cancelled",
+  "return-requested": "Return requested",
+};
+
+export function canCancelOrder(order) { return (order?.status || "processing") === "processing"; }
+export function canRequestReturn(order) { return order?.status === "delivered" || order?.status === "return-requested"; }
+
+export async function cancelOrder(orderId, reason = "") {
+  return simulateRequest(() => {
+    const order = getOrder(orderId);
+    if (!order) return { ok: false, message: "This order could not be found." };
+    if (!canCancelOrder(order)) return { ok: false, message: "This order can no longer be cancelled." };
+    const now = new Date().toISOString();
+    const updated = updateOrder(orderId, { status: "cancelled", cancelReason: String(reason), timeline: [...(order.timeline || []), { status: "cancelled", at: now }] });
+    adjustInventory(order.items || [], 1);
+    track("order_cancelled", { order_id: orderId, reality: "local_prototype" });
+    return { ok: true, order: updated };
+  });
+}
+
+export async function submitServiceRequest(orderId, request) {
+  return simulateRequest(() => {
+    const result = saveOrderServiceRequest(orderId, request);
+    if (!result.ok) return result;
+    const order = result.order;
+    if (order.status === "delivered") {
+      return { ok: true, order: updateOrder(orderId, { status: "return-requested", timeline: [...(order.timeline || []), { status: "return-requested", at: new Date().toISOString() }] }) };
+    }
+    return result;
+  });
+}
+
+export function getAccountOrders(email) {
+  const target = String(email || "").toLowerCase();
+  return getOrders().filter((order) => (order.accountEmail || "").toLowerCase() === target || (order.customer?.email || "").toLowerCase() === target);
+}
+
+export async function lookupOrder(orderId, email) {
+  return simulateRequest(() => {
+    const id = String(orderId || "").trim().toUpperCase();
+    const order = getOrders().find((item) => item.id.toUpperCase() === id && (item.customer?.email || "").toLowerCase() === String(email || "").trim().toLowerCase());
+    return order ? { ok: true, order } : { ok: false, message: "No order matches that number and email in this demo session." };
+  });
+}
+
+// ---------------------------------------------------------------------------
+// Simulated accounts. Credentials live in this tab only; nothing is sent anywhere.
+// ---------------------------------------------------------------------------
+function normaliseEmail(value) { return String(value || "").trim().toLowerCase(); }
+
+export function getAccounts() { return safeRead(ACCOUNTS_KEY, []); }
+export function getSession() { return safeRead(SESSION_KEY, null); }
+
+export function getCurrentAccount() {
+  const session = getSession();
+  if (!session) return null;
+  const account = getAccounts().find((item) => item.email === session.email);
+  if (!account) return null;
+  const { password, ...publicAccount } = account;
+  void password;
+  return publicAccount;
+}
+
+function startSession(email) {
+  safeWrite(SESSION_KEY, { email, signedInAt: new Date().toISOString() });
+  emit("atelier:session-updated", { email });
+}
+
+export async function signIn({ email, password }) {
+  return simulateRequest(() => {
+    const account = getAccounts().find((item) => item.email === normaliseEmail(email));
+    if (!account || account.password !== String(password || "")) return { ok: false, message: "That email and password don’t match a demo account. Check them, or create an account." };
+    startSession(account.email);
+    track("login", { method: "demo" });
+    return { ok: true };
+  });
+}
+
+export async function signUp({ fullName, email, password, phone = "" }) {
+  return simulateRequest(() => {
+    const normalised = normaliseEmail(email);
+    const accounts = getAccounts();
+    if (accounts.some((item) => item.email === normalised)) return { ok: false, field: "email", message: "An account with this email already exists in this demo. Sign in instead." };
+    if (String(password || "").length < 8) return { ok: false, field: "password", message: "Use at least 8 characters for the password." };
+    accounts.push({ email: normalised, password: String(password), fullName: String(fullName || "").trim(), phone: String(phone || "").trim(), createdAt: new Date().toISOString() });
+    safeWrite(ACCOUNTS_KEY, accounts);
+    startSession(normalised);
+    track("sign_up", { method: "demo" });
+    return { ok: true };
+  });
+}
+
+export function signOut() {
+  removeKey(SESSION_KEY);
+  emit("atelier:session-updated", { email: null });
+}
+
+export async function requestPasswordReset(email) {
+  return simulateRequest(() => {
+    const normalised = normaliseEmail(email);
+    const exists = getAccounts().some((item) => item.email === normalised);
+    // Same response either way, as a real store would. No email is sent: the demo shows the code on screen.
+    const code = String(Math.floor(100000 + Math.random() * 900000));
+    const resets = safeRead(RESET_KEY, {});
+    if (exists) resets[normalised] = code;
+    safeWrite(RESET_KEY, resets);
+    return { ok: true, demoCode: exists ? code : null };
+  });
+}
+
+export async function resetPassword({ email, code, password }) {
+  return simulateRequest(() => {
+    const normalised = normaliseEmail(email);
+    const resets = safeRead(RESET_KEY, {});
+    if (!resets[normalised] || resets[normalised] !== String(code || "").trim()) return { ok: false, field: "code", message: "That reset code isn’t valid. Request a new one." };
+    if (String(password || "").length < 8) return { ok: false, field: "password", message: "Use at least 8 characters for the new password." };
+    safeWrite(ACCOUNTS_KEY, getAccounts().map((item) => item.email === normalised ? { ...item, password: String(password) } : item));
+    delete resets[normalised];
+    safeWrite(RESET_KEY, resets);
+    return { ok: true };
+  });
+}
+
+export async function updateAccountProfile(values) {
+  return simulateRequest(() => {
+    const session = getSession();
+    if (!session) return { ok: false, message: "Sign in to edit your profile." };
+    const nextEmail = normaliseEmail(values.email || session.email);
+    const accounts = getAccounts();
+    if (nextEmail !== session.email && accounts.some((item) => item.email === nextEmail)) return { ok: false, field: "email", message: "Another demo account already uses this email." };
+    safeWrite(ACCOUNTS_KEY, accounts.map((item) => item.email === session.email
+      ? { ...item, email: nextEmail, fullName: String(values.fullName || "").trim(), phone: String(values.phone || "").trim() } : item));
+    if (nextEmail !== session.email) {
+      safeWrite(ADDRESS_KEY, safeRead(ADDRESS_KEY, []).map((item) => item.accountEmail === session.email ? { ...item, accountEmail: nextEmail } : item));
+      safeWrite(ORDER_KEY, getOrders().map((item) => item.accountEmail === session.email ? { ...item, accountEmail: nextEmail } : item));
+      startSession(nextEmail);
+    }
+    return { ok: true, account: getCurrentAccount() };
+  });
+}
+
+// ---------------------------------------------------------------------------
+// Address book (per signed-in account).
+// ---------------------------------------------------------------------------
+const ADDRESS_FIELDS = ["label", "fullName", "phone", "address", "apartment", "district", "province", "postalCode"];
+
+export function getAddresses() {
+  const session = getSession();
+  if (!session) return [];
+  return safeRead(ADDRESS_KEY, []).filter((item) => item.accountEmail === session.email);
+}
+
+export async function saveAddress(values) {
+  return simulateRequest(() => {
+    const session = getSession();
+    if (!session) return { ok: false, message: "Sign in to save addresses." };
+    const all = safeRead(ADDRESS_KEY, []);
+    const clean = Object.fromEntries(ADDRESS_FIELDS.map((key) => [key, String(values[key] || "").trim()]));
+    const mine = all.filter((item) => item.accountEmail === session.email);
+    let id = values.id;
+    if (id && all.some((item) => item.id === id && item.accountEmail === session.email)) {
+      const index = all.findIndex((item) => item.id === id);
+      all[index] = { ...all[index], ...clean };
+    } else {
+      id = `ADDR-${Date.now().toString(36).toUpperCase()}`;
+      all.push({ id, accountEmail: session.email, ...clean, isDefault: !mine.length });
+    }
+    const next = values.isDefault ? all.map((item) => item.accountEmail === session.email ? { ...item, isDefault: item.id === id } : item) : all;
+    safeWrite(ADDRESS_KEY, next);
+    return { ok: true, id };
+  });
+}
+
+export async function deleteAddress(id) {
+  return simulateRequest(() => {
+    const session = getSession();
+    const all = safeRead(ADDRESS_KEY, []);
+    const target = all.find((item) => item.id === id && item.accountEmail === session?.email);
+    if (!target) return { ok: false, message: "This address no longer exists." };
+    let next = all.filter((item) => item.id !== id);
+    if (target.isDefault) {
+      const firstMine = next.find((item) => item.accountEmail === session.email);
+      if (firstMine) next = next.map((item) => item.id === firstMine.id ? { ...item, isDefault: true } : item);
+    }
+    safeWrite(ADDRESS_KEY, next);
+    return { ok: true };
+  });
+}
+
+export async function setDefaultAddress(id) {
+  return simulateRequest(() => {
+    const session = getSession();
+    safeWrite(ADDRESS_KEY, safeRead(ADDRESS_KEY, []).map((item) => item.accountEmail === session?.email ? { ...item, isDefault: item.id === id } : item));
+    return { ok: true };
+  });
+}
+
+// ---------------------------------------------------------------------------
+// Stock alerts ("Notify me" on sold-out sizes). No email is ever sent.
+// ---------------------------------------------------------------------------
+export function getStockAlerts() { return safeRead(NOTIFY_KEY, []); }
+
+export async function requestStockAlert({ productId, productName, color, colorName, size, email }) {
+  return simulateRequest(() => {
+    const alerts = getStockAlerts();
+    const normalised = normaliseEmail(email);
+    if (alerts.some((item) => item.productId === productId && item.color === color && item.size === size && item.email === normalised)) {
+      return { ok: true, duplicate: true };
+    }
+    alerts.push({ id: `ALERT-${Date.now().toString(36).toUpperCase()}`, productId, productName, color, colorName, size, email: normalised, createdAt: new Date().toISOString() });
+    safeWrite(NOTIFY_KEY, alerts);
+    track("stock_alert_requested", { product_id: productId, size, reality: "local_prototype" });
+    return { ok: true, duplicate: false };
+  });
+}
+
+export async function removeStockAlert(id) {
+  return simulateRequest(() => {
+    safeWrite(NOTIFY_KEY, getStockAlerts().filter((item) => item.id !== id));
+    return { ok: true };
+  });
+}
+
+// ---------------------------------------------------------------------------
+// Client Services: appointments and enquiries.
+// ---------------------------------------------------------------------------
+export function getAppointmentConfig() { return safeRead(APPOINTMENT_CONFIG_KEY, { services: [], times: [], daysAhead: 0, closedWeekdays: [], taken: [] }); }
+export function getAppointments() { return safeRead(APPOINTMENT_KEY, []); }
+
+function dateKey(date) {
+  return [date.getFullYear(), String(date.getMonth() + 1).padStart(2, "0"), String(date.getDate()).padStart(2, "0")].join("-");
+}
+
+export function getAppointmentDays(today = new Date()) {
+  const config = getAppointmentConfig();
+  const booked = getAppointments().filter((item) => item.status !== "cancelled");
+  const days = [];
+  for (let offset = 1; offset <= config.daysAhead; offset += 1) {
+    const date = new Date(today);
+    date.setDate(date.getDate() + offset);
+    if (config.closedWeekdays.includes(date.getDay())) continue;
+    const key = dateKey(date);
+    const slots = config.times.map((time) => ({
+      time,
+      available: !config.taken.some((item) => item.dayOffset === offset && item.time === time) && !booked.some((item) => item.date === key && item.time === time),
+    }));
+    days.push({ key, date, slots });
+  }
+  return days;
+}
+
+export async function bookAppointment(values) {
+  return simulateRequest(() => {
+    const day = getAppointmentDays().find((item) => item.key === values.date);
+    const slot = day?.slots.find((item) => item.time === values.time);
+    if (!slot || !slot.available) return { ok: false, field: "time", message: "That time is no longer available. Choose another slot." };
+    const service = getAppointmentConfig().services.find((item) => item.id === values.service);
+    const appointment = {
+      id: `APT-${Date.now().toString(36).toUpperCase()}`, status: "booked", service: values.service, serviceLabel: service?.label || values.service,
+      date: values.date, time: values.time, fullName: String(values.fullName || "").trim(), email: normaliseEmail(values.email),
+      phone: String(values.phone || "").trim(), notes: String(values.notes || "").trim().slice(0, 500), createdAt: new Date().toISOString(),
+    };
+    safeWrite(APPOINTMENT_KEY, [...getAppointments(), appointment]);
+    track("appointment_booked", { service: values.service, reality: "local_prototype" });
+    return { ok: true, appointment };
+  });
+}
+
+export async function cancelAppointment(id) {
+  return simulateRequest(() => {
+    safeWrite(APPOINTMENT_KEY, getAppointments().map((item) => item.id === id ? { ...item, status: "cancelled" } : item));
+    return { ok: true };
+  });
+}
+
+export function getEnquiries() { return safeRead(MESSAGE_KEY, []); }
+
+export async function sendEnquiry(values) {
+  return simulateRequest(() => {
+    const enquiry = {
+      id: `ENQ-${String(Date.now()).slice(-6)}`, topic: String(values.topic || "other"), orderId: String(values.orderId || ""),
+      fullName: String(values.fullName || "").trim(), email: normaliseEmail(values.email), message: String(values.message || "").trim().slice(0, 2000),
+      status: "received-simulated", createdAt: new Date().toISOString(),
+    };
+    safeWrite(MESSAGE_KEY, [enquiry, ...getEnquiries()]);
+    return { ok: true, enquiry };
+  });
 }

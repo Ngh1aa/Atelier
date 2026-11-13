@@ -1,5 +1,5 @@
-import { cartCount, formatVND, loadProducts, matchesProductSearch, SEARCH_SYNONYMS, track } from "./commerce-store.js?v=white-editorial-v6";
-import { escapeHtml, initCommerceUi, updateGlobalIndicators } from "./commerce-ui.js?v=white-editorial-v6";
+import { cartCount, formatVND, loadProducts, matchesProductSearch, SEARCH_SYNONYMS, track } from "./commerce-store.js?v=full-prototype";
+import { escapeHtml, initCommerceUi, updateGlobalIndicators } from "./commerce-ui.js?v=full-prototype";
 
 export function initSearchOverlay() {
   const btn = document.getElementById("navSearchBtn");

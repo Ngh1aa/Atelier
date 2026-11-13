@@ -12,7 +12,7 @@
   <meta property="og:url" content="https://ngh1aa.github.io/Atelier/detailproduct.html">
   <link rel="stylesheet" href="./atelier-v14-site.css?v=monochrome-20260907">
   <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
-  <script>document.documentElement.classList.add("js-enabled")</script>
+  <script>document.documentElement.classList.add("js-enabled");</script>
 </head>
 <body class="js-enabled page-pdp v14">
   <nav aria-label="Primary navigation">
@@ -28,7 +28,7 @@
       <div class="nav-icons right">
         <button type="button" class="nav-search-btn" aria-label="Search" id="navSearchBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 6 6"/></svg></button>
         <a href="cart.html" class="nav-text nav-cart">Bag (<span class="js-nav-bag-count">0</span>)</a>
-        <a href="favourite.html" class="nav-text">Saved</a>
+        <a href="favourite.html" class="nav-text">Saved</a><a href="account.html" class="nav-text nav-account">Account</a>
       </div>
     </div>
   </nav>
@@ -37,7 +37,7 @@
     <div class="nav-search-form">
       <label for="navSearchInput" class="eyebrow">Search the collection</label>
       <input id="navSearchInput" type="search" placeholder="Product, material or colour" autocomplete="off">
-      <button type="button" class="nav-search-close" id="navSearchClose" aria-label="Close search">&times;</button>
+      <button type="button" class="nav-search-close" id="navSearchClose" aria-label="Close search"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
       <div class="nav-search-results" id="navSearchResults"></div>
     </div>
   </div>
@@ -50,7 +50,7 @@
         <div class="product-detail-grid">
           <div class="product-visuals reveal">
             <div class="main-img-wrap"><img src="./assets/products/pinkparks/belted-cropped-jacket.jpg" alt="Belted Cropped Jacket" id="main-product-img" fetchpriority="high" decoding="async"></div>
-            <div class="thumbnail-gallery js-thumbnail-gallery" aria-label="Product images"></div>
+            <div class="thumbnail-gallery js-thumbnail-gallery" role="group" aria-label="Product images"></div>
           </div>
 
           <aside class="product-info-col reveal" aria-label="Product fitting and purchase">
@@ -85,13 +85,13 @@
 
             <section class="pdp-fit-summary" aria-label="Fit guidance"><span>FIT</span><p class="js-product-fit">Cropped, shaped silhouette with room for a fine base layer.</p><small class="js-product-model">Model is 178 cm and wears size S.</small></section>
 
-            <div class="shipping-info" aria-label="Delivery and returns summary">
+            <div class="shipping-info" role="group" aria-label="Delivery and returns summary">
               <div><strong>Complimentary delivery</strong><span class="js-delivery-window">Estimated in 2–4 days</span></div>
               <div><strong>Returns &amp; exchanges</strong><span class="js-return-summary">Within 14 days</span></div>
               <a href="shipping&returns.html">Delivery &amp; Returns →</a>
             </div>
 
-            <div class="product-accordions" aria-label="Product information">
+            <div class="product-accordions" role="group" aria-label="Product information">
               <details open><summary>Material &amp; details</summary><p class="js-product-material">Structured woven fabric. Exact composition is recorded on the garment care label.</p></details>
               <details><summary>Care</summary><p class="js-product-care">Please follow the care label supplied with the garment.</p></details>
               <details><summary>Origin</summary><p class="js-product-origin">Designed in Vietnam. Origin details are recorded on the garment label.</p></details>
@@ -107,7 +107,7 @@
     </section>
   </main>
 
-  <footer class="site-footer"><div class="container"><section class="footer-newsletter footer-editorial" aria-label="ATELIER Journal"><div class="newsletter-text"><p class="eyebrow">ATELIER JOURNAL</p><h3>Considered notes on dress, form and material.</h3></div><a class="btn-outline" href="collections.html">Explore the collection →</a></section><div class="footer-divider"></div><div class="footer-grid"><div class="footer-col brand-col"><div class="logo"><a href="index.html"><span>ATELIER</span></a></div><p>A considered wardrobe for a life in motion.</p></div><div class="footer-col"><h4>Client Services</h4><ul class="footer-links"><li><a href="client-services.html">Client Services</a></li><li><a href="shipping&returns.html">Shipping &amp; Returns</a></li><li><a href="size-guide.html">Size Guide</a></li></ul></div><div class="footer-col"><h4>The House</h4><ul class="footer-links"><li><a href="about.html">Our Story</a></li><li><a href="collections.html">Collections</a></li></ul></div><div class="footer-col"><h4>Legal</h4><ul class="footer-links"><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms of Use</a></li></ul></div></div><div class="footer-bottom"><p>© 2026 ATELIER.</p><p>Vietnam · English edition</p></div></div></footer>
+  <footer class="site-footer"><div class="container"><section class="footer-newsletter footer-editorial" aria-label="ATELIER Journal"><div class="newsletter-text"><p class="eyebrow">ATELIER JOURNAL</p><h3>Considered notes on dress, form and material.</h3></div><a class="btn-outline" href="collections.html">Explore the collection →</a></section><div class="footer-divider"></div><div class="footer-grid"><div class="footer-col brand-col"><div class="logo"><a href="index.html"><span>ATELIER</span></a></div><p>A considered wardrobe for a life in motion.</p></div><div class="footer-col"><h4>Client Services</h4><ul class="footer-links"><li><a href="client-services.html">Client Services</a></li><li><a href="shipping&returns.html">Shipping &amp; Returns</a></li><li><a href="size-guide.html">Size Guide</a></li></ul></div><div class="footer-col"><h4>The House</h4><ul class="footer-links"><li><a href="about.html">Our Story</a></li><li><a href="collections.html">Collections</a></li></ul></div><div class="footer-col"><h4>Legal</h4><ul class="footer-links"><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms of Use</a></li></ul></div></div><div class="footer-bottom"><p>© 2026 ATELIER.</p><p>Vietnam, English edition</p></div></div></footer>
   <script type="module" src="./main.js?v=monochrome-20260907"></script>
 </body>
 </html>

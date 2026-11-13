@@ -44,7 +44,7 @@
   --type-body-lg: clamp(1rem, 1.2vw, 1.125rem);
   --type-body: 0.9375rem;
   --type-small: 0.8125rem;
-  --type-micro: 0.6875rem;
+  --type-micro: 0.75rem;
   --tracking-editorial: -0.045em;
   --tracking-label: 0.14em;
   --leading-tight: 0.98;

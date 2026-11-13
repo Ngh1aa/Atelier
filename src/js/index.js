@@ -1,5 +1,5 @@
-import { formatVND, isWishlisted, loadProducts, toggleWishlist } from "./commerce-store.js?v=white-editorial-v6";
-import { openVariantPicker, showMessage } from "./commerce-ui.js?v=white-editorial-v6";
+import { formatVND, isWishlisted, loadProducts, toggleWishlist } from "./commerce-store.js?v=full-prototype";
+import { openVariantPicker, showMessage } from "./commerce-ui.js?v=full-prototype";
 
 const INDEX_PRODUCTS = {
   "Tailored Coat": "tailored-coat",
@@ -13,7 +13,9 @@ const bookmarkIcon = () => `
   </svg>`;
 
 export async function initIndex() {
-  const products = await loadProducts();
+  let products;
+  // Without the catalogue the editorial cards stay plain links; no quick add is offered.
+  try { products = await loadProducts(); } catch { return; }
 
   document.querySelectorAll(".product-card").forEach((card) => {
     const name = card.querySelector("h3")?.textContent.trim();

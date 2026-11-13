@@ -12,7 +12,7 @@ import {
   removeCartItem,
   SIZE_GUIDE,
   toggleWishlist,
-} from "./commerce-store.js?v=white-editorial-v6";
+} from "./commerce-store.js?v=full-prototype";
 
 let lastFocusedElement = null;
 let closeTimer;
@@ -231,7 +231,7 @@ export async function openMiniBag() {
     <p class="eyebrow">${latest ? "ADDED TO BAG" : "YOUR BAG"}</p>
     <h2 id="commerce-drawer-title">${latest ? "Added to your Bag." : "Your Bag."}</h2>
     <div class="mini-bag-items">
-      ${lines.length ? lines.map((line) => `<article class="mini-bag-item" data-line-id="${escapeHtml(line.id)}"><img src="${escapeHtml(line.product.images[0])}" alt="${escapeHtml(line.product.name)}"><div><a href="detailproduct.html?id=${encodeURIComponent(line.product.id)}">${escapeHtml(line.product.name)}</a><p>${escapeHtml(line.colorName)} · Size ${escapeHtml(line.size)} · Qty ${line.quantity}</p><strong>${formatVND(line.unitPrice * line.quantity)}</strong></div><button type="button" class="js-mini-remove" aria-label="Remove ${escapeHtml(line.product.name)}">×</button></article>`).join("") : '<p class="commerce-empty-copy">Your Bag is empty.</p>'}
+      ${lines.length ? lines.map((line) => `<article class="mini-bag-item" data-line-id="${escapeHtml(line.id)}"><img src="${escapeHtml(line.product.images[0])}" alt="${escapeHtml(line.product.name)}"><div><a href="detailproduct.html?id=${encodeURIComponent(line.product.id)}">${escapeHtml(line.product.name)}</a><p>${escapeHtml(line.colorName)}, size ${escapeHtml(line.size)}, Qty ${line.quantity}</p><strong>${formatVND(line.unitPrice * line.quantity)}</strong></div><button type="button" class="js-mini-remove" aria-label="Remove ${escapeHtml(line.product.name)}">×</button></article>`).join("") : '<p class="commerce-empty-copy">Your Bag is empty.</p>'}
     </div>
     <div class="mini-bag-total"><span>Subtotal</span><strong>${formatVND(subtotal)}</strong></div>
     <div class="mini-bag-actions">
@@ -288,3 +288,52 @@ export async function initCommerceUi() {
 }
 
 export { escapeHtml, getDeliveryWindow, getProduct, isWishlisted, toggleWishlist };
+
+// ---------------------------------------------------------------------------
+// Shared request-state helpers for the simulated store (loading, error, retry).
+// ---------------------------------------------------------------------------
+
+// Opens the shared commerce drawer with arbitrary content (Notify me, confirmations).
+export function openPanel(content) {
+  return openDrawer(content);
+}
+
+// Runs an async action while the trigger shows a busy label. Returns the action's
+// result, or null when the (simulated) request failed — the message is then shown
+// in `errorElement` with a Retry button that runs the same action again.
+export async function runRequest(button, busyLabel, action, { errorElement = null, onError = null } = {}) {
+  const original = button?.textContent;
+  if (button) {
+    button.disabled = true;
+    button.setAttribute("aria-busy", "true");
+    button.textContent = busyLabel;
+  }
+  if (errorElement) errorElement.textContent = "";
+  try {
+    return await action();
+  } catch (error) {
+    const message = error?.recoverable ? error.message : "Something went wrong. Nothing was saved — please try again.";
+    if (errorElement) {
+      errorElement.innerHTML = `<span>${escapeHtml(message)}</span> <button type="button" class="text-action js-request-retry">Try again</button>`;
+      // Retry repeats the original user action so its result flows through the same handler.
+      errorElement.querySelector(".js-request-retry").addEventListener("click", () => { errorElement.textContent = ""; button?.click(); });
+    } else {
+      showMessage(message, { assertive: true });
+    }
+    onError?.(error);
+    return null;
+  } finally {
+    if (button) {
+      button.disabled = false;
+      button.removeAttribute("aria-busy");
+      button.textContent = original;
+    }
+  }
+}
+
+// Full-region error state with a retry action, used when a page cannot load its data.
+export function renderLoadError(container, { title = "This page could not load.", message = "The catalogue did not respond. Nothing has changed in your Bag or Saved pieces.", onRetry } = {}) {
+  if (!container) return;
+  container.innerHTML = `<div class="request-error-state" role="alert"><p class="eyebrow">CONNECTION / DEMO</p><h2>${escapeHtml(title)}</h2><p>${escapeHtml(message)}</p><button type="button" class="btn-outline js-load-retry">Try again</button></div>`;
+  container.querySelector(".js-load-retry").addEventListener("click", () => onRetry?.());
+}
