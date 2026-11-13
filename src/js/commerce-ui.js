@@ -334,6 +334,6 @@ export async function runRequest(button, busyLabel, action, { errorElement = nul
 // Full-region error state with a retry action, used when a page cannot load its data.
 export function renderLoadError(container, { title = "This page could not load.", message = "The catalogue did not respond. Nothing has changed in your Bag or Saved pieces.", onRetry } = {}) {
   if (!container) return;
-  container.innerHTML = `<div class="request-error-state" role="alert"><p class="eyebrow">CONNECTION / DEMO</p><h2>${escapeHtml(title)}</h2><p>${escapeHtml(message)}</p><button type="button" class="btn-outline js-load-retry">Try again</button></div>`;
+  container.innerHTML = `<div class="request-error-state" role="alert"><p class="eyebrow">CONNECTION</p><h2>${escapeHtml(title)}</h2><p>${escapeHtml(message)}</p><button type="button" class="btn-outline js-load-retry">Try again</button></div>`;
   container.querySelector(".js-load-retry").addEventListener("click", () => onRetry?.());
 }

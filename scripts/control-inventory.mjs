@@ -41,6 +41,12 @@ async function seedState(page) {
   if (saved !== "true") await page.locator(".js-btn-wishlist").click().catch(() => {});
 }
 
+async function restoreSignIn(page) {
+  await page.goto(`${baseURL}/login.html`, { waitUntil: "networkidle" });
+  const button = page.locator(".js-continue-as:not([hidden]) .js-continue-as-button");
+  if (await button.count()) await Promise.all([page.waitForURL(/account\.html/), button.click()]);
+}
+
 async function describeControls(page) {
   return page.evaluate((selector) => {
     const visible = (element) => {
@@ -180,6 +186,8 @@ async function inventoryPage(browser, pagePath) {
       await describeControls(page);
       outcome = await activate(page, control);
       if (/Reset demo data/.test(control.label)) { await load().catch(() => {}); await seedState(page).catch(() => {}); }
+      // Visitors start signed in; restore that after testing Sign out so later controls keep their state.
+      if (/^Sign out$/.test(control.label)) await restoreSignIn(page).catch(() => {});
     }
     rows.push({ page: pagePath, ...control, ...outcome });
   }

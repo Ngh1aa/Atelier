@@ -1,10 +1,14 @@
 // Shared non-commerce utilities. V15 motion is owned by src/js/motion-system.js.
 import { createUIFeedback } from './ui-feedback.js?v=4ef8421';
+import { isDemoMode } from './js/demo-mode.js';
 
-createUIFeedback({
-  storageKey: 'atelier-ui-feedback',
-  githubRepo: 'Ngh1aa/Atelier',
-});
+// The design-review feedback toolbar is internal tooling: only with ?demo=1.
+if (isDemoMode()) {
+  createUIFeedback({
+    storageKey: 'atelier-ui-feedback',
+    githubRepo: 'Ngh1aa/Atelier',
+  });
+}
 
 function normalizeFeedbackAccessibility() {
   const host = document.getElementById("ui-feedback-host");

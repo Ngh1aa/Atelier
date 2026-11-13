@@ -161,7 +161,7 @@ export async function renderDetail() {
         <div class="form-group"><label for="notifyEmail">Email*</label><input id="notifyEmail" name="email" type="email" autocomplete="email" required maxlength="254" value="${escapeHtml(account?.email || "")}"></div>
         <p class="commerce-inline-error js-notify-error" role="alert"></p>
         <button type="submit" class="commerce-primary-action js-notify-submit">Notify me</button>
-        <p class="commerce-drawer-intro">Demo store: the alert is saved in this tab only. No email will be sent.</p>
+        <p class="commerce-drawer-intro">We’ll email you once when this size is back. No newsletters.</p>
       </form>`);
     const form = overlay.querySelector(".js-notify-form");
     const validate = bindFormValidation(form);
@@ -174,7 +174,7 @@ export async function renderDetail() {
       }), { errorElement: form.querySelector(".js-notify-error") });
       if (!result?.ok) return;
       const content = overlay.querySelector(".js-commerce-drawer-content");
-      content.innerHTML = `<p class="eyebrow">NOTIFY ME</p><h2 id="commerce-drawer-title">${result.duplicate ? "You’re already on the list." : "You’re on the list."}</h2><p class="commerce-drawer-intro js-notify-confirmation">${escapeHtml(product.name)}, ${escapeHtml(colorName)}, size ${escapeHtml(data.get("size"))}. In this demo the alert is kept in this tab; no email is sent.</p><button type="button" class="commerce-primary-action js-notify-done">Continue browsing</button><a class="commerce-secondary-action" href="account.html#alerts">View alerts in your account</a>`;
+      content.innerHTML = `<p class="eyebrow">NOTIFY ME</p><h2 id="commerce-drawer-title">${result.duplicate ? "You’re already on the list." : "You’re on the list."}</h2><p class="commerce-drawer-intro js-notify-confirmation">${escapeHtml(product.name)}, ${escapeHtml(colorName)}, size ${escapeHtml(data.get("size"))}. We’ll email you once when it’s back in stock.</p><button type="button" class="commerce-primary-action js-notify-done">Continue browsing</button><a class="commerce-secondary-action" href="account.html#alerts">View alerts in your account</a>`;
       content.querySelector(".js-notify-done").addEventListener("click", closeDrawer);
       content.querySelector(".js-notify-done").focus();
     });

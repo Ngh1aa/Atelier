@@ -180,6 +180,12 @@
   .auth-panel { display: grid; gap: 1rem; }
   .auth-forgot { justify-self: start; min-height: 44px; display: inline-flex; align-items: center; }
   .auth-demo-note { margin: 1.5rem 0; }
+  .auth-continue-as { display: grid; gap: 0.75rem; margin-bottom: 1.5rem; }
+  .auth-continue-as .commerce-primary-action { width: 100%; }
+  .auth-continue-as .commerce-inline-error:empty { display: none; }
+  .auth-continue-as__divider { max-width: none; width: 100%; display: flex; align-items: center; gap: 0.75rem; margin: 0.5rem 0 0; font-size: 12px; letter-spacing: var(--tracking-label, 0.14em); text-transform: uppercase; color: var(--muted, #62625e); }
+  .auth-continue-as__divider::before, .auth-continue-as__divider::after { content: ""; flex: 1; border-top: 1px solid var(--rule, #d9d9d6); }
+  .footer-concept-note { opacity: 0.85; }
   .order-lookup-panel { margin-top: var(--space-16, 4rem); padding-top: var(--space-12, 3rem); border-top: 1px solid var(--rule, #d9d9d6); }
   .js-reset-confirm, .js-reset-done { display: grid; gap: 1rem; margin-top: 2rem; }
 
@@ -211,31 +217,53 @@
     .appointment-section { padding: var(--space-16, 4rem) 0; }
   }
 
-  /* ---------- Demo controls (footer) ---------- */
+  /* ---------- Demo tools (floating, only with ?demo=1) ---------- */
   .demo-controls {
-    display: grid;
-    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto;
-    gap: var(--space-8, 2rem);
-    align-items: start;
-    padding: var(--space-8, 2rem) 0;
-    margin-bottom: var(--space-8, 2rem);
-    border-top: 1px solid var(--ink, #151515);
-    border-bottom: 1px solid var(--rule, #d9d9d6);
-    color: var(--ink, #151515);
-    text-align: left;
+    position: fixed; left: 16px; bottom: 16px; z-index: 9000;
+    max-width: min(320px, calc(100vw - 32px));
+    color: var(--ink, #151515); text-align: left;
+    font-size: var(--type-small, 0.8125rem);
   }
-  .demo-controls h2 { margin: 0.35rem 0 0.5rem; font-size: var(--type-heading-3, 1.5rem); letter-spacing: -0.02em; line-height: 1.15; }
-  .demo-controls p { margin: 0; font-size: var(--type-small, 0.8125rem); color: var(--muted, #62625e); max-width: 34rem; }
+  .demo-controls > summary {
+    list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem;
+    min-height: 36px; padding: 0 0.85rem; border: 1px solid var(--ink, #151515);
+    background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(10px);
+    font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .demo-controls > summary::-webkit-details-marker { display: none; }
+  .demo-controls > summary:focus-visible { outline: 2px solid var(--focus-ring, #151515); outline-offset: 2px; }
+  .demo-controls__body {
+    margin-top: 0.5rem; padding: 1rem; display: grid; gap: 0.75rem;
+    background: var(--surface, #fff); border: 1px solid var(--ink, #151515);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+  }
+  .demo-controls p { margin: 0; color: var(--muted, #62625e); }
   .demo-controls__modes { border: 0; margin: 0; padding: 0; display: grid; gap: 0; min-width: 0; }
   .demo-controls__modes legend { font-size: 12px; letter-spacing: var(--tracking-label, 0.14em); text-transform: uppercase; margin-bottom: 0.25rem; }
-  .demo-controls__modes label { display: flex; align-items: center; gap: 0.6rem; min-height: 44px; cursor: pointer; font-size: var(--type-small, 0.8125rem); }
-  .demo-controls__modes input { width: 18px; height: 18px; accent-color: var(--ink, #151515); }
+  .demo-controls__modes label { display: flex; align-items: center; gap: 0.6rem; min-height: 36px; cursor: pointer; }
+  .demo-controls__modes input { width: 16px; height: 16px; accent-color: var(--ink, #151515); }
   .demo-controls__actions { display: grid; gap: 0.5rem; justify-items: start; }
-  .demo-controls__actions .btn-outline { min-height: 44px; white-space: nowrap; }
-  .demo-controls[data-failure-mode="next"] .demo-controls__modes,
-  .demo-controls[data-failure-mode="always"] .demo-controls__modes { outline: 1px solid var(--state-error, #9d251c); outline-offset: 8px; }
-  .checkout-footer .demo-controls, .auth-footer-page .demo-controls { margin-top: var(--space-8, 2rem); }
-  @media (max-width: 900px) {
-    .demo-controls { grid-template-columns: minmax(0, 1fr); gap: var(--space-6, 1.5rem); }
-  }
+  .demo-controls__actions .btn-outline { min-height: 40px; white-space: nowrap; }
+  .demo-controls[data-failure-mode="next"] > summary,
+  .demo-controls[data-failure-mode="always"] > summary { border-color: var(--state-error, #9d251c); color: var(--state-error, #9d251c); }
+  body.has-mobile-purchase-dock .demo-controls { bottom: 140px; }
+}
+
+/* Order detail page layout (unlayered so it wins over the V13/V14 heading scale). */
+.order-page-header > div:last-child { display: grid; gap: 0.3rem; justify-items: end; text-align: right; }
+.order-page-header > div:last-child span { color: var(--muted, #62625e); font-size: 0.8125rem; }
+.order-tools { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; padding: 1.5rem 0; }
+.order-tools .text-action, .order-tools .text-link { font-size: 0.8125rem; }
+.order-status-panel h2, .order-items-section > h2, .order-service-panel h2, .order-requests h2 {
+  font-family: inherit; font-size: 12px; font-weight: 600; letter-spacing: var(--tracking-label, 0.14em); line-height: 1.4; margin: 0 0 1rem;
+}
+.order-status-panel, .order-details-panel { border-top: 1px solid var(--rule, #d9d9d6); padding-top: 1rem; }
+.order-detail-row { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 1rem; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid var(--rule, #d9d9d6); font-size: 0.875rem; }
+.order-detail-row span { color: var(--muted, #62625e); }
+.order-detail-row strong { font-weight: 500; }
+.order-detail-row .status-label { justify-self: start; }
+.order-status-panel > p { color: var(--muted, #62625e); font-size: 0.8125rem; max-width: 32rem; }
+.order-items-section { padding-top: 1.5rem; border-top: 1px solid var(--ink, #151515); }
+@media (max-width: 720px) {
+  .order-page-header > div:last-child { justify-items: start; text-align: left; }
 }

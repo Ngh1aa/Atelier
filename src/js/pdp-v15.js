@@ -46,7 +46,7 @@ export async function initPdpV15() {
     confidenceStrip.setAttribute("aria-label", "Purchase decision summary");
     confidenceStrip.innerHTML = `
       <article><span>Size & fit</span><strong class="js-confidence-fit">Choose a size</strong><small class="js-confidence-fit-note"></small></article>
-      <article><span>Availability</span><strong class="js-confidence-stock">Choose a size</strong><small>Only known local variant data is described as stock.</small></article>
+      <article><span>Availability</span><strong class="js-confidence-stock">Choose a size</strong><small>Updated as you choose colour and size.</small></article>
       <article><span>Delivery & returns</span><strong class="js-confidence-service"></strong><small>Review the service detail before adding to Bag.</small></article>`;
     document.querySelector(".product-actions")?.insertAdjacentElement("beforebegin", confidenceStrip);
   }
@@ -78,12 +78,12 @@ export async function initPdpV15() {
 
     if (!size || !variant) {
       availability.dataset.state = "neutral";
-      availability.textContent = product.requiresSize ? "Choose a size to review availability." : "Availability is not connected.";
+      availability.textContent = product.requiresSize ? "Choose a size to review availability." : "Available to order.";
       return;
     }
     if (!variant.inventoryKnown) {
       availability.dataset.state = "unknown";
-      availability.textContent = "Live stock status is not connected in this prototype.";
+      availability.textContent = "Contact Client Services to check availability.";
       return;
     }
     if (variant.stock < 1) {

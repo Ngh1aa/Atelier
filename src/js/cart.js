@@ -54,7 +54,7 @@ export async function renderCart() {
   let products;
   try { products = await loadProducts(); }
   catch {
-    renderLoadError(list, { title: "Your Bag could not load.", message: "The catalogue request failed. Your Bag is saved in this tab and nothing was removed.", onRetry: () => { list.innerHTML = '<p class="cart-loading-state" role="status">Loading your Bag…</p>'; renderCart(); } });
+    renderLoadError(list, { title: "Your Bag could not load.", message: "The catalogue request failed. Your Bag is saved and nothing was removed.", onRetry: () => { list.innerHTML = '<p class="cart-loading-state" role="status">Loading your Bag…</p>'; renderCart(); } });
     return;
   }
   let currentLines = [];

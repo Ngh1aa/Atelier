@@ -19,9 +19,9 @@ function setHidden(element, hidden) {
 }
 
 const PAYMENT_LABELS = {
-  cod: "Cash on delivery, demo",
-  "bank-transfer": "Bank transfer, demo",
-  "card-simulated": "Card, simulated approval",
+  cod: "Cash on delivery",
+  "bank-transfer": "Bank transfer",
+  "card-simulated": "Card",
 };
 
 const formatDate = (value, withTime = false) => new Intl.DateTimeFormat("en-GB", withTime
@@ -35,7 +35,7 @@ export async function renderOrder() {
   const id = new URLSearchParams(location.search).get("id");
   let order = id ? getOrder(id) : null;
   if (!order) {
-    root.innerHTML = `<div class="order-not-found"><p class="eyebrow">DEMO ORDER</p><h1>Order not found.</h1><p>${id ? `No order ${escapeHtml(id)} exists in this tab. It may have been placed in another tab, or the demo data was reset.` : "Open an order from your order history, or look one up by number and email."}</p><div class="success-actions"><a class="commerce-primary-action" href="forgot-password.html#order-lookup">Find an order</a><a class="commerce-secondary-action" href="account.html#orders">Order history</a></div></div>`;
+    root.innerHTML = `<div class="order-not-found"><p class="eyebrow">ORDER</p><h1>Order not found.</h1><p>${id ? `We couldn’t find order ${escapeHtml(id)}. Check the number, or look it up with the email you used at checkout.` : "Open an order from your order history, or look one up by number and email."}</p><div class="success-actions"><a class="commerce-primary-action" href="forgot-password.html#order-lookup">Find an order</a><a class="commerce-secondary-action" href="account.html#orders">Order history</a></div></div>`;
     return;
   }
 
@@ -47,7 +47,7 @@ export async function renderOrder() {
     const timeline = order.timeline?.length ? order.timeline : [{ status, at: order.createdAt }];
     root.innerHTML = `
       <header class="order-page-header">
-        <div><p class="eyebrow">DEMO ORDER / NOTHING CHARGED</p><h1>${escapeHtml(order.id)}</h1></div>
+        <div><p class="eyebrow">ORDER</p><h1>${escapeHtml(order.id)}</h1></div>
         <div><span>${formatDate(order.createdAt)}</span><strong>${formatVND(order.total)}</strong></div>
       </header>
       <nav class="order-tools" aria-label="Order actions"><a class="text-link" href="account.html#orders">← Order history</a><button type="button" class="text-action js-order-download">Download order summary ↓</button><a class="text-link" href="contact.html?topic=delivery&amp;order=${encodeURIComponent(order.id)}">Ask about this order →</a></nav>
@@ -57,7 +57,7 @@ export async function renderOrder() {
           <h2 id="order-status-title">STATUS</h2>
           <div class="order-detail-row"><span>Current</span><strong class="status-label js-order-status" data-status="${escapeHtml(status)}">${escapeHtml(ORDER_STATUS_LABELS[status] || status)}</strong></div>
           <ol class="order-timeline">${timeline.map((step) => `<li><strong>${escapeHtml(ORDER_STATUS_LABELS[step.status] || step.status)}</strong><span>${formatDate(step.at, true)}</span></li>`).join("")}</ol>
-          <p>Demo store: statuses are seeded or changed by your actions here. No carrier or warehouse is connected.</p>
+          <p>We email you at every step. Questions? Client Services replies within one working day.</p>
           ${canCancelOrder(order) ? `<div class="order-cancel js-order-cancel">
             <button type="button" class="btn-outline js-cancel-open">Cancel order</button>
             <form class="order-cancel-form js-cancel-form" hidden novalidate>
@@ -89,7 +89,7 @@ export async function renderOrder() {
 
       <section class="order-service-panel js-order-service-panel" hidden style="display:none" aria-labelledby="order-service-title">
         <div class="order-service-head"><h2 id="order-service-title">RETURN OR EXCHANGE</h2><button type="button" class="js-service-close" aria-label="Close">×</button></div>
-        <p class="js-service-piece"></p><p>Within 14 days of delivery. In this demo the request is saved in this tab; no courier is booked. <a class="text-link" href="shipping&amp;returns.html">Return conditions →</a></p>
+        <p class="js-service-piece"></p><p>Within 14 days of delivery. Client Services confirms your request and arranges a courier collection. <a class="text-link" href="shipping&amp;returns.html">Return conditions →</a></p>
         <form class="js-service-form" novalidate>
           <input type="hidden" name="itemIndex">
           <label>Request<select name="action"><option value="exchange">Exchange size</option><option value="return">Return for a refund</option></select></label>
@@ -106,7 +106,7 @@ export async function renderOrder() {
 
   const bind = () => {
     root.querySelector(".js-order-download").addEventListener("click", () => {
-      downloadText(`${order.id}-summary.txt`, `ATELIER — Demo order summary\n${order.id}\nPlaced: ${order.createdAt}\nStatus: ${ORDER_STATUS_LABELS[order.status] || order.status}\nDemo store: no payment was taken and nothing will be shipped.\n\n${order.items.map((item) => `${item.name} / ${item.color} / ${item.size} / Qty ${item.quantity} / ${formatVND(item.unitPrice * item.quantity)}`).join("\n")}\n\nSubtotal: ${formatVND(order.subtotal)}\nDiscount: ${formatVND(order.discount || 0)}\nDelivery: ${formatVND(order.shippingFee)}\nTotal: ${formatVND(order.total)}\n\n${(order.serviceRequests || []).map((request) => `${request.action}: ${request.itemName}${request.newSize ? ` / ${request.fromSize} to ${request.newSize}` : ""}`).join("\n")}`);
+      downloadText(`${order.id}-summary.txt`, `ATELIER — Order summary\n${order.id}\nPlaced: ${order.createdAt}\nStatus: ${ORDER_STATUS_LABELS[order.status] || order.status}\nPayment: ${PAYMENT_LABELS[order.paymentMethod] || order.paymentMethod}\n\n${order.items.map((item) => `${item.name} / ${item.color} / ${item.size} / Qty ${item.quantity} / ${formatVND(item.unitPrice * item.quantity)}`).join("\n")}\n\nSubtotal: ${formatVND(order.subtotal)}\nDiscount: ${formatVND(order.discount || 0)}\nDelivery: ${formatVND(order.shippingFee)}\nTotal: ${formatVND(order.total)}\n\n${(order.serviceRequests || []).map((request) => `${request.action}: ${request.itemName}${request.newSize ? ` / ${request.fromSize} to ${request.newSize}` : ""}`).join("\n")}`);
     });
 
     const cancelForm = root.querySelector(".js-cancel-form");
@@ -200,7 +200,7 @@ export async function renderOrder() {
       if (!result.ok) { errorElement.textContent = result.message; return; }
       order = result.order;
       track(data.get("action") === "exchange" ? "exchange_requested" : "return_requested", { order_id: order.id, product_id: item.productId, reality: "local_prototype" });
-      showMessage("Request submitted (demo).");
+      showMessage("Request submitted. We’ll be in touch within one working day.");
       paint();
       root.querySelector(".js-remove-service")?.focus();
     });

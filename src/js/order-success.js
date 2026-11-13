@@ -8,9 +8,9 @@ function maskEmail(email) {
 }
 
 const PAYMENT_LABELS = {
-  cod: "Cash on delivery (demo)",
-  "bank-transfer": "Bank transfer (demo)",
-  "card-simulated": "Card, simulated approval",
+  cod: "Cash on delivery",
+  "bank-transfer": "Bank transfer",
+  "card-simulated": "Card",
 };
 
 export function renderOrderSuccess() {
@@ -20,16 +20,16 @@ export function renderOrderSuccess() {
   const order = id ? getOrder(id) : null;
 
   if (!order) {
-    root.innerHTML = `<p class="eyebrow">DEMO ORDER</p><h1>Order not found.</h1><p>${id ? `No order ${escapeHtml(id)} exists in this tab. It may have been placed in another tab, or the demo data was reset.` : "There is no order to confirm yet."}</p><div class="success-actions"><a class="commerce-primary-action" href="shop.html">Explore the collection</a><a class="commerce-secondary-action" href="forgot-password.html#order-lookup">Find an order</a></div>`;
+    root.innerHTML = `<p class="eyebrow">ORDER</p><h1>Order not found.</h1><p>${id ? `We couldn’t find order ${escapeHtml(id)}. Check the number, or look it up with the email you used at checkout.` : "There is no order to confirm yet."}</p><div class="success-actions"><a class="commerce-primary-action" href="shop.html">Explore the collection</a><a class="commerce-secondary-action" href="forgot-password.html#order-lookup">Find an order</a></div>`;
     return;
   }
 
   const account = getCurrentAccount();
   root.innerHTML = `
-    <p class="eyebrow">DEMO ORDER PLACED / NOTHING CHARGED</p>
+    <p class="eyebrow">ORDER CONFIRMED</p>
     <h1>Thank you.</h1>
     <p class="success-order-number js-success-order-number">${escapeHtml(order.id)}</p>
-    <p>This is a demo store: no payment was taken, no confirmation email is sent and nothing will be shipped. Your order is saved in this browser tab only.</p>
+    <p class="js-success-confirmation">Your order is confirmed. We’ve sent the details to ${escapeHtml(order.customer?.email || "your email address")} and will let you know when it ships.${order.paymentMethod === "bank-transfer" ? " Transfer instructions are included in that email; we dispatch once payment is received." : " Nothing is charged until your order is delivered."}</p>
     <div class="success-order-facts">
       <div><span>Estimated delivery</span><strong>${escapeHtml(order.deliveryEstimate)}</strong></div>
       <div><span>Total</span><strong>${formatVND(order.total)}</strong></div>

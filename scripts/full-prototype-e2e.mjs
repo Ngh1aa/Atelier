@@ -1,4 +1,4 @@
-// End-to-end test for the ATELIER demo store (no backend, sessionStorage only).
+// End-to-end test for the ATELIER store (no backend, sessionStorage only).
 //
 //   QA_BASE_URL=http://127.0.0.1:8924 NODE_PATH=<playwright node_modules> node scripts/full-prototype-e2e.mjs
 //
@@ -14,11 +14,12 @@ const { chromium } = require("playwright");
 const baseURL = (process.env.QA_BASE_URL || "http://127.0.0.1:8924").replace(/\/$/, "");
 const SITE_PAGES = [
   "index.html", "shop.html", "collections.html", "detailproduct.html?id=tailored-wool-blazer", "cart.html",
-  "checkout.html", "order.html?id=AT-DEMO-1987", "order-success.html", "favourite.html", "account.html", "login.html",
+  "checkout.html", "order.html?id=AT-2611041987", "order-success.html", "favourite.html", "account.html", "login.html",
   "forgot-password.html", "client-services.html", "contact.html", "care-guide.html", "size-guide.html",
   "shipping&returns.html", "privacy.html", "terms.html", "about.html",
 ];
-const DEMO = { email: "client@atelier.demo", password: "atelier-demo" };
+const DEMO = { email: "linh.tran@atelier-studio.vn", password: "atelier-demo", name: "Linh Tran" };
+const PROTOTYPE_SIGNALS = /prototype|demo data|sandbox|simulat|fictional|state lab|portfolio review/i;
 
 const browser = await chromium.launch();
 const results = [];
@@ -46,10 +47,16 @@ async function flow(name, run) {
   }
 }
 
-const go = async (page, path) => {
-  await page.goto(`${baseURL}/${path}`, { waitUntil: "domcontentloaded" });
-  await page.waitForSelector(".demo-controls", { timeout: 15000 });
+// Demo tools are hidden from visitors; flows that need them open pages with ?demo=1.
+const withDemo = (path) => {
+  const [beforeHash, hash = ""] = path.split("#");
+  return `${beforeHash}${beforeHash.includes("?") ? "&" : "?"}demo=1${hash ? `#${hash}` : ""}`;
 };
+const go = async (page, path) => {
+  await page.goto(`${baseURL}/${withDemo(path)}`, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector(".demo-controls", { state: "attached", timeout: 15000 });
+};
+const openDemoTools = (page) => page.evaluate(() => { document.querySelector(".demo-controls").open = true; });
 const text = (page, selector) => page.locator(selector).first().innerText();
 const bagCount = (page) => page.evaluate(() => (JSON.parse(sessionStorage.getItem("atelier.cart.v2") || "[]")).reduce((sum, line) => sum + line.quantity, 0));
 const onPage = (name) => (url) => url.pathname.endsWith(`/${name.split("?")[0]}`);
@@ -67,10 +74,19 @@ async function addToBag(page, id, size, color) {
   await page.keyboard.press("Escape");
 }
 async function setFailure(page, mode) {
+  await openDemoTools(page);
   await page.locator(`.demo-controls input[value="${mode}"]`).check();
   await page.waitForFunction((value) => sessionStorage.getItem("atelier.demo.failure") === value, mode);
 }
+// Visitors start signed in as the seeded client; sign out through the UI.
+async function signOut(page) {
+  await go(page, "account.html");
+  await page.waitForSelector(".js-account-signed-in:not([hidden])");
+  await Promise.all([page.waitForURL(onPage("login.html")), page.click(".js-sign-out")]);
+  await page.waitForSelector(".js-signin-form:not([hidden])");
+}
 async function signIn(page, email = DEMO.email, password = DEMO.password, next = "account.html") {
+  await signOut(page);
   await go(page, `login.html?next=${next}`);
   await page.fill("#signinEmail", email);
   await page.fill("#signinPassword", password);
@@ -94,6 +110,50 @@ await flow("every site page: no console errors, no href=\"#\", no broken same-or
     assert.equal(unnamed, 0, `${path} has unnamed buttons`);
   }
   assert.deepEqual(failures, [], "broken same-origin requests");
+});
+
+await flow("first visit: homepage, signed in as the seeded client, Account / Orders / Saved populated", async (page) => {
+  await page.goto(`${baseURL}/`, { waitUntil: "domcontentloaded" });
+  await page.waitForLoadState("networkidle");
+  assert.equal(await page.locator(".demo-controls").count(), 0, "no demo tools without ?demo=1");
+  await page.goto(`${baseURL}/account.html`, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector(".js-account-signed-in:not([hidden])");
+  await waitText(page, ".js-client-greeting", /Welcome, Linh\./);
+  await page.waitForFunction(() => document.querySelectorAll(".account-order-row").length === 2);
+  await page.goto(`${baseURL}/favourite.html`, { waitUntil: "domcontentloaded" });
+  await waitText(page, ".js-favourite-count", /^2 items saved$/);
+  await page.goto(`${baseURL}/account.html`, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector(".js-account-signed-in:not([hidden])");
+  await Promise.all([page.waitForURL(onPage("login.html")), page.click(".js-sign-out")]);
+  await waitText(page, ".js-auth-flash", /signed out/);
+  await waitText(page, ".js-continue-as-button", /Continue as Linh Tran/);
+  await page.goto(`${baseURL}/account.html`, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector(".js-account-signed-out:not([hidden])");
+  await page.goto(`${baseURL}/login.html`, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector(".js-continue-as:not([hidden])");
+  await Promise.all([page.waitForURL(onPage("account.html")), page.click(".js-continue-as-button")]);
+  await waitText(page, ".js-client-greeting", /Welcome, Linh\./);
+});
+
+await flow("no prototype signals or demo tools without ?demo=1; tools appear with ?demo=1 and leave with ?demo=0", async (page) => {
+  for (const path of SITE_PAGES) {
+    await page.goto(`${baseURL}/${path}`, { waitUntil: "domcontentloaded" });
+    await page.waitForLoadState("networkidle");
+    const visible = await page.evaluate(() => [document.title, document.body.innerText].join("\n"));
+    const hit = visible.split("\n").find((line) => PROTOTYPE_SIGNALS.test(line));
+    assert.equal(hit, undefined, `${path} shows a prototype signal`);
+    assert.equal(await page.locator(".demo-controls, .atelier-state-lab-launcher, #ui-feedback-host").count(), 0, `${path} shows demo tooling`);
+    assert.equal(await page.locator(".footer-concept-note").count(), 1, `${path} has the concept footer line`);
+  }
+  await page.goto(`${baseURL}/shop.html?demo=1`, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector(".demo-controls > summary", { state: "visible" });
+  await page.goto(`${baseURL}/about.html`, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector(".demo-controls > summary", { state: "visible" });
+  await page.click(".demo-controls > summary");
+  await page.waitForSelector(".js-demo-reset", { state: "visible" });
+  await page.goto(`${baseURL}/about.html?demo=0`, { waitUntil: "domcontentloaded" });
+  await page.waitForLoadState("networkidle");
+  assert.equal(await page.locator(".demo-controls").count(), 0, "?demo=0 hides demo tools");
 });
 
 await flow("shop: search, filter, sort, chips, empty state and clear", async (page) => {
@@ -170,16 +230,16 @@ await flow("favourites: save, remove, move to Bag", async (page) => {
   await page.click('.js-wishlist-btn[data-product-id="silk-drape-blouse"]');
   await page.waitForSelector('.js-wishlist-btn[data-product-id="silk-drape-blouse"][aria-pressed="true"]');
   await go(page, "favourite.html");
-  await waitText(page, ".js-favourite-count", /^2 items saved$/);
+  await waitText(page, ".js-favourite-count", /^4 items saved$/);
   await page.click('[data-product-id="silk-drape-blouse"] .btn-remove-wishlist');
-  await waitText(page, ".js-favourite-count", /^1 item saved$/);
+  await waitText(page, ".js-favourite-count", /^3 items saved$/);
   await page.click('[data-product-id="merino-knit-dress"] .js-saved-add');
   await page.waitForSelector('.commerce-overlay.is-open .commerce-size-option[data-size="S"]');
   await page.click('.commerce-overlay.is-open .commerce-size-option[data-size="S"]');
   await page.click(".js-confirm-variant");
   await page.waitForSelector(".mini-bag-item");
   await page.keyboard.press("Escape");
-  await page.waitForSelector(".saved-empty-state");
+  await waitText(page, ".js-favourite-count", /^2 items saved$/);
   assert.equal(await bagCount(page), 1);
 });
 
@@ -228,6 +288,7 @@ await flow("cart: quantity, remove, promo (invalid, minimum, valid), gift note, 
 
 let guestOrderId = "";
 await flow("checkout (guest): validation, simulated decline, failed request + retry, success, order detail, cancel", async (page) => {
+  await signOut(page);
   await addToBag(page, "merino-knit-dress", "M");
   await go(page, "cart.html");
   await page.waitForSelector(".js-cart-item");
@@ -266,7 +327,7 @@ await flow("checkout (guest): validation, simulated decline, failed request + re
   await page.waitForSelector(".js-success-order-number");
   guestOrderId = (await text(page, ".js-success-order-number")).trim();
   assert.match(guestOrderId, /^AT-\d{10}$/);
-  assert.match(await text(page, ".js-order-success"), /no payment was taken/i);
+  assert.match(await text(page, ".js-order-success"), /sent the details to guest@example\.com/i);
   assert.equal(await bagCount(page), 0);
   await page.click(`a[href="order.html?id=${guestOrderId}"]`);
   await page.waitForSelector(".js-order-status");
@@ -283,6 +344,7 @@ await flow("checkout (guest): validation, simulated decline, failed request + re
 });
 
 await flow("guest order lookup by number and email", async (page) => {
+  await signOut(page);
   await addToBag(page, "silk-drape-blouse", "M");
   await go(page, "checkout.html");
   await page.waitForSelector(".js-checkout-items .summary-item");
@@ -303,6 +365,7 @@ await flow("guest order lookup by number and email", async (page) => {
 });
 
 await flow("account: sign up, profile edit, addresses CRUD, sign out, sign in", async (page) => {
+  await signOut(page);
   await go(page, "account.html");
   await page.waitForSelector(".js-account-signed-out:not([hidden])");
   await go(page, "login.html?mode=create");
@@ -382,7 +445,7 @@ await flow("account checkout with saved address, order history, return request o
   await page.waitForSelector(".js-success-order-number");
   await go(page, "account.html");
   await page.waitForFunction(() => document.querySelectorAll(".account-order-row").length === 3);
-  await page.click('.account-order-row[href="order.html?id=AT-DEMO-1987"]');
+  await page.click('.account-order-row[href="order.html?id=AT-2611041987"]');
   await page.waitForSelector('.js-order-status[data-status="delivered"]');
   assert.equal(await page.locator(".js-cancel-open").count(), 0, "delivered orders cannot be cancelled");
   await page.locator(".js-service-open").first().click();
@@ -434,7 +497,7 @@ await flow("client services: appointment booking; contact: enquiry with failure 
   assert.equal(await page.inputValue("#enquiryEmail"), DEMO.email);
   await page.click(".js-enquiry-send");
   await waitText(page, ".js-enquiry-status", /Complete the highlighted fields/);
-  await page.fill("#enquiryMessage", "When will AT-DEMO-2041 leave the studio?");
+  await page.fill("#enquiryMessage", "When will AT-2611122041 leave the studio?");
   await page.click(".js-save-enquiry");
   await waitText(page, ".js-enquiry-status", /Draft saved/);
   await setFailure(page, "next");
@@ -460,14 +523,16 @@ await flow("reset demo data restores the seed", async (page) => {
   await signIn(page);
   await setFailure(page, "next");
   assert.equal(await bagCount(page), 1);
+  await openDemoTools(page);
   await Promise.all([page.waitForEvent("load"), page.click(".js-demo-reset")]);
-  await page.waitForSelector(".demo-controls");
+  await page.waitForSelector(".demo-controls[open]");
   await waitText(page, ".js-demo-status", /Demo data reset/);
   assert.equal(await bagCount(page), 0);
   assert.equal(await page.locator('.demo-controls input[value="off"]').isChecked(), true);
-  await page.waitForSelector(".js-account-signed-out:not([hidden])");
+  await page.waitForSelector(".js-account-signed-in:not([hidden])");
+  await waitText(page, ".js-client-greeting", /Welcome, Linh\./);
   const seeded = await page.evaluate(() => JSON.parse(sessionStorage.getItem("atelier.orders")).map((order) => order.id));
-  assert.deepEqual(seeded, ["AT-DEMO-2041", "AT-DEMO-1987"]);
+  assert.deepEqual(seeded, ["AT-2611122041", "AT-2611041987"]);
 });
 
 await browser.close();

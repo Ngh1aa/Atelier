@@ -5,7 +5,7 @@
   <link rel="icon" type="image/svg+xml" href="./assets/logo/atelier-mark.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Checkout — ATELIER</title>
-  <meta name="description" content="Complete the ATELIER guest checkout prototype with delivery and payment selection.">
+  <meta name="description" content="Complete your ATELIER order: contact, delivery address, delivery method and payment.">
   <meta name="robots" content="noindex, follow">
   <link rel="stylesheet" href="./atelier-v14-site.css?v=monochrome-20260907">
   <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
@@ -16,7 +16,7 @@
     <div class="container checkout-nav-inner">
       <a href="cart.html">← Back to Bag</a>
       <div class="logo"><a href="index.html" aria-label="Atelier home"><span>ATELIER</span></a></div>
-      <span>Guest checkout, demo store</span>
+      <span>Guest checkout</span>
     </div>
   </nav>
 
@@ -26,8 +26,7 @@
         <header class="checkout-header reveal">
           <p class="eyebrow">COMPLETE THE ORDER / 01—05</p>
           <h1 id="checkout-title">Order ledger.</h1>
-          <p>Keep the order summary visible, then complete contact, address, delivery and payment choices before the final local review.</p>
-          <p class="checkout-reality-note"><strong>Prototype note:</strong> this static edition stores the order in this browser. It does not capture card payment, send to live fulfilment or create a customer account.</p>
+          <p>Keep the order summary visible, then complete contact, address, delivery and payment choices before the final review.</p>
         </header>
 
         <form class="checkout-grid js-checkout-form" novalidate>
@@ -39,7 +38,7 @@
               <div class="summary-row js-checkout-discount-row" hidden><span>Promo <span class="js-checkout-promo-code"></span></span><span class="js-checkout-discount">0 ₫</span></div>
               <div class="summary-row"><span>Delivery</span><span class="js-checkout-delivery-fee">Complimentary</span></div>
               <div class="summary-row total"><span>Total</span><span class="js-checkout-total">0 ₫</span></div>
-              <small>Taxes and duties included in the displayed prototype total.</small>
+              <small>Taxes and duties included.</small>
             </div>
           </aside>
 
@@ -47,10 +46,10 @@
             <section class="checkout-section" aria-labelledby="checkout-contact">
               <div class="checkout-step-heading"><span>01</span><h2 id="checkout-contact">CONTACT</h2></div>
               
-              <p class="form-status js-draft-status" role="status">Your progress is saved in this browser. Required fields are marked *.</p>
+              <p class="form-status js-draft-status" role="status">Your progress is saved as you go. Required fields are marked *.</p>
               <div class="form-row">
                 <div class="form-group"><label for="checkoutEmail">Email*</label><input id="checkoutEmail" name="email" type="email" autocomplete="email" required></div>
-                <div class="form-group"><label for="checkoutPhone">Phone*</label><input id="checkoutPhone" name="phone" type="tel" autocomplete="tel" required><small>Stored with this local order for the prototype.</small></div>
+                <div class="form-group"><label for="checkoutPhone">Phone*</label><input id="checkoutPhone" name="phone" type="tel" autocomplete="tel" required><small>Our courier calls this number before delivery.</small></div>
               </div>
             </section>
 
@@ -79,15 +78,15 @@
             <section class="checkout-section" aria-labelledby="checkout-payment">
               <div class="checkout-step-heading"><span>04</span><h2 id="checkout-payment">PAYMENT METHOD</h2></div>
               <div class="payment-methods">
-                <label class="payment-option selected"><input type="radio" name="paymentMethod" value="cod" checked><span class="payment-label"><strong>Cash on delivery</strong><small>Recorded as pending in this prototype.</small></span></label>
-                <label class="payment-option"><input type="radio" name="paymentMethod" value="bank-transfer"><span class="payment-label"><strong>Bank transfer</strong><small>Recorded as awaiting transfer; no transfer is processed here.</small></span></label>
-                <label class="payment-option"><input type="radio" name="paymentMethod" value="card-simulated"><span class="payment-label"><strong>Card (simulated)</strong><small>No card number is requested. Choose the outcome the demo should return.</small></span></label>
+                <label class="payment-option selected"><input type="radio" name="paymentMethod" value="cod" checked><span class="payment-label"><strong>Cash on delivery</strong><small>Pay the courier in cash or by QR when your order arrives.</small></span></label>
+                <label class="payment-option"><input type="radio" name="paymentMethod" value="bank-transfer"><span class="payment-label"><strong>Bank transfer</strong><small>Transfer details are included in your order confirmation. We dispatch once payment is received.</small></span></label>
+                <label class="payment-option" data-demo-only hidden><input type="radio" name="paymentMethod" value="card-simulated"><span class="payment-label"><strong>Card (simulated)</strong><small>Demo tools: no card number is requested. Choose the outcome to return.</small></span></label>
                 <fieldset class="payment-simulation js-card-simulation" hidden><legend>Simulated card result</legend>
                   <label><input type="radio" name="cardOutcome" value="approve" checked><span>Approved</span></label>
                   <label><input type="radio" name="cardOutcome" value="decline"><span>Declined by the bank</span></label>
                 </fieldset>
               </div>
-              <p class="checkout-security-note">Card details are never requested or stored by this static site.</p>
+              <p class="checkout-security-note">ATELIER never asks for card details by email or phone.</p>
             </section>
 
             <section class="checkout-section checkout-review" aria-labelledby="checkout-review">
@@ -102,8 +101,8 @@
               </dl>
               <label class="checkout-consent"><input id="checkoutTerms" type="checkbox" name="terms" value="accepted" required><span>I agree to the <a href="terms.html" target="_blank" rel="noopener">Terms of Use (new tab)</a> and acknowledge the <a href="shipping&amp;returns.html" target="_blank" rel="noopener">Returns policy (new tab)</a>.</span></label>
               <p class="checkout-error js-checkout-error" role="alert" tabindex="-1"></p>
-              <button type="submit" class="btn-place-order js-place-order">Place demo order</button>
-              <p class="checkout-security-note">Demo store: no payment is taken and nothing will be shipped.</p>
+              <button type="submit" class="btn-place-order js-place-order">Place order</button>
+              <p class="checkout-security-note">You will receive an order confirmation by email. Nothing is charged until delivery or transfer.</p>
             </section>
           </div>
 
@@ -113,7 +112,7 @@
     </section>
   </main>
 
-  <footer class="checkout-footer"><div class="container"><p>© 2026 ATELIER</p><a href="shipping&returns.html">Delivery &amp; Returns</a></div></footer>
+  <footer class="checkout-footer"><div class="container"><p>© 2026 ATELIER</p><p class="footer-concept-note">Concept product designed by Đỗ Anh Nghĩa.</p><a href="shipping&returns.html">Delivery &amp; Returns</a></div></footer>
   <script type="module" src="./main.js?v=monochrome-20260907"></script>
 </body>
 </html>

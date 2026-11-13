@@ -64,7 +64,7 @@ export function initEnquiry() {
     if (!form.elements.message.value.trim()) { status.textContent = "Add your question before saving a draft."; form.elements.message.focus(); return; }
     const saved = attemptLocalAction(() => saveEnquiryDraft(values()), status);
     if (!saved) return;
-    status.textContent = "Draft saved in this tab. It has not been sent.";
+    status.textContent = "Draft saved. It has not been sent yet.";
     download.hidden = clear.hidden = false;
   });
 
@@ -81,8 +81,8 @@ export function initEnquiry() {
     form.elements.email.value = email;
     update();
     download.hidden = clear.hidden = true;
-    status.innerHTML = `Thank you. Your enquiry <strong class="js-enquiry-reference">${escapeHtml(result.enquiry.id)}</strong> is recorded. Demo store: it stays in this tab and no reply will be emailed.`;
-    showMessage("Enquiry sent (demo).");
+    status.innerHTML = `Thank you. Your enquiry <strong class="js-enquiry-reference">${escapeHtml(result.enquiry.id)}</strong> has been received. We’ll reply by email within one working day.`;
+    showMessage("Enquiry sent.");
   });
   download.addEventListener("click", () => {
     const saved = getEnquiryDraft();
@@ -168,7 +168,7 @@ export function initAppointments() {
     if (!result.ok) { error.textContent = result.message; selectedTime = null; paintDays(); paintTimes(); return; }
     const appointment = result.appointment;
     const when = new Intl.DateTimeFormat("en-GB", { weekday: "long", day: "numeric", month: "long" }).format(new Date(`${appointment.date}T00:00:00`));
-    confirmation.innerHTML = `<p class="eyebrow">BOOKED / DEMO</p><h3>${escapeHtml(appointment.serviceLabel)}</h3><p><strong class="js-appointment-reference">${escapeHtml(appointment.id)}</strong>, ${escapeHtml(when)} at ${escapeHtml(appointment.time)}</p><p>Kept in this browser tab only; no calendar invite or email is sent.${account ? ' <a class="text-link" href="account.html#alerts">See it in your account →</a>' : ""}</p>`;
+    confirmation.innerHTML = `<p class="eyebrow">BOOKED</p><h3>${escapeHtml(appointment.serviceLabel)}</h3><p><strong class="js-appointment-reference">${escapeHtml(appointment.id)}</strong>, ${escapeHtml(when)} at ${escapeHtml(appointment.time)}</p><p>We’ve emailed your confirmation and calendar invite.${account ? ' <a class="text-link" href="account.html#alerts">See it in your account →</a>' : ""}</p>`;
     confirmation.hidden = false;
     selectedDay = null;
     selectedTime = null;
@@ -176,7 +176,7 @@ export function initAppointments() {
     paintDays();
     paintTimes();
     confirmation.focus();
-    showMessage("Appointment booked (demo).");
+    showMessage("Appointment booked.");
   });
 }
 

@@ -1,4 +1,4 @@
-import { createDemoSeed, DEMO_SEED_VERSION } from "../data/demo-seed.js";
+import { createDemoSeed, DEMO_SEED_VERSION, SEEDED_CLIENT_EMAIL } from "../data/demo-seed.js";
 
 const CART_KEY = "atelier.cart.v2";
 const LEGACY_CART_KEY = "atelier.cart";
@@ -123,6 +123,8 @@ export function ensureSeeded() {
     writeRaw(WISHLIST_KEY, seed.wishlist);
     writeRaw(APPOINTMENT_CONFIG_KEY, seed.appointments);
     writeRaw(APPOINTMENT_KEY, seed.appointments.booked);
+    // First visit: start signed in as the seeded client (no login wall).
+    if (seed.session?.email) writeRaw(SESSION_KEY, { email: seed.session.email, signedInAt: new Date().toISOString() });
     area.setItem(SEED_MARKER_KEY, String(DEMO_SEED_VERSION));
   } catch { /* storage full or blocked: callers fall back to defaults */ }
   finally { seeding = false; }
@@ -552,7 +554,7 @@ export function updateOrder(orderId, update) {
 
 export function saveOrderServiceRequest(orderId, request) {
   const order = getOrder(orderId);
-  if (!order) return { ok: false, message: "This order could not be found in this tab." };
+  if (!order) return { ok: false, message: "This order could not be found." };
   if (order.serviceRequests?.some((item) => item.itemIndex === request.itemIndex)) {
     return { ok: false, message: "This piece already has a request. Withdraw it before choosing a different one." };
   }
@@ -743,7 +745,7 @@ export async function lookupOrder(orderId, email) {
   return simulateRequest(() => {
     const id = String(orderId || "").trim().toUpperCase();
     const order = getOrders().find((item) => item.id.toUpperCase() === id && (item.customer?.email || "").toLowerCase() === String(email || "").trim().toLowerCase());
-    return order ? { ok: true, order } : { ok: false, message: "No order matches that number and email in this demo session." };
+    return order ? { ok: true, order } : { ok: false, message: "No order matches that number and email. Check both and try again." };
   });
 }
 
@@ -773,7 +775,7 @@ function startSession(email) {
 export async function signIn({ email, password }) {
   return simulateRequest(() => {
     const account = getAccounts().find((item) => item.email === normaliseEmail(email));
-    if (!account || account.password !== String(password || "")) return { ok: false, message: "That email and password don’t match a demo account. Check them, or create an account." };
+    if (!account || account.password !== String(password || "")) return { ok: false, message: "That email and password don’t match an account. Check them, or create an account." };
     startSession(account.email);
     track("login", { method: "demo" });
     return { ok: true };
@@ -784,7 +786,7 @@ export async function signUp({ fullName, email, password, phone = "" }) {
   return simulateRequest(() => {
     const normalised = normaliseEmail(email);
     const accounts = getAccounts();
-    if (accounts.some((item) => item.email === normalised)) return { ok: false, field: "email", message: "An account with this email already exists in this demo. Sign in instead." };
+    if (accounts.some((item) => item.email === normalised)) return { ok: false, field: "email", message: "An account with this email already exists. Sign in instead." };
     if (String(password || "").length < 8) return { ok: false, field: "password", message: "Use at least 8 characters for the password." };
     accounts.push({ email: normalised, password: String(password), fullName: String(fullName || "").trim(), phone: String(phone || "").trim(), createdAt: new Date().toISOString() });
     safeWrite(ACCOUNTS_KEY, accounts);
@@ -794,7 +796,23 @@ export async function signUp({ fullName, email, password, phone = "" }) {
   });
 }
 
+// The seeded client offered on the sign-in screen ("Continue as …"), if it still exists.
+export function getSeededClient() {
+  return getAccounts().find((item) => item.email === SEEDED_CLIENT_EMAIL) || null;
+}
+
+export async function continueAsSeededClient() {
+  return simulateRequest(() => {
+    const account = getSeededClient();
+    if (!account) return { ok: false, message: "This account is no longer available. Sign in with your email instead." };
+    startSession(account.email);
+    track("login", { method: "continue_as" });
+    return { ok: true, account };
+  });
+}
+
 export function signOut() {
+  ensureSeeded();
   removeKey(SESSION_KEY);
   emit("atelier:session-updated", { email: null });
 }
@@ -831,7 +849,7 @@ export async function updateAccountProfile(values) {
     if (!session) return { ok: false, message: "Sign in to edit your profile." };
     const nextEmail = normaliseEmail(values.email || session.email);
     const accounts = getAccounts();
-    if (nextEmail !== session.email && accounts.some((item) => item.email === nextEmail)) return { ok: false, field: "email", message: "Another demo account already uses this email." };
+    if (nextEmail !== session.email && accounts.some((item) => item.email === nextEmail)) return { ok: false, field: "email", message: "Another account already uses this email." };
     safeWrite(ACCOUNTS_KEY, accounts.map((item) => item.email === session.email
       ? { ...item, email: nextEmail, fullName: String(values.fullName || "").trim(), phone: String(values.phone || "").trim() } : item));
     if (nextEmail !== session.email) {

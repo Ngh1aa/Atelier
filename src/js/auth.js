@@ -1,7 +1,9 @@
 // Simulated authentication: sign in, sign up, sign out, password reset and guest
 // order lookup. Accounts live in this browser tab (see commerce-store.js).
 import {
+  continueAsSeededClient,
   getCurrentAccount,
+  getSeededClient,
   lookupOrder,
   requestPasswordReset,
   resetPassword,
@@ -10,6 +12,7 @@ import {
   signUp,
 } from "./commerce-store.js?v=full-prototype";
 import { bindFormValidation, escapeHtml, runRequest } from "./commerce-ui.js?v=full-prototype";
+import { isDemoMode } from "./demo-mode.js";
 
 // Only same-site page redirects are honoured after sign-in.
 function nextPage(fallback = "account.html") {
@@ -35,7 +38,21 @@ export function initLogin() {
     });
     return;
   }
-  if (params.get("signedout")) flash.textContent = "You’re signed out. Your Bag and Saved pieces stay in this tab.";
+  const continueAs = document.querySelector(".js-continue-as");
+  const seeded = getSeededClient();
+  if (continueAs && seeded) {
+    continueAs.hidden = false;
+    const button = continueAs.querySelector(".js-continue-as-button");
+    button.textContent = `Continue as ${seeded.fullName}`;
+    button.addEventListener("click", async () => {
+      const error = continueAs.querySelector(".js-continue-as-error");
+      const result = await runRequest(button, "Signing in…", () => continueAsSeededClient(), { errorElement: error });
+      if (!result) return;
+      if (!result.ok) { error.textContent = result.message; return; }
+      location.href = nextPage();
+    });
+  }
+  if (params.get("signedout")) flash.textContent = "You’re signed out. Your Bag and Saved pieces are still here when you return.";
 
   const tabs = [...document.querySelectorAll(".js-auth-tab")];
   const signinForm = document.querySelector(".js-signin-form");
@@ -105,9 +122,12 @@ export function initForgotPassword() {
       email = requestForm.elements.email.value;
       const result = await runRequest(requestForm.querySelector(".js-reset-request-submit"), "Sending…", () => requestPasswordReset(email), { errorElement: error });
       if (!result) return;
-      status.innerHTML = result.demoCode
-        ? `If an account exists for ${escapeHtml(email)}, a code is on its way. <strong>Demo: your code is <span class="js-reset-demo-code">${escapeHtml(result.demoCode)}</span>.</strong>`
-        : `If an account exists for ${escapeHtml(email)}, a code is on its way. (Demo: no account uses this email, so no code was created.)`;
+      // Real stores email the code. With the hidden demo tools on (?demo=1) the
+      // code is also shown here so the whole flow can be completed in one tab.
+      const demoCode = result.demoCode && isDemoMode()
+        ? ` <strong class="demo-reset-code">Demo tools: your code is <span class="js-reset-demo-code">${escapeHtml(result.demoCode)}</span>.</strong>`
+        : "";
+      status.innerHTML = `If an account exists for ${escapeHtml(email)}, we’ve sent a 6-digit code. It expires in 15 minutes.${demoCode}`;
       if (result.demoCode) {
         confirmForm.hidden = false;
         confirmForm.elements.code.focus();

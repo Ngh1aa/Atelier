@@ -12,7 +12,7 @@ export async function renderFavourite() {
     if (count) count.textContent = "Saved pieces unavailable";
     renderLoadError(grid, {
       title: "Your Saved pieces could not load.",
-      message: "The catalogue request failed. Your Saved list is kept in this tab and nothing was removed.",
+      message: "The catalogue request failed. Your Saved list is safe and nothing was removed.",
       onRetry: () => { grid.innerHTML = '<p class="saved-loading-state" role="status">Loading Saved pieces…</p>'; renderFavourite(); },
     });
     return;

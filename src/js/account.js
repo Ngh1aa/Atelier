@@ -26,7 +26,7 @@ function renderOrders(account) {
   const orders = getAccountOrders(account.email);
   document.querySelector(".js-orders-count").textContent = orders.length;
   root.innerHTML = orders.length
-    ? orders.map((order) => `<a class="account-order-row" href="order.html?id=${encodeURIComponent(order.id)}"><span><strong>${escapeHtml(order.id)}</strong><small>${shortDate(order.createdAt)}</small></span><span><span class="status-label" data-status="${escapeHtml(order.status || "processing")}">${escapeHtml(ORDER_STATUS_LABELS[order.status || "processing"])}</span><small>${order.items?.reduce((sum, item) => sum + item.quantity, 0) || 0} pieces${order.serviceRequests?.length ? `, ${order.serviceRequests.length} requests` : ""}</small></span><b>${formatVND(order.total)}</b><i aria-hidden="true">→</i></a>`).join("")
+    ? orders.map((order) => `<a class="account-order-row" href="order.html?id=${encodeURIComponent(order.id)}"><span><strong>${escapeHtml(order.id)}</strong><small>${shortDate(order.createdAt)}</small></span><span><span class="status-label" data-status="${escapeHtml(order.status || "processing")}">${escapeHtml(ORDER_STATUS_LABELS[order.status || "processing"])}</span><small>${((count) => `${count} ${count === 1 ? "piece" : "pieces"}`)(order.items?.reduce((sum, item) => sum + item.quantity, 0) || 0)}${order.serviceRequests?.length ? `, ${order.serviceRequests.length} requests` : ""}</small></span><b>${formatVND(order.total)}</b><i aria-hidden="true">→</i></a>`).join("")
     : `<div class="account-orders-empty"><p class="eyebrow">YOUR FIRST CHAPTER</p><h3>No orders yet.</h3><p>Orders you place while signed in appear here with their status, returns and cancellations.</p><a href="shop.html" class="text-link">Explore the collection →</a></div>`;
 }
 
@@ -142,8 +142,8 @@ function initAlerts() {
       root.innerHTML = '<div class="account-orders-empty"><h3>Nothing waiting.</h3><p>Ask to be notified about a sold-out size on a product page, or book a fitting with Client Services.</p></div>';
       return;
     }
-    root.innerHTML = `${appointments.map((item) => `<article class="address-card" data-appointment-id="${escapeHtml(item.id)}"><div><h3>${escapeHtml(item.serviceLabel)} <span class="status-label">Booked</span></h3><p>${escapeHtml(new Intl.DateTimeFormat("en-GB", { weekday: "long", day: "numeric", month: "long" }).format(new Date(`${item.date}T00:00:00`)))}, ${escapeHtml(item.time)}, ATELIER Client Services (demo)</p></div><div class="address-card__actions"><button type="button" class="text-action js-appointment-cancel">Cancel appointment</button></div><p class="commerce-inline-error js-alert-error" role="alert"></p></article>`).join("")}
-      ${alerts.map((item) => `<article class="address-card" data-alert-id="${escapeHtml(item.id)}"><div><h3>${escapeHtml(item.productName)} <span class="status-label">Notify me</span></h3><p>${escapeHtml(item.colorName)}, size ${escapeHtml(item.size)}, No email is sent in this demo.</p></div><div class="address-card__actions"><a class="text-action" href="detailproduct.html?id=${encodeURIComponent(item.productId)}&amp;color=${encodeURIComponent(item.color)}">View piece</a><button type="button" class="text-action js-alert-remove">Remove alert</button></div><p class="commerce-inline-error js-alert-error" role="alert"></p></article>`).join("")}`;
+    root.innerHTML = `${appointments.map((item) => `<article class="address-card" data-appointment-id="${escapeHtml(item.id)}"><div><h3>${escapeHtml(item.serviceLabel)} <span class="status-label">Booked</span></h3><p>${escapeHtml(new Intl.DateTimeFormat("en-GB", { weekday: "long", day: "numeric", month: "long" }).format(new Date(`${item.date}T00:00:00`)))}, ${escapeHtml(item.time)}, ATELIER studio, District 1</p></div><div class="address-card__actions"><button type="button" class="text-action js-appointment-cancel">Cancel appointment</button></div><p class="commerce-inline-error js-alert-error" role="alert"></p></article>`).join("")}
+      ${alerts.map((item) => `<article class="address-card" data-alert-id="${escapeHtml(item.id)}"><div><h3>${escapeHtml(item.productName)} <span class="status-label">Notify me</span></h3><p>${escapeHtml(item.colorName)}, size ${escapeHtml(item.size)}. We’ll email you when it’s back.</p></div><div class="address-card__actions"><a class="text-action" href="detailproduct.html?id=${encodeURIComponent(item.productId)}&amp;color=${encodeURIComponent(item.color)}">View piece</a><button type="button" class="text-action js-alert-remove">Remove alert</button></div><p class="commerce-inline-error js-alert-error" role="alert"></p></article>`).join("")}`;
     root.querySelectorAll("[data-appointment-id]").forEach((card) => card.querySelector(".js-appointment-cancel").addEventListener("click", async (event) => {
       const result = await runRequest(event.currentTarget, "Cancelling…", () => cancelAppointment(card.dataset.appointmentId), { errorElement: card.querySelector(".js-alert-error") });
       if (result?.ok) { paint(); showMessage("Appointment cancelled."); }
@@ -185,12 +185,12 @@ export async function renderAccount() {
   signedIn.hidden = false;
   const greet = (current) => { greeting.textContent = current.fullName ? `Welcome, ${current.fullName.split(" ")[0]}.` : "Welcome back."; };
   greet(account);
-  document.querySelector(".js-account-intro").textContent = `Signed in as ${account.email}. Demo account: data stays in this browser tab.`;
+  document.querySelector(".js-account-intro").textContent = `Signed in as ${account.email}.`;
   document.querySelector(".js-saved-count").textContent = getWishlist().length;
   renderOrders(account);
   initProfile(account, (updated) => {
     greet(updated);
-    document.querySelector(".js-account-intro").textContent = `Signed in as ${updated.email}. Demo account: data stays in this browser tab.`;
+    document.querySelector(".js-account-intro").textContent = `Signed in as ${updated.email}.`;
     renderOrders(updated);
   });
   initAddresses();

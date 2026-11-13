@@ -59,7 +59,7 @@ export async function initPrecommerceCheckout() {
   } catch {
     renderLoadError(itemsWrap, {
       title: "Your order could not load.",
-      message: "The catalogue request failed. Your Bag and details are kept in this tab.",
+      message: "The catalogue request failed. Your Bag and details are kept.",
       onRetry: () => location.reload(),
     });
     form.querySelector(".js-place-order").disabled = true;
@@ -75,7 +75,7 @@ export async function initPrecommerceCheckout() {
   track("begin_checkout", { item_count: lines.length, reality: "local_prototype" });
 
   const navNote = document.querySelector(".checkout-nav-inner > span");
-  if (navNote) navNote.textContent = account ? `Signed in as ${account.email}, demo store` : "Guest checkout, demo store";
+  if (navNote) navNote.textContent = account ? `Signed in as ${account.email}` : "Guest checkout";
 
   // Signed-in clients pick from their address book; guests are offered sign-in.
   const addressSlot = form.querySelector(".js-saved-address-slot");
@@ -219,7 +219,7 @@ export async function initPrecommerceCheckout() {
     if (!validate()) { error.textContent = "Check the highlighted fields before continuing."; return; }
     submitting = true;
     submit.disabled = true;
-    submit.textContent = "Placing demo order…";
+    submit.textContent = "Placing order…";
     form.setAttribute("aria-busy", "true");
     let redirecting = false;
 
@@ -236,7 +236,7 @@ export async function initPrecommerceCheckout() {
       }
       const result = await placeOrder();
       if (!result.ok) {
-        error.textContent = "The simulated card was declined. Nothing was charged. Choose another payment method or try again.";
+        error.textContent = "The card was declined. Nothing was charged. Choose another payment method or try again.";
         error.focus();
         return;
       }
@@ -246,7 +246,7 @@ export async function initPrecommerceCheckout() {
       draftStore()?.removeItem(DRAFT_KEY);
       window.location.href = `order-success.html?id=${encodeURIComponent(result.order.id)}`;
     } catch {
-      error.innerHTML = 'The order service did not respond (simulated). Your details and Bag are kept. <button type="button" class="text-action js-checkout-retry">Try again</button>';
+      error.innerHTML = 'We couldn’t place your order just now. Your details and Bag are kept. <button type="button" class="text-action js-checkout-retry">Try again</button>';
       error.querySelector(".js-checkout-retry").addEventListener("click", () => form.requestSubmit());
       error.focus();
     } finally {

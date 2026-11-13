@@ -8,7 +8,11 @@
 // Everything below is fictional demo content. No real customer, order, payment or
 // account exists behind it.
 
-export const DEMO_SEED_VERSION = 2;
+export const DEMO_SEED_VERSION = 3;
+
+// The seeded client. First-time visitors start signed in as this client so Account,
+// Orders and Saved are populated; signing out works normally.
+export const SEEDED_CLIENT_EMAIL = "linh.tran@atelier-studio.vn";
 
 const DAY = 24 * 60 * 60 * 1000;
 
@@ -47,26 +51,26 @@ export function createDemoSeed(now = new Date()) {
       { code: "FALL2025", type: "percent", value: 15, expired: true, label: "Fall 2025 preview" },
     ],
 
-    // One demo client. Passwords are demo-only and stored in this tab, never sent anywhere.
+    // One seeded client. The password is stored in this tab only, never sent anywhere.
     accounts: [
-      { email: "client@atelier.demo", password: "atelier-demo", fullName: "Linh Tran", phone: "0901 234 567", createdAt: isoDaysAgo(now, 120) },
+      { email: "linh.tran@atelier-studio.vn", password: "atelier-demo", fullName: "Linh Tran", phone: "0901 234 567", createdAt: isoDaysAgo(now, 120) },
     ],
 
     addresses: [
-      { id: "ADDR-HOME", accountEmail: "client@atelier.demo", label: "Home", fullName: "Linh Tran", phone: "0901 234 567", address: "12 Nguyen Hue", apartment: "Apt 8B", district: "District 1", province: "Ho Chi Minh City", postalCode: "700000", isDefault: true },
-      { id: "ADDR-STUDIO", accountEmail: "client@atelier.demo", label: "Studio", fullName: "Linh Tran", phone: "0901 234 567", address: "45 Hang Bai", apartment: "", district: "Hoan Kiem", province: "Ha Noi", postalCode: "100000", isDefault: false },
+      { id: "ADDR-HOME", accountEmail: "linh.tran@atelier-studio.vn", label: "Home", fullName: "Linh Tran", phone: "0901 234 567", address: "12 Nguyen Hue", apartment: "Apt 8B", district: "District 1", province: "Ho Chi Minh City", postalCode: "700000", isDefault: true },
+      { id: "ADDR-STUDIO", accountEmail: "linh.tran@atelier-studio.vn", label: "Studio", fullName: "Linh Tran", phone: "0901 234 567", address: "45 Hang Bai", apartment: "", district: "Hoan Kiem", province: "Ha Noi", postalCode: "100000", isDefault: false },
     ],
 
     // Two demo orders for the demo client: one delivered (eligible for return or
     // exchange), one still processing (eligible for cancellation).
     orders: [
       {
-        id: "AT-DEMO-2041",
+        id: "AT-2611122041",
         reality: "SIMULATED_LOCAL",
         currency: "VND",
         status: "processing",
-        accountEmail: "client@atelier.demo",
-        customer: { email: "client@atelier.demo", phone: "0901 234 567", fullName: "Linh Tran" },
+        accountEmail: "linh.tran@atelier-studio.vn",
+        customer: { email: "linh.tran@atelier-studio.vn", phone: "0901 234 567", fullName: "Linh Tran" },
         address: { country: "Vietnam", address: "12 Nguyen Hue", apartment: "Apt 8B", district: "District 1", province: "Ho Chi Minh City", postalCode: "700000" },
         deliveryMethod: "standard",
         deliveryEstimate: "2–4 days after dispatch",
@@ -83,12 +87,12 @@ export function createDemoSeed(now = new Date()) {
         createdAt: isoDaysAgo(now, 1, 15),
       },
       {
-        id: "AT-DEMO-1987",
+        id: "AT-2611041987",
         reality: "SIMULATED_LOCAL",
         currency: "VND",
         status: "delivered",
-        accountEmail: "client@atelier.demo",
-        customer: { email: "client@atelier.demo", phone: "0901 234 567", fullName: "Linh Tran" },
+        accountEmail: "linh.tran@atelier-studio.vn",
+        customer: { email: "linh.tran@atelier-studio.vn", phone: "0901 234 567", fullName: "Linh Tran" },
         address: { country: "Vietnam", address: "45 Hang Bai", apartment: "", district: "Hoan Kiem", province: "Ha Noi", postalCode: "100000" },
         deliveryMethod: "express",
         deliveryEstimate: "Delivered",
@@ -112,8 +116,14 @@ export function createDemoSeed(now = new Date()) {
       },
     ],
 
+    // A first-time visitor starts signed in as the seeded client.
+    session: { email: SEEDED_CLIENT_EMAIL },
+
     cart: [],
-    wishlist: [],
+    wishlist: [
+      { productId: "suede-chelsea-boots", preferredVariantId: null, savedAt: new Date(now.getTime() - 3 * DAY).getTime() },
+      { productId: "leather-minimal-tote", preferredVariantId: null, savedAt: new Date(now.getTime() - 2 * DAY).getTime() },
+    ],
 
     // Client Services fitting appointments: opening hours and the slots already taken.
     appointments: {

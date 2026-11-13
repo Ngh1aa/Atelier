@@ -1,9 +1,11 @@
-// Demo store controls: tells the visitor that nothing is real, lets them reset the
-// tab-local data and simulate failed requests. Rendered at the top of every footer.
+// Demo tools: reset the tab-local data and simulate failed requests. Hidden from
+// normal visitors; only rendered as a small floating panel when ?demo=1 is set.
 import { getFailureMode, resetDemoData, setFailureMode } from "./commerce-store.js?v=full-prototype";
 import { showMessage } from "./commerce-ui.js?v=full-prototype";
+import { isDemoMode, revealDemoOnlyElements } from "./demo-mode.js";
 
 const FLASH_KEY = "atelier.demo.flash";
+const OPEN_KEY = "atelierDemoToolsOpen";
 
 const MODES = [
   { value: "off", label: "Requests succeed" },
@@ -12,28 +14,32 @@ const MODES = [
 ];
 
 export function initDemoControls() {
+  if (!isDemoMode()) return;
+  revealDemoOnlyElements();
   if (document.querySelector(".demo-controls")) return;
-  const footer = document.querySelector("body > footer");
-  const host = footer?.querySelector(".container") || footer || document.body;
 
-  const section = document.createElement("section");
+  const section = document.createElement("details");
   section.className = "demo-controls";
-  section.setAttribute("aria-labelledby", "demo-controls-title");
+  section.setAttribute("aria-label", "Demo tools");
   section.innerHTML = `
-    <div class="demo-controls__copy">
-      <p class="eyebrow">DEMO STORE</p>
-      <h2 id="demo-controls-title">A demo store. No real orders.</h2>
-      <p>Bag, Saved, orders, account and appointments live only in this browser tab. Nothing is charged, shipped or emailed.</p>
-    </div>
-    <fieldset class="demo-controls__modes">
-      <legend>Simulated requests</legend>
-      ${MODES.map((mode) => `<label><input type="radio" name="atelier-demo-failure" value="${mode.value}"><span>${mode.label}</span></label>`).join("")}
-    </fieldset>
-    <div class="demo-controls__actions">
-      <button type="button" class="btn-outline js-demo-reset">Reset demo data</button>
-      <p class="form-status js-demo-status" role="status"></p>
+    <summary>Demo tools</summary>
+    <div class="demo-controls__body">
+      <p>Data lives in this browser tab. Add <code>?demo=0</code> to hide these tools.</p>
+      <fieldset class="demo-controls__modes">
+        <legend>Simulated requests</legend>
+        ${MODES.map((mode) => `<label><input type="radio" name="atelier-demo-failure" value="${mode.value}"><span>${mode.label}</span></label>`).join("")}
+      </fieldset>
+      <div class="demo-controls__actions">
+        <button type="button" class="btn-outline js-demo-reset">Reset demo data</button>
+        <p class="form-status js-demo-status" role="status"></p>
+      </div>
     </div>`;
-  host.prepend(section);
+  document.body.appendChild(section);
+
+  try { section.open = sessionStorage.getItem(OPEN_KEY) === "1"; } catch { /* ignore */ }
+  section.addEventListener("toggle", () => {
+    try { sessionStorage.setItem(OPEN_KEY, section.open ? "1" : "0"); } catch { /* ignore */ }
+  });
 
   const status = section.querySelector(".js-demo-status");
   const sync = () => {
@@ -60,6 +66,7 @@ export function initDemoControls() {
   let flash = null;
   try { flash = sessionStorage.getItem(FLASH_KEY); sessionStorage.removeItem(FLASH_KEY); } catch { /* ignore */ }
   if (flash) {
+    section.open = true;
     status.textContent = flash;
     showMessage(flash);
   }
